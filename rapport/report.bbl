@@ -1,0 +1,51 @@
+\begin{thebibliography}{1}
+
+\bibitem{cover1991elements}
+{\sc Cover, T.~M., and Thomas, J.~A.}
+\newblock Elements of information theory, 1991.
+
+\bibitem{freudiger2015controlled}
+{\sc Freudiger, J., De~Cristofaro, E., and Brito, A.~E.}
+\newblock Controlled data sharing for collaborative predictive blacklisting.
+\newblock In {\em International Conference on Detection of Intrusions and
+  Malware, and Vulnerability Assessment\/} (2015), Springer, pp.~327--349.
+
+\bibitem{lincoln2004privacy}
+{\sc Lincoln, P., Porras, P.~A., and Shmatikov, V.}
+\newblock Privacy-preserving sharing and correlation of security alerts.
+\newblock In {\em USENIX Security Symposium\/} (2004), pp.~239--254.
+
+\bibitem{parekh2006privacy}
+{\sc Parekh, J.~J., Wang, K., and Stolfo, S.~J.}
+\newblock Privacy-preserving payload-based correlation for accurate malicious
+  traffic detection.
+\newblock In {\em Proceedings of the 2006 SIGCOMM workshop on Large-scale
+  attack defense\/} (2006), ACM, pp.~99--106.
+
+\bibitem{van2016private}
+{\sc van~de Kamp, T., Peter, A., Everts, M.~H., and Jonker, W.}
+\newblock Private sharing of iocs and sightings.
+\newblock In {\em Proceedings of the 2016 ACM on Workshop on Information
+  Sharing and Collaborative Security\/} (2016), ACM, pp.~35--38.
+
+\bibitem{wagner2016misp}
+{\sc Wagner, C., Dulaunoy, A., Wagener, G., and Iklody, A.}
+\newblock Misp: The design and implementation of a collaborative threat
+  intelligence sharing platform.
+\newblock In {\em Proceedings of the 2016 ACM on Workshop on Information
+  Sharing and Collaborative Security\/} (2016), ACM, pp.~49--56.
+
+\bibitem{wang2006network}
+{\sc Wang, K.}
+\newblock {\em Network payload-based anomaly detection and content-based alert
+  correlation}.
+\newblock PhD thesis, Columbia University, 2006.
+
+\bibitem{xu2005privacy}
+{\sc Xu, D., and Ning, P.}
+\newblock Privacy-preserving alert correlation: a concept hierarchy based
+  approach.
+\newblock In {\em 21st Annual Computer Security Applications Conference
+  (ACSAC'05)\/} (2005), IEEE, pp.~10--pp.
+
+\end{thebibliography}
