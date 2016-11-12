@@ -10,4 +10,4 @@ class Configuration:
     redis_db = 0
     
     # misp
-    misp_token = 'misp token'
+    misp_token = 'rQEKsHU9KQAvXLcqLniqd0DWbPnu8dDA3hlwZfFJ'
