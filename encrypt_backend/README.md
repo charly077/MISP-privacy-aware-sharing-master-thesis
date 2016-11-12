@@ -4,9 +4,10 @@ Get data from misp, encrypt them like explained in
 
 # Topology
 
-- update.py: download some element (used soon)
+- update.py: download some elements (soon better used)
 - readMisp.py: convert misp attributes into rules
-- res/ and rules/ are two empty folder filled during the process
+- res/ and rules/ are two empty folder filled during the process (you need to create them)
 
 # Working
+- Add your misp token in configuration.py
 (explain how it is working)
