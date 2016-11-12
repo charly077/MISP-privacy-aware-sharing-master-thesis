@@ -1,7 +1,7 @@
 # thesis
-- report: explaination draft
-- encrypt backend: basic implementation
-- decrypt frontend: basic implementation
+- report: explanation draft
+- encrypt backend: first implementation
+- decrypt frontend: first implementation
 
 # How to use
 - Put your token in encrypt backend/configuration.py and decrypt frontend/configuration.py
