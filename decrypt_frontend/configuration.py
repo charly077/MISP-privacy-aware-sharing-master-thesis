@@ -10,7 +10,7 @@ class Configuration:
     redis_db = 0
     
     # misp
-    misp_token = 'rQEKsHU9KQAvXLcqLniqd0DWbPnu8dDA3hlwZfFJ'
+    misp_token = 'misp token'
 
     # rules
     rule_location = 'rules'
