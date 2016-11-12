@@ -11,12 +11,14 @@ import os
 import re
 import subprocess
 import sys
+import json
 from base64 import b64decode
 from copy import deepcopy
 from Crypto.Cipher import AES
 from Crypto.Util import Counter
 from functools import lru_cache
 from hkdf import HKDF
+import redis
 
 parser = argparse.ArgumentParser(description='Evaluate a network dump against rules.')
 parser.add_argument('attribute', nargs='+', help='key-value attribute eg. ip=192.168.0.0 port=5012')
@@ -73,6 +75,7 @@ def cryptographic_match(hash_name, password, salt, iterations, info, dklen, iv, 
     else:
         return (False, '')
 
+
 def argument_matching():
     attributes = dict(pair.split("=") for pair in args.attribute)
 
@@ -101,18 +104,18 @@ if args.performance:
 
 if __name__ == "__main__":
     conf = Configuration
-    #TODO use a cache system like redis
     rules = list()
-    rule_location = conf.rule_location
-    if os.path.isfile(rule_location):
-        rules.append(deepcopy(load_rule(rule_location)))
-    elif os.path.isdir(rule_location):
-        rule_directory = os.path.normpath(rule_location + "/")
-        for filename in glob.glob(os.path.join(rule_directory, "*.rule")):
-            rules.append(deepcopy(load_rule(filename)))
+    if not args.redis:
+        rule_location = conf.rule_location
+        if os.path.isfile(rule_location):
+            rules.append(deepcopy(load_rule(rule_location)))
+        elif os.path.isdir(rule_location):
+            rule_directory = os.path.normpath(rule_location + "/")
+            for filename in glob.glob(os.path.join(rule_directory, "*.rule")):
+                rules.append(deepcopy(load_rule(filename)))
 
-    if not rules:
-        sys.exit("No rules found.")
+        if not rules:
+            sys.exit("No rules found.")
 
     print("rules loaded")
     #TODO performance

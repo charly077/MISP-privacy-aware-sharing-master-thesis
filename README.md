@@ -14,4 +14,5 @@
 	- an argument (OK)
 	- squid3 log
 	- network dump
-- improve the speed of loading rules with redis (ongoing)
+- improve the speed of loading rules with redis 
+	=> Not feasible (rule is not serializable)
