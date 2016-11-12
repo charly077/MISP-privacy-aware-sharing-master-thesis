@@ -12,7 +12,6 @@
 # TODO
 - create the decrypt step on 
 	- an argument (OK)
-	- squid3 log
-	- network dump
+	- analyse logs/network dump/... => logstash => kafka => cache => match_rule (ongoing)
 - improve the speed of loading rules with redis 
 	=> Not feasible (rule is not serializable)
