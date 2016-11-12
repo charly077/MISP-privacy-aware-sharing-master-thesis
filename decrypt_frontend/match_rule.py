@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-# Copyright 2016 Tim van de Kamp. All rights reserved.
-# Use of this source code is governed by the MIT license that can be
-# found in the LICENSE file.
+# this code is inspired from https://github.com/CRIPTIM/private-IOC-sharing
+# which is using the MIT license
+
+from configuration import Configuration
 import argparse
 import configparser
 import glob
@@ -18,9 +19,7 @@ from functools import lru_cache
 from hkdf import HKDF
 
 parser = argparse.ArgumentParser(description='Evaluate a network dump against rules.')
-parser.add_argument('rule', nargs='+',
-        help='rule file or directory containing rules to evaluate (rules \
-        must end in .rule)')
+parser.add_argument('attribute', nargs='+', help='key-value attribute eg. ip=192.168.0.0 port=5012')
 #parser.add_argument('--dump', dest='tcpdump', default='outside.tcpdump',
 #       help='path to the tcpdump to analyze') TODO
 parser.add_argument('--performance', action='store_true',
@@ -48,21 +47,22 @@ def load_rule(filename):
             rule['dklen'] = int(rule['pbkdf2']['dklen'])
         except:
             raise Exception('Not a rule file.')
-    rule['ioc']['attributes'] = rule['ioc']['attributes'].split(',')
+    rule['ioc']['attributes'] = rule['ioc']['attributes'].split('||')
     rule['ioc']['iv'] = int.from_bytes(b64decode(rule['ioc']['iv']), 'big')
     rule['ioc']['ciphertext'] = b64decode(rule['ioc']['ciphertext'])
     return rule
 
+
 def derive_key(hash_name, password, salt, iterations, info, dklen=None):
     if iterations == 1:
         kdf = HKDF(hash_name)
-        return kdf.expand(kdf.extract(salt, password), info.encode('ascii'), dklen)
+        return kdf.expand(kdf.extract(salt, password), info, dklen)
     else:
         return hashlib.pbkdf2_hmac(hash_name, password, salt, iterations, dklen=dklen)
 
 #@lru_cache(maxsize=None)
 def cryptographic_match(hash_name, password, salt, iterations, info, dklen, iv, ciphertext):
-    dk = derive_key(hash_name, password.encode('ascii'), salt, iterations, bytes(info, encoding='ascii'), dklen=dklen)
+    dk = derive_key(hash_name, password.encode('utf8'), salt, iterations, bytes(info, encoding='ascii'), dklen=dklen)
 
     ctr = Counter.new(128, initial_value=iv)
     cipher = AES.new(dk, AES.MODE_CTR, b'', counter=ctr)
@@ -73,36 +73,25 @@ def cryptographic_match(hash_name, password, salt, iterations, info, dklen, iv, 
     else:
         return (False, '')
 
-def cryptographic_matching(pipe):
-    for line in pipe.stdout:
-        # Remove trailing newline
-        attributes = line[:-1].decode("ascii")
-        # Remove bracets
-        attributes = attributes[1:-1]
-        # Parse attributes as a dictionary
-        attributes = dict(pair.split("=") for pair in attribute_split.split(attributes))
-        for rule in rules:
-            password = ','.join([attributes[selected_attribute] for selected_attribute in rule['ioc']['attributes']])
+def argument_matching():
+    attributes = dict(pair.split("=") for pair in args.attribute)
 
-            # Actual cryptographic matching
-            match, plaintext = cryptographic_match(rule['hash_name'], password, rule['salt'], rule['iterations'], rule['ioc']['token'], rule['dklen'], rule['ioc']['iv'], rule['ioc']['ciphertext'])
-            if match and not args.performance:
-                print("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(rule['ioc']['id'], attributes, plaintext.decode('utf-8')))
-
-def plaintext_matching(pipe):
-    for line in pipe.stdout:
-        # Remove trailing newline
-        attributes = line[:-1].decode("ascii")
-        # Remove bracets
-        attributes = attributes[1:-1]
-        # Parse attributes as a dictionary
-        attributes = dict(pair.split("=") for pair in attribute_split.split(attributes))
-        for rule in rules:
-            password = ','.join([attributes[selected_attribute] for selected_attribute in rule['ioc']['attributes']])
-
-            # Actual plaintext matching
-            if rule['ioc']['plaintext'] == password and not args.performance:
+    # test each rules
+    for rule in rules:
+        rule_attr = rule['ioc']['attributes']
+        password = ''
+        try:
+            password = '||'.join([attributes[attr] for attr in rule_attr])
+        except:
+            pass # nothing to do
+            
+        if args.plaintext:
+            if rule['ioc']['plaintext'] == password:
                 print("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(rule['ioc']['id'], attributes, rule['ioc']['coa']))
+        else:
+            match, plaintext = cryptographic_match(rule['hash_name'], password, rule['salt'], rule['iterations'], rule['ioc']['token'], rule['dklen'], rule['ioc']['iv'], rule['ioc']['ciphertext'])
+            if match:
+                print("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(rule['ioc']['token'], attributes, plaintext.decode('utf-8')))
 
 # Performance test settings
 if args.performance:
@@ -111,31 +100,26 @@ if args.performance:
     number_of_experiments = 100
 
 if __name__ == "__main__":
+    conf = Configuration
+    #TODO use a cache system like redis
     rules = list()
-    for rule_location in args.rule:
-        if os.path.isfile(rule_location):
-            rules.append(deepcopy(load_rule(rule_location)))
-        elif os.path.isdir(rule_location):
-            rule_directory = os.path.normpath(rule_location + "/")
-            for filename in glob.glob(os.path.join(rule_directory, "*.rule")):
-                rules.append(deepcopy(load_rule(filename)))
+    rule_location = conf.rule_location
+    if os.path.isfile(rule_location):
+        rules.append(deepcopy(load_rule(rule_location)))
+    elif os.path.isdir(rule_location):
+        rule_directory = os.path.normpath(rule_location + "/")
+        for filename in glob.glob(os.path.join(rule_directory, "*.rule")):
+            rules.append(deepcopy(load_rule(filename)))
 
     if not rules:
         sys.exit("No rules found.")
 
+    print("rules loaded")
     #TODO performance
-    if args.plaintext:
-        if args.performance:
-            print(timeit.repeat("Not implemented yet; plaintext_matching(pipe)",
-                repeat=number_of_runs, number=number_of_experiments,
-                globals=globals()))
-        else:
-            plaintext_matching(bro)
+    if args.performance:
+        print(timeit.timeit("argument_matching()",number=5))
+        #print(timeit.repeat("Not implemented yet; plaintext_matching(pipe)",
+        #        repeat=number_of_runs, number=number_of_experiments,
+        #        globals=globals()))
     else:
-        if args.performance:
-            print(timeit.repeat("not implemented yet; cryptographic_matching(pipe)",
-                repeat=number_of_runs, number=number_of_experiments,
-                globals=globals()))
-            #print(cryptographic_match.cache_info(), file=sys.stderr)
-        else:
-            cryptographic_matching(bro)
+        argument_matching()

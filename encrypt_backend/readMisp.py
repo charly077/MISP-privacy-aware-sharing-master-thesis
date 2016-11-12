@@ -95,7 +95,7 @@ def create_rule(ioc, message):
         rule['ioc']['coa'] = message
 
     global rules_counter
-    filename = "rules/rule_" + str(rules_counter)
+    filename = "rules/rule_" + str(rules_counter) + '.rule'
     rules_counter = rules_counter + 1
     with open(filename, 'w') as configfile:
         rule.write(configfile)
@@ -110,11 +110,11 @@ def create_message(attr):
 
 def parse_attribute(attr):
     # an attribute can have either one type or a list of type
-    split_type = attr["type"].split('||')
+    split_type = attr["type"].split('|')
     ioc = {}
     if (len(split_type)>1):
         # more than one value
-        split_value = attr["value"].split('||')
+        split_value = attr["value"].split('|')
         for i in range(len(split_type)):
             ioc[split_type[i]] = split_value[i]
     else:

@@ -12,3 +12,6 @@ Get data from misp, encrypt them like explained in
 # Working
 - Add your misp token in configuration.py
 - (explain how it is working)
+
+# TODO
+- Modify all different types to simple one for simplify the matching part

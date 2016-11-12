@@ -11,3 +11,6 @@ class Configuration:
     
     # misp
     misp_token = 'rQEKsHU9KQAvXLcqLniqd0DWbPnu8dDA3hlwZfFJ'
+
+    # rules
+    rule_location = 'rules'
