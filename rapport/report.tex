@@ -169,25 +169,27 @@ But still, the idea that a common user have access to data while an attacker, wh
 
 One idea already implemented is a redis\footnote{http://redis.io} hashstore located in the misp workbench project\footnote{https://github.com/MISP/misp-workbench} and is aimed to get all hashed IOCs.
 The result is that only the ones who have seen the IOC can get the associated information. \\
-Back on the small data problem, if we consider an attacker that want to try every possible IPs, for IPv4 it represents 4.228.250.625 different IPs that needs to be tested. Even if it is a lot it is still feasible ! Moreover, not all IPv4 need to be tested, for an example we can avoid private subnet like 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 which already represent 17.891.328 addresses.\change{To complete ! Mais il y a une grosse partie du misp-workbench que je ne comprends pas et que je ne vois pas à quoi ça sert vu que je n'ai pas accès à la db .. J'aimerai pouvoir voir comment ça fonctionne pour pouvoir l'implem dans l'autre :)}
+Back on the small data problem, if we consider an attacker that want to try every possible IPs, for IPv4 it represents 4.228.250.625 different IPs that needs to be tested. Even if it is a lot it is still feasible ! Moreover, not all IPv4 need to be tested, for an example we can avoid private subnet like 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 which already represent 17.891.328 addresses.\change{To complete ! Mais il y a une grosse partie du misp-workbench que je ne comprends pas et que je ne vois pas à quoi ça sert vu que je n'ai pas accès à la db .. J'aimerai pouvoir voir comment ça fonctionne pour pouvoir l'implem dans l'autre}
 
-\section{IP Problem}
-\change{Show that it's unfeasible to hide small data by conventional deterministic encryption scheme or one way function}
+\section{Small data}
+it is intrinsically impossible to fully hide the IOC while still allowing a subscriber to evaluate the rule. \change{Explain why}
 
 
 \section{Ideas}
 \subsection{Bloom filter}
-Bloom filter\footnote{https://en.wikipedia.org/wiki/Bloom\_filter} is a widely used solution. \change{Explain bloom filter}
-By correlation \unsure{check if I don't find an article for that} we could get back the whole dataset but, it is intrinsically impossible to fully hide the IOC while still allowing a subscriber to evaluate the rule.\\
+Bloom filter\footnote{https://en.wikipedia.org/wiki/Bloom\_filter} is a widely used solution.\change{Explain bloom filter}
+But unfortunately thanks to correlation we could get back the whole dataset.\\
 Misp-workbench is similar to a bloom filter with only one function.\unsure{Check this in the code because it is said in the documentation that it's a bloom filter}
+\info{Je dois m'attarder un peu plus sur cette solution}
 
 \subsection{Machine Learning}
-The idea is quite the same as the bloom filter, but, here we want to privilege the privacy! By that I mean, in the bloom filter, there are False Positive, True Positive, True Negative, but NO False Negative !\\
-Here the idea is to accept False Negative and analyse how it impacts the database !\\
-To stay simple, we can see an address ip as a bit sequence. If we use the entire set of ip in the database to train an algorithm as support vector machine (svm) (create overfitting is just the goal this time ! ).
-Then it could be interesting to check the base concept representation (BCR) to analyze if this technique could be interesting.
+The idea is quite the same as the bloom filter, but, here we want to privilege the privacy! By that I mean, in the bloom filter, there are False Positive, True Positive, True Negative, but NO False Negative.\\
+Here the idea is to accept False Negative and analyze how it impacts the database.\\
+To stay simple, we can see an address ip as a bit sequence. If we use the entire set of ip in the database to train an algorithm as support vector machine (svm).\\
+Then it could be interesting to check the base concept representation (BCR) to analyze if this technique could be interesting. \\
 
-If this technique is too precise, we can also group some ips in sums!
+In order to test this technique, I would train an algorithm on the whole set of data. In standard machine learning system, we would use a test set different from the training set in order to avoid overfitting but in our system, we need overfitting. \\
+After that, the idea would be to test random  ip and compare the result.
 
 \subsection{Secure Two Party Computation (Intersection)}
 Must create a list of all ip needed to request.
@@ -214,12 +216,8 @@ We can do it differently, we do a full analyze of the machine, then, once we hav
 Of course with this, we could just send requests of 1 elements, so to thwart that, we simple could make the request difficult (proof of work), also with a big delay to be able to request again from the same ip and moreover, we could make impossible to make request with less than 10 IPs (need to add random other ip).
 
 \subsection{All in one request with S2P}
-Exactly the same idea as All in one but we add the Secure two party computation with a modified intersection.\\
-The one that gets the intersection is the database and it replies only with the number of the triggered event and not with the intersection.
-
-
-% stupid things
-% when request we can also add the same number of random ips with the set, which would randomize the response 
+The idea is the same as the one of all in one request but, in the case that the user doesn't want to send everything that he have visited, they could use a secure two party computation intersection algorithm.
+With that, the server only receive the intersection between his dataset and the one of the user.
 
 
 \subsection{Private Sharing of IOCs and Sightings \cite{van2016private}}
@@ -230,43 +228,48 @@ They store IOCs by hashing the concatenation of all information but, if we consi
 
 \info{Add subscriber id when creating the file for a specific id :)}
 
+startPad = '\\x00'*16
 \subsubsection{Create a rule}
 \begin{itemize}
 \item Create a salt and an iv
 \item password = all IOC's value joined by a comma
 \item create the key with from the salt and the password
-\item encrypt the message (CAO) in (aes, ctr) but add a starting padding of 16 bit '\x00' (used to see if the decryption match )
+\item encrypt the message (CAO) in (aes, ctr) but add a starting padding startPad (used to see if the decryption match )
 \item create the rule with ConfigParser 
 \item return the rule or write it into a file
 \end{itemize}
 
-\subsubsection{Create a rule}
+\subsubsection{match a rule}
 \begin{itemize}
-\item c
+\item parse the rule or all rules in a file
+\item for each one test to encrypt the attribute with the salt + value and see if the decryption is correct (startPad)
 \end{itemize}
 
-voir comment faire du 'hmset' store all in a redis database
-mon idée : 
+\info("hmset" pour redis)
 use the token as the client id !
 Create 2 backends:\\
--> from  database \\
--> from web api + token\\
+-> from  database ==> create rule files and redis dump \\
+-> from web api + token ==> create rule files and directly into redis \\
+\info{I don't know wich intermediate format to use, redis dump if easy, or the rule files like them}
+
+
 
 Then create the matching system\\
 
-Both system will be really similar to what I need, so I will only have to do few modifications ! \info{Attention, See how I can use the file with the MIT licence}
+Both system will be really similar to what I need, so I will only have to do few modifications !
+Like the file idea is great  \info{Attention, See how I can use the file with the MIT license}
 
 
 
 \improvement{Reporting of Sightings is needed ? }
 \begin{itemize}
-\item hash(ip||port): but we don't have the port to don't we?
 \item CAO: for us it is for example EventID:EventUUID ?
 \item EventUUID => can we get an event just with its uuid?
 \item traitor tracking: \info{See implementation}
 \item Salt: how to store it \info{See implementation}
 \item Private Reporting of Sightings : Do we need to implement it in misp ?
 \end{itemize}
+
 
 
 \newpage

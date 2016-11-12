@@ -5,7 +5,7 @@
 \BOOKMARK [1][-]{section.5}{Sum up}{}% 5
 \BOOKMARK [1][-]{section.6}{What I need to do}{}% 6
 \BOOKMARK [1][-]{section.7}{Misp-Worbench hashstore}{}% 7
-\BOOKMARK [1][-]{section.8}{IP Problem}{}% 8
+\BOOKMARK [1][-]{section.8}{Small data}{}% 8
 \BOOKMARK [1][-]{section.9}{Ideas}{}% 9
 \BOOKMARK [2][-]{subsection.9.1}{Bloom filter}{section.9}% 10
 \BOOKMARK [2][-]{subsection.9.2}{Machine Learning}{section.9}% 11
@@ -15,4 +15,4 @@
 \BOOKMARK [2][-]{subsection.9.6}{All in one request with S2P}{section.9}% 15
 \BOOKMARK [2][-]{subsection.9.7}{Private Sharing of IOCs and Sightings van2016private}{section.9}% 16
 \BOOKMARK [3][-]{subsubsection.9.7.1}{Create a rule}{subsection.9.7}% 17
-\BOOKMARK [3][-]{subsubsection.9.7.2}{Create a rule}{subsection.9.7}% 18
+\BOOKMARK [3][-]{subsubsection.9.7.2}{match a rule}{subsection.9.7}% 18
