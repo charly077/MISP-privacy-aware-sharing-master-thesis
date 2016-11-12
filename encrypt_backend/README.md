@@ -6,6 +6,7 @@ Get data from misp, encrypt them like explained in
 
 - update.py: download some elements (soon better used)
 - readMisp.py: convert misp attributes into rules
+- check_value: TODO
 - res/ and rules/ are two empty folder filled during the process (you need to create them)
 
 # Working
