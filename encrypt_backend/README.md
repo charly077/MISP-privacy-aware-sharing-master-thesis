@@ -10,4 +10,4 @@ Get data from misp, encrypt them like explained in
 
 # Working
 - Add your misp token in configuration.py
-(explain how it is working)
+- (explain how it is working)
