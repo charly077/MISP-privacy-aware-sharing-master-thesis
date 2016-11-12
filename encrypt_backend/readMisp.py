@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# this code is inspired from https://github.com/CRIPTIM/private-IOC-sharing
+# which is using the MIT license
 from configuration import Configuration
 import requests, csv, json
 import argparse
