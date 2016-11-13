@@ -6,12 +6,11 @@ Get data from misp, encrypt them like explained in
 
 - update.py: download some elements (soon better used)
 - readMisp.py: convert misp attributes into rules
-- check_value: TODO
 - res/ and rules/ are two empty folder filled during the process (you need to create them)
 
 # Working
 - Add your misp token in configuration.py
-- (explain how it is working)
+- run ./readMisp
 
 # TODO
 - Modify all different types to simple one for simplify the matching part
