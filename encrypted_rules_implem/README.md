@@ -11,6 +11,6 @@
 # TODO
 - create the decrypt step on 
 	- an argument (OK)
-	- analyse logs/network dump/... => logstash => kafka => cache => match_rule (ongoing)
+	- analyse logs/network dump/... => logstash => redis => match_rule (ongoing working but need to be improved)
 - improve the speed of loading rules with redis 
 	=> Not feasible (rule is not serializable)

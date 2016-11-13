@@ -15,29 +15,31 @@ Then, the last point is about leakage, we want to know where does it comes from.
 ./match_rule.py filename=6b6e92be036b1a67c383d027bafc7eb63cf515006bb3b3c6ca362a2332542801 sha1=dd3a61eed9c454cf96d882f290abc86108ffeea5
 
 
-# try to pipe log files => logstash => kafka => cache => match rules
+# try to pipe log files => logstash => redis => match rules
 
 First I implemented a test in the frontend (encrypt) but what takes a lot of time is to get all rules in memory. So the idea is to get data in memory only once to check the whole set of possible IOCs.
 
-- logstash: easy to configure and can parse a lot of different log files
-- kafka: queue the elements
-- cache: (depend on the output of logstash to be able to compare rules with more than one attribute)
+- logstash: used to parse files and send json in a string format to redis via a rpush on "logstash"
+- redis: Used like a in-memory queue
 - match rules: see what rules are matched by the computer system
 
 # installation step for squid3
 
 - install squid3: sudo apt-get install squid3
 - configure squid3: /etc/squid/squid.conf
-- restart squid3: sudo systemctl restart squid.service (ubuntu/debian)
+- restart squid3: sudo systemctl restart squid.service or sudo service squid3 restart
 
 # installation step for logstash
 
 - https://www.elastic.co/guide/en/logstash/current/getting-started-with-logstash.html
 - put the logstash_squid.conf in /etc/logstash/conf.d/
-- fix squi3 permission : chmod 644 /var/log/squid/access.log
+- fix squid3 permission : chmod 644 /var/log/squid/access.log
 - permanent fix explained in https://miteshshah.github.io/linux/elk/how-to-monitor-squid3-logs-on-elk-stack/
-- running logstash as a service : sudo systemclt start logstash.service (ubuntu/debian)
-- for my test bin/logstash -f ~/thesis/frontend_try/logstash_squid.conf 
+- running logstash as a service : sudo systemclt start logstash.service or sudo service logstash start
+- Or just to start a process : logstash/bin/logstash -f ~/thesis/frontend_try/logstash_squid.conf 
+
+# start matching IOCs
+- ./match_rule --input_redis something (something has no use but is compulsory for now) 
 
 
 # TODO
