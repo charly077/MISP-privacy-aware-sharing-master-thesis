@@ -20,7 +20,7 @@ Then, the last point is about leakage, we want to know where does it comes from.
 First I implemented a test in the frontend (encrypt) but what takes a lot of time is to get all rules in memory. So the idea is to get data in memory only once to check the whole set of possible IOCs.
 
 - logstash: used to parse files and send json in a string format to redis via a rpush on "logstash"
-- redis: Used like a in-memory queue
+- redis: Used like a in-memory queue (rpop and rpush on key="logstash")
 - match rules: see what rules are matched by the computer system
 
 # installation step for squid3
@@ -46,3 +46,4 @@ First I implemented a test in the frontend (encrypt) but what takes a lot of tim
 - improve the speed with cache (for rules)
 - improve squid matching with sub www https and get the port number! 
 - parallelise rules checking
+- modify --input_redis into --input-redis
