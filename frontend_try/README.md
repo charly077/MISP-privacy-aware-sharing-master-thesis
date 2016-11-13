@@ -34,3 +34,8 @@ First I implemented a test in the frontend (encrypt) but what takes a lot of tim
 - permanent fix explained in https://miteshshah.github.io/linux/elk/how-to-monitor-squid3-logs-on-elk-stack/
 - running logstash as a service : sudo systemclt start logstash.service (ubuntu/debian)
 - for my test bin/logstash -f ~/thesis/frontend_try/logstash_squid.conf 
+
+
+# TODO
+- improve the speed with cache (for rules)
+- impove match, uri=url=link, ex squid=get domain from url, ... 
