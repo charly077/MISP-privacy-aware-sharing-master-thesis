@@ -22,13 +22,13 @@ import redis
 
 parser = argparse.ArgumentParser(description='Evaluate a network dump against rules.')
 parser.add_argument('attribute', nargs='+', help='key-value attribute eg. ip=192.168.0.0 port=5012')
-#parser.add_argument('--dump', dest='tcpdump', default='outside.tcpdump',
-#       help='path to the tcpdump to analyze') TODO
 parser.add_argument('--performance', action='store_true',
         help='run a performance test')
 parser.add_argument('--plaintext', action='store_true',
         help='evaluate on the plaintext rules instead of cryptographic \
                 rules')
+parser.add_argument('--input_redis', action='store_true',
+        help='input is not in the argument but in redis')
 
 args = parser.parse_args()
 
@@ -78,7 +78,10 @@ def cryptographic_match(hash_name, password, salt, iterations, info, dklen, iv, 
 
 def argument_matching():
     attributes = dict(pair.split("=") for pair in args.attribute)
+    dico_matching(attributes)
 
+
+def dico_matching(attributes):
     # test each rules
     for rule in rules:
         rule_attr = rule['ioc']['attributes']
@@ -96,6 +99,24 @@ def argument_matching():
             if match:
                 print("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(rule['ioc']['token'], attributes, plaintext.decode('utf-8')))
 
+
+def redis_matching():
+    conf = Configuration()
+    r = redis.StrictRedis(host=conf.redis_host, port=conf.redis_port, db=conf.redis_db)
+
+    # get data
+    log = r.rpop("logstash")
+    while log:
+        log = log.decode("utf8")
+        log_dico = json.loads(log)
+        # try to increase match for SQUID3
+        if "url" in log_dico:
+            log_dico["domain"] = log_dico["url"]
+            log_dico["link"] = log_dico["url"]
+        dico_matching(log_dico)
+        log = r.rpop("logstash")
+
+
 # Performance test settings
 if args.performance:
     import timeit
@@ -105,24 +126,25 @@ if args.performance:
 if __name__ == "__main__":
     conf = Configuration
     rules = list()
-    if not args.redis:
-        rule_location = conf.rule_location
-        if os.path.isfile(rule_location):
-            rules.append(deepcopy(load_rule(rule_location)))
-        elif os.path.isdir(rule_location):
-            rule_directory = os.path.normpath(rule_location + "/")
-            for filename in glob.glob(os.path.join(rule_directory, "*.rule")):
-                rules.append(deepcopy(load_rule(filename)))
+    rule_location = conf.rule_location
+    if os.path.isfile(rule_location):
+        rules.append(deepcopy(load_rule(rule_location)))
+    elif os.path.isdir(rule_location):
+        rule_directory = os.path.normpath(rule_location + "/")
+        for filename in glob.glob(os.path.join(rule_directory, "*.rule")):
+            rules.append(deepcopy(load_rule(filename)))
 
-        if not rules:
-            sys.exit("No rules found.")
+    if not rules:
+        sys.exit("No rules found.")
 
     print("rules loaded")
-    #TODO performance
-    if args.performance:
-        print(timeit.timeit("argument_matching()",number=5))
-        #print(timeit.repeat("Not implemented yet; plaintext_matching(pipe)",
-        #        repeat=number_of_runs, number=number_of_experiments,
-        #        globals=globals()))
+    if args.input_redis:
+        if args.performance:
+            print("to implement") #TODO
+        else:
+            redis_matching()
     else:
-        argument_matching()
+        if args.performance:
+            print(timeit.timeit("argument_matching()",number=5))
+        else:
+            argument_matching()

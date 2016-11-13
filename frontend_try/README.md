@@ -19,3 +19,18 @@ First I implemented a test in the frontend (encrypt) but what takes a lot of tim
 - kafka: queue the elements
 - cache: (depend on the output of logstash to be able to compare rules with more than one attribute)
 - match rules: see what rules are matched by the computer system
+
+# installation step for squid3
+
+- install squid3: sudo apt-get install squid3
+- configure squid3: /etc/squid/squid.conf
+- restart squid3: sudo systemctl restart squid.service (ubuntu/debian)
+
+# installation step for logstash
+
+- https://www.elastic.co/guide/en/logstash/current/getting-started-with-logstash.html
+- put the logstash_squid.conf in /etc/logstash/conf.d/
+- fix squi3 permission : chmod 644 /var/log/squid/access.log
+- permanent fix explained in https://miteshshah.github.io/linux/elk/how-to-monitor-squid3-logs-on-elk-stack/
+- running logstash as a service : sudo systemclt start logstash.service (ubuntu/debian)
+- for my test bin/logstash -f ~/thesis/frontend_try/logstash_squid.conf 
