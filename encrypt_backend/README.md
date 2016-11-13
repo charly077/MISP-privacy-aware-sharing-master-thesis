@@ -15,3 +15,4 @@ Get data from misp, encrypt them like explained in
 
 # TODO
 - Modify all different types to simple one for simplify the matching part
+- Add the ability to create the rules directly from the mysql misp database
