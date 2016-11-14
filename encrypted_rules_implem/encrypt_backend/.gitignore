@@ -1,5 +1,5 @@
 *.pyc
 __pycache__
-config*
+configuration.py
 res/*
 rules/rule*
