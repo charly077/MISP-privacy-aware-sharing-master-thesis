@@ -4,11 +4,17 @@
 from configuration import Configuration
 import requests
 import json
+import os
 
 conf = Configuration()
 
+# first let clean the ressources
+if os.path.exists("res"):
+    os.rmdir("res")
+os.mkdir("res")
 
 # update false positive list : https://github.com/MISP/misp-warninglists
+# and get updated values
 def save_json(url, name, remove_point=False, add_www=False):
     req = requests.get(url)
     l = req.json()['list']
