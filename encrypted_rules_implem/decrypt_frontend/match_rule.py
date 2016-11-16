@@ -18,6 +18,7 @@ from Crypto.Cipher import AES
 from Crypto.Util import Counter
 from functools import lru_cache
 from hkdf import HKDF
+from multiprocessing import cpu_count, Process
 import redis
 
 parser = argparse.ArgumentParser(description='Evaluate a network dump against rules.')
@@ -30,6 +31,8 @@ parser.add_argument('--plaintext', action='store_true',
 parser.add_argument('--input-redis', action='store_true',
         help='input is not in the argument but in redis')
 
+parser.add_argument('-p', '--multiprocess', action='store',
+        type=int, help='Use multiprocess, it needs a redis cache and the maximum is the number of cores minus 1', default=0)
 args = parser.parse_args()
 
 def load_rule(filename):
@@ -133,6 +136,13 @@ if __name__ == "__main__":
 
     if not rules:
         sys.exit("No rules found.")
+    print("Attention implem ca et enlever l'argement obligatoire")
+    if args.multiprocess > 0:
+        r = redis.StrictRedis(host=conf.redis_host, port=conf.redis_port, db=conf.redis_db)
+        if not r:
+            sys.exit("No redis cache found")
+
+
 
     print("rules loaded")
     if args.input-redis:
