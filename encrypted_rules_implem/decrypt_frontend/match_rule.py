@@ -27,7 +27,7 @@ parser.add_argument('--performance', action='store_true',
 parser.add_argument('--plaintext', action='store_true',
         help='evaluate on the plaintext rules instead of cryptographic \
                 rules')
-parser.add_argument('--input_redis', action='store_true',
+parser.add_argument('--input-redis', action='store_true',
         help='input is not in the argument but in redis')
 
 args = parser.parse_args()
@@ -135,7 +135,7 @@ if __name__ == "__main__":
         sys.exit("No rules found.")
 
     print("rules loaded")
-    if args.input_redis:
+    if args.input-redis:
         if args.performance:
             print("to implement") #TODO
         else:
