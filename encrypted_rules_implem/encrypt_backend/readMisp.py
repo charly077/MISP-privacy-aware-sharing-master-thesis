@@ -38,8 +38,13 @@ parser.add_argument('--plaintext', action='store_true',
 
 args = parser.parse_args()
 
-conf = Configuration () # TODO change config to config file
+conf = Configuration ()
 token = bytes(conf.misp_token, encoding='ascii')
+
+# first clean up folders
+if os.path.exists("rules"):
+        os.rmdir("rules")
+os.mkdir("rules")
 
 # update list is done via ./update.py
 IOCs = list()
