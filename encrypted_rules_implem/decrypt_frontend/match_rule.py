@@ -28,7 +28,7 @@ parser.add_argument('--performance', action='store_true',
 parser.add_argument('--plaintext', action='store_true',
         help='evaluate on the plaintext rules instead of cryptographic \
                 rules')
-parser.add_argument('--input-redis', action='store_true',
+parser.add_argument('--input_redis', action='store_true',
         help='input is not in the argument but in redis')
 
 parser.add_argument('-p', '--multiprocess', action='store',
@@ -139,13 +139,15 @@ if __name__ == "__main__":
     print("Attention implem ca et enlever l'argement obligatoire")
     if args.multiprocess > 0:
         r = redis.StrictRedis(host=conf.redis_host, port=conf.redis_port, db=conf.redis_db)
-        if not r:
+        try:
+            r.set("test", "test_value")
+        except:
             sys.exit("No redis cache found")
 
 
 
     print("rules loaded")
-    if args.input-redis:
+    if args.input_redis:
         if args.performance:
             print("to implement") #TODO
         else:

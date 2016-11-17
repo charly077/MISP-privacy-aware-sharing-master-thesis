@@ -39,7 +39,7 @@ First I implemented a test in the frontend (encrypt) but what takes a lot of tim
 - Or just to start a process : logstash/bin/logstash -f ~/thesis/frontend_try/logstash_squid.conf 
 
 # start matching IOCs
-- ./match_rule --input-redis something (something has no use but is compulsory for now) 
+- ./match_rule --input_redis something (something has no use but is compulsory for now) 
 
 
 # TODO
