@@ -35,9 +35,6 @@ parser.add_argument('-p', '--multiprocess', action='store',
         type=int, help='Use multiprocess, the maximum is the number of cores minus 1', default=0, )
 args = parser.parse_args()
 
-####################
-# helper functions #
-####################
 def load_rule(filename):
     ruleParser = configparser.ConfigParser()
     ruleParser.read(filename)
@@ -60,38 +57,7 @@ def load_rule(filename):
     rule['ioc']['ciphertext'] = b64decode(rule['ioc']['ciphertext'])
     return rule
 
-def iter_queue(queue):
-    # iter on a queue without infinite loop
-    def next():
-        if queue.empty():
-            return None
-        else:
-            return queue.get()
-    # return iterator
-    return iter(next, None)
 
-#####################
-# process functions #
-#####################
-def redis_matching_process(queue):
-    # get data
-    log = r.rpop("logstash")
-    while log:
-        log = log.decode("utf8")
-        log_dico = json.loads(log)
-        dico_matching(log_dico, queue)
-        log = r.rpop("logstash")
-
-def print_queue_process(queue):
-    # this is an infinite loop as get waits when empty
-    for elem in iter(queue.get, None):
-        print(elem)
-
-
-
-####################
-# crypto functions #
-####################
 def derive_key(hash_name, password, salt, iterations, info, dklen=None):
     if iterations == 1:
         kdf = HKDF(hash_name)
@@ -113,10 +79,12 @@ def cryptographic_match(hash_name, password, salt, iterations, info, dklen, iv, 
         return (False, '')
 
 
-###################
-# match functions #
-###################
-def dico_matching(attributes, queue):
+def argument_matching():
+    attributes = dict(pair.split("=") for pair in args.attribute)
+    dico_matching(attributes)
+
+
+def match_rules_list(rules, queue):
     # test each rules
     for rule in rules:
         rule_attr = rule['ioc']['attributes']
@@ -134,40 +102,60 @@ def dico_matching(attributes, queue):
             if match:
                 queue.put("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(rule['ioc']['token'], attributes, plaintext.decode('utf-8')))
 
-def argument_matching():
-    attributes = dict(pair.split("=") for pair in args.attribute)
-    match = SimpleQueue()
-    dico_matching(attributes, match)
+
+
+def dico_matching(attributes):
+    queue = SimpleQueue()
+    # Multiprocessing
+    if args.multiprocess > 1:
+        n = min(cpu_count()-1, args.multiprocess)
+        len_rules = len(rules)
+        n_rules = len_rules//n
+        last_index = -1
+        processes = list()
+        for p in range(n):
+            if p == n-1:
+                new_p = Process(target=match_rules_list, args=(rules[last_index+1:len_rules], queue))
+            else:
+                from_i = last_index + 1
+                to_i = last_index + 1 + n_rules
+                last_index = to_i
+                new_p = Process(target=match_rules_list, args=(rules[from_i:to_i], queue))
+            new_p.start()
+            processes.append(new_p)
+        for p in processes:
+            p.join()
+    # single process
+    else:
+        match_rules_list(rules, queue)
 
     # print matches
-    for match in iter_queue(match):
-        print(match)
+    if not queue.empty():
+        elem = queue.get()
+        while elem:
+            print(elem)
+            elem = queue.get()
 
 def redis_matching():
     # data is enriched in logstash
     conf = Configuration()
     r = redis.StrictRedis(host=conf.redis_host, port=conf.redis_port, db=conf.redis_db)
 
-    match = SimpleQueue()
-    n = min(args.multiprocessing, cpu_count()-1)
-    processes = list
-    for i in range(n):
-        process = Process(target=redis_matching_process, args=(queue))
-        process.start()
-        processes.append(process)
+    # get data
+    log = r.rpop("logstash")
+    while log:
+        log = log.decode("utf8")
+        log_dico = json.loads(log)
+        dico_matching(log_dico)
+        log = r.rpop("logstash")
 
-    # print match if there are some
-    print_process = Process(target=print_simple_queue, args=(queue))
-    print_process.start()
 
-    for process in processes:
-        process.join()
-    print_process.terminate()
-    
+# Performance test settings
+if args.performance:
+    import timeit
+    number_of_runs = 5
+    number_of_experiments = 100
 
-########
-# Main #
-########
 if __name__ == "__main__":
     conf = Configuration
     rules = list()
@@ -181,8 +169,9 @@ if __name__ == "__main__":
 
     if not rules:
         sys.exit("No rules found.")
-    print("rules loaded")
 
+
+    print("rules loaded")
     if args.input_redis:
         if args.performance:
             print("to implement") #TODO
