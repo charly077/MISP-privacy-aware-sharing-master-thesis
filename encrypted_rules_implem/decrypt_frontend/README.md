@@ -36,7 +36,7 @@ First I implemented a test in the frontend (encrypt) but what takes a lot of tim
 - fix squid3 permission : chmod 644 /var/log/squid/access.log
 - permanent fix explained in https://miteshshah.github.io/linux/elk/how-to-monitor-squid3-logs-on-elk-stack/
 - running logstash as a service : sudo systemclt start logstash.service or sudo service logstash start
-- Or just to start a process : logstash/bin/logstash -f ~/thesis/frontend_try/logstash_squid.conf 
+- Or just to start a process from the logstash folder: ./bin/logstash -f ~/thesis/encrypted_rules_implem/decrypt_frontend/logstash_squid.conf
 
 # start matching IOCs
 - ./match_rule --input_redis
