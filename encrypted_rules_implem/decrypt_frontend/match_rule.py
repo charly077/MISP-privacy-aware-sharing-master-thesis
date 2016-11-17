@@ -18,11 +18,11 @@ from Crypto.Cipher import AES
 from Crypto.Util import Counter
 from functools import lru_cache
 from hkdf import HKDF
-from multiprocessing import cpu_count, Process
+from multiprocessing import SimpleQueue, Process, cpu_count
 import redis
 
 parser = argparse.ArgumentParser(description='Evaluate a network dump against rules.')
-parser.add_argument('attribute', nargs='+', help='key-value attribute eg. ip=192.168.0.0 port=5012')
+parser.add_argument('attribute', nargs='*', help='key-value attribute eg. ip=192.168.0.0 port=5012')
 parser.add_argument('--performance', action='store_true',
         help='run a performance test')
 parser.add_argument('--plaintext', action='store_true',
@@ -32,7 +32,7 @@ parser.add_argument('--input_redis', action='store_true',
         help='input is not in the argument but in redis')
 
 parser.add_argument('-p', '--multiprocess', action='store',
-        type=int, help='Use multiprocess, it needs a redis cache and the maximum is the number of cores minus 1', default=0)
+        type=int, help='Use multiprocess, the maximum is the number of cores minus 1', default=0, )
 args = parser.parse_args()
 
 def load_rule(filename):
@@ -84,7 +84,7 @@ def argument_matching():
     dico_matching(attributes)
 
 
-def dico_matching(attributes):
+def match_rules_list(rules, queue):
     # test each rules
     for rule in rules:
         rule_attr = rule['ioc']['attributes']
@@ -96,12 +96,45 @@ def dico_matching(attributes):
             
         if args.plaintext:
             if rule['ioc']['plaintext'] == password:
-                print("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(rule['ioc']['id'], attributes, rule['ioc']['coa']))
+                queue.put("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(rule['ioc']['id'], attributes, rule['ioc']['coa']))
         else:
             match, plaintext = cryptographic_match(rule['hash_name'], password, rule['salt'], rule['iterations'], rule['ioc']['token'], rule['dklen'], rule['ioc']['iv'], rule['ioc']['ciphertext'])
             if match:
-                print("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(rule['ioc']['token'], attributes, plaintext.decode('utf-8')))
+                queue.put("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(rule['ioc']['token'], attributes, plaintext.decode('utf-8')))
 
+
+
+def dico_matching(attributes):
+    queue = SimpleQueue()
+    # Multiprocessing
+    if args.multiprocess > 1:
+        n = min(cpu_count()-1, args.multiprocess)
+        len_rules = len(rules)
+        n_rules = len_rules//n
+        last_index = -1
+        processes = list()
+        for p in range(n):
+            if p == n-1:
+                new_p = Process(target=match_rules_list, args=(rules[last_index+1:len_rules], queue))
+            else:
+                from_i = last_index + 1
+                to_i = last_index + 1 + n_rules
+                last_index = to_i
+                new_p = Process(target=match_rules_list, args=(rules[from_i:to_i], queue))
+            new_p.start()
+            processes.append(new_p)
+        for p in processes:
+            p.join()
+    # single process
+    else:
+        match_rules_list(rules, queue)
+
+    # print matches
+    if not queue.empty():
+        elem = queue.get()
+        while elem:
+            print(elem)
+            elem = queue.get()
 
 def redis_matching():
     # data is enriched in logstash
@@ -136,15 +169,6 @@ if __name__ == "__main__":
 
     if not rules:
         sys.exit("No rules found.")
-
-    print("Attention implem ca et enlever l'argement obligatoire")
-    if args.multiprocess > 0:
-        r = redis.StrictRedis(host=conf.redis_host, port=conf.redis_port, db=conf.redis_db)
-        try:
-            r.set("test", "test_value")
-        except:
-            sys.exit("No redis cache found")
-
 
 
     print("rules loaded")
