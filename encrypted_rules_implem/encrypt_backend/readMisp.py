@@ -25,8 +25,6 @@ Create the paper solution for Misp
 - encrypt / hash them
 """
 
-
-
 parser = argparse.ArgumentParser(description='Create an encrypted IOC \
         rule.')
 parser.add_argument('--hash', dest='hash_name', default='sha256',
