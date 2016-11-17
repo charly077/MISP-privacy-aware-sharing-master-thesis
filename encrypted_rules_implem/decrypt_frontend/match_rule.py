@@ -85,7 +85,7 @@ def redis_matching_process(r, queue):
 def print_queue_process(queue):
     # this is an infinite loop as get waits when empty
     for elem in iter(queue.get, None):
-        print(elem)
+       print(elem)
 
 
 
@@ -143,6 +143,9 @@ def argument_matching():
     for match in iter_queue(match):
         print(match)
 
+def test(name):
+    print(name)
+
 def redis_matching():
     # data is enriched in logstash
     conf = Configuration()
@@ -157,8 +160,7 @@ def redis_matching():
         processes.append(process)
 
     # print match if there are some
-    #print_process = Process(target=print_queue_process, args=(match))
-    print_process = Process(target=print, args=("youpieee"))
+    print_process = Process(target=print_queue_process, args=([match]))
     print_process.start()
 
     for process in processes:
