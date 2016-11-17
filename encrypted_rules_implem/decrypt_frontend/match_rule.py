@@ -152,23 +152,25 @@ def redis_matching():
     r = redis.StrictRedis(host=conf.redis_host, port=conf.redis_port, db=conf.redis_db)
 
     match = SimpleQueue()
-    n = min(args.multiprocess, cpu_count()-1)
-    processes = list()
-    for i in range(n):
-        process = Process(target=redis_matching_process, args=(r, match))
-        process.start()
-        processes.append(process)
+    if args.multiprocess > 0:
+        n = min(args.multiprocess, cpu_count()-1)
+        processes = list()
+        for i in range(n):
+            process = Process(target=redis_matching_process, args=(r, match))
+            process.start()
+            processes.append(process)
 
-    # print match if there are some
-    print_process = Process(target=print_queue_process, args=([match]))
-    print_process.start()
+        # print match if there are some
+        print_process = Process(target=print_queue_process, args=([match]))
+        print_process.start()
 
-    for process in processes:
-        process.join()
-    print_process.terminate()
-
-    for i in iter_queue(match):
-        print(i)
+        for process in processes:
+            process.join()
+        print_process.terminate()
+    else:
+        redis_matching_process(r, match)
+        for item in iter_queue(match):
+            print(item)
 
 ########
 # Main #
