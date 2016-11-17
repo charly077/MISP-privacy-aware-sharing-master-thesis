@@ -17,7 +17,7 @@ from Crypto.Cipher import AES
 from Crypto import Random
 from Crypto.Util import Counter
 from hkdf import HKDF
-
+import os
 
 """ 
 Create the paper solution for Misp
