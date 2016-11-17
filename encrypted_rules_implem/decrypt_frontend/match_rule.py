@@ -73,7 +73,7 @@ def iter_queue(queue):
 #####################
 # process functions #
 #####################
-def redis_matching_process(queue):
+def redis_matching_process(r, queue):
     # get data
     log = r.rpop("logstash")
     while log:
@@ -149,21 +149,24 @@ def redis_matching():
     r = redis.StrictRedis(host=conf.redis_host, port=conf.redis_port, db=conf.redis_db)
 
     match = SimpleQueue()
-    n = min(args.multiprocessing, cpu_count()-1)
-    processes = list
+    n = min(args.multiprocess, cpu_count()-1)
+    processes = list()
     for i in range(n):
-        process = Process(target=redis_matching_process, args=(queue))
+        process = Process(target=redis_matching_process, args=(r, match))
         process.start()
         processes.append(process)
 
     # print match if there are some
-    print_process = Process(target=print_simple_queue, args=(queue))
+    #print_process = Process(target=print_queue_process, args=(match))
+    print_process = Process(target=print, args=("youpieee"))
     print_process.start()
 
     for process in processes:
         process.join()
     print_process.terminate()
-    
+
+    for i in iter_queue(match):
+        print(i)
 
 ########
 # Main #
