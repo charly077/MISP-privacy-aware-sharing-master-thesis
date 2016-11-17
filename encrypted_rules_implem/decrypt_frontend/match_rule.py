@@ -136,6 +136,7 @@ if __name__ == "__main__":
 
     if not rules:
         sys.exit("No rules found.")
+
     print("Attention implem ca et enlever l'argement obligatoire")
     if args.multiprocess > 0:
         r = redis.StrictRedis(host=conf.redis_host, port=conf.redis_port, db=conf.redis_db)
