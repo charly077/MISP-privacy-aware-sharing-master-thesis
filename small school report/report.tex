@@ -65,7 +65,9 @@ Another idea is explained by van De Kamp and al in \cite{van2016private}. The fi
 This algorithm has two steps, the first one is to create a set of rules where each one represents an IOC and is stocked as a file.\\
 A rule has two important information, the first one is the list of the concatenated value types. While the second one is the encrypted information.\\
 What we want, is that only a user having seen the right values can decrypt the IOC. For that, as we have all attribute types, we can concatenate our values in the same order before using this value in a key derivation algorithm. If the values are the right ones, the key just found allows decrypting the information which is, in our case the id and uuid of the IOC. The information thus allows a user to access the event on the MISP web API.\\
-The second step is looking for matches by trying to decrypt each rule with seen values.
+The second step is looking for matches by trying to decrypt each rule with seen values.\\
+
+Additionally, they have added a different salt for each rule message. This salt ensure that an attacker is not able to precompute all possible decryption keys. After that, they also added the id of the user in the key generation (I'm using the token instead). Thanks to this idea, if rule files are leaked, we know which user is the responsible for it.\\
 
 My implementation is located in a github repository \footnote{\url{https://github.com/charly077/thesis/tree/master/encrypted_rules_implem/}}. I still need to improve it for memory utilization, visualization and other kinds of implementations.\\
 Once all these things will be done, I'll have to clean the code and to test performance with real cases.
