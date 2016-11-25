@@ -1,5 +1,0 @@
-[crypto]
-hash_name = sha256
-dklen = 16
-iterations = 1
-

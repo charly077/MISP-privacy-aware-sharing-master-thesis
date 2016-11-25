@@ -19,7 +19,7 @@ from Crypto.Cipher import AES
 from Crypto.Util import Counter
 from functools import lru_cache
 from hkdf import HKDF
-from multiprocessing import SimpleQueue, Process, cpu_count
+from multiprocessing import SimpleQueue, Process, cpu_count, Lock
 import redis
 
 parser = argparse.ArgumentParser(description='Evaluate a network dump against rules.')
@@ -50,16 +50,58 @@ def iter_queue(queue):
     # return iterator
     return iter(next, None)
 
+# from the csv file, read the rules and return them as a list
+def rules_from_csv(filename, lock):
+    lock.acquire()
+    path = conf.rule_location+'/'+filename
+    rules = list()
+    if not os.path.exists(path):
+        lock.release()
+        return rules
+    with open(path, "r") as f:
+        data = csv.DictReader(f, delimiter='\t')
+        # copy data
+        for d in data:
+            d['salt'] = b64decode(d['salt'])
+            d['iv'] = int.from_bytes(b64decode(d['iv']), 'big')
+            d['attributes'] = d['attributes'].split('||')
+            d['ciphertext'] = b64decode(d['ciphertext'])
+            rules.append(d)
+    lock.release()
+    return rules
+
+
+file_attributes = {}
+rules_dict = {}
+
+def get_file_rules(filename, lock):
+    try:
+        rules = rules_dict[filename]
+        return rules
+    except:
+        rules = rules_from_csv(filename, lock)
+        rules_dict[filename] = rules
+        return rules
+
+def get_rules(attributes, lock):
+    rules = list()
+    # wich combinaison
+    for filename in file_attributes:
+        if all([i in attributes for i in file_attributes[filename]]):
+            for rule in get_file_rules(filename, lock):
+                rules.append(rule)
+    return rules
+
 #####################
 # process functions #
 #####################
-def redis_matching_process(r, queue):
+def redis_matching_process(r, queue, lock):
     # get data
     log = r.rpop("logstash")
     while log:
         log = log.decode("utf8")
         log_dico = json.loads(log)
-        dico_matching(log_dico, queue)
+        dico_matching(log_dico, queue, lock)
         log = r.rpop("logstash")
 
 def print_queue_process(queue):
@@ -96,11 +138,11 @@ def cryptographic_match(hash_name, password, salt, iterations, info, dklen, iv, 
 ###################
 # match functions #
 ###################
-def dico_matching(attributes, queue):
+def dico_matching(attributes, queue, lock):
     global conf
     global metadata
     # test each rules
-    for rule in rules:
+    for rule in get_rules(attributes, lock):
         rule_attr = rule['attributes']
         password = ''
         try:
@@ -115,7 +157,7 @@ def dico_matching(attributes, queue):
 def argument_matching():
     attributes = dict(pair.split("=") for pair in args.attribute)
     match = SimpleQueue()
-    dico_matching(attributes, match)
+    dico_matching(attributes, match, Lock())
 
     # print matches
     for match in iter_queue(match):
@@ -129,24 +171,24 @@ def redis_matching():
     conf = Configuration()
     r = redis.StrictRedis(host=conf.redis_host, port=conf.redis_port, db=conf.redis_db)
 
+    lock = Lock()
     match = SimpleQueue()
     if args.multiprocess > 0:
         n = min(args.multiprocess, cpu_count()-1)
         processes = list()
         for i in range(n):
-            process = Process(target=redis_matching_process, args=(r, match))
+            process = Process(target=redis_matching_process, args=(r, match, lock))
             process.start()
             processes.append(process)
 
         # print match if there are some
         print_process = Process(target=print_queue_process, args=([match]))
         print_process.start()
-
         for process in processes:
             process.join()
         print_process.terminate()
     else:
-        redis_matching_process(r, match)
+        redis_matching_process(r, match, lock)
         for item in iter_queue(match):
             print(item)
 
@@ -165,21 +207,15 @@ if __name__ == "__main__":
     metadata['dklen'] = int(metadata['dklen'])
     metadata['iterations'] = int(metadata['iterations'])
 
-    # get rules from csv
-    with open(conf.rule_location+"/rules.csv", "r") as f:
-        data = csv.DictReader(f, delimiter='\t')
-        # copy data
-        for d in data:
-            d['salt'] = b64decode(d['salt'])
-            d['iv'] = int.from_bytes(b64decode(d['iv']), 'big')
-            d['attributes'] = d['attributes'].split('||')
-            d['ciphertext'] = b64decode(d['ciphertext'])
-            rules.append(d)
-
-
-    if not rules:
+    if not os.path.exists(conf.rule_location):
         sys.exit("No rules found.")
-    print("rules loaded")
+
+
+    # get all files attribbutes
+    filenames = os.listdir(conf.rule_location)
+    for name in filenames:
+        split = (name.split('.')[0]).split('_')
+        file_attributes[name] = split
 
     if args.input_redis:
         if args.performance:

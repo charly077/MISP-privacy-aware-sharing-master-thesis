@@ -17,7 +17,7 @@ from Crypto.Cipher import AES
 from Crypto import Random
 from Crypto.Util import Counter
 from hkdf import HKDF
-import os
+import os, shutil
 
 """ 
 Create the paper solution for Misp
@@ -39,9 +39,7 @@ token = bytes(conf.misp_token, encoding='ascii')
 
 # first clean up folders
 if os.path.exists("rules"):
-        os.remove("rules/metadata")
-        os.remove("rules/rules.csv")
-        os.rmdir("rules")
+    shutil.rmtree("rules")
 os.mkdir("rules")
 
 # update list is done via ./update.py
@@ -115,7 +113,17 @@ def parse_attribute(attr):
 
 
 iocs = [parse_attribute(ioc) for ioc in IOCs]
-with open('rules/rules.csv', 'wt') as output_file:
-        dict_writer = csv.DictWriter(output_file, iocs[0].keys(), delimiter='\t')
+# sort iocs in different files for optimization
+iocDic = {}
+for ioc in iocs:
+    typ = "_".join(ioc["attributes"].split('||'))
+    try:
+        iocDic[typ].append(ioc)
+    except:
+        iocDic[typ] = [ioc]
+
+for typ in iocDic:
+    with open('rules/'+ typ +'.csv', 'wt') as output_file:
+        dict_writer = csv.DictWriter(output_file, iocDic[typ][0].keys(), delimiter='\t')
         dict_writer.writeheader()
-        dict_writer.writerows(iocs)
+        dict_writer.writerows(iocDic[typ])
