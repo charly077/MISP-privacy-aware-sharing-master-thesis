@@ -167,7 +167,7 @@ if __name__ == "__main__":
 
     # get rules from csv
     with open(conf.rule_location+"/rules.csv", "r") as f:
-        data = csv.DictReader(f)
+        data = csv.DictReader(f, delimiter='\t')
         # copy data
         for d in data:
             d['salt'] = b64decode(d['salt'])

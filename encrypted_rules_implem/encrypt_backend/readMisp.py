@@ -116,6 +116,6 @@ def parse_attribute(attr):
 
 iocs = [parse_attribute(ioc) for ioc in IOCs]
 with open('rules/rules.csv', 'wt') as output_file:
-        dict_writer = csv.DictWriter(output_file, iocs[0].keys())
+        dict_writer = csv.DictWriter(output_file, iocs[0].keys(), delimiter='\t')
         dict_writer.writeheader()
         dict_writer.writerows(iocs)
