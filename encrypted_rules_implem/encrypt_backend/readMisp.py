@@ -31,8 +31,6 @@ parser.add_argument('--hash', dest='hash_name', default='sha256',
         help='hash function to use')
 parser.add_argument('--iterations', type=int, default=1,
         help='iterations needed before the decryption key is derived')
-parser.add_argument('--plaintext', action='store_true',
-        help='store the plaintext rule as well')
 
 args = parser.parse_args()
 
@@ -41,6 +39,8 @@ token = bytes(conf.misp_token, encoding='ascii')
 
 # first clean up folders
 if os.path.exists("rules"):
+        os.remove("rules/metadata")
+        os.remove("rules/rules.csv")
         os.rmdir("rules")
 os.mkdir("rules")
 
@@ -51,7 +51,16 @@ with open("res/misp_events.csv", "r") as f:
     for d in data:
         IOCs.append(d)
 
-rules_counter = 0 # for filename generation
+# create metadata
+meta = configparser.ConfigParser()
+meta['crypto'] = {}
+meta['crypto']['hash_name'] = args.hash_name
+meta['crypto']['dklen'] = str(16) # AES block size
+meta['crypto']['iterations'] = str(args.iterations)
+with open('rules/metadata', 'w') as config:
+    meta.write(config)
+
+
 def create_rule(ioc, message):
     # encrypt the ioc and the message
     salt = Random.new().read(hashlib.new(args.hash_name).digest_size)
@@ -65,7 +74,7 @@ def create_rule(ioc, message):
     # encrypt the message
     if args.iterations == 1:
         kdf = HKDF(args.hash_name)
-        kdf.extract(salt, password.encode("utf8")) # Check if it works
+        kdf.extract(salt, password.encode("utf8"))
         dk = kdf.expand(info=token, L=dklen)
     else:
         dk = hashlib.pbkdf2_hmac(args.hash_name, password.encode('utf8'), salt, args.iterations, dklen=dklen)
@@ -74,35 +83,14 @@ def create_rule(ioc, message):
     cipher = AES.new(dk, AES.MODE_CTR, b'', counter=ctr)
     ciphertext = cipher.encrypt(b'\x00'*16 + message.encode('utf-8'))
 
-    # store the rules TODO improve this
-    rule = configparser.ConfigParser()
-    if args.iterations == 1:
-        rule['hkdf'] = {}
-        rule['hkdf']['hash_name'] = args.hash_name
-        rule['hkdf']['salt'] = b64encode(salt).decode('ascii')
-        rule['hkdf']['dklen'] = str(dklen)
-    else:
-        rule['pbkdf2'] = {}
-        rule['pbkdf2']['hash_name'] = args.hash_name
-        rule['pbkdf2']['salt'] = b64encode(salt).decode('ascii')
-        rule['pbkdf2']['iterations'] = str(args.iterations)
-        rule['pbkdf2']['dklen'] = str(dklen)
-    rule['ioc'] = {}
-    rule['ioc']['token'] = conf.misp_token
-    rule['ioc']['attributes'] = attr_types
-    rule['ioc']['iv'] = b64encode(iv).decode('ascii')
-    rule['ioc']['ciphertext'] = b64encode(ciphertext).decode('ascii')
-    if args.plaintext:
-        rule['ioc']['dk'] = b64encode(dk).decode('ascii')
-        rule['ioc']['plaintext'] = password
-        rule['ioc']['coa'] = message
+    # store the rules 
+    rule = {}
+    rule['salt'] = b64encode(salt).decode('ascii')
+    rule['attributes'] = attr_types
+    rule['iv'] = b64encode(iv).decode('ascii')
+    rule['ciphertext'] = b64encode(ciphertext).decode('ascii')
 
-    global rules_counter
-    filename = "rules/rule_" + str(rules_counter) + '.rule'
-    rules_counter = rules_counter + 1
-    with open(filename, 'w') as configfile:
-        rule.write(configfile)
-
+    return rule
 
 # message = information that we get when there is a match
 def create_message(attr):
@@ -123,7 +111,11 @@ def parse_attribute(attr):
     else:
         ioc[attr["type"]] = attr["value"]
     msg = create_message(attr)
-    create_rule(ioc, msg)
+    return create_rule(ioc, msg)
 
 
 iocs = [parse_attribute(ioc) for ioc in IOCs]
+with open('rules/rules.csv', 'wt') as output_file:
+        dict_writer = csv.DictWriter(output_file, iocs[0].keys())
+        dict_writer.writeheader()
+        dict_writer.writerows(iocs)

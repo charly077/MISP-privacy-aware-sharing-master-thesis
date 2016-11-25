@@ -12,6 +12,7 @@ import re
 import subprocess
 import sys
 import json
+import csv
 from base64 import b64decode
 from copy import deepcopy
 from Crypto.Cipher import AES
@@ -25,9 +26,6 @@ parser = argparse.ArgumentParser(description='Evaluate a network dump against ru
 parser.add_argument('attribute', nargs='*', help='key-value attribute eg. ip=192.168.0.0 port=5012')
 parser.add_argument('--performance', action='store_true',
         help='run a performance test')
-parser.add_argument('--plaintext', action='store_true',
-        help='evaluate on the plaintext rules instead of cryptographic \
-                rules')
 parser.add_argument('--input_redis', action='store_true',
         help='input is not in the argument but in redis')
 
@@ -35,30 +33,12 @@ parser.add_argument('-p', '--multiprocess', action='store',
         type=int, help='Use multiprocess, the maximum is the number of cores minus 1', default=0, )
 args = parser.parse_args()
 
+metadata = {}
+conf = Configuration()
+
 ####################
 # helper functions #
 ####################
-def load_rule(filename):
-    ruleParser = configparser.ConfigParser()
-    ruleParser.read(filename)
-    rule = ruleParser._sections
-    try:
-        rule['iterations'] = 1
-        rule['hash_name'] = rule['hkdf']['hash_name']
-        rule['salt'] = b64decode(rule['hkdf']['salt'])
-        rule['dklen'] = int(rule['hkdf']['dklen'])
-    except:
-        try:
-            rule['iterations'] = int(rule['pbkdf2']['iterations'])
-            rule['hash_name'] = rule['pbkdf2']['hash_name']
-            rule['salt'] = b64decode(rule['pbkdf2']['salt'])
-            rule['dklen'] = int(rule['pbkdf2']['dklen'])
-        except:
-            raise Exception('Not a rule file.')
-    rule['ioc']['attributes'] = rule['ioc']['attributes'].split('||')
-    rule['ioc']['iv'] = int.from_bytes(b64decode(rule['ioc']['iv']), 'big')
-    rule['ioc']['ciphertext'] = b64decode(rule['ioc']['ciphertext'])
-    return rule
 
 def iter_queue(queue):
     # iter on a queue without infinite loop
@@ -117,22 +97,20 @@ def cryptographic_match(hash_name, password, salt, iterations, info, dklen, iv, 
 # match functions #
 ###################
 def dico_matching(attributes, queue):
+    global conf
+    global metadata
     # test each rules
     for rule in rules:
-        rule_attr = rule['ioc']['attributes']
+        rule_attr = rule['attributes']
         password = ''
         try:
             password = '||'.join([attributes[attr] for attr in rule_attr])
         except:
             pass # nothing to do
             
-        if args.plaintext:
-            if rule['ioc']['plaintext'] == password:
-                queue.put("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(rule['ioc']['id'], attributes, rule['ioc']['coa']))
-        else:
-            match, plaintext = cryptographic_match(rule['hash_name'], password, rule['salt'], rule['iterations'], rule['ioc']['token'], rule['dklen'], rule['ioc']['iv'], rule['ioc']['ciphertext'])
-            if match:
-                queue.put("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(rule['ioc']['token'], attributes, plaintext.decode('utf-8')))
+        match, plaintext = cryptographic_match(metadata['hash_name'], password, rule['salt'], metadata['iterations'], conf.misp_token, metadata['dklen'], rule['iv'], rule['ciphertext'])
+        if match:
+            queue.put("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(conf.misp_token, attributes, plaintext.decode('utf-8')))
 
 def argument_matching():
     attributes = dict(pair.split("=") for pair in args.attribute)
@@ -179,12 +157,25 @@ if __name__ == "__main__":
     conf = Configuration
     rules = list()
     rule_location = conf.rule_location
-    if os.path.isfile(rule_location):
-        rules.append(deepcopy(load_rule(rule_location)))
-    elif os.path.isdir(rule_location):
-        rule_directory = os.path.normpath(rule_location + "/")
-        for filename in glob.glob(os.path.join(rule_directory, "*.rule")):
-            rules.append(deepcopy(load_rule(filename)))
+    # get configuration
+    metaParser = configparser.ConfigParser()
+    metaParser.read(conf.rule_location + "/metadata")
+    metadata = metaParser._sections
+    metadata = metadata['crypto']
+    metadata['dklen'] = int(metadata['dklen'])
+    metadata['iterations'] = int(metadata['iterations'])
+
+    # get rules from csv
+    with open(conf.rule_location+"/rules.csv", "r") as f:
+        data = csv.DictReader(f)
+        # copy data
+        for d in data:
+            d['salt'] = b64decode(d['salt'])
+            d['iv'] = int.from_bytes(b64decode(d['iv']), 'big')
+            d['attributes'] = d['attributes'].split('||')
+            d['ciphertext'] = b64decode(d['ciphertext'])
+            rules.append(d)
+
 
     if not rules:
         sys.exit("No rules found.")
