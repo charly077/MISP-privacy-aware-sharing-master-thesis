@@ -10,9 +10,15 @@ class Configuration:
     redis_port = 6379
     redis_db = 0
     
-    # misp
+    # misp Web Api
     misp_token = 'misp token'
     misp_url = 'https://misppriv.circl.lu/'
+
+    # misp mysql database
+    user = ''
+    password = ''
+    host = ''
+    dbname = ''
     
     # lists (removed when make clean)
     alexa = 'https://raw.githubusercontent.com/MISP/misp-warninglists/master/lists/alexa/list.json'
