@@ -12,6 +12,7 @@ import hashlib
 import re
 import subprocess
 import sys
+import datetime
 from base64 import b64encode
 from Crypto.Cipher import AES
 from Crypto import Random
@@ -31,7 +32,9 @@ parser.add_argument('--hash', dest='hash_name', default='sha256',
         help='hash function to use')
 parser.add_argument('--iterations', type=int, default=1,
         help='iterations needed before the decryption key is derived')
-
+parser.add_argument('--misp', default='csv',
+        help='csv => misp attributes in /res/misp_events.csv \n ;\
+                mysql => get attributes from the database (need configuration.py)')
 args = parser.parse_args()
 
 conf = Configuration ()
@@ -42,12 +45,40 @@ if os.path.exists("rules"):
     shutil.rmtree("rules")
 os.mkdir("rules")
 
-# update list is done via ./update.py
+# IOC list 
 IOCs = list()
-with open("res/misp_events.csv", "r") as f:
-    data = csv.DictReader(f)
-    for d in data:
-        IOCs.append(d)
+
+def ioc_csv():
+    with open("res/misp_events.csv", "r") as f:
+        data = csv.DictReader(f)
+        for d in data:
+            IOCs.append(d)
+
+def ioc_mysql():
+    Base = automap_base()
+    engine = create_engine('mysql://{}:{}@{}/{}'.format(conf.user, conf.password, conf.host, conf.dbname))
+
+    Base.prepare(engine, reflect=True)
+    metadata = MetaData()
+    metadata.reflect(bind=engine)
+    connection = engine.connect()
+    attributes_table = Table("attributes", metadata, autoload=True)
+
+    # get all ids attributes 
+    attributes = self.connection.execute(select([attributes_table]))
+    for attr in attributes:
+        if attr['to_ids'] == '1':
+            timestamp = attr['timestamp']
+            attr['date'] = datetime.datetime.fromtimestamp(int(timestamp)).strftime("%Y%m%d")
+            IOCs.append(attr)
+
+# fill IOC list
+if args.misp == 'csv':
+    ioc_csv()
+elif args.misp == 'mysql':
+    ioc_mysql()
+else:
+    sys.exi('misp argument is mis configured. Please select csv or mysql')
 
 # create metadata
 meta = configparser.ConfigParser()
