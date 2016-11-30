@@ -2,6 +2,10 @@
 Get data from misp, encrypt them like explained in
 > van de Kamp, T., Peter, A., Everts, M. H., & Jonker, W. (2016, October). Private Sharing of IOCs and Sightings. In Proceedings of the 2016 ACM on Workshop on Information Sharing and Collaborative Security (pp. 35-38). ACM.
 
+# Installation
+
+- sudo apt-get install libmysqlclient-dev
+
 # Topology
 
 - update.py: download some elements and store it in res/(soon better used)

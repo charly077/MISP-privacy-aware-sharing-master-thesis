@@ -4,9 +4,7 @@
 # which is using the MIT license
 from configuration import Configuration
 import requests, csv, json
-import argparse
-import argparse
-import configparser
+import argparse, configparser
 import glob
 import hashlib
 import re
@@ -19,6 +17,11 @@ from Crypto import Random
 from Crypto.Util import Counter
 from hkdf import HKDF
 import os, shutil
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy import create_engine
+from sqlalchemy.schema import MetaData, Table
+from sqlalchemy.sql import select
+
 
 """ 
 Create the paper solution for Misp
@@ -55,6 +58,7 @@ def ioc_csv():
             IOCs.append(d)
 
 def ioc_mysql():
+    print("Attention still need to check credential with token")#TODO
     Base = automap_base()
     engine = create_engine('mysql://{}:{}@{}/{}'.format(conf.user, conf.password, conf.host, conf.dbname))
 
