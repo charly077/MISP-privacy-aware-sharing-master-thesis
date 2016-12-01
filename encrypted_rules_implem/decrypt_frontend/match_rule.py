@@ -12,22 +12,20 @@ import re
 import subprocess
 import sys
 import json
+import csv
 from base64 import b64decode
 from copy import deepcopy
 from Crypto.Cipher import AES
 from Crypto.Util import Counter
 from functools import lru_cache
 from hkdf import HKDF
-from multiprocessing import SimpleQueue, Process, cpu_count
+from multiprocessing import SimpleQueue, Process, cpu_count, Lock
 import redis
 
 parser = argparse.ArgumentParser(description='Evaluate a network dump against rules.')
 parser.add_argument('attribute', nargs='*', help='key-value attribute eg. ip=192.168.0.0 port=5012')
 parser.add_argument('--performance', action='store_true',
         help='run a performance test')
-parser.add_argument('--plaintext', action='store_true',
-        help='evaluate on the plaintext rules instead of cryptographic \
-                rules')
 parser.add_argument('--input_redis', action='store_true',
         help='input is not in the argument but in redis')
 
@@ -35,30 +33,12 @@ parser.add_argument('-p', '--multiprocess', action='store',
         type=int, help='Use multiprocess, the maximum is the number of cores minus 1', default=0, )
 args = parser.parse_args()
 
+metadata = {}
+conf = Configuration()
+
 ####################
 # helper functions #
 ####################
-def load_rule(filename):
-    ruleParser = configparser.ConfigParser()
-    ruleParser.read(filename)
-    rule = ruleParser._sections
-    try:
-        rule['iterations'] = 1
-        rule['hash_name'] = rule['hkdf']['hash_name']
-        rule['salt'] = b64decode(rule['hkdf']['salt'])
-        rule['dklen'] = int(rule['hkdf']['dklen'])
-    except:
-        try:
-            rule['iterations'] = int(rule['pbkdf2']['iterations'])
-            rule['hash_name'] = rule['pbkdf2']['hash_name']
-            rule['salt'] = b64decode(rule['pbkdf2']['salt'])
-            rule['dklen'] = int(rule['pbkdf2']['dklen'])
-        except:
-            raise Exception('Not a rule file.')
-    rule['ioc']['attributes'] = rule['ioc']['attributes'].split('||')
-    rule['ioc']['iv'] = int.from_bytes(b64decode(rule['ioc']['iv']), 'big')
-    rule['ioc']['ciphertext'] = b64decode(rule['ioc']['ciphertext'])
-    return rule
 
 def iter_queue(queue):
     # iter on a queue without infinite loop
@@ -70,16 +50,58 @@ def iter_queue(queue):
     # return iterator
     return iter(next, None)
 
+# from the csv file, read the rules and return them as a list
+def rules_from_csv(filename, lock):
+    lock.acquire()
+    path = conf.rule_location+'/'+filename
+    rules = list()
+    if not os.path.exists(path):
+        lock.release()
+        return rules
+    with open(path, "r") as f:
+        data = csv.DictReader(f, delimiter='\t')
+        # copy data
+        for d in data:
+            d['salt'] = b64decode(d['salt'])
+            d['iv'] = int.from_bytes(b64decode(d['iv']), 'big')
+            d['attributes'] = d['attributes'].split('||')
+            d['ciphertext'] = b64decode(d['ciphertext'])
+            rules.append(d)
+    lock.release()
+    return rules
+
+
+file_attributes = {}
+rules_dict = {}
+
+def get_file_rules(filename, lock):
+    try:
+        rules = rules_dict[filename]
+        return rules
+    except:
+        rules = rules_from_csv(filename, lock)
+        rules_dict[filename] = rules
+        return rules
+
+def get_rules(attributes, lock):
+    rules = list()
+    # wich combinaison
+    for filename in file_attributes:
+        if all([i in attributes for i in file_attributes[filename]]):
+            for rule in get_file_rules(filename, lock):
+                rules.append(rule)
+    return rules
+
 #####################
 # process functions #
 #####################
-def redis_matching_process(r, queue):
+def redis_matching_process(r, queue, lock):
     # get data
     log = r.rpop("logstash")
     while log:
         log = log.decode("utf8")
         log_dico = json.loads(log)
-        dico_matching(log_dico, queue)
+        dico_matching(log_dico, queue, lock)
         log = r.rpop("logstash")
 
 def print_queue_process(queue):
@@ -116,28 +138,26 @@ def cryptographic_match(hash_name, password, salt, iterations, info, dklen, iv, 
 ###################
 # match functions #
 ###################
-def dico_matching(attributes, queue):
+def dico_matching(attributes, queue, lock):
+    global conf
+    global metadata
     # test each rules
-    for rule in rules:
-        rule_attr = rule['ioc']['attributes']
+    for rule in get_rules(attributes, lock):
+        rule_attr = rule['attributes']
         password = ''
         try:
             password = '||'.join([attributes[attr] for attr in rule_attr])
         except:
             pass # nothing to do
             
-        if args.plaintext:
-            if rule['ioc']['plaintext'] == password:
-                queue.put("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(rule['ioc']['id'], attributes, rule['ioc']['coa']))
-        else:
-            match, plaintext = cryptographic_match(rule['hash_name'], password, rule['salt'], rule['iterations'], rule['ioc']['token'], rule['dklen'], rule['ioc']['iv'], rule['ioc']['ciphertext'])
-            if match:
-                queue.put("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(rule['ioc']['token'], attributes, plaintext.decode('utf-8')))
+        match, plaintext = cryptographic_match(metadata['hash_name'], password, rule['salt'], metadata['iterations'], conf.misp_token, metadata['dklen'], rule['iv'], rule['ciphertext'])
+        if match:
+            queue.put("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(conf.misp_token, attributes, plaintext.decode('utf-8')))
 
 def argument_matching():
     attributes = dict(pair.split("=") for pair in args.attribute)
     match = SimpleQueue()
-    dico_matching(attributes, match)
+    dico_matching(attributes, match, Lock())
 
     # print matches
     for match in iter_queue(match):
@@ -151,24 +171,24 @@ def redis_matching():
     conf = Configuration()
     r = redis.StrictRedis(host=conf.redis_host, port=conf.redis_port, db=conf.redis_db)
 
+    lock = Lock()
     match = SimpleQueue()
     if args.multiprocess > 0:
         n = min(args.multiprocess, cpu_count()-1)
         processes = list()
         for i in range(n):
-            process = Process(target=redis_matching_process, args=(r, match))
+            process = Process(target=redis_matching_process, args=(r, match, lock))
             process.start()
             processes.append(process)
 
         # print match if there are some
         print_process = Process(target=print_queue_process, args=([match]))
         print_process.start()
-
         for process in processes:
             process.join()
         print_process.terminate()
     else:
-        redis_matching_process(r, match)
+        redis_matching_process(r, match, lock)
         for item in iter_queue(match):
             print(item)
 
@@ -179,16 +199,23 @@ if __name__ == "__main__":
     conf = Configuration
     rules = list()
     rule_location = conf.rule_location
-    if os.path.isfile(rule_location):
-        rules.append(deepcopy(load_rule(rule_location)))
-    elif os.path.isdir(rule_location):
-        rule_directory = os.path.normpath(rule_location + "/")
-        for filename in glob.glob(os.path.join(rule_directory, "*.rule")):
-            rules.append(deepcopy(load_rule(filename)))
+    # get configuration
+    metaParser = configparser.ConfigParser()
+    metaParser.read(conf.rule_location + "/metadata")
+    metadata = metaParser._sections
+    metadata = metadata['crypto']
+    metadata['dklen'] = int(metadata['dklen'])
+    metadata['iterations'] = int(metadata['iterations'])
 
-    if not rules:
+    if not os.path.exists(conf.rule_location):
         sys.exit("No rules found.")
-    print("rules loaded")
+
+
+    # get all files attribbutes
+    filenames = os.listdir(conf.rule_location)
+    for name in filenames:
+        split = (name.split('.')[0]).split('_')
+        file_attributes[name] = split
 
     if args.input_redis:
         if args.performance:

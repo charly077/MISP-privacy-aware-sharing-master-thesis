@@ -47,3 +47,4 @@ First I implemented a test in the frontend (encrypt) but what takes a lot of tim
 - improve the speed with cache (for rules)
 - improve squid matching with sub www https and get the port number! 
 - parallelise rules checking => multi process due to GIL and thus also need redis
+- faire un dico pour les règles pou rles attributs => system de lookup avec redis pour lire seulement les fichiers nécessaires !  

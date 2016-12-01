@@ -1,0 +1,100 @@
+\documentclass[10pt]{article}
+
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{qtree}
+\usepackage{pifont}
+
+\usepackage[english]{varioref}
+
+
+% help package for todo
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
+% 
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
+
+\title{Master's Thesis: Small Report and Planning}
+\author{Charles Jacquet - 2781-12-00}
+\begin{document}
+\maketitle
+
+\section{Introduction}
+This small report is intended to briefly explain the goal of this master's thesis, to explain what has already been done and the planning for the remainder year.\\
+The planning part made me realized I don't have as much time as I thought.\\
+
+\section{Threats Sharing}
+Nowadays, in computer security, we need more than simple malware detectors or anti-viruses. New security threats suddenly appear and we have to react as soon as possible. This is why a new kind of security levels appeared and is called threat sharing.\\
+The idea behind is to share a threat when we discover one, we allow then, every other member of the sharing organization to defend themselves against it but also to put in common all information they have. This results in fast recoveries and protections.\\
+
+A lot of sharing platforms emerged from this idea. One of them is called MISP, Malware Information Sharing Platform and Threat Sharing \cite{wagner2016misp}. One of its specificities is of being an open source project \footnote{\url{https://github.com/MISP/MISP}}. We can also find a set of tools on the same repository \footnote{\url{https://github.com/MISP/}}. \\
+This platform is maintained by the Computer Incident Response Center Luxembourg (CIRCL \footnote{\url{https://www.circl.lu/}}) which is one of the companies helping me in my work. The second one is Conostix \footnote{\url{http://conostix.lu/}} which provides security and system services in Luxembourg.
+
+\section{IOCs}
+In the last section, I spoke about threats. I will subsequently be referring to a threat by the name of event (to be coherent with MISP). Then, an event is composed of a set of attributes. \\
+An attribute is an information linked to an event. Thus if we find it on another computer system, we know that it is probably infected by this event. As an attribute somehow indicates the possibility of being infected, we also call it an Indicator Of Compromise (IOC).\\
+But, an IOC is either a value with a specific type or a concatenation of values. Let's see some example of fictional IOCs:
+\begin{itemize}
+\item ip => 192.168.0.2
+\item hostname => hostname.com
+\item hostname|port => hostname.com|80
+\item ...
+\end{itemize} 
+All different possible types are specified in the MISP guide\footnote{\url{https://www.circl.lu/doc/misp/}}
+
+\section{Privacy Preserving IOCs Sharing}
+IOCs are commonly considered as sensitive data. This induces companies with confidential data to be unwilling to share IOCs. Especially when in some case, a user needs to have these IOCs on a file that he can bring with him to check a computer.\\
+Nevertheless, they have no problems to share data if, the user already knows it. Which means that a user that has seen the IOC on his computer could be able to discover that another organization have seen it and then, to get back information they have, but never otherwise.\\
+
+This is a really difficult challenge because we need to find a way to give data without giving them. A first implemented idea is the misp-workbench\footnote{\url{https://github.com/MISP/misp-workbench}} which is a hashstore implemented by CIRCL. They hash all IOCs, and put them into a redis database.\\
+Then, a user possessing an information can hash it and makes a request but not otherwise.\\
+Even it works quite well with big sized data, it is not the same with small ones and IPv4 is a good example of it.\\
+It is actually feasible to create a table with all possible IPv4 with their hashed value. Then an attacker could brute force the database and get to know all IPs stored in the system with their information.\\
+
+Another idea is explained by van De Kamp and al in \cite{van2016private}. The first part of my master's thesis was to implement it.\\
+This algorithm has two steps, the first one is to create a set of rules where each one represents an IOC and is stocked as a file.\\
+A rule has two important information, the first one is the list of the concatenated value types. While the second one is the encrypted information.\\
+What we want, is that only a user having seen the right values can decrypt the IOC. For that, as we have all attribute types, we can concatenate our values in the same order before using this value in a key derivation algorithm. If the values are the right ones, the key just found allows decrypting the information which is, in our case the id and uuid of the IOC. The information thus allows a user to access the event on the MISP web API.\\
+The second step is looking for matches by trying to decrypt each rule with seen values.\\
+
+Additionally, they have added a different salt for each rule message. This salt ensure that an attacker is not able to precompute all possible decryption keys. After that, they also added the id of the user in the key generation (I'm using the token instead). Thanks to this idea, if rule files are leaked, we know which user is responsible for it.\\
+
+My implementation is located in a github repository \footnote{\url{https://github.com/charly077/thesis/tree/master/encrypted_rules_implem/}}. I still need to improve it for memory utilization, visualization and other kinds of implementations.\\
+Once all these things will be done, I'll have to clean the code and to test performance with real cases.
+
+\section{Allow Everyone to Query}
+Conostix has implemented a server like system based on DNS called Blackns. The interest is that every computer can make a dns query without installing anything. The idea is to use the solution explained just before with this system . Unfortunately, I suppose that it will not fit because it needs a lot of computation. For each check, we need to generate a key for each rule before trying to decrypt the rule's information with the key hoping for a match. Though It could work and that is why I want to implement it, but I have to find a way to ensure a protection against DOS attacks.\\
+But I've found a set of other kinds of ideas that could be interesting in this case as we don't need anymore to hide every information in a file format as done with the rules and moreover, a server can also do some additional computation on data before sending them.
+
+\section{Planning}
+I can divide what I still want to do into 4 different steps.
+\begin{itemize}
+\item End of the first implementation
+\item Second implementation with Blackns
+\item Performance analyses on real data
+\item Write the report
+\end{itemize}
+
+I want thus to end this first implementation for the end of December, before my Blocus and exams. \\
+I also want for the same time to know how I will analyze the performances and have a clear idea of the second implementation.\\
+
+I then want the second implementation to be finished for early March. And the performance analyses for the end of March.\\
+I will then use the Easter Holidays to write the report and I want it to be finished before the 16/04. This is in order to get enough time to make corrections proposed by the companies and then by the teacher.\\
+
+For now, I'm going to continue to work every Thursdays and Fridays on it up to the end of this quadrimester. I have also done a more detailed planning on trello : \url{https://trello.com/b/805BZSWx}.
+
+
+\bibliographystyle{acm-doi}
+\bibliography{articles}
+
+\end{document}

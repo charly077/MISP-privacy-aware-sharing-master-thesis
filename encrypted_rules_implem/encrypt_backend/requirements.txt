@@ -1,2 +1,5 @@
-Crypto
+mysqlclient
+sqlalchemy
+redis
 pycrypto
+csv
