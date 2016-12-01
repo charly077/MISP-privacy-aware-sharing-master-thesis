@@ -23,7 +23,7 @@ class Configuration:
     host = ''
     dbname = 'misp'
     
-    # lists (removed when make clean)
+    # useful lists
     alexa = 'https://raw.githubusercontent.com/MISP/misp-warninglists/master/lists/alexa/list.json'
     tlds = 'https://raw.githubusercontent.com/MISP/misp-warninglists/master/lists/tlds/list.json'
     second_domain = 'https://raw.githubusercontent.com/MISP/misp-warninglists/master/lists/second-level-tlds/list.json'

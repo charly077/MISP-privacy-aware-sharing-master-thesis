@@ -12,20 +12,10 @@ Get data from misp, encrypt them like explained in
 	- mysql -uroot -pPassword1234
 	- CREATE USER 'user'@'%' IDENTIFIED BY 'Password1234';
 	- GRANT ALL ON *.* TO 'user'@'%';
-- One of the VM address is 192.168.56.50 thus I've configured my machine in the same subnetwork:
-	- ip addr add 192.168.56.10/24 dev eth0 (for example)
+- One of the VM address is 192.168.56.50 thus I've configured my machine in the same subnetwork by adding a new ip address (for example):
+	- ip addr add 192.168.56.10/24 dev eth0 
 
 
 # Topology
 
-- update.py: download some elements and store it in res/(soon better used)
-- readMisp.py: convert misp attributes into rules/
-
-# Working
-- Add your misp token in configuration.py
-- mkdir res rules
-- run ./update.py
-- run ./readMisp
-
-# TODO
-- Add the ability to create the rules directly from the mysql misp database
+- readMisp.py: convert misp attributes into rules/ for help you can simply call ./readMisp.py -h
