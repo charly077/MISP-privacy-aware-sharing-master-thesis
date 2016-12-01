@@ -30,9 +30,9 @@ from sqlalchemy.sql import select
 
 
 
-##################
-# Parse Argument #
-##################
+###################
+# Parse Arguments #
+###################
 parser = argparse.ArgumentParser(description='Create an encrypted IOC \
         rule.')
 parser.add_argument('--hash', dest='hash_name', default='sha256',
@@ -74,6 +74,7 @@ def ioc_csv():
             IOCs.append(d)
 
 def ioc_mysql():
+    printv("Connection to mysql database")
     Base = automap_base()
     engine = create_engine('mysql://{}:{}@{}/{}'.format(conf.user, conf.password, conf.host, conf.dbname))
 
@@ -85,6 +86,7 @@ def ioc_mysql():
     users_table = Table("users", metadata, autoload=True)
 
     # misp token must be the same as the authkey
+    printv("Check authentication key (token)")
     query = select([users_table.c.authkey]).where(users_table.c.email == conf.misp_email)
     resp = connection.execute(query)
     for authkey in resp:
@@ -92,6 +94,7 @@ def ioc_mysql():
             sys.exit("Your misp_token must be your authentication key. Please check your configuration file")
 
     # get all ids attributes 
+    printv("Get Attributes")
     attributes = connection.execute(select([attributes_table]))
     for attr in attributes:
         dic_attr = dict(attr.items())
@@ -117,7 +120,7 @@ def create_rule(ioc, message):
     # encrypt the ioc and the message
     salt = Random.new().read(hashlib.new(args.hash_name).digest_size)
     dklen = 16 # AES block size
-    iv = Random.new().read(16) # TODO they use it but check if secure
+    iv = Random.new().read(16)
 
     # Spit + redo allow to ensure the same order to create the password
     attr_types = '||'.join(attr_type for attr_type in ioc)
@@ -135,7 +138,7 @@ def create_rule(ioc, message):
     cipher = AES.new(dk, AES.MODE_CTR, b'', counter=ctr)
     ciphertext = cipher.encrypt(b'\x00'*16 + message.encode('utf-8'))
 
-    # store the rules 
+    # create the rule
     rule = {}
     rule['salt'] = b64encode(salt).decode('ascii')
     rule['attributes'] = attr_types
@@ -145,7 +148,7 @@ def create_rule(ioc, message):
     return rule
 
 def parse_attribute(attr):
-    # an attribute can have either one type or a list of type
+    # IOC can be composed of a unique attribute type or of a list of attribute types
     split_type = attr["type"].split('|')
     ioc = {}
     if (len(split_type)>1):
