@@ -1,4 +1,4 @@
-# centralize all configurations :
+# copy this file to configuration.py
 
 class Configuration:
     # log
