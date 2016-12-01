@@ -30,7 +30,7 @@
 \maketitle
 
 \section{Introduction}
-This small report is intended to briefly explain the goal of this master's thesis, explain what has already been done and the planning for the remainder year.\\
+This small report is intended to briefly explain the goal of this master's thesis, to explain what has already been done and the planning for the remainder year.\\
 The planning part made me realized I don't have as much time as I thought.\\
 
 \section{Threats Sharing}
@@ -56,7 +56,7 @@ All different possible types are specified in the MISP guide\footnote{\url{https
 IOCs are commonly considered as sensitive data. This induces companies with confidential data to be unwilling to share IOCs. Especially when in some case, a user needs to have these IOCs on a file that he can bring with him to check a computer.\\
 Nevertheless, they have no problems to share data if, the user already knows it. Which means that a user that has seen the IOC on his computer could be able to discover that another organization have seen it and then, to get back information they have, but never otherwise.\\
 
-This is really difficult because we need to find a way to give data without giving them. A first implemented idea is the misp-workbench\footnote{\url{https://github.com/MISP/misp-workbench}} which is a hashstore implemented by CIRCL. They hash all IOCs, and put them into a redis database.\\
+This is a really difficult challenge because we need to find a way to give data without giving them. A first implemented idea is the misp-workbench\footnote{\url{https://github.com/MISP/misp-workbench}} which is a hashstore implemented by CIRCL. They hash all IOCs, and put them into a redis database.\\
 Then, a user possessing an information can hash it and makes a request but not otherwise.\\
 Even it works quite well with big sized data, it is not the same with small ones and IPv4 is a good example of it.\\
 It is actually feasible to create a table with all possible IPv4 with their hashed value. Then an attacker could brute force the database and get to know all IPs stored in the system with their information.\\
@@ -67,7 +67,7 @@ A rule has two important information, the first one is the list of the concatena
 What we want, is that only a user having seen the right values can decrypt the IOC. For that, as we have all attribute types, we can concatenate our values in the same order before using this value in a key derivation algorithm. If the values are the right ones, the key just found allows decrypting the information which is, in our case the id and uuid of the IOC. The information thus allows a user to access the event on the MISP web API.\\
 The second step is looking for matches by trying to decrypt each rule with seen values.\\
 
-Additionally, they have added a different salt for each rule message. This salt ensure that an attacker is not able to precompute all possible decryption keys. After that, they also added the id of the user in the key generation (I'm using the token instead). Thanks to this idea, if rule files are leaked, we know which user is the responsible for it.\\
+Additionally, they have added a different salt for each rule message. This salt ensure that an attacker is not able to precompute all possible decryption keys. After that, they also added the id of the user in the key generation (I'm using the token instead). Thanks to this idea, if rule files are leaked, we know which user is responsible for it.\\
 
 My implementation is located in a github repository \footnote{\url{https://github.com/charly077/thesis/tree/master/encrypted_rules_implem/}}. I still need to improve it for memory utilization, visualization and other kinds of implementations.\\
 Once all these things will be done, I'll have to clean the code and to test performance with real cases.
@@ -89,7 +89,7 @@ I want thus to end this first implementation for the end of December, before my 
 I also want for the same time to know how I will analyze the performances and have a clear idea of the second implementation.\\
 
 I then want the second implementation to be finished for early March. And the performance analyses for the end of March.\\
-I will then use the Easter Holidays to write the report and I want it to be finished to the 16/04. This is in order to get enough time to make corrections proposed by the companies and then by the teacher.\\
+I will then use the Easter Holidays to write the report and I want it to be finished before the 16/04. This is in order to get enough time to make corrections proposed by the companies and then by the teacher.\\
 
 For now, I'm going to continue to work every Thursdays and Fridays on it up to the end of this quadrimester. I have also done a more detailed planning on trello : \url{https://trello.com/b/805BZSWx}.
 
