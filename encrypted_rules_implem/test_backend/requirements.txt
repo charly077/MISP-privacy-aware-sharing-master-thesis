@@ -1,5 +1,0 @@
-mysqlclient
-sqlalchemy
-redis
-pycrypto
-csv

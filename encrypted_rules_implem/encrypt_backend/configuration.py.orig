@@ -11,8 +11,17 @@ class Configuration:
     redis_db = 0
     
     # misp
-    misp_token = 'misp token'
+    misp_token = ''
+    misp_email = ''
+
+    # misp Web Api
     misp_url = 'https://misppriv.circl.lu/'
+
+    # misp mysql database
+    user = ''
+    password = ''
+    host = ''
+    dbname = 'misp'
     
     # lists (removed when make clean)
     alexa = 'https://raw.githubusercontent.com/MISP/misp-warninglists/master/lists/alexa/list.json'

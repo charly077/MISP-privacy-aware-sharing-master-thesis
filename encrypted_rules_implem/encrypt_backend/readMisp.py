@@ -4,20 +4,24 @@
 # which is using the MIT license
 from configuration import Configuration
 import requests, csv, json
-import argparse
-import argparse
-import configparser
+import argparse, configparser
 import glob
 import hashlib
 import re
 import subprocess
 import sys
+import datetime, copy
 from base64 import b64encode
 from Crypto.Cipher import AES
 from Crypto import Random
 from Crypto.Util import Counter
 from hkdf import HKDF
 import os, shutil
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy import create_engine
+from sqlalchemy.schema import MetaData, Table
+from sqlalchemy.sql import select
+
 
 """ 
 Create the paper solution for Misp
@@ -31,25 +35,80 @@ parser.add_argument('--hash', dest='hash_name', default='sha256',
         help='hash function to use')
 parser.add_argument('--iterations', type=int, default=1,
         help='iterations needed before the decryption key is derived')
-
+parser.add_argument('--misp', default='csv',
+        help='csv => misp attributes in /res/misp_events.csv \n ;\
+                mysql => get attributes from the database (need configuration.py)')
+parser.add_argument('-v', '--verbose',\
+        dest='verbose', action='store_true',\
+        help='Explain what is being done')
 args = parser.parse_args()
+
+def printv(value):
+    if args.verbose:
+        print(value)
 
 conf = Configuration ()
 token = bytes(conf.misp_token, encoding='ascii')
 
-# first clean up folders
+# first clean up folder
+printv("Clean rules folder")
 if os.path.exists("rules"):
     shutil.rmtree("rules")
 os.mkdir("rules")
 
-# update list is done via ./update.py
+# IOC list 
 IOCs = list()
-with open("res/misp_events.csv", "r") as f:
-    data = csv.DictReader(f)
-    for d in data:
-        IOCs.append(d)
+
+def ioc_csv():
+    printv("Update data from misp")
+    import update
+    printv("Cache misp data")
+    with open("res/misp_events.csv", "r") as f:
+        data = csv.DictReader(f)
+        for d in data:
+            IOCs.append(d)
+
+def ioc_mysql():
+    Base = automap_base()
+    engine = create_engine('mysql://{}:{}@{}/{}'.format(conf.user, conf.password, conf.host, conf.dbname))
+
+    Base.prepare(engine, reflect=True)
+    metadata = MetaData()
+    metadata.reflect(bind=engine)
+    connection = engine.connect()
+    attributes_table = Table("attributes", metadata, autoload=True)
+    users_table = Table("users", metadata, autoload=True)
+
+    # misp token must be the same as the authkey
+    query = select([users_table.c.authkey]).where(users_table.c.email == conf.misp_email)
+    resp = connection.execute(query)
+    for authkey in resp:
+        if not conf.misp_token == authkey[0]:
+            sys.exit("Your misp_token must be your authentication key. Please check your configuration file")
+
+    # get all ids attributes 
+    attributes = connection.execute(select([attributes_table]))
+    for attr in attributes:
+        dic_attr = dict(attr.items())
+        if dic_attr['to_ids'] == 1:
+            timestamp = dic_attr['timestamp']
+            dic_attr['date'] = datetime.datetime.fromtimestamp(int(timestamp)).strftime("%Y%m%d")
+            dic_attr['value'] = dic_attr['value1']
+            if (attr['value2']):
+                dic_attr['value'] = dic_attr['value'] + '|' + dic_attr['value2']
+            IOCs.append(dic_attr)
+
+# fill IOC list
+printv("Get IOCs from " + args.misp)
+if args.misp == 'csv':
+    ioc_csv()
+elif args.misp == 'mysql':
+    ioc_mysql()
+else:
+    sys.exit('misp argument is mis configured. Please select csv or mysql')
 
 # create metadata
+printv("Create metadata")
 meta = configparser.ConfigParser()
 meta['crypto'] = {}
 meta['crypto']['hash_name'] = args.hash_name
@@ -111,9 +170,11 @@ def parse_attribute(attr):
     msg = create_message(attr)
     return create_rule(ioc, msg)
 
-
+printv("Create rules")
 iocs = [parse_attribute(ioc) for ioc in IOCs]
+
 # sort iocs in different files for optimization
+printv("Sort IOCs with attributes")
 iocDic = {}
 for ioc in iocs:
     typ = "_".join(ioc["attributes"].split('||'))
@@ -122,6 +183,7 @@ for ioc in iocs:
     except:
         iocDic[typ] = [ioc]
 
+printv("Store IOCs in files")
 for typ in iocDic:
     with open('rules/'+ typ +'.csv', 'wt') as output_file:
         dict_writer = csv.DictWriter(output_file, iocDic[typ][0].keys(), delimiter='\t')
