@@ -85,7 +85,7 @@ def update():
     events = session.get('{}events/csv/download/'.format(conf.misp_url))
 
     with open('res/misp_events.csv', 'w+') as f:
-        f.write(events.text.encode("utf8"))
+        f.write(events.text)
 
 if __name__ == "__main__":
     update()
