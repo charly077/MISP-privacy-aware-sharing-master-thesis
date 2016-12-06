@@ -12,6 +12,7 @@ import update, requests, csv, json
 import argparse, configparser
 import sys, subprocess, os, shutil
 import datetime, copy, re
+from url_normalize import url_normalize
 
 # crypto import
 import glob, hashlib
@@ -113,6 +114,17 @@ def create_message(attr):
     date = attr["date"]
     return "{}:{}:{}".format(uuid, event_id, date)
 
+# small normalization to increase matching
+def normalize(ioc):
+    for attr_type in ioc:
+        # distinction bewtwee url|uri|link is often misused
+        # Thus they are considered the same
+        if attr_type == 'url' or\
+            attr_type == 'uri' or\
+            attr_type == 'link':
+                ioc[attr_type] = url_normalize(ioc[attr_type])
+    return ioc
+
 #################
 # IOCs -> rules #
 #################
@@ -158,6 +170,7 @@ def parse_attribute(attr):
             ioc[split_type[i]] = split_value[i]
     else:
         ioc[attr["type"]] = attr["value"]
+    ioc = normalize(ioc)
     msg = create_message(attr)
     return create_rule(ioc, msg)
 
