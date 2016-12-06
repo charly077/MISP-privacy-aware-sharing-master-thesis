@@ -2,25 +2,25 @@
 # this code is inspired from https://github.com/CRIPTIM/private-IOC-sharing
 # which is using the MIT license
 
+# misp import
 from configuration import Configuration
-import argparse
-import configparser
-import glob
-import hashlib
-import os
-import re
-import subprocess
-import sys
-import json
-import csv
-from base64 import b64decode
+
+# tools import
+import argparse, configparser
+import os, sys, glob, subprocess
+from multiprocessing import SimpleQueue, Process, cpu_count, Lock
+import json, csv, re
+from functools import lru_cache
 from copy import deepcopy
+import redis
+from url_normalize import url_normalize
+
+# crypto import 
+import hashlib
+from base64 import b64decode
 from Crypto.Cipher import AES
 from Crypto.Util import Counter
-from functools import lru_cache
 from hkdf import HKDF
-from multiprocessing import SimpleQueue, Process, cpu_count, Lock
-import redis
 
 parser = argparse.ArgumentParser(description='Evaluate a network dump against rules.')
 parser.add_argument('attribute', nargs='*', help='key-value attribute eg. ip=192.168.0.0 port=5012')
@@ -92,6 +92,20 @@ def get_rules(attributes, lock):
                 rules.append(rule)
     return rules
 
+# small normalization to increase matching
+def normalize(ioc):
+    for attr_type in ioc:
+        # distinction bewtwee url|uri|link is often misused
+        # Thus they are considered the same
+        if attr_type == 'url' or\
+            attr_type == 'uri' or\
+            attr_type == 'link':
+                ioc[attr_type] = url_normalize(ioc[attr_type])
+        elif attr_type == 'hostname':
+            ioc[attr_type] = ioc[attr_type].lower() 
+    return ioc
+
+
 #####################
 # process functions #
 #####################
@@ -141,6 +155,8 @@ def cryptographic_match(hash_name, password, salt, iterations, info, dklen, iv, 
 def dico_matching(attributes, queue, lock):
     global conf
     global metadata
+    # normalize data 
+    attributes = normalize(attributes)
     # test each rules
     for rule in get_rules(attributes, lock):
         rule_attr = rule['attributes']
@@ -149,8 +165,9 @@ def dico_matching(attributes, queue, lock):
             password = '||'.join([attributes[attr] for attr in rule_attr])
         except:
             pass # nothing to do
-            
+
         match, plaintext = cryptographic_match(metadata['hash_name'], password, rule['salt'], metadata['iterations'], conf.misp_token, metadata['dklen'], rule['iv'], rule['ciphertext'])
+
         if match:
             queue.put("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(conf.misp_token, attributes, plaintext.decode('utf-8')))
 
@@ -162,9 +179,6 @@ def argument_matching():
     # print matches
     for match in iter_queue(match):
         print(match)
-
-def test(name):
-    print(name)
 
 def redis_matching():
     # data is enriched in logstash

@@ -31,7 +31,9 @@ def update():
     if os.path.exists("res"):
         shutil.rmtree("res")
     os.mkdir("res")
-
+    
+    """
+    ************** not used for now *******************
     # List of the top level domains
     save_json(conf.tlds, 'tlds')
 
@@ -71,6 +73,7 @@ def update():
         json.dump(ad_json, f)
 
 
+    """
 
     # get misp data in csv
     session = requests.Session()
@@ -84,7 +87,7 @@ def update():
     # Change to csv (only download ids elements!)
     events = session.get('{}events/csv/download/'.format(conf.misp_url))
 
-    with open('res/misp_events.csv', 'w+') as f:
+    with open('res/misp_events.csv', 'w') as f:
         f.write(events.text)
 
 if __name__ == "__main__":
