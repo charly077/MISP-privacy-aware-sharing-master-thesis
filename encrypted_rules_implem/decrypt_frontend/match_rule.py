@@ -20,7 +20,6 @@ import hashlib
 from base64 import b64decode
 from Crypto.Cipher import AES
 from Crypto.Util import Counter
-from hkdf import HKDF
 
 parser = argparse.ArgumentParser(description='Evaluate a network dump against rules.')
 parser.add_argument('attribute', nargs='*', help='key-value attribute eg. ip=192.168.0.0 port=5012')
@@ -129,11 +128,7 @@ def print_queue_process(queue):
 # crypto functions #
 ####################
 def derive_key(hash_name, password, salt, iterations, info, dklen=None):
-    if iterations == 1:
-        kdf = HKDF(hash_name)
-        return kdf.expand(kdf.extract(salt, password), info, dklen)
-    else:
-        return hashlib.pbkdf2_hmac(hash_name, password, salt, iterations, dklen=dklen)
+    return hashlib.pbkdf2_hmac(hash_name, password + bytes(conf.misp_token,encoding='utf8'), salt, iterations, dklen=dklen)
 
 #@lru_cache(maxsize=None)
 def cryptographic_match(hash_name, password, salt, iterations, info, dklen, iv, ciphertext):

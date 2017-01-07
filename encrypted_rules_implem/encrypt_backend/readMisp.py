@@ -20,14 +20,12 @@ from base64 import b64encode
 from Crypto.Cipher import AES
 from Crypto import Random
 from Crypto.Util import Counter
-from hkdf import HKDF
 
 # mysql import
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy import create_engine
 from sqlalchemy.schema import MetaData, Table
 from sqlalchemy.sql import select
-
 
 
 
@@ -38,8 +36,11 @@ parser = argparse.ArgumentParser(description='Create an encrypted IOC \
         rule.')
 parser.add_argument('--hash', dest='hash_name', default='sha256',
         help='hash function to use')
-parser.add_argument('--iterations', type=int, default=1,
-        help='iterations needed before the decryption key is derived')
+parser.add_argument('--iterations', type=int, default=10000,
+        help='iterations needed before the decryption key is derived. (Follow pbkdf2-sha256 recommandations) ')
+parser.add_argument('--ipiterations', type=int, default=100000,
+        help='iterations needed before the decryption key is derived\
+                for ip. Please take care of this parameter.')
 parser.add_argument('--misp', default='csv',
         help='csv => misp attributes in /res/misp_events.csv \n ;\
                 mysql => get attributes from the database (need configuration.py)')
@@ -47,6 +48,7 @@ parser.add_argument('-v', '--verbose',\
         dest='verbose', action='store_true',\
         help='Explain what is being done')
 args = parser.parse_args()
+
 
 ####################
 # Global Variables #
@@ -141,12 +143,7 @@ def create_rule(ioc, message):
     password = '||'.join(ioc[attr_type] for attr_type in ioc)
 
     # encrypt the message
-    if args.iterations == 1:
-        kdf = HKDF(args.hash_name)
-        kdf.extract(salt, password.encode("utf8"))
-        dk = kdf.expand(info=token, L=dklen)
-    else:
-        dk = hashlib.pbkdf2_hmac(args.hash_name, password.encode('utf8'), salt, args.iterations, dklen=dklen)
+    dk = hashlib.pbkdf2_hmac(args.hash_name, password.encode('utf8') + token, salt, args.iterations, dklen=dklen)
 
     ctr = Counter.new(128, initial_value=int.from_bytes(iv, 'big'))
     cipher = AES.new(dk, AES.MODE_CTR, b'', counter=ctr)
