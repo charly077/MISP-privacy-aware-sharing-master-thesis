@@ -129,6 +129,17 @@ def normalize(ioc):
                 ioc[attr_type] = ioc[attr_type].lower()
     return ioc
 
+# crypto help
+def derive_key(bpassword, bsalt, btoken, attr_types, dklen=None):
+    # iterations
+    it = 1
+    print(attr_types)
+    if attr_types in ["ip-dst", "ip-src", "ip-src||port", "ip-dst||port"]:
+        it = args.ipiterations
+    else
+        it = args.iterations
+    return hashlib.pbkdf2_hmac(args.hash_name, bpassword + btoken, bsalt, it, dklen=dklen)
+
 #################
 # IOCs -> rules #
 #################
@@ -143,7 +154,7 @@ def create_rule(ioc, message):
     password = '||'.join(ioc[attr_type] for attr_type in ioc)
 
     # encrypt the message
-    dk = hashlib.pbkdf2_hmac(args.hash_name, password.encode('utf8') + token, salt, args.iterations, dklen=dklen)
+    dk = derive_key(args.hash_name, password.encode('itf8'), salt, token, attr_types, dklen=dklen)
 
     ctr = Counter.new(128, initial_value=int.from_bytes(iv, 'big'))
     cipher = AES.new(dk, AES.MODE_CTR, b'', counter=ctr)
@@ -200,6 +211,7 @@ if __name__ == "__main__":
     meta['crypto']['hash_name'] = args.hash_name
     meta['crypto']['dklen'] = str(16) # AES block size
     meta['crypto']['iterations'] = str(args.iterations)
+    meta['crypto']['ipiterations'] = str(args.ipiterations)
     with open('rules/metadata', 'w') as config:
         meta.write(config)
 

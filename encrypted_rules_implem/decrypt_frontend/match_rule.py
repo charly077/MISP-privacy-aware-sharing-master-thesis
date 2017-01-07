@@ -127,12 +127,19 @@ def print_queue_process(queue):
 ####################
 # crypto functions #
 ####################
-def derive_key(hash_name, password, salt, iterations, info, dklen=None):
-    return hashlib.pbkdf2_hmac(hash_name, password + bytes(conf.misp_token,encoding='utf8'), salt, iterations, dklen=dklen)
+def derive_key(hash_name, bpassword, bsalt, iterations, btoken, attr_types, dklen=None):
+    # iterations
+    it = 1
+    print(attr_types)
+    if attr_types in ["ip-dst", "ip-src", "ip-src||port", "ip-dst||port"]:
+        it = ipiterations
+    else
+        it = iterations
+    return hashlib.pbkdf2_hmac(hash_name, bpassword + btoken, bsalt, it, dklen=dklen)
 
 #@lru_cache(maxsize=None)
-def cryptographic_match(hash_name, password, salt, iterations, info, dklen, iv, ciphertext):
-    dk = derive_key(hash_name, password.encode('utf8'), salt, iterations, bytes(info, encoding='ascii'), dklen=dklen)
+def cryptographic_match(hash_name, password, salt, iterations, ipiterations, info, dklen, iv, ciphertext, attr_types):
+    dk = derive_key(hash_name, password.encode('utf8'), salt, iterations, ipiterations, bytes(info, encoding='ascii'), attr_types, dklen=dklen)
 
     ctr = Counter.new(128, initial_value=iv)
     cipher = AES.new(dk, AES.MODE_CTR, b'', counter=ctr)
@@ -161,7 +168,9 @@ def dico_matching(attributes, queue, lock):
         except:
             pass # nothing to do
 
-        match, plaintext = cryptographic_match(metadata['hash_name'], password, rule['salt'], metadata['iterations'], conf.misp_token, metadata['dklen'], rule['iv'], rule['ciphertext'])
+        match, plaintext = cryptographic_match(metadata['hash_name'], password, rule['salt'],\
+                metadata['iterations'], metadata['ipiterations'], conf.misp_token,\
+                metadata['dklen'], rule['iv'], rule['ciphertext'])
 
         if match:
             queue.put("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(conf.misp_token, attributes, plaintext.decode('utf-8')))
@@ -215,6 +224,7 @@ if __name__ == "__main__":
     metadata = metadata['crypto']
     metadata['dklen'] = int(metadata['dklen'])
     metadata['iterations'] = int(metadata['iterations'])
+    metadata['ipiterations'] = int(metadata['ipiterations'])
 
     if not os.path.exists(conf.rule_location):
         sys.exit("No rules found.")
