@@ -127,13 +127,12 @@ def print_queue_process(queue):
 ####################
 # crypto functions #
 ####################
-def derive_key(hash_name, bpassword, bsalt, iterations, btoken, attr_types, dklen=None):
+def derive_key(hash_name, bpassword, bsalt, iterations, ipiterations, btoken, attr_types, dklen=None):
     # iterations
     it = 1
-    print(attr_types)
-    if attr_types in ["ip-dst", "ip-src", "ip-src||port", "ip-dst||port"]:
+    if '||'.join(attr_types) in ["ip-dst", "ip-src", "ip-src||port", "ip-dst||port"]:
         it = ipiterations
-    else
+    else:
         it = iterations
     return hashlib.pbkdf2_hmac(hash_name, bpassword + btoken, bsalt, it, dklen=dklen)
 
@@ -170,7 +169,7 @@ def dico_matching(attributes, queue, lock):
 
         match, plaintext = cryptographic_match(metadata['hash_name'], password, rule['salt'],\
                 metadata['iterations'], metadata['ipiterations'], conf.misp_token,\
-                metadata['dklen'], rule['iv'], rule['ciphertext'])
+                metadata['dklen'], rule['iv'], rule['ciphertext'], rule_attr)
 
         if match:
             queue.put("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(conf.misp_token, attributes, plaintext.decode('utf-8')))
