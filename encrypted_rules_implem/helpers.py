@@ -46,7 +46,7 @@ class DatabaseHelper:
             uuid = "select count(*) from attributes;"
             for val in self.conn.execute(uuid):
                 uuid = val[0]
-            self.conn.execute("INSERT INTO attributes (uuid, event_id, sharing_group_id, category, type, to_ids, value1, value2, comment) values('"+str(uuid+1)+"', 0, 0, 'external analysis', 'ip-dst', 0, '" + randIPv4() + "', '', 'Testing table that can be removed')")
+            self.conn.execute("INSERT INTO attributes (uuid, event_id, sharing_group_id, category, type, to_ids, value1, value2, comment) values('"+str(uuid+1)+"', 0, 0, 'external analysis', 'ip-dst', 0, '" + randIPv4() + "', '', 'Testing: Random IP for testbench :)')")
 
 	def addNRandomIP(self, N):
             for i in range(N):
