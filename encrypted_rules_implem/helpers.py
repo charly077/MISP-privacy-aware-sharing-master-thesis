@@ -19,7 +19,7 @@ class DatabaseHelper:
 	    Base.prepare(engine, reflect=True)
 	    metadata = MetaData()
 	    metadata.reflect(bind=engine)
-	    self.connection = engine.connect()
+	    self.conn = engine.connect()
 	    self.attributes_table = Table("attributes", metadata, autoload=True)
 		
 	# close database
@@ -27,8 +27,11 @@ class DatabaseHelper:
 		self.connection.close()
 
 	# Save all attr in database as a tsv file
-	def saveAttr(self, attr_name):
-		pass
+	def saveAttr(self, attr_type):
+		s = select([self.attributes_table]).where(self.attributes_table.c.attr_type == attr_type)
+		results = self.conn.execute(s)
+		for row in s:
+			print(results)
 
 	# Restore all attr in database from tsv file 
 	def restoreAttr(self, attr_file):
