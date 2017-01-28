@@ -2,41 +2,56 @@
 # -*- coding: utf-8 -*-
 """
 read/write misp database for testing purpose
+(Easier to directly user mysql)
 """
 from encrypt_backend.configuration import Configuration as e_conf
 # mysql import
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy import create_engine
-from sqlalchemy.schema import MetaData, Table
-from sqlalchemy.sql import select
+from sqlalchemy.schema import MetaData
+import random
 
 class DatabaseHelper:
 	# connection
 	def __init__(self):
-		Base = automap_base()
+	    Base = automap_base()
 	    engine = create_engine('mysql://{}:{}@{}/{}'.format(e_conf.user, e_conf.password, e_conf.host, e_conf.dbname))
 
 	    Base.prepare(engine, reflect=True)
 	    metadata = MetaData()
 	    metadata.reflect(bind=engine)
 	    self.conn = engine.connect()
-	    self.attributes_table = Table("attributes", metadata, autoload=True)
 		
 	# close database
-	def closedb():
-		self.connection.close()
+	def closedb(self):
+	    self.conn.close()
 
-	# Save all attr in database as a tsv file
-	def saveAttr(self, attr_type):
-		s = select([self.attributes_table]).where(self.attributes_table.c.attr_type == attr_type)
-		results = self.conn.execute(s)
-		for row in s:
-			print(results)
+	# rename de db, create one for test
+	def saveAttr(self):
+            self.conn.execute("RENAME TABLE attributes TO saved_attributes")
+            self.conn.execute("CREATE TABLE attributes LIKE saved_attributes")
+            # for safety:
+            self.conn.execute("INSERT INTO attributes (uuid, event_id, sharing_group_id, category, type, to_ids, value1, value2, comment) values('removable', 0, 0, 'external analysis', 'test', 0, 'removable', '', 'Testing table that can be removed')")
 
-	# Restore all attr in database from tsv file 
-	def restoreAttr(self, attr_file):
-		pass
+        # delete attributes and rename saved_attributes to attributes
+	def restoreAttr(self):
+            c = "SELECT value1 FROM attributes where attributes.type='test'" 
+            for val in self.conn.execute(c):
+                if val[0] == 'removable':
+                    self.conn.execute("DROP TABLE attributes")
+                    self.conn.execute("RENAME TABLE saved_attributes TO attributes")
 
-	# add attr
-	def addAttr(self, attr, attr_type):
-		pass
+	# add a random ip
+	def addRandomIP(self):
+            uuid = "select count(*) from attributes;"
+            for val in self.conn.execute(uuid):
+                uuid = val[0]
+            self.conn.execute("INSERT INTO attributes (uuid, event_id, sharing_group_id, category, type, to_ids, value1, value2, comment) values('"+str(uuid+1)+"', 0, 0, 'external analysis', 'ip-dst', 0, '" + randIPv4() + "', '', 'Testing table that can be removed')")
+
+	def addNRandomIP(self, N):
+            for i in range(N):
+                self.addRandomIP()
+def randStr():
+    return str(round(random.uniform(0,255)))
+def randIPv4():
+    return randStr() + '.' + randStr() + '.' + randStr() + '.' + randStr()
