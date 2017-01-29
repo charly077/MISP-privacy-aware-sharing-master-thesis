@@ -29,7 +29,7 @@ parser.add_argument('--input_redis', action='store_true',
         help='input is not in the argument but in redis')
 
 parser.add_argument('-p', '--multiprocess', action='store',
-        type=int, help='Use multiprocess, the maximum is the number of cores minus 1', default=0, )
+        type=int, help='Use multiprocess, the maximum is the number of cores minus 1 (only for redis)', default=0, )
 args = parser.parse_args()
 
 metadata = {}
@@ -174,14 +174,20 @@ def dico_matching(attributes, queue, lock):
         if match:
             queue.put("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(conf.misp_token, attributes, plaintext.decode('utf-8')))
 
-def argument_matching():
-    attributes = dict(pair.split("=") for pair in args.attribute)
+def argument_matching(values=args.attribute):
+    attributes = dict(pair.split("=") for pair in values)
     match = SimpleQueue()
     dico_matching(attributes, match, Lock())
 
     # print matches
     for match in iter_queue(match):
         print(match)
+
+def file_matching(r, filename):
+    with open(filename, 'r') as f:
+        lines = f.readlines()
+    for line in lines:
+        argument_matching(line[:-1].split(" "))
 
 def redis_matching():
     # data is enriched in logstash
