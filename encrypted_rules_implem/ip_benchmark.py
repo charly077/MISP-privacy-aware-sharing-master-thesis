@@ -7,16 +7,16 @@ Impact of the number of ip on time
 from helpers import DatabaseHelper as dh, randIPv4
 import timeit, shlex, subprocess
 
-nIP = 10000
-nIterations = 1000
+nIP = 1000
+nIterations = 100
 
 def create_rules():
-    command = "./encrypt_backend/readMisp.py --misp mysql --iteration 10 --ipiteration " + str(nIterations)
+    command = "./encrypt/readMisp.py --misp mysql --iteration 10 --ipiteration " + str(nIterations)
     args = shlex.split(command)
     subprocess.call(args)
 
 def bruteforceIP():
-    command = "./decrypt_frontend/match_rules.py --input rangeip"
+    command = "./decrypt/match_rules.py --input rangeip"
     args = shlex.split(command)
     subprocess.call(args)
 
@@ -27,7 +27,7 @@ def test_ip():
     results.append("time, number of ips, pbkdf2 iterations")
     for i in range(100):
         create_rules()
-        time = timeit.timeit("bruteforceIP()","from __main__ import bruteforceIP", number = 100)
+        time = timeit.timeit("bruteforceIP()","from __main__ import bruteforceIP", number = 10)
         result = str(time) + ", " + str( i * nIP ) + ", " + str(nIterations)
         print(result)
         results.append(result)

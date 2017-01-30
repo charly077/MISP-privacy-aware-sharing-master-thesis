@@ -4,7 +4,7 @@
 read/write misp database for testing purpose
 (Easier to directly user mysql)
 """
-from encrypt_backend.backend_configuration import Configuration as e_conf
+from encrypt.configuration import Configuration as conf
 # mysql import
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy import create_engine
@@ -15,7 +15,7 @@ class DatabaseHelper:
 	# connection
 	def __init__(self):
 	    Base = automap_base()
-	    engine = create_engine('mysql://{}:{}@{}/{}'.format(e_conf.user, e_conf.password, e_conf.host, e_conf.dbname))
+	    engine = create_engine('mysql://{}:{}@{}/{}'.format(conf.user, conf.password, conf.host, conf.dbname))
 
 	    Base.prepare(engine, reflect=True)
 	    metadata = MetaData()
@@ -46,7 +46,7 @@ class DatabaseHelper:
             uuid = "select count(*) from attributes;"
             for val in self.conn.execute(uuid):
                 uuid = val[0]
-            self.conn.execute("INSERT INTO attributes (uuid, event_id, sharing_group_id, category, type, to_ids, value1, value2, comment) values('"+str(uuid+1)+"', 0, 0, 'external analysis', 'ip-dst', 0, '" + randIPv4() + "', '', 'Testing: Random IP for testbench :)')")
+            self.conn.execute("INSERT INTO attributes (uuid, event_id, sharing_group_id, category, type, to_ids, value1, value2, comment) values('"+str(uuid+1)+"', 0, 0, 'external analysis', 'ip-dst', 1, '" + randIPv4() + "', '', 'Testing: Random IP for testbench :)')")
 
 	def addNRandomIP(self, N):
             for i in range(N):

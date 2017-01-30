@@ -3,7 +3,7 @@
 # which is using the MIT license
 
 # misp import
-from frontend_configuration import Configuration
+from decrypt_configuration import Configuration
 
 # tools import
 import argparse, configparser
