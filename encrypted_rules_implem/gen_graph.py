@@ -41,8 +41,8 @@ with open(args.filename, 'r') as csvfile:
             namex = row[args.x]
             namey = row[args.y]
         else:
-            x.append(int(row[args.x]))
-            y.append(int(row[args.y]))
+            x.append(float(row[args.x]))
+            y.append(float(row[args.y]))
         first = False
 
 s = pd.Series(x, index=y)

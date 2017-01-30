@@ -8,8 +8,8 @@ On 192.168.0.0/24 bruteforce
 from helpers import DatabaseHelper as dh, randIPv4
 import timeit, shlex, subprocess
 
-nIP = 1000
-n_iterations = 100
+nIP = 100
+n_iterations = 0
 iterations_step = 100
 
 def create_rules():
@@ -29,13 +29,13 @@ def test_ip():
     db.addNRandomIP(nIP)
     results = []
     results.append("time,number of ips,pbkdf2 iterations")
-    for i in range(20):
-        n_iterations = n_iterations + iterations_step
+    for i in range(10):
         create_rules()
         time = timeit.timeit("bruteforceIP()","from __main__ import bruteforceIP", number = 2)
         result = str(time) + "," + str( nIP ) + "," + str(n_iterations)
         print(result)
         results.append(result)
+        n_iterations = n_iterations + iterations_step
 
     db.restoreAttr()
     db.closedb()
