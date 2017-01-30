@@ -28,12 +28,12 @@ def test_ip():
     db.saveAttr()
     db.addNRandomIP(nIP)
     results = []
-    results.append("time, number of ips, pbkdf2 iterations")
+    results.append("time,number of ips,pbkdf2 iterations")
     for i in range(20):
         n_iterations = n_iterations + iterations_step
         create_rules()
-        time = timeit.timeit("bruteforceIP()","from __main__ import bruteforceIP", number = 10)
-        result = str(time) + ", " + str( nIP ) + ", " + str(n_iterations)
+        time = timeit.timeit("bruteforceIP()","from __main__ import bruteforceIP", number = 2)
+        result = str(time) + "," + str( nIP ) + "," + str(n_iterations)
         print(result)
         results.append(result)
 
