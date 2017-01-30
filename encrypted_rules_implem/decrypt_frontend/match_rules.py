@@ -3,7 +3,7 @@
 # which is using the MIT license
 
 # misp import
-from configuration import Configuration
+from frontend_configuration import Configuration
 
 # tools import
 import argparse, configparser
@@ -23,10 +23,8 @@ from Crypto.Util import Counter
 
 parser = argparse.ArgumentParser(description='Evaluate a network dump against rules.')
 parser.add_argument('attribute', nargs='*', help='key-value attribute eg. ip=192.168.0.0 port=5012')
-parser.add_argument('--performance', action='store_true',
-        help='run a performance test')
-parser.add_argument('--input_redis', action='store_true',
-        help='input is not in the argument but in redis')
+parser.add_argument('--input', default="argument",
+        help='input is redis, argument or rangeip (testing purpose)')
 
 parser.add_argument('-p', '--multiprocess', action='store',
         type=int, help='Use multiprocess, the maximum is the number of cores minus 1 (only for redis)', default=0, )
@@ -183,11 +181,10 @@ def argument_matching(values=args.attribute):
     for match in iter_queue(match):
         print(match)
 
-def file_matching(r, filename):
-    with open(filename, 'r') as f:
-        lines = f.readlines()
-    for line in lines:
-        argument_matching(line[:-1].split(" "))
+def rangeip_matching():
+    for ip4 in range(256):
+        ip=["ip-dst=192.168.0." + str(ip4)]
+        argument_matching(ip)
 
 def redis_matching():
     # data is enriched in logstash
@@ -241,13 +238,9 @@ if __name__ == "__main__":
         split = (name.split('.')[0]).split('_')
         file_attributes[name] = split
 
-    if args.input_redis:
-        if args.performance:
-            print("to implement") #TODO
-        else:
-            redis_matching()
+    if args.input == "redis":
+        redis_matching()
+    elif args.input == "rangeip":
+        rangeip_matching()
     else:
-        if args.performance:
-            print(timeit.timeit("argument_matching()",number=5))
-        else:
-            argument_matching()
+        argument_matching()

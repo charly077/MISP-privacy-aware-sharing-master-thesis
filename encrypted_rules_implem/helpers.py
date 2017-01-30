@@ -4,7 +4,7 @@
 read/write misp database for testing purpose
 (Easier to directly user mysql)
 """
-from encrypt_backend.configuration import Configuration as e_conf
+from encrypt_backend.backend_configuration import Configuration as e_conf
 # mysql import
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy import create_engine

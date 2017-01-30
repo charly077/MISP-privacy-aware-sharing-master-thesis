@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from configuration import Configuration
+from backend_configuration import Configuration
 import requests
 import json
 import os, shutil

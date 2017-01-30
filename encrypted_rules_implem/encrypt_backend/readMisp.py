@@ -5,7 +5,7 @@
 # which is using the MIT license
 
 # misp import
-from configuration import Configuration
+from backend_configuration import Configuration
 import update, requests, csv, json
 
 # tools import
@@ -187,7 +187,7 @@ def parse_attribute(attr):
 ########
 # Main #
 ########
-if __name__ == "__main__":
+def main(args):
     # first clean up the rule folder
     printv("Clean rules folder")
     if os.path.exists("rules"):
@@ -234,3 +234,6 @@ if __name__ == "__main__":
             dict_writer = csv.DictWriter(output_file, iocDic[typ][0].keys(), delimiter='\t')
             dict_writer.writeheader()
             dict_writer.writerows(iocDic[typ])
+
+if __name__ == "__main__":
+    main(args)
