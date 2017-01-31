@@ -11,7 +11,7 @@ But we still have a problem, for an example, a user only interested by IPs' info
 
 Then, the last point is about knowing the origin of a leakage. A simple but efficient solution is to include the misp token in the key generation. (thus needed for encryption and decryption)
 
-# simple utilization with the arguments
+# Simple utilization with the arguments
 ./match_rule.py filename=6b6e92be036b1a67c383d027bafc7eb63cf515006bb3b3c6ca362a2332542801 sha1=dd3a61eed9c454cf96d882f290abc86108ffeea5
 
 
@@ -21,12 +21,12 @@ Then, the last point is about knowing the origin of a leakage. A simple but effi
 - match rules: Check for matching attributes
 
 ## Following installation steps can vary on the distribution used
-### installation step for squid3
+### Installation step for squid3
 - install squid3: sudo apt-get install squid3
 - configure squid3: /etc/squid/squid.conf
 - restart squid3: sudo systemctl restart squid.service or sudo service squid3 restart
 
-### installation step for logstash
+### Installation step for logstash
 
 - https://www.elastic.co/guide/en/logstash/current/getting-started-with-logstash.html
 - put the logstash_squid.conf in /etc/logstash/conf.d/
@@ -35,6 +35,6 @@ Then, the last point is about knowing the origin of a leakage. A simple but effi
 - running logstash as a service : sudo systemclt start logstash.service or sudo service logstash start
 - Or just to start a process from the logstash folder: ./bin/logstash -f ~/thesis/encrypted_rules_implem/decrypt_frontend/logstash_squid.conf
 
-### start matching (It can be parallelized into different process)
+## Start matching (It can be parallelized into different processes)
 - ./match_rule --input redis
 - To improve the speed: ./match_rule --input_redis --multiprocess n (max n is the computer core number minus one)
