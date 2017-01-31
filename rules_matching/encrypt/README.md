@@ -1,12 +1,14 @@
 #Encrypted backend
-Get data from misp, encrypt them like explained in
+Convert misp attributes to encrypted rules like explained in 
 > van de Kamp, T., Peter, A., Everts, M. H., & Jonker, W. (2016, October). Private Sharing of IOCs and Sightings. In Proceedings of the 2016 ACM on Workshop on Information Sharing and Collaborative Security (pp. 35-38). ACM.
 
 # Installation
 
 - sudo apt-get install libmysqlclient-dev
-- for configuration, I've installed the misp virtualmachine
-- then, I've reconfigured the vm to have a remote access to sql:
+- sudo pip install -r requirements.txt
+
+# MISP virtual machine configuration (not needed)
+- Remote access to sql:
 	- vim /etc/mysql/my.cnf
 	- replace line "bind-address          = 127.0.0.1" by "# bind-address          = 127.0.0.1"
 	- mysql -uroot -pPassword1234
@@ -16,6 +18,14 @@ Get data from misp, encrypt them like explained in
 	- ip addr add 192.168.56.10/24 dev eth0 
 
 
-# Topology
-
-- readMisp.py: convert misp attributes into rules/ for help you can simply call ./readMisp.py -h
+# readMisp.py
+- help : 
+	- ./readMisp.py -h
+- Read from mysql : 
+	- copy encrypt_configuration.py.orig to encrypt_configuration.py
+	- fill the misp, misp mysql and rules sections
+	- ./readmisp --misp mysql --iterations 1000 --ipiteration 100000
+- Read from misp web api :
+	- copy encrypt_configuration.py.orig to encrypt_configuration.py
+	- fill the misp, misp web api and rules sections
+	- ./readmisp --misp mysql --iterations 1000 --ipiteration 100000
