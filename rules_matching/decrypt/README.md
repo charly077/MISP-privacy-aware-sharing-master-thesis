@@ -33,7 +33,7 @@ Then, the last point is about knowing the origin of a leakage. A simple but effi
 - fix squid3 permission : chmod 644 /var/log/squid/access.log
 - permanent fix explained in https://miteshshah.github.io/linux/elk/how-to-monitor-squid3-logs-on-elk-stack/
 - running logstash as a service : sudo systemclt start logstash.service or sudo service logstash start
-- Or just to start a process from the logstash folder: ./bin/logstash -f ~/thesis/encrypted_rules_implem/decrypt_frontend/logstash_squid.conf
+- Or just to start a process from the logstash folder: ./bin/logstash -f ~/thesis/rules_matching/decrypt/logstash_squid.conf
 
 ## Start matching (It can be parallelized into different processes)
 - ./match_rule --input redis
