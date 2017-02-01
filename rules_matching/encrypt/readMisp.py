@@ -124,7 +124,9 @@ def normalize(ioc):
         if attr_type == 'url' or\
             attr_type == 'uri' or\
             attr_type == 'link':
-                ioc[attr_type] = url_normalize(ioc[attr_type])
+                # just solve one specific case:
+                if not '..org' in ioc[attr_type]:
+                    ioc[attr_type] = url_normalize(ioc[attr_type])
         elif attr_type == 'hostname':
                 ioc[attr_type] = ioc[attr_type].lower()
     return ioc
