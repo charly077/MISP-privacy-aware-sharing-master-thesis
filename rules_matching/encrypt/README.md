@@ -4,7 +4,7 @@ Convert misp attributes to encrypted rules like explained in
 
 # Installation
 
-- sudo apt-get install libmysqlclient-dev
+- sudo apt-get install libmysqlclient-dev build-essential libssl-dev libffi-dev python-dev
 - sudo pip install -r requirements.txt
 
 # MISP virtual machine configuration (not needed)

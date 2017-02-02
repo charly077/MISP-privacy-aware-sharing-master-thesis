@@ -15,11 +15,10 @@ import datetime, copy, re
 from url_normalize import url_normalize
 
 # crypto import
-import glob, hashlib
+import glob, hashlib, os
 from base64 import b64encode
-from Crypto.Cipher import AES
-from Crypto import Random
-from Crypto.Util import Counter
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.backends import default_backend
 
 # mysql import
 from sqlalchemy.ext.automap import automap_base
@@ -146,9 +145,9 @@ def derive_key(bpassword, bsalt, btoken, attr_types, dklen=None):
 #################
 def create_rule(ioc, message):
     # encrypt the ioc and the message
-    salt = Random.new().read(hashlib.new(args.hash_name).digest_size)
+    salt = os.urandom(hashlib.new(args.hash_name).digest_size)
     dklen = 16 # AES block size
-    iv = Random.new().read(16)
+    nonce = os.urandom(16)
 
     # Spit + redo allow to ensure the same order to create the password
     attr_types = '||'.join(attr_type for attr_type in ioc)
@@ -157,16 +156,20 @@ def create_rule(ioc, message):
     # encrypt the message
     dk = derive_key(password.encode('utf8'), salt, token, attr_types, dklen=dklen)
 
-    ctr = Counter.new(128, initial_value=int.from_bytes(iv, 'big'))
-    cipher = AES.new(dk, AES.MODE_CTR, b'', counter=ctr)
-    ciphertext = cipher.encrypt(b'\x00'*16 + message.encode('utf-8'))
+    backend = default_backend()
+    cipher = Cipher(algorithms.AES(dk), modes.CTR(nonce), backend=backend)
+    encryptor = cipher.encryptor()
+    ct_check = encryptor.update(b'\x00'*16)
+    ct_message = encryptor.update(message.encode('utf-8'))
+    ct_message += encryptor.finalize()
 
     # create the rule
     rule = {}
     rule['salt'] = b64encode(salt).decode('ascii')
     rule['attributes'] = attr_types
-    rule['iv'] = b64encode(iv).decode('ascii')
-    rule['ciphertext'] = b64encode(ciphertext).decode('ascii')
+    rule['nonce'] = b64encode(nonce).decode('ascii')
+    rule['ciphertext-check'] = b64encode(ct_check).decode('ascii')
+    rule['ciphertext'] = b64encode(ct_message).decode('ascii')
 
     return rule
 

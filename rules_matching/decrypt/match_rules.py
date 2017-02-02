@@ -18,8 +18,8 @@ from url_normalize import url_normalize
 # crypto import 
 import hashlib
 from base64 import b64decode
-from Crypto.Cipher import AES
-from Crypto.Util import Counter
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.backends import default_backend
 
 parser = argparse.ArgumentParser(description='Evaluate a network dump against rules.')
 parser.add_argument('attribute', nargs='*', help='key-value attribute eg. ip=192.168.0.0 port=5012')
@@ -60,8 +60,9 @@ def rules_from_csv(filename, lock):
         # copy data
         for d in data:
             d['salt'] = b64decode(d['salt'])
-            d['iv'] = int.from_bytes(b64decode(d['iv']), 'big')
+            d['nonce'] = b64decode(d['nonce'])
             d['attributes'] = d['attributes'].split('||')
+            d['ciphertext-check'] = b64decode(d['ciphertext-check'])
             d['ciphertext'] = b64decode(d['ciphertext'])
             rules.append(d)
     lock.release()
@@ -135,14 +136,15 @@ def derive_key(hash_name, bpassword, bsalt, iterations, ipiterations, btoken, at
     return hashlib.pbkdf2_hmac(hash_name, bpassword + btoken, bsalt, it, dklen=dklen)
 
 #@lru_cache(maxsize=None)
-def cryptographic_match(hash_name, password, salt, iterations, ipiterations, info, dklen, iv, ciphertext, attr_types):
+def cryptographic_match(hash_name, password, salt, iterations, ipiterations, info, dklen, nonce, ciphertext, attr_types):
     dk = derive_key(hash_name, password.encode('utf8'), salt, iterations, ipiterations, bytes(info, encoding='ascii'), attr_types, dklen=dklen)
 
-    ctr = Counter.new(128, initial_value=iv)
-    cipher = AES.new(dk, AES.MODE_CTR, b'', counter=ctr)
+    backend = default_backend()
+    cipher = Cipher(algorithms.AES(dk), modes.CTR(nonce), backend=backend)
+    dec = cipher.decryptor()
     # A match is found when the first block is all null bytes
-    if cipher.decrypt(ciphertext[:16]) == b'\x00'*16:
-        plaintext = cipher.decrypt(ciphertext[16:])
+    if dec.update(ciphertext[0]) == b'\x00'*16:
+        plaintext = dec.update(ciphertext[1]) + dec.finalize()
         return (True, plaintext)
     else:
         return (False, '')
@@ -164,13 +166,13 @@ def dico_matching(attributes, queue, lock):
             password = '||'.join([attributes[attr] for attr in rule_attr])
         except:
             pass # nothing to do
-
+        ciphertext = [rule['ciphertext-check'], rule['ciphertext']]
         match, plaintext = cryptographic_match(metadata['hash_name'], password, rule['salt'],\
                 metadata['iterations'], metadata['ipiterations'], conf.misp_token,\
-                metadata['dklen'], rule['iv'], rule['ciphertext'], rule_attr)
+                metadata['dklen'], rule['nonce'], ciphertext, rule_attr)
 
         if match:
-            queue.put("IOC '{}' matched for: {}\nCourse of Action\n================\n{}\n".format(conf.misp_token, attributes, plaintext.decode('utf-8')))
+            queue.put("IOC '{}' matched for: {}\nSecret Message\n================\n{}\n".format(conf.misp_token, attributes, plaintext.decode('utf-8')))
 
 def argument_matching(values=args.attribute):
     attributes = dict(pair.split("=") for pair in values)
