@@ -1,4 +1,4 @@
-# thesis
+# Master's thesis
 This is a modifed version of:
 > van de Kamp, T., Peter, A., Everts, M. H., & Jonker, W. (2016, October). Private Sharing of IOCs and Sightings. In Proceedings of the 2016 ACM on Workshop on Information Sharing and Collaborative Security (pp. 35-38). ACM.
 
