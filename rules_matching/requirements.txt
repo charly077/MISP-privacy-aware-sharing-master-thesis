@@ -1,6 +1,5 @@
 pytest
 cryptography
-pytest-benchmark
 pandas
 matplotlib
 argparse
