@@ -11,12 +11,12 @@ nIP = 1000
 nIterations = 100
 
 def create_rules():
-    command = "./encrypt/readMisp.py --misp mysql --iteration 10 --ipiteration " + str(nIterations)
+    command = "./generate/readMisp.py --misp mysql --iteration 10 --ipiteration " + str(nIterations)
     args = shlex.split(command)
     subprocess.call(args)
 
 def bruteforceIP():
-    command = "./decrypt/match_rules.py --input rangeip"
+    command = "./lookup/match_rules.py --input rangeip"
     args = shlex.split(command)
     subprocess.call(args)
 
@@ -24,7 +24,7 @@ def test_ip():
     db = dh()
     db.saveAttr()
     results = []
-    results.append("time,number of ips,pbkdf2 iterations")
+    results.append("time(s),number of ips,pbkdf2 iterations")
     for i in range(100):
         create_rules()
         time = timeit.timeit("bruteforceIP()","from __main__ import bruteforceIP", number = 2)
