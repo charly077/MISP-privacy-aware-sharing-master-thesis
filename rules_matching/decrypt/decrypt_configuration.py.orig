@@ -1,4 +1,4 @@
-# copy this file to configuration.py
+# copy this file to decrypt_configuration.py
 
 class Configuration:
     # log

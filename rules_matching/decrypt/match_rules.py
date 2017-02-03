@@ -172,7 +172,7 @@ def dico_matching(attributes, queue, lock):
                 metadata['dklen'], rule['nonce'], ciphertext, rule_attr)
 
         if match:
-            queue.put("IOC '{}' matched for: {}\nSecret Message\n================\n{}\n".format(conf.misp_token, attributes, plaintext.decode('utf-8')))
+            queue.put("IOC matched for: {}\nSecret Message (uuid-event id-date)\n===================================\n{}\n".format(attributes, plaintext.decode('utf-8')))
 
 def argument_matching(values=args.attribute):
     attributes = dict(pair.split("=") for pair in values)

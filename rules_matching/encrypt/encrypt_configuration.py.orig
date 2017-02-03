@@ -1,5 +1,4 @@
-# Copy this file to configuration.py and complete the token
-# centralize all configurations :
+# Copy this file to encrypt_configuration.py and complete the values
 
 class Configuration:
     # log

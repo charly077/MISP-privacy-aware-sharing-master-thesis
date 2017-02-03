@@ -1,4 +1,4 @@
-time,number of ips,pbkdf2 iterations
+time(s),number of ips,pbkdf2 iterations
 0.34686412299924996,100,0
 9.419090283001424,100,100
 15.978682160999597,100,200

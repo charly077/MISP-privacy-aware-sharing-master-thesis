@@ -45,7 +45,7 @@ with open(args.filename, 'r') as csvfile:
             y.append(float(row[args.y]))
         first = False
 
-s = pd.Series(x, index=y)
+s = pd.Series(y, index=x)
 df = pd.DataFrame(s)
 fig = df.plot()
 fig.set_xlabel(namex)

@@ -36,13 +36,12 @@ parser = argparse.ArgumentParser(description='Create an encrypted IOC \
 parser.add_argument('--hash', dest='hash_name', default='sha256',
         help='hash function to use')
 parser.add_argument('--iterations', type=int, default=10000,
-        help='iterations needed before the decryption key is derived. (Follow pbkdf2-sha256 recommandations) ')
+        help='iterations of pbkdf2.')
 parser.add_argument('--ipiterations', type=int, default=100000,
-        help='iterations needed before the decryption key is derived\
+        help='iterations of pbkdf2 \
                 for ip. Please take care of this parameter.')
-parser.add_argument('--misp', default='csv',
-        help='csv => misp attributes in /res/misp_events.csv \n ;\
-                mysql => get attributes from the database (need configuration.py)')
+parser.add_argument('--misp', default='web',
+        help='web (for web api);mysql (directly from mysql)')
 parser.add_argument('-v', '--verbose',\
         dest='verbose', action='store_true',\
         help='Explain what is being done')
@@ -201,7 +200,7 @@ if __name__ == "__main__":
 
     # fill IOC list
     printv("Get IOCs from " + args.misp)
-    if args.misp == 'csv':
+    if args.misp == 'web':
         ioc_csv()
     elif args.misp == 'mysql':
         ioc_mysql()
