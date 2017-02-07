@@ -1,0 +1,4 @@
+rules/*
+res/*
+*configuration.py
+__pycache__
