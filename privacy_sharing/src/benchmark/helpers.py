@@ -4,7 +4,7 @@
 read/write misp database for testing purpose
 (Easier to directly user mysql)
 """
-from encrypt.encrypt_configuration import Configuration as conf
+from configuration import Configuration as conf
 # mysql import
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy import create_engine
@@ -15,7 +15,7 @@ class DatabaseHelper:
 	# connection
 	def __init__(self):
 	    Base = automap_base()
-	    engine = create_engine('mysql://{}:{}@{}/{}'.format(conf.user, conf.password, conf.host, conf.dbname))
+	    engine = create_engine('mysql://{}:{}@{}/{}'.format(conf['mysql']['user'], conf['mysql']['password'], conf['mysql']['host'], conf['mysql']['dbname']))
 
 	    Base.prepare(engine, reflect=True)
 	    metadata = MetaData()

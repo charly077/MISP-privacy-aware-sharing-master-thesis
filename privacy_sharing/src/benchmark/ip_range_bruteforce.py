@@ -11,16 +11,16 @@ nIP = 1000
 nIterations = 100
 
 def create_rules():
-    command = "./generate/readMisp.py --misp mysql --iteration 10 --ipiteration " + str(nIterations)
+    command = "./readMisp.py --misp mysql --iteration 10 --ipiteration " + str(nIterations)
     args = shlex.split(command)
     subprocess.call(args)
 
 def bruteforceIP():
-    command = "./lookup/match_rules.py --input rangeip"
+    command = "./match_rules.py --input rangeip"
     args = shlex.split(command)
     subprocess.call(args)
 
-def test_ip():
+def test_ip(name='ip_range_bruteforce'):
     db = dh()
     db.saveAttr()
     results = []
@@ -35,7 +35,7 @@ def test_ip():
 
     db.restoreAttr()
     db.closedb()
-    with open("results_ip_iterations.csv", 'w') as f:
+    with open(name + '.csv', 'w') as f:
             f.write('\n'.join(results))
 
 test_ip()
