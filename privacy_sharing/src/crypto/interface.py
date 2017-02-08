@@ -1,30 +1,33 @@
 """
-Create an interface for the cryptographic functions
+Create an abstract class for the cryptographic functions
 """
 
 class Crypto():
-    def generate_salt():
-        pass
+    def generate_salt(self):
+        self.salt = ''
 
-    def derive_key(bpassword, bsalt, btoken, attr_types, dklen=None):
+    def set_salt(self, salt):
+        self.salt = salt
+
+    def derive_key(self, bpassword, btoken, attr_types, dklen=None):
         """
         Generate the key further used for encryption
         """
         pass
 
-    def encrypt(bmessage):
+    def encrypt(self, bmessage):
         """
         Use the generated key and salt to 
         encrypt the message
         """
         pass
 
-    def match(bcipher, bpassword, bsalt):
+    def match(self, bcipher, bpassword, bsalt):
         """
         Sometimes we don't need to decrypt the whole
         ciphertext to know if there is a match
         """
         pass
 
-    def decrypt(bcipher, bpassword, bsalt):
+    def decrypt(self, bcipher, bpassword, bsalt):
         pass
