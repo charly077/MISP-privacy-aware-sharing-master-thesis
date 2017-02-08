@@ -1,5 +1,8 @@
 mysqlclient
 sqlalchemy
 redis
+pandas
+matplotlib
 cryptography
+argparse
 csv
