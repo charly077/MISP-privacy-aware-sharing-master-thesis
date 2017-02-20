@@ -7,8 +7,8 @@ port = 6379
 db = 0
 
 [misp]
-misp_token = put_your_token
-misp_email = put_your_email
+token = put_your_token
+email = put_your_email
 url = put_web_api_address
 
 [mysql]
@@ -19,3 +19,9 @@ dbname = misp
 
 [rules]
 rules_location = ../rules
+
+[pbkdf2]
+iterations = 1000
+ipiterations = 1000
+hash_name = sha256
+dklen = 16

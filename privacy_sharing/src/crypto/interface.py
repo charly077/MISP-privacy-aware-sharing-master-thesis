@@ -1,21 +1,10 @@
 """
 Create an abstract class for the cryptographic functions
+Configuration must me in the configuration file
 """
 
 class Crypto():
-    def generate_salt(self):
-        self.salt = ''
-
-    def set_salt(self, salt):
-        self.salt = salt
-
-    def derive_key(self, bpassword, btoken, attr_types, dklen=None):
-        """
-        Generate the key further used for encryption
-        """
-        pass
-
-    def encrypt(self, bmessage):
+    def create_rule(self, ioc, message):
         """
         Use the generated key and salt to 
         encrypt the message
@@ -29,8 +18,8 @@ class Crypto():
         """
         pass
 
-    def decrypt(self, bcipher, bpassword, bsalt):
-        pass
-
     def save_meta(self):
+        """
+        Save metadata for the specific crypto system
+        """
         pass
