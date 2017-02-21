@@ -2,4 +2,3 @@ mysqlclient
 sqlalchemy
 redis
 cryptography
-csv
