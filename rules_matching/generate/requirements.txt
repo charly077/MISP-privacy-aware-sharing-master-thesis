@@ -2,3 +2,4 @@ mysqlclient
 sqlalchemy
 redis
 cryptography
+url_normalize
