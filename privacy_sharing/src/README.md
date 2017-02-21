@@ -30,9 +30,9 @@ optional arguments:
 	- fill the misp, misp web api and rules sections
 	- ./readmisp --misp mysql
   
-  # match_rules.py : check for a match
-  - help :
-    - ./match_rules.py
+# match_rules.py : check for a match
+- help :
+	- ./match_rules.py
   ```
   usage: match_rules.py [-h] [--input INPUT] [-p MULTIPROCESS]
                       [attribute [attribute ...]]
