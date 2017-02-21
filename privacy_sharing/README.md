@@ -29,7 +29,19 @@ that another organization have seen it and then, to get back information they ha
 And this is on this specific challenge that we are attemding to find a solution.
 
 # Starting point
-=> cite + why + advantages
+The starting point was this article with their prove of concept implementation:
+> van de Kamp, T., Peter, A., Everts, M. H., & Jonker, W. (2016, October). Private Sharing of IOCs and Sightings. In Proceedings of the 2016 ACM on Workshop on Information Sharing and Collaborative Security (pp. 35-38). ACM.
+
+The basic idea is to transform and IOC (indicator of compromise) into something sharable but that does not leak any information.
+Of course, as we want data to be retrievable from a user it is thus possible for an attacker to brute force the data. But we want it to be as difficult as possible.
+
+The general concept is thus :
+
+  for each misp attribute:
+    create a "secret message"
+    derive a key from the values of the attributes, the user token and a salt
+    encrypt the secret message with this derived key
+    save it as a "rule"
 
 # Structure
 
