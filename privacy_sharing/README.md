@@ -58,6 +58,7 @@ Then, I've tried to make a modulable code to be able to add new crypto systems o
 
 # Structure
 conf/ contains all configurations in the configuration file (= filled configuration.orig)
+
 src/ contains all the source files
 
 # Setup
