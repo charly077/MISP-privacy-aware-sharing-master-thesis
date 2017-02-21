@@ -132,7 +132,7 @@ def dico_matching(attributes, queue, lock, crypto):
     attributes = normalize(attributes)
     # test each rules
     for rule in get_rules(attributes, lock):
-        crypto.match(attributes, rule)
+        crypto.match(attributes, rule, queue)
 
 def argument_matching(crypto, values=args.attribute):
     attributes = dict(pair.split("=") for pair in values)
@@ -204,4 +204,4 @@ if __name__ == "__main__":
     elif args.input == "rangeip":
         rangeip_matching(crypto)
     else:
-        argument_matching(cryto)
+        argument_matching(crypto)

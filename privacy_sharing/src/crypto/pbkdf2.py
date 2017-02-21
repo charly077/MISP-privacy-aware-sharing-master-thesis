@@ -63,7 +63,7 @@ class Pbkdf2(Crypto):
 
         return rule
 
-    def cryptographic_match(password, salt, nonce, ciphertext, attr_types):
+    def cryptographic_match(self, password, salt, nonce, ciphertext, attr_types):
         dk = self.derive_key(password.encode('utf8'), salt, attr_types)
 
         backend = default_backend()
@@ -90,7 +90,7 @@ class Pbkdf2(Crypto):
         except:
             pass # nothing to do
         ciphertext = [rule['ciphertext-check'], rule['ciphertext']]
-        match, plaintext = cryptographic_match(password, rule['salt'],\
+        match, plaintext = self.cryptographic_match(password, rule['salt'],\
                 rule['nonce'], ciphertext, rule_attr)
 
         if match:
