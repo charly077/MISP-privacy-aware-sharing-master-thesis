@@ -37,12 +37,21 @@ Of course, as we want data to be retrievable from a user it is thus possible for
 
 The general concept is thus :
 
+Rule(sharable IOC) creation
 ```python
 for each misp attribute:
     create a "secret message"
     derive a key from the values of the attributes, the user token and a salt
     encrypt the secret message with this derived key
     save it as a "rule"
+```
+
+Matching
+```python
+for each rule:
+    Try to decipher the secret message
+    if it match:
+        return the value
 ```
 
 # Structure
