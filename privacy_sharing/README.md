@@ -31,7 +31,17 @@ And this is on this specific challenge that we are attemding to find a solution.
 # Starting point
 => cite + why + advantages
 
-[1]https://github.com/MISP/MISP 
+# Structure
+
+# Setup
+
+# Examples
+
+[1]https://github.com/MISP/MISP
+
 [2] https://github.com/MISP/
+
 [3] https://www.circl.lu/
+
 [4] http://conostix.lu/
+
