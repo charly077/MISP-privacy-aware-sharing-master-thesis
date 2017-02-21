@@ -36,13 +36,15 @@ The basic idea is to transform and IOC (indicator of compromise) into something 
 Of course, as we want data to be retrievable from a user it is thus possible for an attacker to brute force the data. But we want it to be as difficult as possible.
 
 The general concept is thus :
-'''
-  for each misp attribute:
+
+```python
+for each misp attribute:
     create a "secret message"
     derive a key from the values of the attributes, the user token and a salt
     encrypt the secret message with this derived key
     save it as a "rule"
-'''
+```
+
 # Structure
 
 # Setup
