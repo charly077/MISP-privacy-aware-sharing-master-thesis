@@ -9,14 +9,20 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 
 class Pbkdf2(Crypto):
-    def __init__(self, conf):
+    def __init__(self, conf, metadata=None):
         self.conf = conf
         self.hash_name = conf['pbkdf2']['hash_name']
         self.dklen = int(conf['pbkdf2']['dklen'])
         self.btoken = bytes(conf['misp']['token'], encoding='ascii')
         self.iterations = int(self.conf['pbkdf2']['iterations'])
         self.ipiterations = int(self.conf['pbkdf2']['ipiterations'])
-
+        # for martching (only token is kept from config file)
+        if metadata is not None:
+            metadata = metadata['crypto']
+            self.hash_name = metadata['hash_name']
+            self.dklen = int(metadata['dklen'])
+            self.iterations = int(metadata['iterations'])
+            self.ipiterations = int(metadata['ipiterations'])
 
     def derive_key(self, bpassword, bsalt, attr_types):
         """
@@ -29,13 +35,6 @@ class Pbkdf2(Crypto):
             it = self.iterations
         return hashlib.pbkdf2_hmac(self.hash_name, bpassword + self.btoken, bsalt, it, dklen=self.dklen)
 
-    def encrypt(self, attr_types, password, message):
-        """
-        Use the generated key and salt to 
-        encrypt the message
-        """
-        key = self.derive_key(...)
-        
     def create_rule(self, ioc, message):
         nonce = os.urandom(16)
         salt = os.urandom(hashlib.new(self.hash_name).digest_size)
@@ -64,18 +63,45 @@ class Pbkdf2(Crypto):
 
         return rule
 
+    def cryptographic_match(password, salt, nonce, ciphertext, attr_types):
+        dk = self.derive_key(password.encode('utf8'), salt, attr_types)
 
-    def match(self, bcipher, bpassword, bsalt):
+        backend = default_backend()
+        cipher = Cipher(algorithms.AES(dk), modes.CTR(nonce), backend=backend)
+        dec = cipher.decryptor()
+        # A match is found when the first block is all null bytes
+        if dec.update(ciphertext[0]) == b'\x00'*16:
+            plaintext = dec.update(ciphertext[1]) + dec.finalize()
+            return (True, plaintext)
+        else:
+            return (False, '')
+
+
+    def match(self, attributes, rule, queue):
         """
         Sometimes we don't need to decrypt the whole
         ciphertext to know if there is a match
+        as it is the case here thanks to ctr mode
         """
-        pass
+        rule_attr = rule['attributes']
+        password = ''
+        try:
+            password = '||'.join([attributes[attr] for attr in rule_attr])
+        except:
+            pass # nothing to do
+        ciphertext = [rule['ciphertext-check'], rule['ciphertext']]
+        match, plaintext = cryptographic_match(password, rule['salt'],\
+                rule['nonce'], ciphertext, rule_attr)
+
+        if match:
+            queue.put("IOC matched for: {}\nSecret Message (uuid-event id-date)\n===================================\n{}\n".format(attributes, plaintext.decode('utf-8')))
+
 
 
     def save_meta(self):
         meta = configparser.ConfigParser()
         meta['crypto'] = {}
+        meta['crypto']['name'] = 'pbkdf2' 
         meta['crypto']['hash_name'] = self.conf['pbkdf2']['hash_name']
         meta['crypto']['dklen'] = self.conf['pbkdf2']['dklen'] # AES block size
         meta['crypto']['iterations'] = str(self.iterations)

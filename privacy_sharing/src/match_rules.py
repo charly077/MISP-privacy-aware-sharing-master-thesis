@@ -20,8 +20,7 @@ from url_normalize import url_normalize
 # crypto import 
 import hashlib
 from base64 import b64decode
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.backends import default_backend
+from crypto.choose_crypto import Crypto
 
 parser = argparse.ArgumentParser(description='Evaluate a network dump against rules.')
 parser.add_argument('attribute', nargs='*', help='key-value attribute eg. ip=192.168.0.0 port=5012')
@@ -109,13 +108,13 @@ def normalize(ioc):
 #####################
 # process functions #
 #####################
-def redis_matching_process(r, queue, lock):
+def redis_matching_process(r, queue, lock, crypto):
     # get data
     log = r.rpop("logstash")
     while log:
         log = log.decode("utf8")
         log_dico = json.loads(log)
-        dico_matching(log_dico, queue, lock)
+        dico_matching(log_dico, queue, lock, crypto)
         log = r.rpop("logstash")
 
 def print_queue_process(queue):
@@ -124,73 +123,27 @@ def print_queue_process(queue):
        print(elem)
 
 
-
-####################
-# crypto functions #
-####################
-def derive_key(hash_name, bpassword, bsalt, iterations, ipiterations, btoken, attr_types, dklen=None):
-    # iterations
-    it = 1
-    if '||'.join(attr_types) in ["ip-dst", "ip-src", "ip-src||port", "ip-dst||port"]:
-        it = ipiterations
-    else:
-        it = iterations
-    return hashlib.pbkdf2_hmac(hash_name, bpassword + btoken, bsalt, it, dklen=dklen)
-
-#@lru_cache(maxsize=None)
-def cryptographic_match(hash_name, password, salt, iterations, ipiterations, info, dklen, nonce, ciphertext, attr_types):
-    dk = derive_key(hash_name, password.encode('utf8'), salt, iterations, ipiterations, bytes(info, encoding='ascii'), attr_types, dklen=dklen)
-
-    backend = default_backend()
-    cipher = Cipher(algorithms.AES(dk), modes.CTR(nonce), backend=backend)
-    dec = cipher.decryptor()
-    # A match is found when the first block is all null bytes
-    if dec.update(ciphertext[0]) == b'\x00'*16:
-        plaintext = dec.update(ciphertext[1]) + dec.finalize()
-        return (True, plaintext)
-    else:
-        return (False, '')
-
-
 ###################
 # match functions #
 ###################
-def dico_matching(attributes, queue, lock):
-    global conf
-    global metadata
+#@lru_cache(maxsize=None)
+def dico_matching(attributes, queue, lock, crypto):
     # normalize data 
     attributes = normalize(attributes)
     # test each rules
     for rule in get_rules(attributes, lock):
-        rule_attr = rule['attributes']
-        password = ''
-        try:
-            password = '||'.join([attributes[attr] for attr in rule_attr])
-        except:
-            pass # nothing to do
-        ciphertext = [rule['ciphertext-check'], rule['ciphertext']]
-        match, plaintext = cryptographic_match(metadata['hash_name'], password, rule['salt'],\
-                metadata['iterations'], metadata['ipiterations'], conf['misp']['token'],\
-                metadata['dklen'], rule['nonce'], ciphertext, rule_attr)
+        crypto.match(attributes, rule)
 
-        if match:
-            queue.put("IOC matched for: {}\nSecret Message (uuid-event id-date)\n===================================\n{}\n".format(attributes, plaintext.decode('utf-8')))
-
-def argument_matching(values=args.attribute):
+def argument_matching(crypto, values=args.attribute):
     attributes = dict(pair.split("=") for pair in values)
     match = SimpleQueue()
-    dico_matching(attributes, match, Lock())
+    dico_matching(attributes, match, Lock(), crypto)
 
     # print matches
     for match in iter_queue(match):
         print(match)
 
-def rangeip_matching():
-    for ip4 in range(256):
-        ip=["ip-dst=192.168.0." + str(ip4)]
-        argument_matching(ip)
-
-def redis_matching():
+def redis_matching(crypto):
     # data is enriched in logstash
     conf = Configuration()
     r = redis.StrictRedis(host=conf['redis']['host'], port=conf['redis']['port'], db=conf['redis']['db'])
@@ -201,7 +154,7 @@ def redis_matching():
         n = min(args.multiprocess, cpu_count()-1)
         processes = list()
         for i in range(n):
-            process = Process(target=redis_matching_process, args=(r, match, lock))
+            process = Process(target=redis_matching_process, args=(r, match, lock, crypto))
             process.start()
             processes.append(process)
 
@@ -216,6 +169,12 @@ def redis_matching():
         for item in iter_queue(match):
             print(item)
 
+# for Benchmarking
+def rangeip_matching(crypto):
+    for ip4 in range(256):
+        ip=["ip-dst=192.168.0." + str(ip4)]
+        argument_matching(crypto, ip)
+
 ########
 # Main #
 ########
@@ -226,10 +185,9 @@ if __name__ == "__main__":
     metaParser = configparser.ConfigParser()
     metaParser.read(conf['rules']['location'] + "/metadata")
     metadata = metaParser._sections
-    metadata = metadata['crypto']
-    metadata['dklen'] = int(metadata['dklen'])
-    metadata['iterations'] = int(metadata['iterations'])
-    metadata['ipiterations'] = int(metadata['ipiterations'])
+
+    # choose crypto
+    crypto = Crypto(metadata['crypto']['name'], conf, metadata)
 
     if not os.path.exists(conf['rules']['location']):
         sys.exit("No rules found.")
@@ -242,8 +200,8 @@ if __name__ == "__main__":
         file_attributes[name] = split
 
     if args.input == "redis":
-        redis_matching()
+        redis_matching(crypto)
     elif args.input == "rangeip":
-        rangeip_matching()
+        rangeip_matching(crypto)
     else:
-        argument_matching()
+        argument_matching(cryto)
