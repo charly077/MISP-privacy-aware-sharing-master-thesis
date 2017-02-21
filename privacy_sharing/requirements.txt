@@ -5,4 +5,4 @@ pandas
 matplotlib
 cryptography
 argparse
-csv
+url_normalize
