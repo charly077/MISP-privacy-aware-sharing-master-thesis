@@ -34,18 +34,21 @@ class Bcrypt(Crypto):
         """
         rd = 1
         if attr_types in ["ip-dst", "ip-src", "ip-src||port", "ip-dst||port"]:
-            it = self.ipround
+            rd = self.ipround
         else:
-            it = self.round
+            rd = self.round
         # solve the truncation problem (if token after 72 bytes)
         digest = hashes.Hash(hashes.SHA256(), backend=default_backend())
         digest.update(bpassword)
         digest.update(self.btoken)
         token_pass = digest.finalize()
-        return bcrypt.kdf(password = token_pass, 
+        print(attr_types)
+        key =  bcrypt.kdf(password = token_pass, 
                 salt = bsalt,
                 desired_key_bytes = 16,
-                rounds=it)
+                rounds = rd)
+        print(key)
+        return key
 
     def create_rule(self, ioc, message):
         nonce = os.urandom(16)
@@ -99,11 +102,12 @@ class Bcrypt(Crypto):
         password = ''
         try:
             password = '||'.join([attributes[attr] for attr in rule_attr])
+            attr_types = '||'.join(attr_type for attr_type in rule_attr)
         except:
             pass # nothing to do
         ciphertext = [rule['ciphertext-check'], rule['ciphertext']]
         match, plaintext = self.cryptographic_match(password, rule['salt'],\
-                rule['nonce'], ciphertext, rule_attr)
+                rule['nonce'], ciphertext, attr_types)
 
         if match:
             queue.put("IOC matched for: {}\nSecret Message (uuid-event id-date)\n===================================\n{}\n".format(attributes, plaintext.decode('utf-8')))

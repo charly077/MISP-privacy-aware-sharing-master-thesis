@@ -87,11 +87,12 @@ class Pbkdf2(Crypto):
         password = ''
         try:
             password = '||'.join([attributes[attr] for attr in rule_attr])
+            attr_types = '||'.join(attr_type for attr_type in rule_attr)
         except:
             pass # nothing to do
         ciphertext = [rule['ciphertext-check'], rule['ciphertext']]
         match, plaintext = self.cryptographic_match(password, rule['salt'],\
-                rule['nonce'], ciphertext, rule_attr)
+                rule['nonce'], ciphertext, attr_types)
 
         if match:
             queue.put("IOC matched for: {}\nSecret Message (uuid-event id-date)\n===================================\n{}\n".format(attributes, plaintext.decode('utf-8')))
