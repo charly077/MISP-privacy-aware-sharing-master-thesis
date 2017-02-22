@@ -48,7 +48,7 @@ class Bcrypt(Crypto):
 
     def create_rule(self, ioc, message):
         nonce = os.urandom(16)
-        salt = os.urandom(hashlib.new(self.hash_name).digest_size)
+        salt = os.urandom(16) # Can be modifed ? 
 
         # Spit + redo allow to ensure the same order to create the password
         attr_types = '||'.join(attr_type for attr_type in ioc)
