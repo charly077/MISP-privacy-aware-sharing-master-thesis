@@ -11,7 +11,7 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 import bcrypt
 
-class Pbkdf2(Crypto):
+class Bcrypt(Crypto):
     def __init__(self, conf, metadata=None):
         self.conf = conf
         self.btoken = bytes(conf['misp']['token'], encoding='ascii')
