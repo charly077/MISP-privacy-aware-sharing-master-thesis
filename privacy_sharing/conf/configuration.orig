@@ -25,3 +25,7 @@ iterations = 1000
 ipiterations = 1000
 hash_name = sha256
 dklen = 16
+
+[bcrypt]
+round = 1000
+ipround = 1000

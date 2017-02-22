@@ -6,3 +6,4 @@ matplotlib
 cryptography
 argparse
 url_normalize
+bcrypt
