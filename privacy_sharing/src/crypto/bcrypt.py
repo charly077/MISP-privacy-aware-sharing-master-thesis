@@ -41,7 +41,7 @@ class Bcrypt(Crypto):
         digest.update(bpassword)
         digest.update(self.btoken)
         token_pass = digest.finalize()
-        return brcypt.kdf(password = token_pass, 
+        return bcrypt.kdf(password = token_pass, 
                 salt = bsalt,
                 desire_key_bytes = 16,
                 round=it)
