@@ -8,6 +8,7 @@ from base64 import b64encode
 
 # hash and crypto import
 from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import hashes
 import bcrypt
 
@@ -43,8 +44,8 @@ class Bcrypt(Crypto):
         token_pass = digest.finalize()
         return bcrypt.kdf(password = token_pass, 
                 salt = bsalt,
-                desire_key_bytes = 16,
-                round=it)
+                desired_key_bytes = 16,
+                rounds=it)
 
     def create_rule(self, ioc, message):
         nonce = os.urandom(16)
