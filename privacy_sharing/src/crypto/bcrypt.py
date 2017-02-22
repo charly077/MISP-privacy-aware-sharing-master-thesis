@@ -1,7 +1,5 @@
 """
 Cryptographic system with bcrypt
-Please that care that every "password used" is 
-truncated to 72 bytes.
 """
 from crypto.interface import Crypto
 import configparser
@@ -28,6 +26,10 @@ class Pbkdf2(Crypto):
     def derive_key(self, bpassword, bsalt, attr_types):
         """
         Generate the key further used for encryption
+        Bcrypt truncates password to 72 bytes. 
+            password + token : For long data, token will not be included
+            token + password : only use 32 bytes of data
+            => Hash (password + token) as the password
         """
         rd = 1
         if attr_types in ["ip-dst", "ip-src", "ip-src||port", "ip-dst||port"]:
