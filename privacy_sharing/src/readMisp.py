@@ -163,10 +163,6 @@ if __name__ == "__main__":
     # choose crypto system
     crypto = Crypto(args.crypto, conf)
 
-    # create metadata
-    printv("Create metadata")
-    crypto.save_meta()
-
     # Parse IOCs
     printv("Create rules")
     iocs = [parse_attribute(ioc, crypto) for ioc in IOCs]
@@ -192,3 +188,6 @@ if __name__ == "__main__":
             dict_writer.writeheader()
             dict_writer.writerows(iocDic[typ])
 
+    # create metadata
+    printv("Create metadata")
+    crypto.save_meta()

@@ -26,11 +26,12 @@ class Bloom_filter(Crypto):
         """
         if (len(ioc)>1):
             # We also add the concatenation of the two values
-            long_pass = '||'.join([attributes[attr] for attr in attributes])
+            long_pass = '||'.join([ioc[attr] for attr in ioc])
             self.passwords.append(long_pass + self.token)
         
-        for attr in attributes:
-            self.passwords.append(attributes[attr]+ self.token)
+        for attr in ioc:
+            self.passwords.append(ioc[attr]+ self.token)
+
 
         return {'joker':True}
 
@@ -70,7 +71,8 @@ class Bloom_filter(Crypto):
             meta.write(config)
 
         # create Bloom filter
-        f = BloomFilter(capacity=len(self.passwords), error_rate=err_rate)
-        [f.add(password) for password in passwords ]
+        print(self.passwords)
+        f = BloomFilter(capacity=len(self.passwords), error_rate=float(err_rate))
+        [f.add(password) for password in self.passwords ]
         with open(self.conf['rules']['location'] + '/joker', 'wb') as fd:
             f.tofile(fd)

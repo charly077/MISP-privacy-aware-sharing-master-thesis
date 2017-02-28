@@ -7,3 +7,4 @@ def Crypto(name, conf, metadata=None):
         return Bcrypt(conf, metadata)
     elif (name == 'bloom_filter'):
         from crypto.bloom_filter import Bloom_filter
+        return Bloom_filter(conf, metadata)

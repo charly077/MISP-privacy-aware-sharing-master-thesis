@@ -29,3 +29,6 @@ dklen = 16
 [bcrypt]
 round = 1000
 ipround = 1000
+
+[bloom_filter]
+error_rate = 0.01
