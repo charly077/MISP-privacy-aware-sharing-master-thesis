@@ -34,7 +34,7 @@ Malicious software (malware) are plaguing this computer age. But how to avoid th
 An actual solution is threat information sharing where companies share lists of Indicators Of Compromise (e.g. IPs, mail addresses, urls, malware hashes and so on) with each other.
 An interesting tool is the MISP (Malware Information Sharing Platform), a platform that allows companies to share these IOCs but also malware analysis.
 Sometimes, the information is somehow confidential, but still interesting to be shared, thus we need to find a way to share these secret information without disclosing them entirely.
-The goal of this master thesis will be to analyze the state of the art and to implement different solutions (seen in papers or created) working with MISP in order to compare their performances.
+The goal of this master thesis will be to analyze the state of the art and to implement different solutions working with MISP in order to compare their performances.
 \end{abstract}
 
 \section{Interaction with this Latex Document}
@@ -46,24 +46,22 @@ In order to facilitate comments, I've added some new commands explained by\footn
 \item improvement => Indicate a possible improvement
 \end{itemize}
 
-\section{Steps that I want to follow}
+\section{Steps}
 \begin{itemize}
-\item Establish the state of the art by reading papers on the subject
-\item Understand MISP-workbench
-\item Implement another backend when do not directly have access to db
-\item use the simple hashstore => break it just to see how it is feasible
-\item First implement the \cite{van2016private} \info{I think that it'll be done before the end of Decembre}
-\item Implement paper's concepts with additional ideas
-\item Performance analysis of the implementations
+\item Establishing a small state of the art. (IOC - Sharing - Standards - Cryptography)
+\item Misp-workbench analysis to understand what's behing
+\item Implementation \cite{van2016private} on MISP (with modifications)
+\item Implement additional ideas on top of the paper
+\item Performance analysis of these implementations
 \end{itemize}
 
 \section{MISP and Thread Sharing}
-Nowadays, cyber specialists agree to say that Information Sharing is needed to defend our computer systems against digital threads and attacks. That's why a lot sharing platform appeared like DShield, Critical Stack’s Intel, Microsoft’s Interflow, AlienVault’s Open Threat Exchange, ...\\
+Nowadays, cyber specialists agree to say that Information Sharing is needed to defend our computer systems against digital threats and attacks. That's why a lot sharing platform appeared like DShield, Critical Stack’s Intel, Microsoft’s Interflow, AlienVault’s Open Threat Exchange, ...\\
 Here I focused on the MISP database which is, as said on their website, an open source software solution for collecting, storing, distributing and sharing cyber security indicators and threat about cyber security incidents analysis and malware analysis. MISP is designed by and for incident analysts, security and ICT professionals or malware reverser to support their day-to-day operations to share structured informations efficiently.\\
 This system is based on a set of "Events" and each event contains a set of IOCs called attributes. \\
-To explain it, easily, we cant take the example of an analyst that gets an information to share. First, he creates an event. Then he splits all information into fine grained attributes (e.g. ips, urls, uri, ...). All these fine-grained information are called IOCs. An Indicator of Compromise can, in this context, be defined as a data that can indicate an infection by a "event" if found on a computer system.
+To explain it, easily, we can take the example of an analyst that gets an information to share. First, he creates an event. Then he splits all information into fine grained attributes (e.g. ips, urls, uri, ...). All these fine-grained information are also called IOCs. An Indicator of Compromise can, in this context, be defined as a data that can indicate an infection by a "event" if found on a computer system.
 
-\section{First set of read articles}
+\section{Information Sharing State of the Art}
 The idea of this section is to sum up all different articles read at the beginning of the master thesis. These are articles are linked to the subject but sometimes not directly but helped me to the understanding of the subject, and especially to discover ideas to create some possible solutions.\\
 These articles can be divided into some sections, the first one is data sanitization, this is quite interesting even if it could not be applied in our case (as explained in a later section).\\
 Then we have articles on confidencial database and S2P computations \change{I have to complete these parts with articles}
@@ -150,7 +148,10 @@ $\Rightarrow$ I don't think so, but I forgot to ask this question
  $\Rightarrow$ No, at least not for the moment !
 \end{itemize}
 
-\section{What I need to do}
+\section{Useful Cryptographic Functions}
+\improvement{Todo}
+
+\section{On what I worked}
 
 We have a data set of malicious data, IOCs, events and we want to share them. And it is already done by the MISP project. But now, if we want to distribute these information to every one?\\
 It would be really nice, every computer specialist could check on computers to discover infections, problems and moreover fix it thanks to previous analysis contained on MISP. But there is a problem, some information are confidential and we need to have some privacy concerns while sharing. \\
@@ -171,7 +172,8 @@ One idea already implemented is a redis\footnote{http://redis.io} hashstore loca
 The result is that only the ones who have seen the IOC can get the associated information. \\
 Back on the small data problem, if we consider an attacker that want to try every possible IPs, for IPv4 it represents 4.228.250.625 different IPs that needs to be tested. Even if it is a lot it is still feasible ! Moreover, not all IPv4 need to be tested, for an example we can avoid private subnet like 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 which already represent 17.891.328 addresses.\change{To complete ! Mais il y a une grosse partie du misp-workbench que je ne comprends pas et que je ne vois pas à quoi ça sert vu que je n'ai pas accès à la db .. J'aimerai pouvoir voir comment ça fonctionne pour pouvoir l'implem dans l'autre}
 
-\section{Small data}
+
+\section{Limitation}
 it is intrinsically impossible to fully hide the IOC while still allowing a subscriber to evaluate the rule. \change{Explain why}
 
 
@@ -257,19 +259,27 @@ Create 2 backends:\\
 Then create the matching system\\
 
 Both system will be really similar to what I need, so I will only have to do few modifications !
-Like the file idea is great  \info{Attention, See how I can use the file with the MIT license}
+\section{My Implementation}
 
+\subsection{\cite{van2016private}}
 
+\subsection{Additional choice}
 
-\improvement{Reporting of Sightings is needed ? }
+\subsection{Generalization}
+
+\section{Chosen Crytographic System}
+
+\section{Security Discussion}
+
+\section{Benchmarking}
+
+\section{Further Work}
 \begin{itemize}
-\item CAO: for us it is for example EventID:EventUUID ?
-\item EventUUID => can we get an event just with its uuid?
-\item traitor tracking: \info{See implementation}
-\item Salt: how to store it \info{See implementation}
-\item Private Reporting of Sightings : Do we need to implement it in misp ?
+\item Sightings
+\item additional crypto systems
+\item additional benchmark
+\item ...
 \end{itemize}
-
 
 
 \newpage

@@ -1,18 +1,27 @@
 \BOOKMARK [1][-]{section.1}{Interaction with this Latex Document}{}% 1
-\BOOKMARK [1][-]{section.2}{Steps that I want to follow}{}% 2
+\BOOKMARK [1][-]{section.2}{Steps}{}% 2
 \BOOKMARK [1][-]{section.3}{MISP and Thread Sharing}{}% 3
-\BOOKMARK [1][-]{section.4}{First set of read articles}{}% 4
+\BOOKMARK [1][-]{section.4}{Information Sharing State of the Art}{}% 4
 \BOOKMARK [1][-]{section.5}{Sum up}{}% 5
-\BOOKMARK [1][-]{section.6}{What I need to do}{}% 6
-\BOOKMARK [1][-]{section.7}{Misp-Worbench hashstore}{}% 7
-\BOOKMARK [1][-]{section.8}{Small data}{}% 8
-\BOOKMARK [1][-]{section.9}{Ideas}{}% 9
-\BOOKMARK [2][-]{subsection.9.1}{Bloom filter}{section.9}% 10
-\BOOKMARK [2][-]{subsection.9.2}{Machine Learning}{section.9}% 11
-\BOOKMARK [2][-]{subsection.9.3}{Secure Two Party Computation \(Intersection\)}{section.9}% 12
-\BOOKMARK [2][-]{subsection.9.4}{Proof of Work Database}{section.9}% 13
-\BOOKMARK [2][-]{subsection.9.5}{All in one request}{section.9}% 14
-\BOOKMARK [2][-]{subsection.9.6}{All in one request with S2P}{section.9}% 15
-\BOOKMARK [2][-]{subsection.9.7}{Private Sharing of IOCs and Sightings van2016private}{section.9}% 16
-\BOOKMARK [3][-]{subsubsection.9.7.1}{Create a rule}{subsection.9.7}% 17
-\BOOKMARK [3][-]{subsubsection.9.7.2}{match a rule}{subsection.9.7}% 18
+\BOOKMARK [1][-]{section.6}{Useful Cryptographic Functions}{}% 6
+\BOOKMARK [1][-]{section.7}{On what I worked}{}% 7
+\BOOKMARK [1][-]{section.8}{Misp-Worbench hashstore}{}% 8
+\BOOKMARK [1][-]{section.9}{Limitation}{}% 9
+\BOOKMARK [1][-]{section.10}{Ideas}{}% 10
+\BOOKMARK [2][-]{subsection.10.1}{Bloom filter}{section.10}% 11
+\BOOKMARK [2][-]{subsection.10.2}{Machine Learning}{section.10}% 12
+\BOOKMARK [2][-]{subsection.10.3}{Secure Two Party Computation \(Intersection\)}{section.10}% 13
+\BOOKMARK [2][-]{subsection.10.4}{Proof of Work Database}{section.10}% 14
+\BOOKMARK [2][-]{subsection.10.5}{All in one request}{section.10}% 15
+\BOOKMARK [2][-]{subsection.10.6}{All in one request with S2P}{section.10}% 16
+\BOOKMARK [2][-]{subsection.10.7}{Private Sharing of IOCs and Sightings van2016private}{section.10}% 17
+\BOOKMARK [3][-]{subsubsection.10.7.1}{Create a rule}{subsection.10.7}% 18
+\BOOKMARK [3][-]{subsubsection.10.7.2}{match a rule}{subsection.10.7}% 19
+\BOOKMARK [1][-]{section.11}{My Implementation}{}% 20
+\BOOKMARK [2][-]{subsection.11.1}{van2016private}{section.11}% 21
+\BOOKMARK [2][-]{subsection.11.2}{Additional choice}{section.11}% 22
+\BOOKMARK [2][-]{subsection.11.3}{Generalization}{section.11}% 23
+\BOOKMARK [1][-]{section.12}{Chosen Crytographic System}{}% 24
+\BOOKMARK [1][-]{section.13}{Security Discussion}{}% 25
+\BOOKMARK [1][-]{section.14}{Benchmarking}{}% 26
+\BOOKMARK [1][-]{section.15}{Further Work}{}% 27
