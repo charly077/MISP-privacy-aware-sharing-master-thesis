@@ -174,12 +174,16 @@ if __name__ == "__main__":
     # sort iocs in different files for optimization
     printv("Sort IOCs with attributes")
     iocDic = {}
-    for ioc in iocs:
-        typ = "_".join(ioc["attributes"].split('||'))
-        try:
-            iocDic[typ].append(ioc)
-        except:
-            iocDic[typ] = [ioc]
+    try:
+        if iocs[0]['joker']:
+            iocDic['joker'] = [{'joker':True}] # (for bloom filter)
+    except:
+        for ioc in iocs:
+            typ = "_".join(ioc["attributes"].split('||'))
+            try:
+                iocDic[typ].append(ioc)
+            except:
+                iocDic[typ] = [ioc]
 
     printv("Store IOCs in files")
     for typ in iocDic:

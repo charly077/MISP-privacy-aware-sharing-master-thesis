@@ -7,26 +7,32 @@ import glob, hashlib, os
 from base64 import b64encode
 
 # hash and crypto import
-from crypto.lib.python-bloomfilter.pybloom.pybloom import BloomFilter
+from crypto.pybloom import BloomFilter
 
 class Bloom_filter(Crypto):
     def __init__(self, conf, metadata=None):
         self.conf = conf
-        self.f = BloomFilter
+        self.token = conf['misp']['token']
+        self.passwords = list()
+        # if for matching
+        if metadata != None:
+            filename = self.conf['rules']['location'] + '/joker'
+            with open(filename, 'rb') as fd:
+                self.f = BloomFilter.fromfile(fd)
 
     def create_rule(self, ioc, message):
         """
         We need to create one rule, thus we need a state
         """
-        # Spit + redo allow to ensure the same order to create the password
-        attr_types = '||'.join(attr_type for attr_type in ioc)
-        password = '||'.join(ioc[attr_type] for attr_type in ioc)
+        if (len(ioc)>1):
+            # We also add the concatenation of the two values
+            long_pass = '||'.join([attributes[attr] for attr in attributes])
+            self.passwords.append(long_pass + self.token)
+        
+        for attr in attributes:
+            self.passwords.append(attributes[attr]+ self.token)
 
-
-        # create the rule
-        rule = {}
-
-        return rule
+        return {'joker':True}
 
 
     def match(self, attributes, rule, queue):
@@ -35,15 +41,22 @@ class Bloom_filter(Crypto):
         ciphertext to know if there is a match
         as it is the case here thanks to ctr mode
         """
-        rule_attr = rule['attributes']
-        password = ''
-        try:
-            password = '||'.join([attributes[attr] for attr in rule_attr])
-            attr_types = '||'.join(attr_type for attr_type in rule_attr)
-        except:
-            pass # nothing to do
-        if match:
-            queue.put("IOC matched for: {}\nSecret Message (uuid-event id-date)\n===================================\n{}\n".format(attributes, plaintext.decode('utf-8')))
+        print("check if it is a dict")
+        print(attributes)
+
+        passwords = list()
+
+        if (len(attributes)>1):
+            # We also add the concatenation of the two values
+            long_pass = '||'.join([attributes[attr] for attr in attributes])
+            passwords.append(long_pass + self.token)
+        
+        for attr in attributes:
+            passwords.append(attributes[attr]+ self.token)
+        
+        for p in passwords:
+            if p in self.f:
+                queue.put("IOC {} matched for {}\n".format(attributes, p))
 
 
 
@@ -51,8 +64,13 @@ class Bloom_filter(Crypto):
         meta = configparser.ConfigParser()
         meta['crypto'] = {}
         meta['crypto']['name'] = 'bloom_filter' 
-        meta['crypto']['capacity'] = 
-        meta['crypto']['error_rate'] = 
+        err_rate = self.conf['bloom_filter']['error_rate']
+        meta['crypto']['error_rate'] = err_rate
         with open(self.conf['rules']['location'] + '/metadata', 'w') as config:
             meta.write(config)
 
+        # create Bloom filter
+        f = BloomFilter(capacity=len(self.passwords), error_rate=err_rate)
+        [f.add(password) for password in passwords ]
+        with open(self.conf['rules']['location'] + '/joker', 'wb') as fd:
+            f.tofile(fd)
