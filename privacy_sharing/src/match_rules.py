@@ -82,7 +82,10 @@ def joker(lock):
     try:
         return rules_dict[filename]
     except:
-        rules_dict['joker'] = rules_from_csv('joker', lock, False)
+        try:
+            rules_dict['joker'] = rules_from_csv('joker', lock, False)
+        else:
+            rules_dict['joker'] = list()
         return rules_dict['joker']
 
 def get_file_rules(filename, lock):
