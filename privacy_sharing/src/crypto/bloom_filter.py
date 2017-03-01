@@ -51,7 +51,6 @@ class Bloom_filter(Crypto):
         for attr in attributes:
             passwords.append(attributes[attr]+ self.token)
         
-        print(passwords[0])
         for p in passwords:
             if p in self.f:
                 queue.put("Value(s) {} matched for {}\n".format(attributes, p[:-len(self.token)]))

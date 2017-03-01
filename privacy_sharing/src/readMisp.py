@@ -15,6 +15,7 @@ import argparse, configparser
 import sys, subprocess, os, shutil
 import datetime, copy, re
 from url_normalize import url_normalize
+from collections import OrderedDict
 
 # crypto import
 import glob, hashlib, os
@@ -94,7 +95,7 @@ def ioc_mysql():
     printv("Get Attributes")
     attributes = connection.execute(select([attributes_table]))
     for attr in attributes:
-        dic_attr = dict(attr.items())
+        dic_attr = OrderedDict(attr.items())
         if dic_attr['to_ids'] == 1:
             timestamp = dic_attr['timestamp']
             dic_attr['date'] = datetime.datetime.fromtimestamp(int(timestamp)).strftime("%Y%m%d")
@@ -128,7 +129,7 @@ def normalize(ioc):
 def parse_attribute(attr, crypto):
     # IOC can be composed of a unique attribute type or of a list of attribute types
     split_type = attr["type"].split('|')
-    ioc = {}
+    ioc = OrderedDict()
     if (len(split_type)>1):
         # more than one value
         split_value = attr["value"].split('|')

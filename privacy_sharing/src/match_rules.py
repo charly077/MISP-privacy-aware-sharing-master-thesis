@@ -16,6 +16,7 @@ from functools import lru_cache
 from copy import deepcopy
 import redis
 from url_normalize import url_normalize
+from collections import OrderedDict
 
 # crypto import 
 import hashlib
@@ -130,7 +131,8 @@ def redis_matching_process(r, queue, lock, crypto):
     while log:
         log = log.decode("utf8")
         log_dico = json.loads(log)
-        dico_matching(log_dico, queue, lock, crypto)
+        ordered_dico = OrderedDico(log_dico)
+        dico_matching(ordered_dico, queue, lock, crypto)
         log = r.rpop("logstash")
 
 def print_queue_process(queue):
@@ -151,7 +153,7 @@ def dico_matching(attributes, queue, lock, crypto):
         crypto.match(attributes, rule, queue)
 
 def argument_matching(crypto, values=args.attribute):
-    attributes = dict(pair.split("=") for pair in values)
+    attributes = OrderedDict(pair.split("=") for pair in values)
     match = SimpleQueue()
     dico_matching(attributes, match, Lock(), crypto)
 
