@@ -54,6 +54,7 @@ def rules_from_csv(filename, lock, parse=True):
     path = conf['rules']['location']+'/'+filename
     rules = list()
     if not os.path.exists(path):
+        print("path does not exist")
         lock.release()
         return rules
     with open(path, "r") as f:
@@ -83,8 +84,8 @@ def joker(lock):
         return rules_dict[filename]
     except:
         try:
-            rules_dict['joker'] = rules_from_csv('joker', lock, False)
-        else:
+            rules_dict['joker'] = rules_from_csv('joker.tsv', lock, False)
+        except:
             rules_dict['joker'] = list()
         return rules_dict['joker']
 

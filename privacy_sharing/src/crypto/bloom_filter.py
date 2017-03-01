@@ -32,7 +32,6 @@ class Bloom_filter(Crypto):
         for attr in ioc:
             self.passwords.append(ioc[attr]+ self.token)
 
-
         return {'joker':True}
 
 
@@ -42,22 +41,20 @@ class Bloom_filter(Crypto):
         ciphertext to know if there is a match
         as it is the case here thanks to ctr mode
         """
-        print("check if it is a dict")
-        print(attributes)
-
         passwords = list()
 
         if (len(attributes)>1):
             # We also add the concatenation of the two values
             long_pass = '||'.join([attributes[attr] for attr in attributes])
             passwords.append(long_pass + self.token)
-        
+
         for attr in attributes:
             passwords.append(attributes[attr]+ self.token)
         
+        print(passwords[0])
         for p in passwords:
             if p in self.f:
-                queue.put("IOC {} matched for {}\n".format(attributes, p))
+                queue.put("Value(s) {} matched for {}\n".format(attributes, p[:-len(self.token)]))
 
 
 
@@ -71,7 +68,6 @@ class Bloom_filter(Crypto):
             meta.write(config)
 
         # create Bloom filter
-        print(self.passwords)
         f = BloomFilter(capacity=len(self.passwords), error_rate=float(err_rate))
         [f.add(password) for password in self.passwords ]
         with open(self.conf['rules']['location'] + '/joker', 'wb') as fd:
