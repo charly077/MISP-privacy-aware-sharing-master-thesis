@@ -16,6 +16,7 @@ from functools import lru_cache
 from copy import deepcopy
 import redis
 from url_normalize import url_normalize
+from collections import OrderedDict
 
 # crypto import 
 import hashlib
@@ -49,22 +50,24 @@ def iter_queue(queue):
     return iter(next, None)
 
 # from the csv file, read the rules and return them as a list
-def rules_from_csv(filename, lock):
+def rules_from_csv(filename, lock, parse=True):
     lock.acquire()
     path = conf['rules']['location']+'/'+filename
     rules = list()
     if not os.path.exists(path):
+        print("path does not exist")
         lock.release()
         return rules
     with open(path, "r") as f:
         data = csv.DictReader(f, delimiter='\t')
         # copy data
         for d in data:
-            d['salt'] = b64decode(d['salt'])
-            d['nonce'] = b64decode(d['nonce'])
-            d['attributes'] = d['attributes'].split('||')
-            d['ciphertext-check'] = b64decode(d['ciphertext-check'])
-            d['ciphertext'] = b64decode(d['ciphertext'])
+            if parse:
+                d['salt'] = b64decode(d['salt'])
+                d['nonce'] = b64decode(d['nonce'])
+                d['attributes'] = d['attributes'].split('||')
+                d['ciphertext-check'] = b64decode(d['ciphertext-check'])
+                d['ciphertext'] = b64decode(d['ciphertext'])
             rules.append(d)
     lock.release()
     return rules
@@ -73,17 +76,31 @@ def rules_from_csv(filename, lock):
 file_attributes = {}
 rules_dict = {}
 
-def get_file_rules(filename, lock):
+def joker(lock):
+    """
+    Get joker file:
+        joker is a special rule that always need to be laoded
+    """
     try:
-        rules = rules_dict[filename]
-        return rules
+        return rules_dict[filename]
     except:
-        rules = rules_from_csv(filename, lock)
-        rules_dict[filename] = rules
-        return rules
+        try:
+            rules_dict['joker'] = rules_from_csv('joker.tsv', lock, False)
+        except:
+            rules_dict['joker'] = list()
+        return rules_dict['joker']
+
+def get_file_rules(filename, lock):
+    # get rules :
+    try:
+        return rules_dict[filename]
+    except:
+        rules_dict[filename] = rules_from_csv(filename, lock)
+        return rules_dict[filename]
 
 def get_rules(attributes, lock):
-    rules = list()
+    # get joker
+    rules = joker(lock)
     # wich combinaison
     for filename in file_attributes:
         if all([i in attributes for i in file_attributes[filename]]):
@@ -114,7 +131,8 @@ def redis_matching_process(r, queue, lock, crypto):
     while log:
         log = log.decode("utf8")
         log_dico = json.loads(log)
-        dico_matching(log_dico, queue, lock, crypto)
+        ordered_dico = OrderedDico(log_dico)
+        dico_matching(ordered_dico, queue, lock, crypto)
         log = r.rpop("logstash")
 
 def print_queue_process(queue):
@@ -135,7 +153,7 @@ def dico_matching(attributes, queue, lock, crypto):
         crypto.match(attributes, rule, queue)
 
 def argument_matching(crypto, values=args.attribute):
-    attributes = dict(pair.split("=") for pair in values)
+    attributes = OrderedDict(pair.split("=") for pair in values)
     match = SimpleQueue()
     dico_matching(attributes, match, Lock(), crypto)
 
