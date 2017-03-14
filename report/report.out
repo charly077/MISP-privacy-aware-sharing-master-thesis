@@ -1,27 +1,37 @@
-\BOOKMARK [1][-]{section.1}{Interaction with this Latex Document}{}% 1
-\BOOKMARK [1][-]{section.2}{Steps}{}% 2
-\BOOKMARK [1][-]{section.3}{MISP and Thread Sharing}{}% 3
-\BOOKMARK [1][-]{section.4}{Information Sharing State of the Art}{}% 4
-\BOOKMARK [1][-]{section.5}{Sum up}{}% 5
-\BOOKMARK [1][-]{section.6}{Useful Cryptographic Functions}{}% 6
-\BOOKMARK [1][-]{section.7}{On what I worked}{}% 7
-\BOOKMARK [1][-]{section.8}{Misp-Worbench hashstore}{}% 8
-\BOOKMARK [1][-]{section.9}{Limitation}{}% 9
-\BOOKMARK [1][-]{section.10}{Ideas}{}% 10
-\BOOKMARK [2][-]{subsection.10.1}{Bloom filter}{section.10}% 11
-\BOOKMARK [2][-]{subsection.10.2}{Machine Learning}{section.10}% 12
-\BOOKMARK [2][-]{subsection.10.3}{Secure Two Party Computation \(Intersection\)}{section.10}% 13
-\BOOKMARK [2][-]{subsection.10.4}{Proof of Work Database}{section.10}% 14
-\BOOKMARK [2][-]{subsection.10.5}{All in one request}{section.10}% 15
-\BOOKMARK [2][-]{subsection.10.6}{All in one request with S2P}{section.10}% 16
-\BOOKMARK [2][-]{subsection.10.7}{Private Sharing of IOCs and Sightings van2016private}{section.10}% 17
-\BOOKMARK [3][-]{subsubsection.10.7.1}{Create a rule}{subsection.10.7}% 18
-\BOOKMARK [3][-]{subsubsection.10.7.2}{match a rule}{subsection.10.7}% 19
-\BOOKMARK [1][-]{section.11}{My Implementation}{}% 20
-\BOOKMARK [2][-]{subsection.11.1}{van2016private}{section.11}% 21
-\BOOKMARK [2][-]{subsection.11.2}{Additional choice}{section.11}% 22
-\BOOKMARK [2][-]{subsection.11.3}{Generalization}{section.11}% 23
-\BOOKMARK [1][-]{section.12}{Chosen Crytographic System}{}% 24
-\BOOKMARK [1][-]{section.13}{Security Discussion}{}% 25
-\BOOKMARK [1][-]{section.14}{Benchmarking}{}% 26
-\BOOKMARK [1][-]{section.15}{Further Work}{}% 27
+\BOOKMARK [0][-]{chapter.1}{Introduction and State of the Art}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Interaction with this Latex Document \(To be removed\)}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Introduction}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.3}{Indicator of Compromise \(IOC\)}{chapter.1}% 4
+\BOOKMARK [1][-]{section.1.4}{Cyber Threat sharing}{chapter.1}% 5
+\BOOKMARK [1][-]{section.1.5}{MISP and Threat Sharing}{chapter.1}% 6
+\BOOKMARK [2][-]{subsection.1.5.1}{History}{section.1.5}% 7
+\BOOKMARK [2][-]{subsection.1.5.2}{The Basics of Misp}{section.1.5}% 8
+\BOOKMARK [2][-]{subsection.1.5.3}{My Settings}{section.1.5}% 9
+\BOOKMARK [2][-]{subsection.1.5.4}{Illustrations}{section.1.5}% 10
+\BOOKMARK [1][-]{section.1.6}{Information Sharing State of the Art}{chapter.1}% 11
+\BOOKMARK [1][-]{section.1.7}{Sum up}{chapter.1}% 12
+\BOOKMARK [1][-]{section.1.8}{Useful Cryptographic Functions}{chapter.1}% 13
+\BOOKMARK [1][-]{section.1.9}{On what I worked}{chapter.1}% 14
+\BOOKMARK [1][-]{section.1.10}{Misp-Worbench hashstore}{chapter.1}% 15
+\BOOKMARK [1][-]{section.1.11}{Limitation}{chapter.1}% 16
+\BOOKMARK [0][-]{chapter.2}{Implementation Ideas}{}% 17
+\BOOKMARK [1][-]{subsection.2.0.1}{Bloom filter}{chapter.2}% 18
+\BOOKMARK [2][-]{subsection.2.0.2}{Machine Learning}{subsection.2.0.1}% 19
+\BOOKMARK [2][-]{subsection.2.0.3}{Secure Two Party Computation \(Intersection\)}{subsection.2.0.1}% 20
+\BOOKMARK [2][-]{subsection.2.0.4}{Proof of Work Database}{subsection.2.0.1}% 21
+\BOOKMARK [2][-]{subsection.2.0.5}{All in one request}{subsection.2.0.1}% 22
+\BOOKMARK [2][-]{subsection.2.0.6}{All in one request with S2P}{subsection.2.0.1}% 23
+\BOOKMARK [1][-]{section.2.1}{Conclusion}{chapter.2}% 24
+\BOOKMARK [0][-]{chapter.3}{Implementation}{}% 25
+\BOOKMARK [1][-]{subsection.3.0.1}{Private Sharing of IOCs and Sightings van2016private}{chapter.3}% 26
+\BOOKMARK [1][-]{section.3.1}{My Implementation}{chapter.3}% 27
+\BOOKMARK [2][-]{subsection.3.1.1}{van2016private}{section.3.1}% 28
+\BOOKMARK [2][-]{subsection.3.1.2}{Additional choice}{section.3.1}% 29
+\BOOKMARK [2][-]{subsection.3.1.3}{Generalization}{section.3.1}% 30
+\BOOKMARK [1][-]{section.3.2}{Chosen Crytographic System}{chapter.3}% 31
+\BOOKMARK [2][-]{subsection.3.2.1}{Key Derivation functions}{section.3.2}% 32
+\BOOKMARK [2][-]{subsection.3.2.2}{Bcrypt}{section.3.2}% 33
+\BOOKMARK [2][-]{subsection.3.2.3}{Bloom filter}{section.3.2}% 34
+\BOOKMARK [1][-]{section.3.3}{Security Discussion}{chapter.3}% 35
+\BOOKMARK [1][-]{section.3.4}{Benchmarking}{chapter.3}% 36
+\BOOKMARK [1][-]{section.3.5}{Further Work}{chapter.3}% 37

@@ -1,22 +1,11 @@
-\documentclass[10pt]{article}
-
-
-\usepackage[english]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[pdftex]{graphicx}
-\usepackage{setspace}
-\usepackage{hyperref}
-\usepackage{qtree}
-\usepackage{pifont}
-
-\usepackage[english]{varioref}
-
+% EPL master thesis cover template
+\documentclass{eplmastersthesis}
 
 % help package for todo
 \usepackage{xargs}                      % Use more than one optional parameter in a new commands
 \usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
 % 
+\usepackage{hyperref} % for url and so on
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
 \newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
@@ -24,10 +13,35 @@
 \newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
 \newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
 
-\title{Mémoire}
-\author{Charles Jacquet - 2781-12-00}
+% Fill in here the information: title, student name, speciality, jury members
+\title{Privacy Aware Sharing of IOCs in MISP}	% Master thesis title
+%\subtitle{Subtitle (optional)}			% Optional subtitle
+\author{Charles \textsc{Jacquet}}	% Student name
+%\secondauthor{Firstname \textsc{Lastname}}	% Second student name if applicable
+\speciality{Computer Science and Engineering}		% Speciality (use one of the following options):
+										% Biomedical Engineering
+										% Chemical and Materials Engineering
+										% Civil Engineering
+										% Computer Science
+										% Computer Science and Engineering
+										% Electrical Engineering
+										% Electro-mechanical Engineering
+										% Mathematical Engineering
+										% Mechanical Engineering
+										% Physical Engineering
+%\options{Option(s)}		% If required by program commission mention options
+\supervisor{Ramin \textsc{Sadre}}	% 1st supervisor name
+%\cosupervisor{Firstname \textsc{Lastname}}	% 2nd supervisor name if applicable
+\readerone{Antoine \textsc{Cailliau}, Alexandre \textsc{Dulaunoy}}		% 1st reader name
+\readertwo{William \textsc{Robinet}}		% 2nd reader name
+\readerthree{François-Xavier \textsc{Standaert}}	% 3rd reader name
+\years{2016-2017}	% Academic year
+
 \begin{document}
-\maketitle
+
+\maketitle					% To create front cover page
+\thispagestyle{empty}		% To suppress header and footer on the back of the cover page
+
 
 \begin{abstract} 
 Malicious software (malware) are plaguing this computer age. But how to avoid them ?
@@ -36,8 +50,8 @@ An interesting tool is the MISP (Malware Information Sharing Platform), a platfo
 Sometimes, the information is somehow confidential, but still interesting to be shared, thus we need to find a way to share these secret information without disclosing them entirely.
 The goal of this master thesis will be to analyze the state of the art and to implement different solutions working with MISP in order to compare their performances.
 \end{abstract}
-
-\section{Interaction with this Latex Document}
+\chapter{Introduction and State of the Art}
+\section{Interaction with this Latex Document (To be removed)}
 In order to facilitate comments, I've added some new commands explained by\footnote{http://tex.stackexchange.com/questions/9796/how-to-add-todo-notes}:\\
 \begin{itemize}
 \item unsure => What I need to check
@@ -46,20 +60,136 @@ In order to facilitate comments, I've added some new commands explained by\footn
 \item improvement => Indicate a possible improvement
 \end{itemize}
 
-\section{Steps}
+\section{Introduction}
+In the last report of the Ponemon institute, we can see that the estimated cost of annual data breaches for 384 companies in 12 countries\footnote{United States, United Kingdom, Germany, Australia, France, Brazil, Japan, Italy, India, the Arabian region (United Arab Emirates and Saudi Arabia), Canada and, South Africa} is about \$4 million. Moreover, 48\% of theses breaches are due to malicious and criminal attacks.\\
+Taking that into account, the damage cost per capita is about \$170 only for malicious and criminal attacks. \\
+Beside that, Cybersecurity Ventures predicts the global annual cybercrime costs will grow from \$3 trillion in 2015 to 6\$ trillion by 2021.\\
+
+We thus need to improve our computer defenses and make them to learn continuously about new appearing threats. Moreover, they should be aware of new threats faster than simple malware detectors or anti-viruses. This is why a new kind of security levels appeared and is called threat sharing. As soon as an organization find a malware, they can prevent others to be compromised just by letting them know about the threat. \\
+Unfortunately, this is not enough as, theses informations, here and after called IOCs, are often considered as confidential because revealing them, can reveal damaging information for the companies.\\
+We thus need to find a way for \textbf{sharing} information without \textbf{giving} the information. And I will try to explain the meaning of this sentence in the report's body. But, for now, we can say that this master's thesis is on finding a "more secure" way of sharing information. More precisely, if we attempt to create an encrypted database of these IOCs, the idea would be to slow down as much as possible a brute force attack for someone who has complete access to the database while still making this database useful for the targeted user.\\
+
+I've decided to organize the work the same way I've discovered and implemented things. The first chapter will thus be on defining the tools an vocabulary that will be used. I'll be continuing this chapter with a state of the art that made me understood the domain and the limitation that I was going to face.\\
+Afterwards, I'll spoke about the implementation ideas I've got, by highlighting theirs strengths and weaknesses. While the third chapter will really be about my implementations, my choices on the system but not only on the way I've implement things but also the library I've chosen.\\
+The next one will be an analyze of the implementation supported with different benchmarks.\\
+Finally, I will conclude on my work with some possible improvement and future work but also by concluding on every thing that I've discovered.
+
+\section{Indicator of Compromise (IOC)}
+If there is a crime, detectives can come and look for clues. What make it happened, why did it happened and how did it happened. The what and why questions can be interesting in order to avoid this crime to happen again while the last one but not the least one, the how can be used to compare this crime with other similar ones.\\
+This idea of being able to compare them is really interesting as seeing the clues of only one place can be not enough while there could be enough clues if we succeed in gathering the whole set clues.\\
+This is exactly the same idea here, even if the attacker try to minimize its traces, there are always some. They can be email addresses, IP addresses, malware, url and so on.\\
+The idea, is then to use these traces to trigger alarms on other computer system as soon as they are seen. This means that the same attack is perhaps happening again but and this is the reason why we call them Indicator Of Compromise.
+
+
+\section{Cyber Threat sharing}
+\improvement{Perhaps add the information coming from the Guide + historical inforamtion}
+
+
+\section{MISP and Threat Sharing}
+I've introduce the idea of malware sharing to defend our computer systems against digital threats and attacks. But MISP is not the only platform to do so, the more current onces are DShield, Critical Stack’s Intel, Microsoft’s Interflow, AlienVault’s Open Threat Exchange, ...\\
+But here I focused on the MISP project which is, as said on their website, an open source software solution for collecting, storing, distributing and sharing cyber security indicators and threat about cyber security incidents analysis and malware analysis. MISP is designed by and for incident analysts, security and IT professionals or malware reverser to support their day-to-day operations to share structured informations efficiently.\\
+A recent paper on MISP \cite{wagner2016misp} had been published this year and could be interesting if your are searching to have a better understanding of the underlying system.
+
+\subsection{History}
+Christophe Vandeplas started the project as he was tired of the way IOCs were shared (email, pdf, .. ). Thus, he created a cakePHP website as a proof of concept and manage to convince the Belgian Defense (where he was working) that the project was worth to work on. They even allowed him to work on it during his work-hours. The project continued to move forward and now, Andras Iklody is the lead developer of the MISP project and works for CIRCL.\\
+
+\subsection{The Basics of Misp}
+The basic idea of misp was thus to create an IOC database, for example, if we have two IOCs for the same attack, let's say "IOC@malware.mail" and "192.168.16.2". We are interested to  keep the information that there has been an attack that can be recognized thanks to these two IOCs. That is why they have created events (which is much more general than the term attack that I've been using) and they use these IOCs as the attributes of this specific event. \\
+Then thanks to this idea, we can analyze the event and even make correlations with other events if they possess similar IOCs.
+
+For clarity concerns, attributes are divided into 13 categories where they are again dived into types. As MISP is no more only targeting malwares, it is interesting to notice that we can also see categories like Financial Fraud. More standard ones are Network Activities, Antivirus detection, Artifacts dropped, and so on.\\
+All the category and types can be found on this web pages \url{https://www.circl.lu/doc/misp/categories-and-types/index.html}
+
+One other really interesting feature is sightings. When an IOC is referenced, we know that it has been seen by someone, but it does not confirm that the IOC is really related to that particular event and is not an error. Moreover, what says that the if an IP address is an IOC today that it is going to be the case in 3 months ? \\
+Sightings is thus the solution to this problem as we can monitor an IOC, knowing if it has been seen at other places, and if they are still relevant.
+
+
+The two important things on the sharing strategy that I want to point out are the MISP instances and communities. The first one is easy to understand, MISP is an open source project which means that everybody can decide to run a completely isolated MISP instance for its own needs like a company for storing its own confidential data. Besides that, that does not mean that the instance must be isolated, they have implemented a way to share information between these instances. While the second one is a good property of an instance. When we are connected to MISP as a user, we are connected thanks to the organization that we belongs. Then, the organization can choose to share or not to share their events/attributes with other communities or even with other instances. \\ 
+
+Now, as a good open source project, a whole ecosystem has been created around and more and more companies are using it.\\
+MISP become a really good IOC database with automated correlation system. We can even create correlation graphs to see how different events are connected together what helps a lot for the threat analyses.\\
+Beside all that, a lot of different tools like a python client library are available on their repository : \url{https://github.com/MISP/}.\\
+They have also improved added a lot of value to the web api like the ability of exporting the attributes in a lot of different format and some that can directly be used in IDS.\\
+
+\subsection{My Settings}
+
+There is thus a lot of things to understand in order to work with misp. That's why they are giving trainings (I've followed one during the summer holidays) and that they make available a misp training virtual machine.\\
+At the beginning, I've started to work directly with the private instance of MISP hosted by CIRCL but, every time that I was working, I needed to have a really good web connection to connect myself and to download all the data. That's why, I have finished by downloading the virtual machine. But, as I was going to work on my computer and I didn't want to be stuck to work inside the virtual machine, I've done some modifications.\\
+The mysql database wasn't accessible from the outside of the virtual machine (which is completely understandable as they don't want anyone to have a direct access to the complete unprotected database) and I've also got some network problems.\\
+The first step was that my virtual machine running on virtualbox was using the virtual vboxnet0 interface and was using, as its IPv4 address, 192.168.56.50. The problem was that, normally it works without problems but my computer does not know about the subnetwork. I thus had to add an ip in the right range by using the command :
+\textbf{ip add add 192.169.56.2/24 dev vboxnet0} .\\
+I'm also sometimes using a second virtual machine to work with and on this virtual machine, I've configured two network interfaces, the first one was to have an internet connection while the second one was the vboxnet0 interface.\\
+For simplifying the use of the vbox interface, I've configured my network to automatically add an ip in the right range (/etc/network/interfaces). This is the addition on the basic configuration:
+\begin{verbatim}
+auto eth1
+iface eth1 inet static
+address 192.168.56.1
+netmask 255.255.255.0
+\end{verbatim}
+ 
+After that, I was able to contact the virtual machine via the network but it wasn't enough to have a mysql access. For that, as the misp virtal machine was only accessible from the vboxnet0 interface, it was a problem to create external access for all ip addresses with only a small password protection.\\
+The first step for that was to modify the configuration file (/etc/mysql/my.conf) where I've juste commented the "bind-address 127.0.0.1" line.
+The next step was to create a user with the rights from the outside. For that, I've connected myself to the database as the misp user and I've added the user:
 \begin{itemize}
-\item Establishing a small state of the art. (IOC - Sharing - Standards - Cryptography)
-\item Misp-workbench analysis to understand what's behing
-\item Implementation \cite{van2016private} on MISP (with modifications)
-\item Implement additional ideas on top of the paper
-\item Performance analysis of these implementations
+\item[•] mysql -uroot -pPassword1234 
+\item[•] CREATE USER 'username'@'\%';
+\item[•] GRANT ALL ON *.* TO 'username'@'\%';
 \end{itemize}
 
-\section{MISP and Thread Sharing}
-Nowadays, cyber specialists agree to say that Information Sharing is needed to defend our computer systems against digital threats and attacks. That's why a lot sharing platform appeared like DShield, Critical Stack’s Intel, Microsoft’s Interflow, AlienVault’s Open Threat Exchange, ...\\
-Here I focused on the MISP database which is, as said on their website, an open source software solution for collecting, storing, distributing and sharing cyber security indicators and threat about cyber security incidents analysis and malware analysis. MISP is designed by and for incident analysts, security and ICT professionals or malware reverser to support their day-to-day operations to share structured informations efficiently.\\
-This system is based on a set of "Events" and each event contains a set of IOCs called attributes. \\
-To explain it, easily, we can take the example of an analyst that gets an information to share. First, he creates an event. Then he splits all information into fine grained attributes (e.g. ips, urls, uri, ...). All these fine-grained information are also called IOCs. An Indicator of Compromise can, in this context, be defined as a data that can indicate an infection by a "event" if found on a computer system.
+Once done, I could continue to program more easily and create some tests as I could control the whole available set of data. For testing when the code was modified, I had used a really small set of data. \\
+But speaking about testing, I didn't do any automated test as the system requests some connections, It was not easy to generate them. \improvement{Do automated test !}
+
+\subsection{Illustrations}
+There is nothing better to illustrate all that than real screen shot of the web application. But, it raised the question of what can be shared in MISP?\\
+For example, Am I allowed to show screen shot of data from MISP without any risk ?\\
+To respond to that question, I need to introduce the Traffic Light Protocol (TLP) that was created in order to facilitate information sharing by defining the authorized level of disclosure. And thus, it can be used to know what can be shared with a specific audience.\\
+This protocol is defined by FIRST in \cite{FirstTLP} but also in this NIST cyber threat information sharing guide \cite{johnson2016guide}.\\
+
+Knowing that, I know that I can share the data from the virtual machine that I have explained in the previous section as the default OSINT feed is TLP:WHITE. Which means, according to FIRST, that the disclosure is not limited: \\
+Sources may use TLP:WHITE when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release. Subject to standard copyright rules, TLP:WHITE information may be distributed without restriction.\\
+
+The first pages (after the connection) of the web application is a list of all latest events on figure \ref{webevents} (notice the tlp:while appearing in the Tags):
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.32]{res/webEvents}
+		\caption{MISP : List of events}
+		\label{webevents}
+	\end{center}
+\end{figure}
+
+
+Then, by clicking on an event, we can get information on it \ref{webevent}:
+
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.35]{res/webEvent}
+		\caption{MISP : Specific information on the event}
+		\label{webevent}
+	\end{center}
+\end{figure}
+
+
+As well as the attribute list \ref{webattributes}:
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.35]{res/webAttributes}
+		\caption{MISP : Attributes of the event}
+		\label{webattributes}
+	\end{center}
+\end{figure}
+
+And the last thing that I want to show is one of the way of showing the correlations with other events and is called the correlation graph \ref{webcorrelation}:
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.35]{res/webCorrelationGraph}
+		\caption{MISP : Correlation graph for an event}
+		\label{webcorrelation}
+	\end{center}
+\end{figure}
+
+
 
 \section{Information Sharing State of the Art}
 The idea of this section is to sum up all different articles read at the beginning of the master thesis. These are articles are linked to the subject but sometimes not directly but helped me to the understanding of the subject, and especially to discover ideas to create some possible solutions.\\
@@ -177,7 +307,7 @@ Back on the small data problem, if we consider an attacker that want to try ever
 it is intrinsically impossible to fully hide the IOC while still allowing a subscriber to evaluate the rule. \change{Explain why}
 
 
-\section{Ideas}
+\chapter{Implementation Ideas}
 \subsection{Bloom filter}
 Bloom filter\footnote{https://en.wikipedia.org/wiki/Bloom\_filter} is a widely used solution.\change{Explain bloom filter}
 But unfortunately thanks to correlation we could get back the whole dataset.\\
@@ -221,7 +351,9 @@ Of course with this, we could just send requests of 1 elements, so to thwart tha
 The idea is the same as the one of all in one request but, in the case that the user doesn't want to send everything that he have visited, they could use a secure two party computation intersection algorithm.
 With that, the server only receive the intersection between his dataset and the one of the user.
 
+\section{Conclusion}
 
+\chapter{Implementation}
 \subsection{Private Sharing of IOCs and Sightings \cite{van2016private}}
 This paper consider a cryptographic approach to hide the details of an indicator of compromise. They consider two different phases, the first is to share these IOCs and the second one is to privately reporting the sightings of IOCs. \\
 First, they define an IOC as a propositional formula where the propositional variables are defined over features or observables. They also claim that every IOC can be expressed in the Disjunction Normal Form (DNF) without any negation (e.g. destIP= 198.51.100.43 $\land$ destPort = 80).\\
@@ -268,6 +400,27 @@ Both system will be really similar to what I need, so I will only have to do few
 \subsection{Generalization}
 
 \section{Chosen Crytographic System}
+The idea of the generalization was quite simple to understand, if we can simply add module to handle the way data are stored / encrypted, we can use completely different crypto systems. In this section, I will discuss my implementing choice as, technologies have already be explained in previous sections.\improvement{Not done yet}
+
+\subsection{Key Derivation functions}
+In this section, I will explain why I have chosen to implement pbkdf2 and mostly why I haven't implemented the hashmac function.\\
+I will also argue on the biggest modification, cryptography instead of pycrypto.
+
+\subsection{Bcrypt}
+
+\subsection{Bloom filter}
+In this section, I will argue the choice for python-bloom library. This choice was actually a way more complicated than it could be as, I think it is not the fastest implementation.\\
+But first, to understand my choice, we need to know what I really was searching for. I needed to find a way for avoiding brute forcing the database, but, on the other hand, I want it to be really fast for a common user. Thus Bloom filters already take car of the first part so, I only needed to find a fast implementation.\\
+I also wanted the system to be storable in files without any additional informations.\\
+So the first I've found was to use bloomd server with a python client. But, it would means that we would have to install all these things which seems not really interesting. But why not using redis to store data ? It is fast and there was a really fast implementation of bloom filters in python for redis (actually in c interfaced with python) calle pyrebloom. But the code was really complicated and not easy to read. Moreover, I discovered that they are keeping additional information on keys to be able to remove elements. that, without forgetting the fact that it doesn't seemed savable in a file make me drop this implementation.\\
+I've finally found the python-bloom library, It seems less efficient but well implemented, without any additional state and a way to save the bloom filter.\\
+
+For the bloom filter, I've got different ideas, first, I need to implement the bloom filter as a tsv file. But, I also need it to be loaded each time. For this, I've added a special joker rule that is always loaded if it exists.\\
+On this first implementation, I would like to have only one bloom filter for the whole data set. I could have implemented a bloom filter for attributes but as it is fast enough, it would use less memory and will be more efficient to use only one bloom filter.\\
+
+bloom vs scalable bloom \\
+
+Sharing their bloom filter idea \\
 
 \section{Security Discussion}
 
@@ -285,5 +438,12 @@ Both system will be really similar to what I need, so I will only have to do few
 \newpage
 \bibliographystyle{acm-doi}
 \bibliography{articles}
+\newpage
+
+% Back cover page
+\backcoverpage
+
+
+
 
 \end{document}

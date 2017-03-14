@@ -1,14 +1,25 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{cover1991elements}
 {\sc Cover, T.~M., and Thomas, J.~A.}
 \newblock Elements of information theory, 1991.
+
+\bibitem{FirstTLP}
+{\sc FIRST}.
+\newblock Traffic light protocol (tlp) first standards definitions and usage
+  guidance — version 1.0.
+\newblock \url{https://www.first.org/tlp}, June 2016.
 
 \bibitem{freudiger2015controlled}
 {\sc Freudiger, J., De~Cristofaro, E., and Brito, A.~E.}
 \newblock Controlled data sharing for collaborative predictive blacklisting.
 \newblock In {\em International Conference on Detection of Intrusions and
   Malware, and Vulnerability Assessment\/} (2015), Springer, pp.~327--349.
+
+\bibitem{johnson2016guide}
+{\sc Johnson, C., Badger, L., Waltermire, D., Snyder, J., and Skorupka, C.}
+\newblock Guide to cyber threat information sharing.
+\newblock {\em NIST Special Publication 800\/} (2016), 150.
 
 \bibitem{lincoln2004privacy}
 {\sc Lincoln, P., Porras, P.~A., and Shmatikov, V.}
