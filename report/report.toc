@@ -1,0 +1,40 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Introduction and State of the Art}{2}{chapter.1}
+\contentsline {section}{\numberline {1.1}Interaction with this Latex Document (To be removed)}{2}{section.1.1}
+\contentsline {section}{\numberline {1.2}Introduction}{2}{section.1.2}
+\contentsline {section}{\numberline {1.3}Organization}{3}{section.1.3}
+\contentsline {section}{\numberline {1.4}Indicator of Compromise (IOC)}{3}{section.1.4}
+\contentsline {section}{\numberline {1.5}MISP and Threat Sharing}{4}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}History}{4}{subsection.1.5.1}
+\contentsline {subsection}{\numberline {1.5.2}Basics of Misp}{4}{subsection.1.5.2}
+\contentsline {subsection}{\numberline {1.5.3}My Settings}{5}{subsection.1.5.3}
+\contentsline {subsection}{\numberline {1.5.4}Illustrations}{6}{subsection.1.5.4}
+\contentsline {section}{\numberline {1.6}Information Sharing State of the Art}{7}{section.1.6}
+\contentsline {section}{\numberline {1.7}Sum up}{9}{section.1.7}
+\contentsline {section}{\numberline {1.8}Useful Cryptographic Functions}{10}{section.1.8}
+\contentsline {section}{\numberline {1.9}On what I worked}{11}{section.1.9}
+\contentsline {section}{\numberline {1.10}Misp-Worbench hashstore}{11}{section.1.10}
+\contentsline {section}{\numberline {1.11}Limitation}{11}{section.1.11}
+\contentsline {chapter}{\numberline {2}Implementation Ideas}{12}{chapter.2}
+\contentsline {subsection}{\numberline {2.0.1}Bloom filter}{12}{subsection.2.0.1}
+\contentsline {subsection}{\numberline {2.0.2}Machine Learning}{12}{subsection.2.0.2}
+\contentsline {subsection}{\numberline {2.0.3}Secure Two Party Computation (Intersection)}{12}{subsection.2.0.3}
+\contentsline {subsection}{\numberline {2.0.4}Proof of Work Database}{12}{subsection.2.0.4}
+\contentsline {subsection}{\numberline {2.0.5}All in one request}{13}{subsection.2.0.5}
+\contentsline {subsection}{\numberline {2.0.6}All in one request with S2P}{13}{subsection.2.0.6}
+\contentsline {section}{\numberline {2.1}Conclusion}{13}{section.2.1}
+\contentsline {chapter}{\numberline {3}Implementation}{14}{chapter.3}
+\contentsline {subsection}{\numberline {3.0.1}Private Sharing of IOCs and Sightings \cite {van2016private}}{14}{subsection.3.0.1}
+\contentsline {subsubsection}{Create a rule}{14}{section*.17}
+\contentsline {subsubsection}{match a rule}{14}{section*.18}
+\contentsline {section}{\numberline {3.1}My Implementation}{15}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}\cite {van2016private}}{15}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Additional choice}{15}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Generalization}{15}{subsection.3.1.3}
+\contentsline {section}{\numberline {3.2}Chosen Crytographic System}{15}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Key Derivation functions}{15}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Bcrypt}{15}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Bloom filter}{15}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}Benchmarking}{16}{section.3.3}
+\contentsline {section}{\numberline {3.4}Security Discussion}{16}{section.3.4}
+\contentsline {section}{\numberline {3.5}Further Work}{16}{section.3.5}

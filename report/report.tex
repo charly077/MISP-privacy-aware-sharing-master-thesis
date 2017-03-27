@@ -50,6 +50,9 @@ An interesting tool is the MISP (Malware Information Sharing Platform), a platfo
 Sometimes, the information is somehow confidential, but still interesting to be shared, thus we need to find a way to share these secret information without disclosing them entirely.
 The goal of this master thesis will be to analyze the state of the art and to implement different solutions working with MISP in order to compare their performances.
 \end{abstract}
+
+\tableofcontents
+
 \chapter{Introduction and State of the Art}
 \section{Interaction with this Latex Document (To be removed)}
 In order to facilitate comments, I've added some new commands explained by\footnote{http://tex.stackexchange.com/questions/9796/how-to-add-todo-notes}:\\
@@ -74,15 +77,20 @@ Afterwards, I'll spoke about the implementation ideas I've got, by highlighting 
 The next one will be an analyze of the implementation supported with different benchmarks.\\
 Finally, I will conclude on my work with some possible improvement and future work but also by concluding on every thing that I've discovered.
 
+\section{Organization}
+Before going down in the subject, I think that it is interesting to see to point out some aspect on the way I've worked.\\
+Firstly, last year, I was searching for a security subject but unfortunately, I wasn't really excited about the proposed subjects. But I had no idea on what I could work as well. I had just the idea to specialize myself into cyber security. Thus, I've looked for ideas where there are plenty of them, directly in security companies.\\
+I've found a company called Conostix which provides security and system services in Luxembourg.\\
+They weren't short of ideas, and even if I have to admit that I didn't understand everything, it seemed really interesting. Later on, William Robinet (from conostix) contacted me again to say that they have a better idea and it was to work on MISP. I've thus met Alexandre Dulaunoy from CIRCL and they gave me the starting point of the project which was malware sharing in MISP.\\
+
+As I had zero knowledge in this domain, I've chosen to make an internship of four weeks in the company (with no course credits) where I've learned the basics of MISP and I've also worked on network log parsing. But what I mostly learned was that 4 weeks for trying to specialize myself in a completely new domain wasn't enough but just gave me a rough idea on it and, in order to understand, I started with the idea of creating a hashed database of the MISP data (Similarly as the hashstore in the misp-workbench project available on MISP) and to use it for analyzing networking logs.\\
+I have then continued to work on my master's thesis the whole year long by spending some time time to time in Conostix and CIRCL.
+
 \section{Indicator of Compromise (IOC)}
 If there is a crime, detectives can come and look for clues. What make it happened, why did it happened and how did it happened. The what and why questions can be interesting in order to avoid this crime to happen again while the last one but not the least one, the how can be used to compare this crime with other similar ones.\\
 This idea of being able to compare them is really interesting as seeing the clues of only one place can be not enough while there could be enough clues if we succeed in gathering the whole set clues.\\
 This is exactly the same idea here, even if the attacker try to minimize its traces, there are always some. They can be email addresses, IP addresses, malware, url and so on.\\
 The idea, is then to use these traces to trigger alarms on other computer system as soon as they are seen. This means that the same attack is perhaps happening again but and this is the reason why we call them Indicator Of Compromise.
-
-
-\section{Cyber Threat sharing}
-\improvement{Perhaps add the information coming from the Guide + historical inforamtion}
 
 
 \section{MISP and Threat Sharing}
@@ -93,7 +101,7 @@ A recent paper on MISP \cite{wagner2016misp} had been published this year and co
 \subsection{History}
 Christophe Vandeplas started the project as he was tired of the way IOCs were shared (email, pdf, .. ). Thus, he created a cakePHP website as a proof of concept and manage to convince the Belgian Defense (where he was working) that the project was worth to work on. They even allowed him to work on it during his work-hours. The project continued to move forward and now, Andras Iklody is the lead developer of the MISP project and works for CIRCL.\\
 
-\subsection{The Basics of Misp}
+\subsection{Basics of Misp}
 The basic idea of misp was thus to create an IOC database, for example, if we have two IOCs for the same attack, let's say "IOC@malware.mail" and "192.168.16.2". We are interested to  keep the information that there has been an attack that can be recognized thanks to these two IOCs. That is why they have created events (which is much more general than the term attack that I've been using) and they use these IOCs as the attributes of this specific event. \\
 Then thanks to this idea, we can analyze the event and even make correlations with other events if they possess similar IOCs.
 
@@ -422,9 +430,9 @@ bloom vs scalable bloom \\
 
 Sharing their bloom filter idea \\
 
-\section{Security Discussion}
-
 \section{Benchmarking}
+
+\section{Security Discussion}
 
 \section{Further Work}
 \begin{itemize}
