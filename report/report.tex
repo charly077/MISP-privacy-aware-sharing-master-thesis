@@ -72,34 +72,43 @@ We thus need to improve our computer defenses and make them to learn continuousl
 Unfortunately, this is not enough as, theses informations, here and after called IOCs, are often considered as confidential because revealing them, can reveal damaging information for the companies.\\
 We thus need to find a way for \textbf{sharing} information without \textbf{giving} the information. And I will try to explain the meaning of this sentence in the report's body. But, for now, we can say that this master's thesis is on finding a "more secure" way of sharing information. More precisely, if we attempt to create an encrypted database of these IOCs, the idea would be to slow down as much as possible a brute force attack for someone who has complete access to the database while still making this database useful for the targeted user.\\
 
-I've decided to organize the work the same way I've discovered and implemented things. The first chapter will thus be on defining the tools an vocabulary that will be used. I'll be continuing this chapter with a state of the art that made me understood the domain and the limitation that I was going to face.\\
+I've decided to organize the work the same way I've discovered and implemented things but I'm firstly defining the tools an vocabulary that will be used. I'll be continuing this chapter with a state of the art that made me understood the domain and the limitation that I was going to face.\\
 Afterwards, I'll spoke about the implementation ideas I've got, by highlighting theirs strengths and weaknesses. While the third chapter will really be about my implementations, my choices on the system but not only on the way I've implement things but also the library I've chosen.\\
 The next one will be an analyze of the implementation supported with different benchmarks.\\
-Finally, I will conclude on my work with some possible improvement and future work but also by concluding on every thing that I've discovered.
+Finally, I will conclude on my work with some possible improvement and future work but also by concluding on every thing I've discovered.
 
 \section{Organization}
-Before going down in the subject, I think that it is interesting to see to point out some aspect on the way I've worked.\\
-Firstly, last year, I was searching for a security subject but unfortunately, I wasn't really excited about the proposed subjects. But I had no idea on what I could work as well. I had just the idea to specialize myself into cyber security. Thus, I've looked for ideas where there are plenty of them, directly in security companies.\\
+Before going down in the subject, I also think that it is interesting to point out some aspects of the way I've worked on this project.\\
+Firstly, last year, I was searching for a security subject but unfortunately, I wasn't really excited about the proposed ones. But in the other side, I had no idea either on what I could work. I had just the idea to specialize myself into cyber security. Thus, I've looked for ideas where there are plenty of them, directly in security companies.\\
 I've found a company called Conostix which provides security and system services in Luxembourg.\\
 They weren't short of ideas, and even if I have to admit that I didn't understand everything, it seemed really interesting. Later on, William Robinet (from conostix) contacted me again to say that they have a better idea and it was to work on MISP. I've thus met Alexandre Dulaunoy from CIRCL and they gave me the starting point of the project which was malware sharing in MISP.\\
 
-As I had zero knowledge in this domain, I've chosen to make an internship of four weeks in the company (with no course credits) where I've learned the basics of MISP and I've also worked on network log parsing. But what I mostly learned was that 4 weeks for trying to specialize myself in a completely new domain wasn't enough but just gave me a rough idea on it and, in order to understand, I started with the idea of creating a hashed database of the MISP data (Similarly as the hashstore in the misp-workbench project available on MISP) and to use it for analyzing networking logs.\\
-I have then continued to work on my master's thesis the whole year long by spending some time time to time in Conostix and CIRCL.
+As I had zero knowledge in this domain, I've chosen to make an internship of four weeks in the company (with no course credits) where I've learned the basics of MISP and I've also worked on network log parsing. But what I mostly learned was that four weeks for trying to specialize myself in a completely new domain wasn't enough but just gave me a rough idea of what it is.\\
+During these four weeks, I mostly worked on logs. I've created nothing new, actually it was quite the opposite but it was still interesting to understand how things were working and why they could be useful. \\
+In short, during this internship, I've started to understand how squid3 was working. Then I've installed it on my computer in order to get logs to work on.\\
+Once I've my logs, I would like to get information from them, thus, I've tried to manually parse the logs (which was a mistake). For that purpose, I've started to implement a parser that was using regex to transform each log lines into a set of objects. But even if it was funny to implement, I spent a lot of time on it and each time I finished, I found it not good enough, not modular enough, losing locality and ordering information, and so on. I have thus realized that I was loosing my time as, of course they are plenty of tools for this kind of job like Logstash.\\
+Then I've started to work with MISP to see how it was working. I've reimplemented a similar hash store like the misp-workbench project.\\
+I've then used it with my log system by parsing the data from MISP the same way I was parsing the logs before adding them to the hash database on Redis.\\
+(Redis was also a great tool I've learned about and that I think that the time I spent on it worth it.)\\
+I've then created a system to feed the parsed log in my system and briefly analyze the logs.\\
+Beside that, I also had the opportunity to benefit from a one day MISP training organized by CIRCL.
+I have then continued to work on my master's thesis the whole year long while keeping in touch with Conostix and CIRCL.
 
 \section{Indicator of Compromise (IOC)}
-If there is a crime, detectives can come and look for clues. What make it happened, why did it happened and how did it happened. The what and why questions can be interesting in order to avoid this crime to happen again while the last one but not the least one, the how can be used to compare this crime with other similar ones.\\
-This idea of being able to compare them is really interesting as seeing the clues of only one place can be not enough while there could be enough clues if we succeed in gathering the whole set clues.\\
+If there is a crime, detectives can come and look for clues. And they do that because they are wondering questions like what make it happened, why did it happened and how did it happened. The what and why questions can be interesting in order to avoid this crime to happen again while the last one but not the least one, the how can be used to compare this crime with other similar ones.\\
+This idea of being able to compare them is really interesting as seeing the clues of only one place can be not enough while there could be enough of them if we succeed in gathering the whole clues of all related crime.\\
 This is exactly the same idea here, even if the attacker try to minimize its traces, there are always some. They can be email addresses, IP addresses, malware, url and so on.\\
-The idea, is then to use these traces to trigger alarms on other computer system as soon as they are seen. This means that the same attack is perhaps happening again but and this is the reason why we call them Indicator Of Compromise.
+The idea, is then to use these traces to trigger alarms on other computer system as soon as they are seen. This means that the same attack is perhaps happening again, this is the reason why we call them Indicator Of Compromise.
 
 
 \section{MISP and Threat Sharing}
 I've introduce the idea of malware sharing to defend our computer systems against digital threats and attacks. But MISP is not the only platform to do so, the more current onces are DShield, Critical Stack’s Intel, Microsoft’s Interflow, AlienVault’s Open Threat Exchange, ...\\
 But here I focused on the MISP project which is, as said on their website, an open source software solution for collecting, storing, distributing and sharing cyber security indicators and threat about cyber security incidents analysis and malware analysis. MISP is designed by and for incident analysts, security and IT professionals or malware reverser to support their day-to-day operations to share structured informations efficiently.\\
-A recent paper on MISP \cite{wagner2016misp} had been published this year and could be interesting if your are searching to have a better understanding of the underlying system.
+A recent paper on MISP \cite{wagner2016misp} had been published this year and could be interesting if your are searching to have a better understanding of the underlying system.\\
+I want also to point out that MISP is spreading, and I've the feeling that communities will continue to grow. I've discussed in Belgium with companies like banks, insurances, consultancy companies that are using it which is, at least to my point of view, a good sign on the usage of the system.
 
 \subsection{History}
-Christophe Vandeplas started the project as he was tired of the way IOCs were shared (email, pdf, .. ). Thus, he created a cakePHP website as a proof of concept and manage to convince the Belgian Defense (where he was working) that the project was worth to work on. They even allowed him to work on it during his work-hours. The project continued to move forward and now, Andras Iklody is the lead developer of the MISP project and works for CIRCL.\\
+Christophe Vandeplas started the project as he was tired of the way IOCs were shared (email, pdf, ... ). Thus, he created a cakePHP website as a proof of concept and managed to convince the Belgian Defense (where he was working) that the project was worth to work on. They even allowed him to work on it during his work-hours. The project continued to move forward and now, Andras Iklody is the lead developer of the MISP project and works for CIRCL.\\
 
 \subsection{Basics of Misp}
 The basic idea of misp was thus to create an IOC database, for example, if we have two IOCs for the same attack, let's say "IOC@malware.mail" and "192.168.16.2". We are interested to  keep the information that there has been an attack that can be recognized thanks to these two IOCs. That is why they have created events (which is much more general than the term attack that I've been using) and they use these IOCs as the attributes of this specific event. \\
@@ -108,11 +117,11 @@ Then thanks to this idea, we can analyze the event and even make correlations wi
 For clarity concerns, attributes are divided into 13 categories where they are again dived into types. As MISP is no more only targeting malwares, it is interesting to notice that we can also see categories like Financial Fraud. More standard ones are Network Activities, Antivirus detection, Artifacts dropped, and so on.\\
 All the category and types can be found on this web pages \url{https://www.circl.lu/doc/misp/categories-and-types/index.html}
 
-One other really interesting feature is sightings. When an IOC is referenced, we know that it has been seen by someone, but it does not confirm that the IOC is really related to that particular event and is not an error. Moreover, what says that the if an IP address is an IOC today that it is going to be the case in 3 months ? \\
+One other really interesting feature is sightings. When an IOC is referenced, we know that it has been seen by someone, but it does not confirm that the IOC is really related to that particular event and is not an error. Moreover, what says that if an IP address is an IOC today that it is going to be the case in 3 months ? \\
 Sightings is thus the solution to this problem as we can monitor an IOC, knowing if it has been seen at other places, and if they are still relevant.
 
 
-The two important things on the sharing strategy that I want to point out are the MISP instances and communities. The first one is easy to understand, MISP is an open source project which means that everybody can decide to run a completely isolated MISP instance for its own needs like a company for storing its own confidential data. Besides that, that does not mean that the instance must be isolated, they have implemented a way to share information between these instances. While the second one is a good property of an instance. When we are connected to MISP as a user, we are connected thanks to the organization that we belongs. Then, the organization can choose to share or not to share their events/attributes with other communities or even with other instances. \\ 
+There are also two important things on the sharing strategy that I want to point out that are the MISP instances and communities. The first one is easy to understand, MISP is an open source project which means that everybody can decide to run a completely isolated MISP instance for its own needs like a company for storing its own confidential data. Besides that, that does not mean that the instance must be isolated, they have implemented a way to share information between these instances. While the second one is a good property of an instance. When we are connected to MISP as a user, we are connected thanks to the organization that we belongs. Then, the organization can choose to share or not to share their events/attributes with other communities or even with other instances. \\ 
 
 Now, as a good open source project, a whole ecosystem has been created around and more and more companies are using it.\\
 MISP become a really good IOC database with automated correlation system. We can even create correlation graphs to see how different events are connected together what helps a lot for the threat analyses.\\
@@ -121,7 +130,7 @@ They have also improved added a lot of value to the web api like the ability of 
 
 \subsection{My Settings}
 
-There is thus a lot of things to understand in order to work with misp. That's why they are giving trainings (I've followed one during the summer holidays) and that they make available a misp training virtual machine.\\
+There is thus a lot of things to understand in order to work with misp. That's why they are giving trainings and that they make available a misp training virtual machine in order to train ourselves and test new developments.\\
 At the beginning, I've started to work directly with the private instance of MISP hosted by CIRCL but, every time that I was working, I needed to have a really good web connection to connect myself and to download all the data. That's why, I have finished by downloading the virtual machine. But, as I was going to work on my computer and I didn't want to be stuck to work inside the virtual machine, I've done some modifications.\\
 The mysql database wasn't accessible from the outside of the virtual machine (which is completely understandable as they don't want anyone to have a direct access to the complete unprotected database) and I've also got some network problems.\\
 The first step was that my virtual machine running on virtualbox was using the virtual vboxnet0 interface and was using, as its IPv4 address, 192.168.56.50. The problem was that, normally it works without problems but my computer does not know about the subnetwork. I thus had to add an ip in the right range by using the command :
@@ -148,7 +157,7 @@ Once done, I could continue to program more easily and create some tests as I co
 But speaking about testing, I didn't do any automated test as the system requests some connections, It was not easy to generate them. \improvement{Do automated test !}
 
 \subsection{Illustrations}
-There is nothing better to illustrate all that than real screen shot of the web application. But, it raised the question of what can be shared in MISP?\\
+There is nothing better to explain all that than real screen shot of the web application. But, it raised one really important question: what can and cannot be shared from MISP and with who?\\
 For example, Am I allowed to show screen shot of data from MISP without any risk ?\\
 To respond to that question, I need to introduce the Traffic Light Protocol (TLP) that was created in order to facilitate information sharing by defining the authorized level of disclosure. And thus, it can be used to know what can be shared with a specific audience.\\
 This protocol is defined by FIRST in \cite{FirstTLP} but also in this NIST cyber threat information sharing guide \cite{johnson2016guide}.\\
