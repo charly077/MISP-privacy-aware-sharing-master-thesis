@@ -209,6 +209,23 @@ And the last thing that I want to show is one of the way of showing the correlat
 
 
 \section{Information Sharing State of the Art}
+
+This section is aimed to give an overview of information sharing mostly by explaining previous works in mainly two specific domains, the first one will be about information sharing, but malware detection is also taken into account as it is finally why we need to share these informations.\\
+As usual, a good starting point is the already made state of the art on the subject, one really interesting is done by Gregory White and Keith Harison in \cite{white2017state} where they explain the evolution of the information sharing by comparing it with the evolutions of the USA laws and their impacts.\\
+Even if the analysis is about the USA, it is interesting to have an understanding of where it comes from like that the first try of sharing standardization was done just after the worm released by Robert Morris in 1988.\\
+It made people realized that it could have been a good way to protect ourselves against it and in a faster way. They also explain, in correlation with the two principal laws called the Presidential Decision Directive-63 in 1998 and the Executive Order 13636 in February 2013; how organization like the ISAO where created with their four foundational objectives that I've sum up and believed to be as relevant today:
+\begin{itemize}
+\item[$\bullet$] Each organization should be able to participate.
+\item[$\bullet$] Development should be kept public.
+\item[$\bullet$] Voluntary is not a requirements 
+\item[$\bullet$] Take into account the need for confidentiality and privacy.
+\end{itemize}
+They also introduce the first sharing program developed by DHS which is the Cyber Information Sharing and Collaboration Program (CISCP).\\
+With that, they introduce some standards like TAXII, STIX and CybOX on which I will spend more time later in this chapter. After that, they also explain the main challenges that are facing the ISAOs. For example, the major one is a privacy and confidentially concern, any information that an organization agrees to share with others, no matter who those others are need to be kept private and confidential and only released to individuals or organizations that have a right to have access based on the agreement that are signed by members of an ISAO. This concern is really interesting as this master thesis is really on trying to ensure that property without the need of trust. What is also interesting is that they explained that privacy is about to mean that personal information about individuals within a member organization should remain private in the context of information sharing.
+While, in the same context, confidentiality refers to information about organization that could lead to give others a competitive advantage.
+Here they mostly focus on trust but, It is really difficult to share if we need to ensure that trust and this is why I will try to give up for that trust by finding an other way to share data as said before, without really giving that data.
+
+
 The idea of this section is to sum up all different articles read at the beginning of the master thesis. These are articles are linked to the subject but sometimes not directly but helped me to the understanding of the subject, and especially to discover ideas to create some possible solutions.\\
 These articles can be divided into some sections, the first one is data sanitization, this is quite interesting even if it could not be applied in our case (as explained in a later section).\\
 Then we have articles on confidencial database and S2P computations \change{I have to complete these parts with articles}
@@ -295,6 +312,20 @@ $\Rightarrow$ I don't think so, but I forgot to ask this question
  $\Rightarrow$ No, at least not for the moment !
 \end{itemize}
 
+\section{Useful formalizations}
+As seen in the state of the art, if we want to share information between organazitions, we need them to "speak the same language" or more formally, to use the same standards. I will then try to explain the most important one, and mostly the ones I try to follow in the vocabulary used.
+
+\subsection{Trusted Automated eXchange of Indicator of Information (TAXII)}
+\improvement{Todo}
+
+\subsection{Structured Threat Information eXpression (STIX)}
+\improvement{Todo}
+
+
+\subsection{Cyber Observable eXpression (CybOX)}
+\improvement{Todo}
+
+
 \section{Useful Cryptographic Functions}
 \improvement{Todo}
 
@@ -367,6 +398,9 @@ Of course with this, we could just send requests of 1 elements, so to thwart tha
 \subsection{All in one request with S2P}
 The idea is the same as the one of all in one request but, in the case that the user doesn't want to send everything that he have visited, they could use a secure two party computation intersection algorithm.
 With that, the server only receive the intersection between his dataset and the one of the user.
+
+\section{Keyword search on Remote enrypted Data}
+\info{J'ai un article imprimé mais je sais pas ce qu'il faut !}
 
 \section{Conclusion}
 
