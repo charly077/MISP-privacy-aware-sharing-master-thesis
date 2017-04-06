@@ -6,45 +6,45 @@ Database file #1: articles.bib
 Warning--empty journal in enisaguide2009
 Warning--empty journal in eisasRapport
 Warning--empty publisher in johnson2014guide
-You've used 14 entries,
+You've used 19 entries,
             2415 wiz_defined-function locations,
-            627 strings with 6361 characters,
-and the built_in function-call counts, 4803 in all, are:
-= -- 448
-> -- 203
+            656 strings with 7276 characters,
+and the built_in function-call counts, 6328 in all, are:
+= -- 589
+> -- 273
 < -- 0
-+ -- 84
-- -- 70
-* -- 308
-:= -- 739
-add.period$ -- 39
-call.type$ -- 14
-change.case$ -- 75
++ -- 113
+- -- 94
+* -- 426
+:= -- 987
+add.period$ -- 54
+call.type$ -- 19
+change.case$ -- 102
 chr.to.int$ -- 0
-cite$ -- 17
-duplicate$ -- 216
-empty$ -- 446
-format.name$ -- 70
-if$ -- 1059
+cite$ -- 22
+duplicate$ -- 272
+empty$ -- 584
+format.name$ -- 94
+if$ -- 1382
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 12
-newline$ -- 70
-num.names$ -- 28
-pop$ -- 112
+int.to.str$ -- 19
+missing$ -- 17
+newline$ -- 95
+num.names$ -- 38
+pop$ -- 136
 preamble$ -- 1
-purify$ -- 63
+purify$ -- 85
 quote$ -- 0
-skip$ -- 149
+skip$ -- 184
 stack$ -- 0
-substring$ -- 242
-swap$ -- 66
+substring$ -- 314
+swap$ -- 80
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 54
+type$ -- 74
 warning$ -- 3
-while$ -- 47
-width$ -- 16
-write$ -- 138
+while$ -- 63
+width$ -- 21
+write$ -- 187
 (There were 3 warnings)

@@ -4,6 +4,12 @@
 {\sc Cover, T.~M., and Thomas, J.~A.}
 \newblock Elements of information theory, 1991.
 
+\bibitem{dwork2008differential}
+{\sc Dwork, C.}
+\newblock Differential privacy: A survey of results.
+\newblock In {\em International Conference on Theory and Applications of Models
+  of Computation\/} (2008), Springer, pp.~1--19.
+
 \bibitem{enisaguide2009}
 {\sc ENISA}.
 \newblock Good practice guide network security information exchange.
@@ -40,12 +46,35 @@
 \newblock Privacy-preserving sharing and correlation of security alerts.
 \newblock In {\em USENIX Security Symposium\/} (2004), pp.~239--254.
 
+\bibitem{machanavajjhala2007diversity}
+{\sc Machanavajjhala, A., Kifer, D., Gehrke, J., and Venkitasubramaniam, M.}
+\newblock l-diversity: Privacy beyond k-anonymity.
+\newblock {\em ACM Transactions on Knowledge Discovery from Data (TKDD) 1}, 1
+  (2007), 3.
+
+\bibitem{MalikThreat}
+{\sc Malik, J.}
+\newblock Threat intelligence sharing: The only way to combat our growing
+  skills gap.
+\newblock {\em Information Security Magazine\/} (jun 2016).
+
+\bibitem{mohaisen2017rethinking}
+{\sc Mohaisen, A., Al-Ibrahim, O., Kamhoua, C., Kwiat, K., and Njilla, L.}
+\newblock Rethinking information sharing for actionable threat intelligence.
+\newblock {\em arXiv preprint arXiv:1702.00548\/} (2017).
+
 \bibitem{parekh2006privacy}
 {\sc Parekh, J.~J., Wang, K., and Stolfo, S.~J.}
 \newblock Privacy-preserving payload-based correlation for accurate malicious
   traffic detection.
 \newblock In {\em Proceedings of the 2006 SIGCOMM workshop on Large-scale
   attack defense\/} (2006), ACM, pp.~99--106.
+
+\bibitem{sweeney2002k}
+{\sc Sweeney, L.}
+\newblock k-anonymity: A model for protecting privacy.
+\newblock {\em International Journal of Uncertainty, Fuzziness and
+  Knowledge-Based Systems 10}, 05 (2002), 557--570.
 
 \bibitem{van2016private}
 {\sc van~de Kamp, T., Peter, A., Everts, M.~H., and Jonker, W.}
