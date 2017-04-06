@@ -210,21 +210,30 @@ And the last thing that I want to show is one of the way of showing the correlat
 
 \section{Information Sharing State of the Art}
 
-This section is aimed to give an overview of information sharing mostly by explaining previous works in mainly two specific domains, the first one will be about information sharing, but malware detection is also taken into account as it is finally why we need to share these informations.\\
+This section is aimed to give an overview of information sharing mostly by explaining previous works in mainly two specific domains, the first one will be about information sharing itself, but malware detection is also taken into account as it is finally why we need to share these informations.\\
 As usual, a good starting point is the already made state of the art on the subject, one really interesting is done by Gregory White and Keith Harison in \cite{white2017state} where they explain the evolution of the information sharing by comparing it with the evolutions of the USA laws and their impacts.\\
 Even if the analysis is about the USA, it is interesting to have an understanding of where it comes from like that the first try of sharing standardization was done just after the worm released by Robert Morris in 1988.\\
-It made people realized that it could have been a good way to protect ourselves against it and in a faster way. They also explain, in correlation with the two principal laws called the Presidential Decision Directive-63 in 1998 and the Executive Order 13636 in February 2013; how organization like the ISAO where created with their four foundational objectives that I've sum up and believed to be as relevant today:
+We can understand that it seems logic as we usually implement new things only when we know that it could help and here, it was the first time that they realized information sharing could have been a better and faster way to protect critical infrastructures. They also explain, in correlation with the two principal laws called the Presidential Decision Directive-63 in 1998 and the Executive Order 13636 in February 2013; how organization like Information Sharing and Analysis Organizations (ISAOs) where created with their four foundational objectives. I've sum up them as they are still really relevant:
 \begin{itemize}
 \item[$\bullet$] Each organization should be able to participate.
 \item[$\bullet$] Development should be kept public.
 \item[$\bullet$] Voluntary is not a requirements 
 \item[$\bullet$] Take into account the need for confidentiality and privacy.
 \end{itemize}
-They also introduce the first sharing program developed by DHS which is the Cyber Information Sharing and Collaboration Program (CISCP).\\
-With that, they introduce some standards like TAXII, STIX and CybOX on which I will spend more time later in this chapter. After that, they also explain the main challenges that are facing the ISAOs. For example, the major one is a privacy and confidentially concern, any information that an organization agrees to share with others, no matter who those others are need to be kept private and confidential and only released to individuals or organizations that have a right to have access based on the agreement that are signed by members of an ISAO. This concern is really interesting as this master thesis is really on trying to ensure that property without the need of trust. What is also interesting is that they explained that privacy is about to mean that personal information about individuals within a member organization should remain private in the context of information sharing.
-While, in the same context, confidentiality refers to information about organization that could lead to give others a competitive advantage.
-Here they mostly focus on trust but, It is really difficult to share if we need to ensure that trust and this is why I will try to give up for that trust by finding an other way to share data as said before, without really giving that data.
+They also introduce the first sharing program developed by the Department of Homeland Security (DHS) which is the Cyber Information Sharing and Collaboration Program (CISCP).\\
+With that, they introduce some standards like TAXII, STIX and CybOX on which I will spend more time later in their respective sections. After that, they also explain the main challenges that are facing the ISAOs. For example, the major one is a privacy and confidentially concern, any information that an organization agrees to share with others, no matter who those others are need to be kept private and confidential and only released to individuals or organizations that have a right to have access based on the agreement that are signed by members of an ISAO. This concern is really interesting as this master thesis is really on trying to ensure that property without the need of trust. What is also interesting is that they explained that privacy means that personal information about individuals within a member organization should remain private (in the context of information sharing).
+While, confidentiality refers to information about organization that could lead to give others a competitive advantage.
+In this article they were focus a lot on trust on trust which is one of the most important property to ensure when dealing with a sharing group.\\
+We cannot share confidential information if we do not trust the other party to keep it confidential! This is already a clue on what I explained in the introduction, I want to share the information but not to give it as I'm not sure that I can trust the opposite party.\\
 
+I've just introduce the name of some standards. They are really important as we cannot share if we cannot speak the same language. Thus these standards make possible threat sharing but also allow to make it automated. But beside that, when we decide to start in this subject. It is really too important to avoid making mistakes that perhaps have already been made. That is why some organizations like the National Institute of Standards and Technology (NIST) and the European Union Agency for Network and Information Security (ENISA) took care of publishing guidelines to help organization to involve themselves in threat sharing.\\
+In Europe, the Commission recognized that they have a role to play in making the information more secure. In order to do that, they wanted to create the first pan European Information Sharing and Alerting System (EISAS on which we can find a report on the implementation \cite{eisasRapport}). For that, they have asked to ENISA to define the requirements. After that, member states that weren't yet using information sharing were really interested by and asked ENISA to develop a good practise guide based on the observation of existing exchange. This gave an intersting guide \cite{enisaguide2009} that is aimed to assist member states but also relevant stakeholders (organizations that are using communication network and information systems) in setting up and running network security information exchange.\\
+In this guide, they go through setting up information sharing but they first look at the advantages and also identify laws that could interact with information sharing. This is really important as for example, they need to be sure to be not recognized as a cartel or as a commercial advantage. They also focus on the trust that needs, for them, to be created thanks to regular face-to-face meetings. They also need to use TLP in these meetings.\\
+Then, in 2016, NIST also published its guide \cite{johnson2014guide} that seems to me more complete and more mature. This publication is also more focused on organization than on States (like ENISA) and provides guidelines to improve cybersecurity operations and risk management activities through safe and effective information sharing practices.\\
+For them, cyber threat information consist of IOCs, TTP (tactic, techniques and procedures), suggested actions to dectect, contain or prevent attacks and finally the findings from the analyses of incidents. \\
+They go through different topics that are benefits and challenges encountered. How to establish and participate to sharing relations. Onces again, in the challenges they draw attention on the importance of trust and to be compliant with legal and organizational requirements among other challenges.
+
+\info{Mutiparty private matching peut aussi être interessant dans mon domaine non ?}
 
 The idea of this section is to sum up all different articles read at the beginning of the master thesis. These are articles are linked to the subject but sometimes not directly but helped me to the understanding of the subject, and especially to discover ideas to create some possible solutions.\\
 These articles can be divided into some sections, the first one is data sanitization, this is quite interesting even if it could not be applied in our case (as explained in a later section).\\
@@ -317,10 +326,11 @@ As seen in the state of the art, if we want to share information between organaz
 
 \subsection{Trusted Automated eXchange of Indicator of Information (TAXII)}
 \improvement{Todo}
+Julie Connolly, The Trusted automated exchange of indicator information
 
 \subsection{Structured Threat Information eXpression (STIX)}
 \improvement{Todo}
-
+Sean  Barnum, Standardizing cyber threat intelligence inforamtion with the structured threat information expression
 
 \subsection{Cyber Observable eXpression (CybOX)}
 \improvement{Todo}
@@ -447,6 +457,7 @@ Both system will be really similar to what I need, so I will only have to do few
 \subsection{\cite{van2016private}}
 
 \subsection{Additional choice}
+URL normalization => let's look on trello and ressources on the drive that I've used ! and Mostly explain my choices 
 
 \subsection{Generalization}
 

@@ -4,6 +4,15 @@
 {\sc Cover, T.~M., and Thomas, J.~A.}
 \newblock Elements of information theory, 1991.
 
+\bibitem{enisaguide2009}
+{\sc ENISA}.
+\newblock Good practice guide network security information exchange.
+
+\bibitem{eisasRapport}
+{\sc ENISA}.
+\newblock Eisas – european information sharing and alert system for citizens
+  and smes.
+
 \bibitem{FirstTLP}
 {\sc FIRST}.
 \newblock Traffic light protocol (tlp) first standards definitions and usage
@@ -15,6 +24,11 @@
 \newblock Controlled data sharing for collaborative predictive blacklisting.
 \newblock In {\em International Conference on Detection of Intrusions and
   Malware, and Vulnerability Assessment\/} (2015), Springer, pp.~327--349.
+
+\bibitem{johnson2014guide}
+{\sc Johnson, C., Badger, L., and Waltermire, D.}
+\newblock {\em Guide to cyber threat information sharing (draft)}.
+\newblock 2014.
 
 \bibitem{johnson2016guide}
 {\sc Johnson, C., Badger, L., Waltermire, D., Snyder, J., and Skorupka, C.}
