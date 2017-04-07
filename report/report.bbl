@@ -1,5 +1,25 @@
 \begin{thebibliography}{10}
 
+\bibitem{taxiiWebsite}
+About taxii.
+\newblock \url{https://taxiiproject.github.io/about/}.
+
+\bibitem{barnum2012standardizing}
+{\sc Barnum, S.}
+\newblock Standardizing cyber threat intelligence information with the
+  structured threat information expression (stix™).
+\newblock {\em MITRE Corporation 11\/} (2012).
+
+\bibitem{barnum2012cybox}
+{\sc Barnum, S., Martin, R., Worrell, B., and Kirillov, I.}
+\newblock The cybox language specification.
+\newblock {\em draft, The MITRE Corporation\/} (2012).
+
+\bibitem{connolly2014trusted}
+{\sc Connolly, J., Davidson, M., and Schmidt, C.}
+\newblock The trusted automated exchange of indicator information (taxii).
+\newblock {\em The MITRE Corporation\/} (2014).
+
 \bibitem{cover1991elements}
 {\sc Cover, T.~M., and Thomas, J.~A.}
 \newblock Elements of information theory, 1991.
@@ -24,6 +44,13 @@
 \newblock Traffic light protocol (tlp) first standards definitions and usage
   guidance — version 1.0.
 \newblock \url{https://www.first.org/tlp}, June 2016.
+
+\bibitem{fransen2015cyber}
+{\sc Fransen, F., Smulders, A., and Kerkdijk, R.}
+\newblock Cyber security information exchange to gain insight into the effects
+  of cyber threats and incidents.
+\newblock {\em e \& i Elektrotechnik und Informationstechnik 132}, 2 (2015),
+  106--112.
 
 \bibitem{freudiger2015controlled}
 {\sc Freudiger, J., De~Cristofaro, E., and Brito, A.~E.}

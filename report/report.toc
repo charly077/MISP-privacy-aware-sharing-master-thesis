@@ -13,12 +13,9 @@
 \contentsline {section}{\numberline {2.1}Information Sharing}{10}{section.2.1}
 \contentsline {section}{\numberline {2.2}Existing Techniques}{12}{section.2.2}
 \contentsline {section}{\numberline {2.3}Standards}{14}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Structured Threat Information eXpression (STIX)}{14}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}Cyber Observable eXpression (CybOX)}{15}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}Trusted Automated eXchange of Indicator of Information (TAXII)}{15}{subsection.2.3.3}
 \contentsline {section}{\numberline {2.4}Sum up}{15}{section.2.4}
 \contentsline {section}{\numberline {2.5}Where does it lead me ?}{16}{section.2.5}
-\contentsline {section}{\numberline {2.6}Misp-Worbench hashstore}{16}{section.2.6}
+\contentsline {section}{\numberline {2.6}Misp-Worbench hashstore}{17}{section.2.6}
 \contentsline {section}{\numberline {2.7}Limitation}{17}{section.2.7}
 \contentsline {chapter}{\numberline {3}Implementation Ideas}{18}{chapter.3}
 \contentsline {subsection}{\numberline {3.0.1}Bloom filter}{18}{subsection.3.0.1}
@@ -31,8 +28,8 @@
 \contentsline {section}{\numberline {3.2}Conclusion}{19}{section.3.2}
 \contentsline {chapter}{\numberline {4}Implementation}{20}{chapter.4}
 \contentsline {subsection}{\numberline {4.0.1}Private Sharing of IOCs and Sightings \cite {van2016private}}{20}{subsection.4.0.1}
-\contentsline {subsubsection}{Create a rule}{20}{section*.23}
-\contentsline {subsubsection}{match a rule}{20}{section*.24}
+\contentsline {subsubsection}{Create a rule}{20}{section*.18}
+\contentsline {subsubsection}{match a rule}{20}{section*.19}
 \contentsline {section}{\numberline {4.1}My Implementation}{21}{section.4.1}
 \contentsline {subsection}{\numberline {4.1.1}\cite {van2016private}}{21}{subsection.4.1.1}
 \contentsline {subsection}{\numberline {4.1.2}Additional choice}{21}{subsection.4.1.2}

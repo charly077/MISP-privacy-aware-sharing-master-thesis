@@ -3,48 +3,49 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: report.aux
 The style file: acm-doi.bst
 Database file #1: articles.bib
+Warning--to sort, need author or key in taxiiWebsite
 Warning--empty journal in enisaguide2009
 Warning--empty journal in eisasRapport
 Warning--empty publisher in johnson2014guide
-You've used 19 entries,
+You've used 24 entries,
             2415 wiz_defined-function locations,
-            656 strings with 7276 characters,
-and the built_in function-call counts, 6328 in all, are:
-= -- 589
-> -- 273
+            680 strings with 8052 characters,
+and the built_in function-call counts, 7648 in all, are:
+= -- 709
+> -- 337
 < -- 0
-+ -- 113
-- -- 94
-* -- 426
-:= -- 987
-add.period$ -- 54
-call.type$ -- 19
-change.case$ -- 102
++ -- 142
+- -- 116
+* -- 522
+:= -- 1200
+add.period$ -- 68
+call.type$ -- 24
+change.case$ -- 128
 chr.to.int$ -- 0
-cite$ -- 22
-duplicate$ -- 272
-empty$ -- 584
-format.name$ -- 94
-if$ -- 1382
+cite$ -- 28
+duplicate$ -- 315
+empty$ -- 706
+format.name$ -- 116
+if$ -- 1661
 int.to.chr$ -- 0
-int.to.str$ -- 19
-missing$ -- 17
-newline$ -- 95
-num.names$ -- 38
-pop$ -- 136
+int.to.str$ -- 24
+missing$ -- 21
+newline$ -- 119
+num.names$ -- 46
+pop$ -- 162
 preamble$ -- 1
-purify$ -- 85
+purify$ -- 106
 quote$ -- 0
-skip$ -- 184
+skip$ -- 214
 stack$ -- 0
-substring$ -- 314
-swap$ -- 80
+substring$ -- 366
+swap$ -- 89
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 74
-warning$ -- 3
-while$ -- 63
-width$ -- 21
-write$ -- 187
-(There were 3 warnings)
+type$ -- 94
+warning$ -- 4
+while$ -- 73
+width$ -- 26
+write$ -- 231
+(There were 4 warnings)

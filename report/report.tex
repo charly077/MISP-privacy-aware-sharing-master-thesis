@@ -104,6 +104,7 @@ The idea, is then to use these traces to trigger alarms on other computer system
 \section{MISP and Threat Sharing}
 I've introduce the idea of malware sharing to defend our computer systems against digital threats and attacks. But MISP is not the only platform to do so, the more current onces are DShield, Critical Stack’s Intel, Microsoft’s Interflow, AlienVault’s Open Threat Exchange, ...\\
 But here I focused on the MISP project which is, as said on their website, an open source software solution for collecting, storing, distributing and sharing cyber security indicators and threat about cyber security incidents analysis and malware analysis. MISP is designed by and for incident analysts, security and IT professionals or malware reverser to support their day-to-day operations to share structured informations efficiently.\\
+MISP also rely on an hub and spoke sharing model (TAXII \cite{taxiiWebsite}). There is a central point called the hub which is the server where all data are kept and the spokes are the organizations that interact with the hub.\\
 A recent paper on MISP \cite{wagner2016misp} had been published this year and could be interesting if your are searching to have a better understanding of the underlying system.\\
 I want also to point out that MISP is spreading, and I've the feeling that communities will continue to grow. I've discussed in Belgium with companies like banks, insurances, consultancy companies that are using it which is, at least to my point of view, a good sign on the usage of the system.
 
@@ -326,41 +327,47 @@ For that, we can categorize the standards into four categories( a complete list 
 \item Transport (TAXII)
 \end{enumerate}
 
-\improvement{Use the same numerotation for the following standards used in this master thesis as well as in misp}
+I will only focus on the three that I've cited before as we can see in \cite{fransen2015cyber} that the most promosing standards for a threat sharing intelligence sharing infrastructure are CybOX, STIX and TAXII. They have been developed under coordination of the MITRE Corporation and have very strong momentum in adoption by industry leaders and threat intelligence communities such as the Financial Services - Information Sharing and Analysis Center (FS-ISAC).\\
+The  Structured Threat Information eXpression (STIX) \cite{barnum2012standardizing} provides a language to represent cyber threat information in a structured manner and is really interesting as it provides a structure to express a wide set of contextual information regarding threats in addition of the IOCs. The complete list is :
 
-\subsection{Structured Threat Information eXpression (STIX)}
-\improvement{Todo}
-Sean  Barnum, Standardizing cyber threat intelligence inforamtion with the structured threat information expression
+\begin{itemize}
+\item[$\bullet$] Cyber Observables
+\item[$\bullet$] Indicators
+\item[$\bullet$] Incidents
+\item[$\bullet$] Adversary Tactics, Techniques, and Procedures (including attack patterns, malware, exploits, kill
+chains, tools, infrastructure, victim targeting, etc.)
+\item[$\bullet$] Exploit Targets (e.g., vulnerabilities, weaknesses or configurations)
+\item[$\bullet$] Courses of Action (e.g., incident response or vulnerability/weakness remedies or mitigations)
+\item[$\bullet$] Cyber Attack Campaigns
+\item[$\bullet$] Cyber Threat Actors
+\end{itemize}
 
-\subsection{Cyber Observable eXpression (CybOX)}
-\improvement{Todo}
+ Moreover it tries to stay as "human-readable as possible". And the chapter 9 of \cite{barnum2012standardizing} may be really interesting to spend time on it. It explain in detail the structure of STIX.\\
+ For expressing the observable, STIX is using Cyber Observable eXpression (CybOX)\cite{barnum2012cybox} that allows to state the specification of events or stateful properties.
+Then, we need a transport standard which is the Trusted Automated eXchange of Indicator of Information (TAXII) \cite{connolly2014trusted} .
 
-\subsection{Trusted Automated eXchange of Indicator of Information (TAXII)}
-\improvement{Todo}
-Julie Connolly, The Trusted automated exchange of indicator information
 
 \section{Sum up}
-The first idea imagined was a simple proof of work database. But, even if it's an interesting way of remembering and sharing data while avoiding total disclosure of the data set. It has a big disadvantage as well, we cannot really use data for analysis since an enormous amount of computation is needed to get all information, and then, how could we compare them?\\
-Thus, I had to go deeper and to look into scientific papers. As there are not a lot of information about MISP in this kind of literature \info{there is now a new paper \cite{wagner2016misp}}, I had to find another starting point. The one I found was DShield. This is also a kind of sharing platform. Even if the way they get or use data is quite different, the general concept is the same or at least for my approach.\\
-Then, I could find a lot of techniques in order to generate blacklists, detect event correlations and protect companies with it.\\
-I also found privacy concerns about sharing data. And thus, a lot of separate techniques. For example, if there is privacy problem with sharing files, we can simply hash them. It's not possible to brute force in order to get back the starting file but, for IP addresses, since in general, there are only 256 or 65536 IP addresses for a specific company, we could create a table with all possible hashes and test them all!\\
-That's why it was interesting to see how they handled these problems but, as these techniques were built in view of a special purpose, they have some disadvantages for us. \\
-For example, if we need to store the whole data set, proof of work database with bloom filter to make some analyze could be enough but if the idea is to make correlation between data, this idea is not good enough and we need to focus on other techniques.\\
-But on the other hand, an other widely used technique is data sanitization as seen with articles examples. But again, some problem arise when we want to analyse data. Wath could we do with an ip where the most signicant bit could have been modified by noise. Or with an ip without modified with concept hierarchies ? \\
-Sanitized data loose all the information needed in these process so we need to find one another technique.\\
-That's why I created a set of questions that could help me to know what I need to focus myself on :
+When I started the master thesis, my knowledge about threat information sharing was clearly none. I had to look up for articles and information where I was able to find some. I've finally chosen some articles and some points that I found interesting to share in order to understand the different step I followed and the different ideas on which I thought about.\\
+Also, I've spoken about MISP as it is the platform I'm interesting on. There is an available really good awesome list \cite{} available where all different existing standards, tools and techniques available in this domain.\\
+But in order to come back to MISP. The main advantages compared to the proprietary solutions (like Soltra Edge) is that :
 \begin{itemize}
-\item When we spoke about privacy, do we speak only about data privacy or also about source anonymity ? \\
-$\Rightarrow$ Here the question is not to know who had seen it before, but just to determine what is going on. We only need to have like a hashstore of data to be sure that data cannot be recovered ! But we need to find a way to be sure to securely share IPs !
-\item How to define the sate of an IOC ?\\
- $\Rightarrow$ This is done in misp and has no impact on my work
-\item How MISP is used by companies? What is really the difference with DShield ?\\
-$\Rightarrow$ DShield is used just by getting automatically a lot of data in order to discover as soon as possible all big attack in order to block them ! While MISP is to analyze event and share it with other companies
-\item In MISP, event correlations are done but, are they working on attack scenarios ?\\
-$\Rightarrow$ I don't think so, but I forgot to ask this question
-\item Are misp allow some groups (collaboration) to know the intersection of their attributes with other group in order to know if it's worth to share ?\\
- $\Rightarrow$ No, at least not for the moment !
+\item[$\bullet$] Transparency in term of code and of the contributor.
+\item[$\bullet$] Quantity and diversity of connected entities
+\item[$\bullet$] The price and the non-existence of entrance barriers
 \end{itemize}
+On the other hands, there exist also other kind of sharing types like DShield but they are sharing the whole bench of indicators and deals with a lot of data while MISP is more interested in events and in the analyses of what is going on.\\
+
+The difference between privacy and confidentiality had been well explained but I want to add that here, when I speak about anonymity in sharing, I mean that what would be interesting would be to have a way of sharing what is going on without the need of sharing who had seen the indicators.//
+Then, I could find a lot of techniques in order to generate blacklists, detect event correlations and protect companies with it.\\
+In the state of the art, I've also spoken about attack scenarios and cardinality of intersection to evaluate the benefit of sharing before doing it. These kind of techniques are not yet implemented in MISP but could appear one day.\\
+
+As discussed with the risk, there are a lot of privacy concerns about sharing data. And thus, a lot of separate techniques. But there is an additional important problem that we need to take care of. For example, one of the solution for preserving privacy was simply hash the data. For big sized data, It's not feasible to brute force in order to get back the information but, for IP addresses, since in general, there are only 256 or 65536 IP addresses for a specific company, we could create a table with all possible hashes and test them all!\\
+
+Then, it was really useful to see these existing techniques but it unfortunately does not mean that it could solve all of our problems. They had other purpose when designing their solutions and it can lead to some disadvantage in what we are attempting to do.\\
+For example, Bloom Filters are a really good idea but they are not enough by their own has they do not give data at the end but just a probability of a specific IOC to belong to a specific set.\\
+On the other hand, sanitization is not good for us either as we would lose all the interesting data with the explained techniques. Noise is thus not a valid choice either.
+
 
 \section{Where does it lead me ?}
 
