@@ -3,13 +3,14 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: report.aux
 The style file: acm-doi.bst
 Database file #1: articles.bib
+Warning--I didn't find a database entry for "AwesomeTreat"
 Warning--to sort, need author or key in taxiiWebsite
 Warning--empty journal in enisaguide2009
 Warning--empty journal in eisasRapport
 Warning--empty publisher in johnson2014guide
 You've used 24 entries,
             2415 wiz_defined-function locations,
-            680 strings with 8052 characters,
+            682 strings with 8076 characters,
 and the built_in function-call counts, 7648 in all, are:
 = -- 709
 > -- 337
@@ -48,4 +49,4 @@ warning$ -- 4
 while$ -- 73
 width$ -- 26
 write$ -- 231
-(There were 4 warnings)
+(There were 5 warnings)

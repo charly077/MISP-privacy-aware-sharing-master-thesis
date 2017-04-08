@@ -349,7 +349,7 @@ Then, we need a transport standard which is the Trusted Automated eXchange of In
 
 \section{Sum up}
 When I started the master thesis, my knowledge about threat information sharing was clearly none. I had to look up for articles and information where I was able to find some. I've finally chosen some articles and some points that I found interesting to share in order to understand the different step I followed and the different ideas on which I thought about.\\
-Also, I've spoken about MISP as it is the platform I'm interesting on. There is an available really good awesome list \cite{} available where all different existing standards, tools and techniques available in this domain.\\
+Also, I've spoken about MISP as it is the platform I'm interesting on. There is an available really good awesome list \cite{AwesomeTreat} available where all different existing standards, tools and techniques available in this domain.\\
 But in order to come back to MISP. The main advantages compared to the proprietary solutions (like Soltra Edge) is that :
 \begin{itemize}
 \item[$\bullet$] Transparency in term of code and of the contributor.
@@ -371,31 +371,42 @@ On the other hand, sanitization is not good for us either as we would lose all t
 
 \section{Where does it lead me ?}
 
-We have a data set of malicious data, IOCs, events and we want to share them. And it is already done by the MISP project. But now, if we want to distribute these information to every one?\\
-It would be really nice, every computer specialist could check on computers to discover infections, problems and moreover fix it thanks to previous analysis contained on MISP. But there is a problem, some information are confidential and we need to have some privacy concerns while sharing. \\
-Actually, it is quite easy to understand this fact. If a company have data, they have it so they don't want to share it! Even more if it can be confidential but in the other hand, if they can avoid infection, or detect it with information from other companies, there, they are interested! \\
-But of course this means that someone need to share information, thus, how could we share these information without leaking any confidential data ?\\
-Sanitization is a good idea but, if we do sanitization in order to still be able to recover data, an adversary could do the same. So Sanitization to protect data would modify data up to make them unusable for every one.\\
-But what if we could find a way to share only if the user has really knowledge of the event and can share some, or is really infected by and need the information. While an attacker could not be able to discover anything of the data set.\\
+We have a data set of malicious data, IOCs, events and we want to share them. This is what is already done by the MISP project. But now, what if we want to distribute these information by giving the data set to an organization without having to trust her?\\
+It would be really nice, computer specialists would be able to check on computers to discover infections, problems and moreover learn how to fix it thanks to the previous analyses contained in MISP. But there is still a problem, some information are confidential and we need to have some privacy concerns while sharing. \\
+Actually, if a company discover information on its system, why should they share it ? They already have been compromised and sharing could give useful information to an attacker, as the company topology ... \\
+But if they do not share, why other should accept to share with them ? That is why, actually all sharing groups rely on trust. Here, the trust must be replaced by something else.\\
+Sanitization is a good idea but, it would modify data up to make them unusable for every one.\\
+What then if we could find a way to share only if the user has really knowledge of the event and can share information on it as well, or is really infected by and need help that could be given by the information.\\
 I will consider this problem but with two different kind of solution. The first part is when the database could be shared because an attacker could not get information from it (Easier to get data, so perhaps we cannot put all data on it).\\
 And the second approach is one that still need a server to respond but allowing more privacy.\\
 
-But still, the idea that a common user have access to data while an attacker, which is a specialist cannot seems infeasible in a lot cases. The attacker always ends with the data but, if he takes 1 second, 1 day, 1 week or 3 months, years and so in is different because, we can then think about how many time data are valid? \\
-\info{IP dynamique, fixed , malware removed, ... }
+But still, the idea that a common user have access to data while an attacker, which is a specialist, cannot seems infeasible in a lot of cases. The attacker always ends with the data but, if he takes 1 second, 1 day, 1 week, 3 months or years is different because, we can then think about how long a data is valid? \\
 
 
-\section{Misp-Worbench hashstore}
 
-One idea already implemented is a redis\footnote{http://redis.io} hashstore located in the misp workbench project\footnote{https://github.com/MISP/misp-workbench} and is aimed to get all hashed IOCs.
-The result is that only the ones who have seen the IOC can get the associated information. \\
-Back on the small data problem, if we consider an attacker that want to try every possible IPs, for IPv4 it represents 4.228.250.625 different IPs that needs to be tested. Even if it is a lot it is still feasible ! Moreover, not all IPv4 need to be tested, for an example we can avoid private subnet like 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 which already represent 17.891.328 addresses.\change{To complete ! Mais il y a une grosse partie du misp-workbench que je ne comprends pas et que je ne vois pas à quoi ça sert vu que je n'ai pas accès à la db .. J'aimerai pouvoir voir comment ça fonctionne pour pouvoir l'implem dans l'autre}
+\section{Misp-Worbench - hashstore}
+
+Misp workbench\footnote{https://github.com/MISP/misp-workbench} is a set of tools to export data out of the MISP MySQL database and use and abuse them outside of this platform.\\
+
+They have already implemented a privacy aware tool called hashstore. This was implemented in redis\footnote{http://redis.io}. This is working by creating a dataset of all hashed IOCs. And then by the use of the redis server, we can use a redis client to request data.\\
+Like that, if you want an information on a particular IOC, you need to already know it to be able to take its value's fingerprint and make the request.\\
+On the other hand, coming back on the small data problem, if we consider an attacker that want to try every possible IPs, for IPv4 it represents 4.228.250.625 different IPs that needs to be tested. Even if it is a lot it is still feasible as redis is really fast (The attacker even pipeline its requests\improvement{Check that, I think that it was not feasible in the system but I need to check why})! Moreover, not all IPv4 need to be tested, for an example we can avoid private subnet like 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 which already represent 17.891.328 addresses.
 
 
 \section{Limitation}
-it is intrinsically impossible to fully hide the IOC while still allowing a subscriber to evaluate the rule. \change{Explain why}
+
+What we want ? A way to share information only with people that has already some information or that are facing the related event. It would be amazing to do so but it would mean to make available a dataset where we could allow them to query.\\
+The hashstore was a great idea as we need to now what we are looking for to request but, for a small data that could have only 10000 possibilities. What if the opposite player try ever 10000 possibilities to get what we know? \\
+We could make a limitation on the allowed number of request but, a system that would like to check everything that it sees on its network should still be allowed. Could we differentiate both ? \\
+So if we want to make the task more complicated for the attacker, we need to make it more complicated as well for the authorized used. This is quite difficult because if we make it infeasible for the attacker, we are also making it infeasible for the user as, with the example, there is only a 10000 factor between legal utilization and an attack.\\
+
+We thus know that it is intrinsically impossible to fully hide small IOCs while still allowing a subscriber to evaluate the rule. But we want to find a solution that could be an approach this problem.
 
 
 \chapter{Implementation Ideas}
+
+Now that the subject seems clearer, there are a lot of different possibilities that could be explored. This chapter will be the opportunity to dwell on different possibilities in order to compare their strong points as well as their weakness.
+
 \subsection{Bloom filter}
 Bloom filter\footnote{https://en.wikipedia.org/wiki/Bloom\_filter} is a widely used solution.\change{Explain bloom filter}
 But unfortunately thanks to correlation we could get back the whole dataset.\\
