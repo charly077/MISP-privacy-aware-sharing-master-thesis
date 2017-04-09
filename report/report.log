@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.2.1)  8 APR 2017 14:56
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.2.1)  9 APR 2017 11:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -781,7 +781,7 @@ LaTeX Info: Redefining \nameref on input line 40.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-<EPL_TFEbanner.jpg, id=167, 526.3665pt x 256.0767pt>
+<EPL_TFEbanner.jpg, id=171, 526.3665pt x 256.0767pt>
 File: EPL_TFEbanner.jpg Graphic file (type jpg)
  <use EPL_TFEbanner.jpg>
 Package pdftex.def Info: EPL_TFEbanner.jpg used on input line 43.
@@ -852,7 +852,7 @@ l.52 \end{abstract}
 e same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.43 ...erline {4.5}Further Work}{22}{section.4.5}
+l.41 ...{4.5}Security Discussion}{22}{section.4.5}
                                                    [1
 
 ])
@@ -933,36 +933,41 @@ Underfull \hbox (badness 10000) in paragraph at lines 166--168
 
  []
 
-<res/webEvents.png, id=269, 1423.3175pt x 666.49pt>
+[7] <res/webEvents.png, id=283, 1423.3175pt x 666.49pt>
 File: res/webEvents.png Graphic file (type png)
- <use res/webEvents.png>
+
+<use res/webEvents.png>
 Package pdftex.def Info: res/webEvents.png used on input line 173.
 (pdftex.def)             Requested size: 455.47092pt x 213.28116pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<res/webEvent.png, id=272, 823.075pt x 437.635pt>
+ <res/webEvent.png, id=286, 823.075pt x 437.635pt>
 File: res/webEvent.png Graphic file (type png)
- <use res/webEvent.png>
+
+<use res/webEvent.png>
 Package pdftex.def Info: res/webEvent.png used on input line 185.
 (pdftex.def)             Requested size: 288.08057pt x 153.17455pt.
 
-[7] <res/webAttributes.png, id=281, 1263.72125pt x 265.99374pt>
+<res/webAttributes.png, id=288, 1263.72125pt x 265.99374pt>
 File: res/webAttributes.png Graphic file (type png)
 
 <use res/webAttributes.png>
 Package pdftex.def Info: res/webAttributes.png used on input line 195.
 (pdftex.def)             Requested size: 442.30907pt x 93.0992pt.
 
-<res/webCorrelationGraph.png, id=283, 572.1375pt x 445.665pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<res/webCorrelationGraph.png, id=290, 572.1375pt x 445.665pt>
 File: res/webCorrelationGraph.png Graphic file (type png)
 
 <use res/webCorrelationGraph.png>
 Package pdftex.def Info: res/webCorrelationGraph.png used on input line 204.
 (pdftex.def)             Requested size: 200.25111pt x 155.98508pt.
- [8 <./res/webEvents.png> <./res/webEvent.png> <./res/webAttributes.png>] [9 <.
-/res/webCorrelationGraph.png>]
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[8 <./res/webEvents.png> <./res/webEvent.png>] [9 <./res/webAttributes.png> <./
+res/webCorrelationGraph.png>]
 Chapter 2.
 
 Underfull \hbox (badness 10000) in paragraph at lines 227--232
@@ -972,42 +977,47 @@ Underfull \hbox (badness 10000) in paragraph at lines 227--232
 [10
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 233--239
+Underfull \hbox (badness 10000) in paragraph at lines 233--235
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 236--242
 
  []
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 247--248
+Underfull \hbox (badness 10000) in paragraph at lines 250--251
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 249--251
+Underfull \hbox (badness 10000) in paragraph at lines 252--254
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 263--264
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 274--280
+Underfull \hbox (badness 10000) in paragraph at lines 266--267
 
  []
 
 [12]
-Underfull \hbox (badness 10000) in paragraph at lines 281--290
+Underfull \hbox (badness 10000) in paragraph at lines 277--283
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 291--293
+Underfull \hbox (badness 10000) in paragraph at lines 284--293
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 294--297
+Underfull \hbox (badness 10000) in paragraph at lines 294--296
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--300
 
  []
 
@@ -1016,60 +1026,52 @@ Underfull \hbox (badness 10000) in paragraph at lines 294--297
 LaTeX Warning: Marginpar on page 14 moved.
 
 [14]
-
-LaTeX Warning: Citation `AwesomeTreat' on page 15 undefined on input line 352.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 359--360
+Underfull \hbox (badness 10000) in paragraph at lines 362--363
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 361--364
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 365--366
+Underfull \hbox (badness 10000) in paragraph at lines 364--367
 
  []
 
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 374--382
+Underfull \hbox (badness 10000) in paragraph at lines 368--369
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 383--384
+Underfull \hbox (badness 10000) in paragraph at lines 377--385
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 389--390
+Underfull \hbox (badness 10000) in paragraph at lines 386--387
 
  []
 
 [16]
-Underfull \hbox (badness 10000) in paragraph at lines 398--402
+Underfull \hbox (badness 10000) in paragraph at lines 392--393
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 401--405
 
  []
 
 [17]
 Chapter 3.
 
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 410.
-
-
 LaTeX Warning: Marginpar on page 18 moved.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 417--421
+Underfull \hbox (badness 10000) in paragraph at lines 420--424
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 431--434
+Underfull \hbox (badness 10000) in paragraph at lines 434--437
 
  []
 
@@ -1078,18 +1080,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 431--434
 ] [19]
 Chapter 4.
 
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 459.
-
-
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 459.
+(hyperref)                removing `\@ifnextchar' on input line 460.
 
 
 LaTeX Warning: Marginpar on page 20 moved.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 493--494
+Underfull \hbox (badness 10000) in paragraph at lines 494--495
 
  []
 
@@ -1098,32 +1096,42 @@ Underfull \hbox (badness 10000) in paragraph at lines 493--494
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 498.
+(hyperref)                removing `\@ifnextchar' on input line 499.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--520
+Underfull \hbox (badness 10000) in paragraph at lines 516--521
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 521--523
+Underfull \hbox (badness 10000) in paragraph at lines 522--524
 
  []
 
 [21]
-Underfull \hbox (badness 10000) in paragraph at lines 524--525
+Underfull \hbox (badness 10000) in paragraph at lines 525--526
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 526--527
+Underfull \hbox (badness 10000) in paragraph at lines 527--528
 
  []
 
 [22] (./report.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
+[]\T1/lmr/m/n/10.95 (+20) Awesome threat in-tel-li-gence.  []$\T1/lmtt/m/n/10.9
+5 https : / / github . com / hslatman /
+ []
+
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/10.95'.
 (microtype)             Ignoring protrusion settings for this character.
+
+Underfull \hbox (badness 4013) in paragraph at lines 12--15
+[]\T1/lmr/m/sc/10.95 (+20) A. Du-launoy, A. I.  \T1/lmr/m/n/10.95 (+20) Misp co
+re for-mat.  []$\T1/lmtt/m/n/10.95 https : / / tools . ietf . org / html /
+ []
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/ucs/data/uni-33.def
 File: uni-33.def 2013/05/13 UCS: Unicode data U+2100..U+21FF
@@ -1165,41 +1173,37 @@ File: uni-33.def 2013/05/13 UCS: Unicode data U+2100..U+21FF
 
 
 
-Package xcolor Warning: Incompatible color definition on input line 547.
+Package xcolor Warning: Incompatible color definition on input line 548.
 
 
-Package xcolor Warning: Incompatible color definition on input line 547.
+Package xcolor Warning: Incompatible color definition on input line 548.
 
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <9> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 547.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 548.
 
-Package xcolor Warning: Incompatible color definition on input line 547.
+Package xcolor Warning: Incompatible color definition on input line 548.
 
 
-Overfull \hbox (1.90796pt too wide) in paragraph at lines 547--548
+Overfull \hbox (1.90796pt too wide) in paragraph at lines 548--549
  [][][] 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 552.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 553.
 [25
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 552.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 553.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 552.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 552.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 553.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 553.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 5476D9308A5F506CE48A83D056D7F404;2750.
-
-
-LaTeX Warning: There were undefined references.
-
+(rerunfilecheck)             Checksum: 468FF7F4794758A0905F897D9DB2903C;2728.
  ) 
 Here is how much of TeX's memory you used:
- 18815 strings out of 493315
- 328384 string characters out of 6137905
- 472679 words of memory out of 5000000
- 21624 multiletter control sequences out of 15000+600000
+ 18814 strings out of 493315
+ 328272 string characters out of 6137905
+ 472766 words of memory out of 5000000
+ 21622 multiletter control sequences out of 15000+600000
  99521 words of font info for 127 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  63i,9n,76p,907b,740s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1217,10 +1221,10 @@ pe1/public/lm/lmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public
 /lm/lmtt10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhv
 b8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb
 >
-Output written on report.pdf (27 pages, 672737 bytes).
+Output written on report.pdf (27 pages, 672769 bytes).
 PDF statistics:
- 516 PDF objects out of 1000 (max. 8388607)
- 461 compressed objects within 5 object streams
- 124 named destinations out of 1000 (max. 500000)
- 27494 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 529 PDF objects out of 1000 (max. 8388607)
+ 474 compressed objects within 5 object streams
+ 125 named destinations out of 1000 (max. 500000)
+ 27502 words of extra memory for PDF output out of 29859 (max. 10000000)
 

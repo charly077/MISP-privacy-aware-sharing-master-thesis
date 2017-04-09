@@ -105,7 +105,7 @@ The idea, is then to use these traces to trigger alarms on other computer system
 I've introduce the idea of malware sharing to defend our computer systems against digital threats and attacks. But MISP is not the only platform to do so, the more current onces are DShield, Critical Stack’s Intel, Microsoft’s Interflow, AlienVault’s Open Threat Exchange, ...\\
 But here I focused on the MISP project which is, as said on their website, an open source software solution for collecting, storing, distributing and sharing cyber security indicators and threat about cyber security incidents analysis and malware analysis. MISP is designed by and for incident analysts, security and IT professionals or malware reverser to support their day-to-day operations to share structured informations efficiently.\\
 MISP also rely on an hub and spoke sharing model (TAXII \cite{taxiiWebsite}). There is a central point called the hub which is the server where all data are kept and the spokes are the organizations that interact with the hub.\\
-A recent paper on MISP \cite{wagner2016misp} had been published this year and could be interesting if your are searching to have a better understanding of the underlying system.\\
+A recent paper on MISP \cite{wagner2016misp} had been published this year and could be interesting if your are searching to have a better understanding of the underlying system. Additionally, there is also a recent ietf draft on MISP core format\cite{MispDraft}.\\
 I want also to point out that MISP is spreading, and I've the feeling that communities will continue to grow. I've discussed in Belgium with companies like banks, insurances, consultancy companies that are using it which is, at least to my point of view, a good sign on the usage of the system.
 
 \subsection{History}
@@ -230,6 +230,9 @@ While, confidentiality refers to information about organization that could lead 
 In this article they were focus a lot on trust on trust which is one of the most important property to ensure when dealing with a sharing group.\\
 We cannot share confidential information if we do not trust the other party to keep it confidential! This is already a clue on what I explained in the introduction, I want to share the information but not to give it as I'm not sure that I can trust the opposite party.\\
 
+After that, a recent survey trying to compare the different vendors for threat information sharing was published in 2017 \cite{sauerwein2017threat}. The authors have conducted a systematic study of 22 threat intelligence sharing platforms and this article is a short sum up of their key findings I believe not always true and with a lack of example to support their say. Thus it was a general still really interesting survey even if a detailed analyze of the 22 different tools would be really welcome.\\
+On the other hand, their analyze of the different types, focuses, standards and licenses used by the different platforms bring a lot of information on what should be used in todays sharing platform.\\
+
 I've just introduce the name of some standards. They are really important as we cannot share if we cannot speak the same language. Thus these standards make possible threat sharing but also allow to make it automated. Beside that, when we decide to start in this subject. It is really too important to avoid making mistakes that perhaps have already been made. That is why some organizations like the National Institute of Standards and Technology (NIST) and the European Union Agency for Network and Information Security (ENISA) took care of publishing guidelines to help organization to involve themselves in threat sharing.\\
 In Europe, the Commission recognized that they have a role to play in making the information more secure. In order to do that, they wanted to create the first pan European Information Sharing and Alerting System (EISAS on which we can find a report on the implementation \cite{eisasRapport}). For that, they have asked to ENISA to define the requirements. After that, member states that weren't yet using information sharing were really interested by and asked ENISA to develop a good practise guide based on the observation of existing exchange. This gave an intersting guide \cite{enisaguide2009} that is aimed to assist member states but also relevant stakeholders (organizations that are using communication network and information systems) in setting up and running network security information exchange.\\
 In this guide, they go through setting up information sharing but they first look at the advantages and also identify laws that could get in the way. This is really important as organizations need to ensure not being recognized as a cartel or as a commercial advantage. They also focus on the trust that needs, for them, to be created thanks to regular face-to-face meetings. They also need to use TLP in these meetings.\\
@@ -319,7 +322,7 @@ Now that we see more concretely what is information sharing, a good question is 
 
 \section{Standards}
 As we want organizations to share threat informations, we need them to "speak the same language" or more formally, to use the same standards.\\
-For that, we can categorize the standards into four categories( a complete list of all existing standards can be found in \cite{mohaisen2017rethinking}):
+For that, we can categorize the standards into four categories (a complete list of all existing standards can be found in \cite{mohaisen2017rethinking}):
 \begin{enumerate}
 \item Enumerations
 \item Scoring Systems
@@ -327,7 +330,7 @@ For that, we can categorize the standards into four categories( a complete list 
 \item Transport (TAXII)
 \end{enumerate}
 
-I will only focus on the three that I've cited before as we can see in \cite{fransen2015cyber} that the most promosing standards for a threat sharing intelligence sharing infrastructure are CybOX, STIX and TAXII. They have been developed under coordination of the MITRE Corporation and have very strong momentum in adoption by industry leaders and threat intelligence communities such as the Financial Services - Information Sharing and Analysis Center (FS-ISAC).\\
+I will only focus on the three that I've cited before as we can see in \cite{fransen2015cyber, sauerwein2017threat} that the most promising standards for a threat sharing intelligence sharing infrastructure are CybOX, STIX and TAXII. They have been developed under coordination of the MITRE Corporation and have very strong momentum in adoption by industry leaders and threat intelligence communities such as the Financial Services - Information Sharing and Analysis Center (FS-ISAC).\\
 The  Structured Threat Information eXpression (STIX) \cite{barnum2012standardizing} provides a language to represent cyber threat information in a structured manner and is really interesting as it provides a structure to express a wide set of contextual information regarding threats in addition of the IOCs. The complete list is :
 
 \begin{itemize}
@@ -407,13 +410,13 @@ We thus know that it is intrinsically impossible to fully hide small IOCs while 
 
 Now that the subject seems clearer, there are a lot of different possibilities that could be explored. This chapter will be the opportunity to dwell on different possibilities in order to compare their strong points as well as their weakness.
 
-\subsection{Bloom filter}
+\section{Bloom filter}
 Bloom filter\footnote{https://en.wikipedia.org/wiki/Bloom\_filter} is a widely used solution.\change{Explain bloom filter}
 But unfortunately thanks to correlation we could get back the whole dataset.\\
 Misp-workbench is similar to a bloom filter with only one function.\unsure{Check this in the code because it is said in the documentation that it's a bloom filter}
 \info{Je dois m'attarder un peu plus sur cette solution}
 
-\subsection{Machine Learning}
+\section{Machine Learning}
 The idea is quite the same as the bloom filter, but, here we want to privilege the privacy! By that I mean, in the bloom filter, there are False Positive, True Positive, True Negative, but NO False Negative.\\
 Here the idea is to accept False Negative and analyze how it impacts the database.\\
 To stay simple, we can see an address ip as a bit sequence. If we use the entire set of ip in the database to train an algorithm as support vector machine (svm).\\
@@ -422,12 +425,12 @@ Then it could be interesting to check the base concept representation (BCR) to a
 In order to test this technique, I would train an algorithm on the whole set of data. In standard machine learning system, we would use a test set different from the training set in order to avoid overfitting but in our system, we need overfitting. \\
 After that, the idea would be to test random  ip and compare the result.
 
-\subsection{Secure Two Party Computation (Intersection)}
+\section{Secure Two Party Computation (Intersection)}
 Must create a list of all ip needed to request.
 Use the algorithm to compute each part and get to know the intersection.
 But need and idea to limit the size ! 
 
-\subsection{Proof of Work Database}
+\section{Proof of Work Database}
 \info{hash cache pour les mail contre les spams}
 Here, we want to keep a database, we don't want any False Positive nor False Negative. Thus if we keep a simple database as the hashstore, it's possible to compute every hash and test them all!\\
 But what if we can avoid that by adding computation, this make brute force more difficult but still not unfeasible. But at least with this technique we can avoid precomputation techniques.\\
@@ -441,22 +444,20 @@ then in order to get the answer, the request must be like\\
 hash(IP)||hash(IP||key)\\
 With a LONG hash function
 
-\subsection{All in one request}
+\section{All in one request}
 Here the goal is quite different, Imagine the case of a forensic detection of what had gone wrong.\\
 We can do it differently, we do a full analyze of the machine, then, once we have the whole data set that we went to test, we send everything and the data system just answer with the id of the triggered event but we don't know what triggered it thus we don't really know the content.\\
 Of course with this, we could just send requests of 1 elements, so to thwart that, we simple could make the request difficult (proof of work), also with a big delay to be able to request again from the same ip and moreover, we could make impossible to make request with less than 10 IPs (need to add random other ip).
 
-\subsection{All in one request with S2P}
+\section{All in one request with S2P}
 The idea is the same as the one of all in one request but, in the case that the user doesn't want to send everything that he have visited, they could use a secure two party computation intersection algorithm.
 With that, the server only receive the intersection between his dataset and the one of the user.
 
-\section{Keyword search on Remote enrypted Data}
-\info{J'ai un article imprimé mais je sais pas ce qu'il faut !}
 
 \section{Conclusion}
 
 \chapter{Implementation}
-\subsection{Private Sharing of IOCs and Sightings \cite{van2016private}}
+\section{Private Sharing of IOCs and Sightings \cite{van2016private}}
 This paper consider a cryptographic approach to hide the details of an indicator of compromise. They consider two different phases, the first is to share these IOCs and the second one is to privately reporting the sightings of IOCs. \\
 First, they define an IOC as a propositional formula where the propositional variables are defined over features or observables. They also claim that every IOC can be expressed in the Disjunction Normal Form (DNF) without any negation (e.g. destIP= 198.51.100.43 $\land$ destPort = 80).\\
 They store IOCs by hashing the concatenation of all information but, if we consider that IPv4 brute force are feasible, IPv4$||$port\_number is still feasible (Most part of the port are the same as 80, 443, ...).\\
@@ -465,7 +466,7 @@ They store IOCs by hashing the concatenation of all information but, if we consi
 \info{Add subscriber id when creating the file for a specific id :)}
 
 startPad = '\\x00'*16
-\subsubsection{Create a rule}
+\subsection{Create a rule}
 \begin{itemize}
 \item Create a salt and an iv
 \item password = all IOC's value joined by a comma
@@ -475,7 +476,7 @@ startPad = '\\x00'*16
 \item return the rule or write it into a file
 \end{itemize}
 
-\subsubsection{match a rule}
+\subsection{match a rule}
 \begin{itemize}
 \item parse the rule or all rules in a file
 \item for each one test to encrypt the attribute with the salt + value and see if the decryption is correct (startPad)
@@ -515,7 +516,7 @@ I will also argue on the biggest modification, cryptography instead of pycrypto.
 In this section, I will argue the choice for python-bloom library. This choice was actually a way more complicated than it could be as, I think it is not the fastest implementation.\\
 But first, to understand my choice, we need to know what I really was searching for. I needed to find a way for avoiding brute forcing the database, but, on the other hand, I want it to be really fast for a common user. Thus Bloom filters already take car of the first part so, I only needed to find a fast implementation.\\
 I also wanted the system to be storable in files without any additional informations.\\
-So the first I've found was to use bloomd server with a python client. But, it would means that we would have to install all these things which seems not really interesting. But why not using redis to store data ? It is fast and there was a really fast implementation of bloom filters in python for redis (actually in c interfaced with python) calle pyrebloom. But the code was really complicated and not easy to read. Moreover, I discovered that they are keeping additional information on keys to be able to remove elements. that, without forgetting the fact that it doesn't seemed savable in a file make me drop this implementation.\\
+So the first I've found was to use bloomd server with a python client. But, it would means that we would have to install all these things which seems not really interesting. But why not using redis to store data ? It is fast and there was a really fast implementation of bloom filters in python for redis (actually in c interfaced with python) call pyrebloom. But the code was really complicated and not easy to read. Moreover, I discovered that they are keeping additional information on keys to be able to remove elements. that, without forgetting the fact that it doesn't seemed savable in a file make me drop this implementation.\\
 I've finally found the python-bloom library, It seems less efficient but well implemented, without any additional state and a way to save the bloom filter.\\
 
 For the bloom filter, I've got different ideas, first, I need to implement the bloom filter as a tsv file. But, I also need it to be loaded each time. For this, I've added a special joker rule that is always loaded if it exists.\\

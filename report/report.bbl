@@ -4,6 +4,15 @@
 About taxii.
 \newblock \url{https://taxiiproject.github.io/about/}.
 
+\bibitem{AwesomeTreat}
+Awesome threat intelligence.
+\newblock \url{https://github.com/hslatman/awesome-threat-intelligence}.
+
+\bibitem{MispDraft}
+{\sc A.~Dulaunoy, A.~I.}
+\newblock Misp core format.
+\newblock \url{https://tools.ietf.org/html/draft-dulaunoy-misp-core-format-00}.
+
 \bibitem{barnum2012standardizing}
 {\sc Barnum, S.}
 \newblock Standardizing cyber threat intelligence information with the
@@ -96,6 +105,11 @@ About taxii.
   traffic detection.
 \newblock In {\em Proceedings of the 2006 SIGCOMM workshop on Large-scale
   attack defense\/} (2006), ACM, pp.~99--106.
+
+\bibitem{sauerwein2017threat}
+{\sc Sauerwein, C., Sillaber, C., Mussmann, A., and Breu, R.}
+\newblock Threat intelligence sharing platforms: An exploratory study of
+  software vendors and research perspectives.
 
 \bibitem{sweeney2002k}
 {\sc Sweeney, L.}

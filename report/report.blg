@@ -3,50 +3,51 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: report.aux
 The style file: acm-doi.bst
 Database file #1: articles.bib
-Warning--I didn't find a database entry for "AwesomeTreat"
 Warning--to sort, need author or key in taxiiWebsite
+Warning--to sort, need author or key in AwesomeTreat
 Warning--empty journal in enisaguide2009
 Warning--empty journal in eisasRapport
 Warning--empty publisher in johnson2014guide
-You've used 24 entries,
+Warning--empty journal in sauerwein2017threat
+You've used 27 entries,
             2415 wiz_defined-function locations,
-            682 strings with 8076 characters,
-and the built_in function-call counts, 7648 in all, are:
-= -- 709
-> -- 337
+            692 strings with 8490 characters,
+and the built_in function-call counts, 8308 in all, are:
+= -- 767
+> -- 367
 < -- 0
-+ -- 142
-- -- 116
-* -- 522
-:= -- 1200
-add.period$ -- 68
-call.type$ -- 24
-change.case$ -- 128
++ -- 155
+- -- 126
+* -- 554
+:= -- 1303
+add.period$ -- 75
+call.type$ -- 27
+change.case$ -- 142
 chr.to.int$ -- 0
-cite$ -- 28
-duplicate$ -- 315
-empty$ -- 706
-format.name$ -- 116
-if$ -- 1661
+cite$ -- 33
+duplicate$ -- 338
+empty$ -- 774
+format.name$ -- 126
+if$ -- 1806
 int.to.chr$ -- 0
-int.to.str$ -- 24
-missing$ -- 21
-newline$ -- 119
-num.names$ -- 46
-pop$ -- 162
+int.to.str$ -- 27
+missing$ -- 22
+newline$ -- 132
+num.names$ -- 50
+pop$ -- 185
 preamble$ -- 1
-purify$ -- 106
+purify$ -- 117
 quote$ -- 0
-skip$ -- 214
+skip$ -- 235
 stack$ -- 0
-substring$ -- 366
-swap$ -- 89
+substring$ -- 381
+swap$ -- 93
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 94
-warning$ -- 4
-while$ -- 73
-width$ -- 26
-write$ -- 231
-(There were 5 warnings)
+type$ -- 106
+warning$ -- 6
+while$ -- 77
+width$ -- 29
+write$ -- 254
+(There were 6 warnings)
