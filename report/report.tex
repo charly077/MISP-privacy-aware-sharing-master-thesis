@@ -322,7 +322,7 @@ Now that we see more concretely what is information sharing, a good question is 
 
 \section{Standards}
 As we want organizations to share threat informations, we need them to "speak the same language" or more formally, to use the same standards.\\
-For that, we can categorize the standards into four categories (a complete list of all existing standards can be found in \cite{mohaisen2017rethinking}):
+For that, we can categorize the standards into four categories (lists of other existing standards can be found in \cite{AwesomeTreat, mohaisen2017rethinking}):
 \begin{enumerate}
 \item Enumerations
 \item Scoring Systems
@@ -372,7 +372,7 @@ For example, Bloom Filters are a really good idea but they are not enough by the
 On the other hand, sanitization is not good for us either as we would lose all the interesting data with the explained techniques. Noise is thus not a valid choice either.
 
 
-\section{Where does it lead me ?}
+\section{Where did it lead me ?}
 
 We have a data set of malicious data, IOCs, events and we want to share them. This is what is already done by the MISP project. But now, what if we want to distribute these information by giving the data set to an organization without having to trust her?\\
 It would be really nice, computer specialists would be able to check on computers to discover infections, problems and moreover learn how to fix it thanks to the previous analyses contained in MISP. But there is still a problem, some information are confidential and we need to have some privacy concerns while sharing. \\
@@ -408,13 +408,41 @@ We thus know that it is intrinsically impossible to fully hide small IOCs while 
 
 \chapter{Implementation Ideas}
 
-Now that the subject seems clearer, there are a lot of different possibilities that could be explored. This chapter will be the opportunity to dwell on different possibilities in order to compare their strong points as well as their weakness.
+Now that the subject seems clearer, there are a lot of different possibilities that could be explored. This chapter will be the opportunity to dwell on some of them in order to compare their strong points as well as their weakness.
 
 \section{Bloom filter}
-Bloom filter\footnote{https://en.wikipedia.org/wiki/Bloom\_filter} is a widely used solution.\change{Explain bloom filter}
-But unfortunately thanks to correlation we could get back the whole dataset.\\
-Misp-workbench is similar to a bloom filter with only one function.\unsure{Check this in the code because it is said in the documentation that it's a bloom filter}
-\info{Je dois m'attarder un peu plus sur cette solution}
+Bloom filter is a space efficient probabilistic data structure  used to efficiently test the membership of specific values.\\
+If a dataset is only used for testing the membership, instead of storing the whole dataset that could be really large, we can use a bloom filter structure that use less than 10 bits of memory per element with a 1\% rate of false positive which makes it space efficient.\\
+A simple example to show the interest could be a data set of all the students' name and surname at university. Taking the hypothesis that each name and surname has approximately 6 characters and that there are about 20 000 students ( Harvard ). The dataset should use 20 000 * 6 * 2 * 8 (=1920000) bits while a 1\% false positive bloom filter could be only about 20 000 * 10 bits which is already 9 times smaller for such a small data example.\\
+
+\subsection{Data Structure}
+A bloom filter is a m bits array (fig. \ref{bloom-1}) all set to 0 at the starting point. Beside that, there are also k independent hash functions. 
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=0.3]{res/bloom-1}
+		\caption{Structure of a bloom filter with m=12 and k=3}
+		\label{bloom-1}
+	\end{center}
+\end{figure}
+
+To add the value v1, each hash function gives an index where we set the indexed bit to 0. In the opposite, if we want to test a value for membership, we have to check all indexes given by the hash functions. As we can see on figure \ref{bloom-1}, v2 is not in the set.
+
+\subsection{False Positive}
+
+Bloom filter is a probabilistic data structure as when we are checking for a value, either the value is \textbf{not} in the set or is \textbf{perhaps} in the set. \\
+In the latest case, this is due to false positive where all the k hash functions gives indexes already set to 1 (fig. \ref{bloom-2})while the element should not be in the set.\\
+Even if this could be annoying that is what could make that data structure interesting while trying to to reveal the whole data set.
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=0.3]{res/bloom-2}
+		\caption{False positive v3 in a bloom filter with m=12 and k=3}
+		\label{bloom-2}
+	\end{center}
+\end{figure}
+
+\subsection{Control Rate}
+Misp-workbench is similar to a bloom filter with only one function.
 
 \section{Machine Learning}
 The idea is quite the same as the bloom filter, but, here we want to privilege the privacy! By that I mean, in the bloom filter, there are False Positive, True Positive, True Negative, but NO False Negative.\\

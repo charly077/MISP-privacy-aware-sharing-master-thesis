@@ -14,29 +14,32 @@
 \contentsline {section}{\numberline {2.2}Existing Techniques}{12}{section.2.2}
 \contentsline {section}{\numberline {2.3}Standards}{14}{section.2.3}
 \contentsline {section}{\numberline {2.4}Sum up}{15}{section.2.4}
-\contentsline {section}{\numberline {2.5}Where does it lead me ?}{16}{section.2.5}
+\contentsline {section}{\numberline {2.5}Where did it lead me ?}{16}{section.2.5}
 \contentsline {section}{\numberline {2.6}Misp-Worbench - hashstore}{17}{section.2.6}
 \contentsline {section}{\numberline {2.7}Limitation}{17}{section.2.7}
 \contentsline {chapter}{\numberline {3}Implementation Ideas}{18}{chapter.3}
 \contentsline {section}{\numberline {3.1}Bloom filter}{18}{section.3.1}
-\contentsline {section}{\numberline {3.2}Machine Learning}{18}{section.3.2}
-\contentsline {section}{\numberline {3.3}Secure Two Party Computation (Intersection)}{18}{section.3.3}
-\contentsline {section}{\numberline {3.4}Proof of Work Database}{18}{section.3.4}
-\contentsline {section}{\numberline {3.5}All in one request}{19}{section.3.5}
-\contentsline {section}{\numberline {3.6}All in one request with S2P}{19}{section.3.6}
-\contentsline {section}{\numberline {3.7}Conclusion}{19}{section.3.7}
-\contentsline {chapter}{\numberline {4}Implementation}{20}{chapter.4}
-\contentsline {section}{\numberline {4.1}Private Sharing of IOCs and Sightings \cite {van2016private}}{20}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Create a rule}{20}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}match a rule}{20}{subsection.4.1.2}
-\contentsline {section}{\numberline {4.2}My Implementation}{21}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}\cite {van2016private}}{21}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Additional choice}{21}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}Generalization}{21}{subsection.4.2.3}
-\contentsline {section}{\numberline {4.3}Chosen Crytographic System}{21}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Key Derivation functions}{21}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Bcrypt}{21}{subsection.4.3.2}
-\contentsline {subsection}{\numberline {4.3.3}Bloom filter}{21}{subsection.4.3.3}
-\contentsline {section}{\numberline {4.4}Benchmarking}{22}{section.4.4}
-\contentsline {section}{\numberline {4.5}Security Discussion}{22}{section.4.5}
-\contentsline {section}{\numberline {4.6}Further Work}{22}{section.4.6}
+\contentsline {subsection}{\numberline {3.1.1}Data Structure}{18}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}False Positive}{19}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Control Rate}{19}{subsection.3.1.3}
+\contentsline {section}{\numberline {3.2}Machine Learning}{19}{section.3.2}
+\contentsline {section}{\numberline {3.3}Secure Two Party Computation (Intersection)}{20}{section.3.3}
+\contentsline {section}{\numberline {3.4}Proof of Work Database}{20}{section.3.4}
+\contentsline {section}{\numberline {3.5}All in one request}{20}{section.3.5}
+\contentsline {section}{\numberline {3.6}All in one request with S2P}{20}{section.3.6}
+\contentsline {section}{\numberline {3.7}Conclusion}{20}{section.3.7}
+\contentsline {chapter}{\numberline {4}Implementation}{21}{chapter.4}
+\contentsline {section}{\numberline {4.1}Private Sharing of IOCs and Sightings \cite {van2016private}}{21}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Create a rule}{21}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}match a rule}{21}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}My Implementation}{22}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}\cite {van2016private}}{22}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Additional choice}{22}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Generalization}{22}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}Chosen Crytographic System}{22}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Key Derivation functions}{22}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Bcrypt}{22}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Bloom filter}{22}{subsection.4.3.3}
+\contentsline {section}{\numberline {4.4}Benchmarking}{23}{section.4.4}
+\contentsline {section}{\numberline {4.5}Security Discussion}{23}{section.4.5}
+\contentsline {section}{\numberline {4.6}Further Work}{23}{section.4.6}
