@@ -111,6 +111,13 @@ Awesome threat intelligence.
 \newblock Threat intelligence sharing platforms: An exploratory study of
   software vendors and research perspectives.
 
+\bibitem{swamidass2007mathematical}
+{\sc Swamidass, S.~J., and Baldi, P.}
+\newblock Mathematical correction for fingerprint similarity measures to
+  improve chemical retrieval.
+\newblock {\em Journal of chemical information and modeling 47}, 3 (2007),
+  952--964.
+
 \bibitem{sweeney2002k}
 {\sc Sweeney, L.}
 \newblock k-anonymity: A model for protecting privacy.

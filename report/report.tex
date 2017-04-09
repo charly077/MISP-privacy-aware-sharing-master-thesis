@@ -441,8 +441,24 @@ Even if this could be annoying that is what could make that data structure inter
 	\end{center}
 \end{figure}
 
-\subsection{Control Rate}
-Misp-workbench is similar to a bloom filter with only one function.
+\subsection{Control False Positive Rate}
+If we check for a value in a bloom filter, at the end, we only know if it is not in the set or a probability to be in the set. Playing with this probability could be interesting for hiding some informations. \\
+If the probability is about 50\% in ip, it loose all interest for an attacker to brute force attack as at the end it would give him no information. While, for a real user, requesting for one ip could still bring some information for example knowing that an element had never been signaled before.\\
+This is why it could be useful to get more information on the false positive rate and how we could use it.\\
+
+If n is the number of element inside the data structure we can approximate\footnote{https://en.wikipedia.org/wiki/Bloom\_filter} the false positive rate by $(1-e^{\frac{-kn}{m}})^k$ but a more useful is to define k in function of the willing rate for the false positive. In this case, we can notice that k is independent of the number of element inside the set while on the opposite, it is m who need to change in function of the number of values n:
+$$m = - \frac{m\ \ln(p)}{\ln(2)^2}$$
+$$k = - \frac{\ln(p)}{\ln(2)}$$
+(These are approximations)
+
+\subsection{Bloom Filter could Leak Informations}
+It could seems useless but nevertheless it could have huge impacts. If we create bloom filter and we ensure a false positive rate, with the size of the array (m) and the number of hash functions (k). An attacker could approximate the number of values in a bloom filter like shown by Swamidass et al. \cite{swamidass2007mathematical}:
+$$n* = - \frac{m}{k} \ln\left[1 - \frac{X}{m}\right] $$
+with X the number of bit set to 1.
+
+\subsection{Could it be useful alone ?}
+It is not enough alone as we not only need to test element for membership but we also need to get back information if it is. Moreover, when developing a system with bloom filter we need to take into account all small data that could leak. \\
+But it is still an interesting solution and twinned with the later explained implementation could have great benefits.
 
 \section{Machine Learning}
 The idea is quite the same as the bloom filter, but, here we want to privilege the privacy! By that I mean, in the bloom filter, there are False Positive, True Positive, True Negative, but NO False Negative.\\

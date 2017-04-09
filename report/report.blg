@@ -9,45 +9,45 @@ Warning--empty journal in enisaguide2009
 Warning--empty journal in eisasRapport
 Warning--empty publisher in johnson2014guide
 Warning--empty journal in sauerwein2017threat
-You've used 27 entries,
+You've used 28 entries,
             2415 wiz_defined-function locations,
-            692 strings with 8490 characters,
-and the built_in function-call counts, 8308 in all, are:
-= -- 767
-> -- 367
+            699 strings with 8711 characters,
+and the built_in function-call counts, 8638 in all, are:
+= -- 801
+> -- 379
 < -- 0
-+ -- 155
-- -- 126
-* -- 554
-:= -- 1303
-add.period$ -- 75
-call.type$ -- 27
-change.case$ -- 142
++ -- 160
+- -- 130
+* -- 583
+:= -- 1355
+add.period$ -- 78
+call.type$ -- 28
+change.case$ -- 147
 chr.to.int$ -- 0
-cite$ -- 33
-duplicate$ -- 338
-empty$ -- 774
-format.name$ -- 126
-if$ -- 1806
+cite$ -- 34
+duplicate$ -- 347
+empty$ -- 804
+format.name$ -- 130
+if$ -- 1875
 int.to.chr$ -- 0
-int.to.str$ -- 27
-missing$ -- 22
-newline$ -- 132
-num.names$ -- 50
-pop$ -- 185
+int.to.str$ -- 28
+missing$ -- 23
+newline$ -- 137
+num.names$ -- 52
+pop$ -- 188
 preamble$ -- 1
-purify$ -- 117
+purify$ -- 121
 quote$ -- 0
-skip$ -- 235
+skip$ -- 240
 stack$ -- 0
-substring$ -- 381
-swap$ -- 93
+substring$ -- 411
+swap$ -- 95
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 106
+type$ -- 110
 warning$ -- 6
-while$ -- 77
-width$ -- 29
-write$ -- 254
+while$ -- 81
+width$ -- 30
+write$ -- 264
 (There were 6 warnings)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.2.1)  9 APR 2017 16:48
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.2.1)  9 APR 2017 18:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -781,7 +781,7 @@ LaTeX Info: Redefining \nameref on input line 40.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-<EPL_TFEbanner.jpg, id=183, 526.3665pt x 256.0767pt>
+<EPL_TFEbanner.jpg, id=191, 526.3665pt x 256.0767pt>
 File: EPL_TFEbanner.jpg Graphic file (type jpg)
  <use EPL_TFEbanner.jpg>
 Package pdftex.def Info: EPL_TFEbanner.jpg used on input line 43.
@@ -852,7 +852,7 @@ l.52 \end{abstract}
 e same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.41 ...rline {4.3.2}Bcrypt}{22}{subsection.4.3.2}
+l.41 ...osen Crytographic System}{23}{section.4.3}
                                                    [1
 
 ])
@@ -933,20 +933,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 166--168
 
  []
 
-[7] <res/webEvents.png, id=298, 1423.3175pt x 666.49pt>
+[7] <res/webEvents.png, id=308, 1423.3175pt x 666.49pt>
 File: res/webEvents.png Graphic file (type png)
 
 <use res/webEvents.png>
 Package pdftex.def Info: res/webEvents.png used on input line 173.
 (pdftex.def)             Requested size: 455.47092pt x 213.28116pt.
- <res/webEvent.png, id=301, 823.075pt x 437.635pt>
+ <res/webEvent.png, id=311, 823.075pt x 437.635pt>
 File: res/webEvent.png Graphic file (type png)
 
 <use res/webEvent.png>
 Package pdftex.def Info: res/webEvent.png used on input line 185.
 (pdftex.def)             Requested size: 288.08057pt x 153.17455pt.
 
-<res/webAttributes.png, id=303, 1263.72125pt x 265.99374pt>
+<res/webAttributes.png, id=313, 1263.72125pt x 265.99374pt>
 File: res/webAttributes.png Graphic file (type png)
 
 <use res/webAttributes.png>
@@ -956,7 +956,7 @@ Package pdftex.def Info: res/webAttributes.png used on input line 195.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<res/webCorrelationGraph.png, id=305, 572.1375pt x 445.665pt>
+<res/webCorrelationGraph.png, id=315, 572.1375pt x 445.665pt>
 File: res/webCorrelationGraph.png Graphic file (type png)
 
 <use res/webCorrelationGraph.png>
@@ -1067,7 +1067,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 414--417
 
  []
 
-<res/bloom-1.png, id=419, 953.5625pt x 555.07375pt>
+<res/bloom-1.png, id=429, 953.5625pt x 555.07375pt>
 File: res/bloom-1.png Graphic file (type png)
  <use res/bloom-1.png>
 Package pdftex.def Info: res/bloom-1.png used on input line 423.
@@ -1075,64 +1075,69 @@ Package pdftex.def Info: res/bloom-1.png used on input line 423.
 
 [18
 
- <./res/bloom-1.png>] <res/bloom-2.png, id=428, 960.58875pt x 557.08125pt>
+ <./res/bloom-1.png>] <res/bloom-2.png, id=438, 960.58875pt x 557.08125pt>
 File: res/bloom-2.png Graphic file (type png)
 
 <use res/bloom-2.png>
 Package pdftex.def Info: res/bloom-2.png used on input line 438.
 (pdftex.def)             Requested size: 288.17885pt x 167.12566pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 448--452
+Underfull \hbox (badness 10000) in paragraph at lines 445--448
 
  []
 
 [19 <./res/bloom-2.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 462--465
+Underfull \hbox (badness 10000) in paragraph at lines 464--468
 
  []
 
-[20]
+
+Underfull \hbox (badness 10000) in paragraph at lines 478--481
+
+ []
+
+[20] [21]
 Chapter 4.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 488.
+(hyperref)                removing `\@ifnextchar' on input line 504.
 
 
-LaTeX Warning: Marginpar on page 21 moved.
+LaTeX Warning: Marginpar on page 22 moved.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 522--523
+Underfull \hbox (badness 10000) in paragraph at lines 538--539
 
  []
 
-[21
+[22
 
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 527.
+(hyperref)                removing `\@ifnextchar' on input line 543.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 544--549
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 550--552
-
- []
-
-[22]
-Underfull \hbox (badness 10000) in paragraph at lines 553--554
+Underfull \hbox (badness 10000) in paragraph at lines 560--565
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 555--556
+Underfull \hbox (badness 10000) in paragraph at lines 566--568
 
  []
 
-[23] (./report.bbl
+[23]
+Underfull \hbox (badness 10000) in paragraph at lines 569--570
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 571--572
+
+ []
+
+[24] (./report.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 8--10
 []\T1/lmr/m/n/10.95 (+20) Awesome threat in-tel-li-gence.  []$\T1/lmtt/m/n/10.9
 5 https : / / github . com / hslatman /
@@ -1149,10 +1154,10 @@ re for-mat.  []$\T1/lmtt/m/n/10.95 https : / / tools . ietf . org / html /
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/ucs/data/uni-33.def
 File: uni-33.def 2013/05/13 UCS: Unicode data U+2100..U+21FF
-) [24
+) [25
 
 ])
-[25]
+[26]
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
 * paper: <default>
@@ -1187,58 +1192,64 @@ File: uni-33.def 2013/05/13 UCS: Unicode data U+2100..U+21FF
 
 
 
-Package xcolor Warning: Incompatible color definition on input line 576.
+Package xcolor Warning: Incompatible color definition on input line 592.
 
 
-Package xcolor Warning: Incompatible color definition on input line 576.
+Package xcolor Warning: Incompatible color definition on input line 592.
 
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <9> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 576.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 592.
 
-Package xcolor Warning: Incompatible color definition on input line 576.
+Package xcolor Warning: Incompatible color definition on input line 592.
 
 
-Overfull \hbox (1.90796pt too wide) in paragraph at lines 576--577
+Overfull \hbox (1.90796pt too wide) in paragraph at lines 592--593
  [][][] 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 581.
-[26
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 597.
+[27
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 581.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 597.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 581.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 581.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 597.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 597.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 7553481C41159DA10DF5E0A3728FA3BA;2929.
+(rerunfilecheck)             Checksum: D8270C01BE476284ACC54629FC105DA5;3114.
  ) 
 Here is how much of TeX's memory you used:
- 18816 strings out of 493315
- 328135 string characters out of 6137905
- 469272 words of memory out of 5000000
- 21620 multiletter control sequences out of 15000+600000
- 99521 words of font info for 127 fonts, out of 8000000 for 9000
+ 18826 strings out of 493315
+ 328300 string characters out of 6137905
+ 469339 words of memory out of 5000000
+ 21623 multiletter control sequences out of 15000+600000
+ 99604 words of font info for 128 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  63i,9n,76p,907b,740s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/
-texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/20
-13/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2013/texmf-dist/f
-onts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1
-/public/lm/lmbx12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm
-/lmcsc10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr10.pf
-b></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/loca
-l/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/20
-13/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2013/texmf-dis
-t/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2013/texmf-dist/fonts/ty
-pe1/public/lm/lmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public
-/lm/lmtt10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhv
-b8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb
->
-Output written on report.pdf (28 pages, 882830 bytes).
+texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/20
+13/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2013/texmf-dist/
+fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/
+dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base
+/8r.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></
+usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/
+texlive/2013/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2
+013/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2013/texmf-
+dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts
+/type1/public/lm/lmmi6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/publ
+ic/lm/lmmi8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr10
+.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/l
+ocal/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive
+/2013/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2013/texmf-
+dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2013/texmf-dist/fonts
+/type1/public/lm/lmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/pub
+lic/lm/lmsy6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtt
+10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb>
+</usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
+Output written on report.pdf (29 pages, 903792 bytes).
 PDF statistics:
- 554 PDF objects out of 1000 (max. 8388607)
- 494 compressed objects within 5 object streams
- 127 named destinations out of 1000 (max. 500000)
- 27536 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 600 PDF objects out of 1000 (max. 8388607)
+ 533 compressed objects within 6 object streams
+ 132 named destinations out of 1000 (max. 500000)
+ 27552 words of extra memory for PDF output out of 29859 (max. 10000000)
 
