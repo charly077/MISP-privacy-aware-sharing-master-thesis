@@ -25,11 +25,10 @@
 \contentsline {subsection}{\numberline {3.1.4}Bloom Filter could Leak Informations}{20}{subsection.3.1.4}
 \contentsline {subsection}{\numberline {3.1.5}Could it be useful alone ?}{20}{subsection.3.1.5}
 \contentsline {section}{\numberline {3.2}Machine Learning}{20}{section.3.2}
-\contentsline {section}{\numberline {3.3}Secure Two Party Computation (Intersection)}{20}{section.3.3}
-\contentsline {section}{\numberline {3.4}Proof of Work Database}{20}{section.3.4}
-\contentsline {section}{\numberline {3.5}All in one request}{21}{section.3.5}
-\contentsline {section}{\numberline {3.6}All in one request with S2P}{21}{section.3.6}
-\contentsline {section}{\numberline {3.7}Conclusion}{21}{section.3.7}
+\contentsline {section}{\numberline {3.3}Secure Multi-Party Computation}{20}{section.3.3}
+\contentsline {section}{\numberline {3.4}All in one request}{21}{section.3.4}
+\contentsline {section}{\numberline {3.5}Proof of Work Database}{21}{section.3.5}
+\contentsline {section}{\numberline {3.6}Conclusion}{21}{section.3.6}
 \contentsline {chapter}{\numberline {4}Implementation}{22}{chapter.4}
 \contentsline {section}{\numberline {4.1}Private Sharing of IOCs and Sightings \cite {van2016private}}{22}{section.4.1}
 \contentsline {subsection}{\numberline {4.1.1}Create a rule}{22}{subsection.4.1.1}

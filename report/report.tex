@@ -461,44 +461,47 @@ It is not enough alone as we not only need to test element for membership but we
 But it is still an interesting solution and twinned with the later explained implementation could have great benefits.
 
 \section{Machine Learning}
-The idea is quite the same as the bloom filter, but, here we want to privilege the privacy! By that I mean, in the bloom filter, there are False Positive, True Positive, True Negative, but NO False Negative.\\
-Here the idea is to accept False Negative and analyze how it impacts the database.\\
-To stay simple, we can see an address ip as a bit sequence. If we use the entire set of ip in the database to train an algorithm as support vector machine (svm).\\
+
+Machine learning is \textbf{the} actual technology for security. A system that could evolve and learn by itself. No need for updates! \\
+And as the conference "Beyond the blacklists: Detecting malicious URL through machine learning" showed at the Black Hat Asia conferences, it can work.\\
+They focused on URL lexical feature like the url length, vocabulary, path, hostname, parameters, http headers (in average, there are less fields with malicious connections) and they manage to get a 84\% detection rate on  about 750K malicious URLs which is really promising.\\
+
+But on an other hand, Machine algorithm also brings false positive like in bloom filter but also false negative.\\
+Even if a false negative could be really bad, it could be use to protect our data.\\
+Here, we don't want to be able to discover new malwares but we want the same as with bloom filter, knowing if an element belongs to a set.\\
+With this objective in mind, the goal would be to analyze the impact of false positive and false negative while training an algorithm that like a decision tree as, in this particular case, overfitting is a property that we need.\\
 Then it could be interesting to check the base concept representation (BCR) to analyze if this technique could be interesting. \\
 
-In order to test this technique, I would train an algorithm on the whole set of data. In standard machine learning system, we would use a test set different from the training set in order to avoid overfitting but in our system, we need overfitting. \\
-After that, the idea would be to test random  ip and compare the result.
 
-\section{Secure Two Party Computation (Intersection)}
-Must create a list of all ip needed to request.
-Use the algorithm to compute each part and get to know the intersection.
-But need and idea to limit the size ! 
 
-\section{Proof of Work Database}
-\info{hash cache pour les mail contre les spams}
-Here, we want to keep a database, we don't want any False Positive nor False Negative. Thus if we keep a simple database as the hashstore, it's possible to compute every hash and test them all!\\
-But what if we can avoid that by adding computation, this make brute force more difficult but still not unfeasible. But at least with this technique we can avoid precomputation techniques.\\
+\section{Secure Multi-Party Computation}
+In our case, we could imagine, an organizations with informations to check if it belongs to IOCs of other organizations.\\
+Each organization possesses its IOC database and is not ready to share all their informations. But, once again, if it could help an other organization to solve its problem, they agree on sharing only these informations.\\
+That is where Secure Multi-Party Computation could play a role as there are techniques to find the intersections of 2 datasets. This is also called private matching \cite{agrawal2003information, li2005private}.\\
 
-The database server choose a random key.\\
-This key need to change every ??x seconds/minute/hours?? and every ??100?? access.
-(we can imagine a system like the one of bitcoin (hash with specific properties to find))
-
-then in order to get the answer, the request must be like\\
-(|| is a concatenation)\\
-hash(IP)||hash(IP||key)\\
-With a LONG hash function
+This technique could be really interesting but has the disadvantage of heavy computations on both side.
 
 \section{All in one request}
 Here the goal is quite different, Imagine the case of a forensic detection of what had gone wrong.\\
-We can do it differently, we do a full analyze of the machine, then, once we have the whole data set that we went to test, we send everything and the data system just answer with the id of the triggered event but we don't know what triggered it thus we don't really know the content.\\
-Of course with this, we could just send requests of 1 elements, so to thwart that, we simple could make the request difficult (proof of work), also with a big delay to be able to request again from the same ip and moreover, we could make impossible to make request with less than 10 IPs (need to add random other ip).
+We can do it differently, we do a full analyze of the machine, then, once we have the whole data set that we want to test, we send everything and the data system just answer with the id(s) of the triggered event but we don't know what triggered it thus we don't really know the content.\\
+In order to avoid brute force, we could allow only a limited amount of request per day with a limited amount of data.
 
-\section{All in one request with S2P}
-The idea is the same as the one of all in one request but, in the case that the user doesn't want to send everything that he have visited, they could use a secure two party computation intersection algorithm.
-With that, the server only receive the intersection between his dataset and the one of the user.
+\section{Proof of Work Database}
+This idea is to slow down brute force attack thanks to proof of work. Even if this idea is one step closer to the final implementation, it is still different by the need of a server to communicate with for each requests.\\
 
+Here, we want to keep a database, we don't want any false positive nor false negative. But by doing that, we make our database available to brute force attacks.
+But we can try to avoid that or to make it more time consuming by adding computation.\\
+
+A possible implementation could be one we a random key chosen by the database server. This key could be regenerated with a small period and also every 1000 thousands requests.\\
+On the other hand, the client should brute force this small key each time it has changed. This slow down brute force attack while still be useful for a user that is doing less than 1000 requests to test its system.
+
+For example, a possible request message for an ip could be : hash(IP)||hash(IP||key)\\
+
+The idea is interesting by is still not bullet proof against brute force attack. And also need a server to respond at each request.
 
 \section{Conclusion}
+I've explained some basic ideas that could lead to different implementations, lot of work are done especially on private multi-party matching that could lead to the best option if requests are rare or, for example if it is used to periodically compare and synchronize data related to the same events between MISP instances.\\
+Nearly all solutions still needs a server that we would like to get rid of (After the data had been generated) and for that, a machine learning model or bloom filters are the right track.
 
 \chapter{Implementation}
 \section{Private Sharing of IOCs and Sightings \cite{van2016private}}
