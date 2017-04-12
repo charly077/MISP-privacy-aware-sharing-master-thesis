@@ -504,13 +504,36 @@ I've explained some basic ideas that could lead to different implementations, lo
 Nearly all solutions still needs a server that we would like to get rid of (After the data had been generated) and for that, a machine learning model or bloom filters are the right track.
 
 \chapter{Implementation}
-\section{Private Sharing of IOCs and Sightings \cite{van2016private}}
-This paper consider a cryptographic approach to hide the details of an indicator of compromise. They consider two different phases, the first is to share these IOCs and the second one is to privately reporting the sightings of IOCs. \\
-First, they define an IOC as a propositional formula where the propositional variables are defined over features or observables. They also claim that every IOC can be expressed in the Disjunction Normal Form (DNF) without any negation (e.g. destIP= 198.51.100.43 $\land$ destPort = 80).\\
-They store IOCs by hashing the concatenation of all information but, if we consider that IPv4 brute force are feasible, IPv4$||$port\_number is still feasible (Most part of the port are the same as 80, 443, ...).\\
-\change{Erreur! I have to change that because I didn't really understood the scheme when writing that !}
+I've explained ideas in the previous chapter, some of these could be implemented. But a nice article \cite{van2016private} was published in the few first months of my work and they had found a technique that could also work for us as their goal was similar as they say that they propos a technique that allows parties to share information without the need to immediately reveal private information.\\
+Their implementation was for bro, here I will make an implementation working with MISP and improve its matching properties and the modularity of the code. \\
+By modularity, I mean that I to be able to add what I will call cryptographic modules in order to test different techniques with the same code.\\
+In this chapter, I will first explain their article, then the modifications I've made with some improvements.\\
+A discussion on the libraries and tools will follow before benchmarking test with discussion on the implementation.
 
-\info{Add subscriber id when creating the file for a specific id :)}
+\section{Private Sharing of IOCs and Sightings \cite{van2016private}}
+This paper consider a cryptographic approach to hide the details of an indicator of compromise. They consider two different phases, the first one is sharing these IOCs while the second one is to privately reporting the sightings of IOCs.\\
+
+The second could be really important as explained before to monitor the events and attributes in MISP.\\ 
+Moreover MISP had now the possibility to add sightings but their technique seems not efficient enough and really difficult to implement in MISP. I've got some other ideas but I finally only focused myself on the sharing part as it is not yet totally clear how the feature will be synchronized between organizations and other instances.\\ 
+But still, It could be an important and really useful further work to do.\\
+
+But before starting, they warned the reader as I did in the limitation section, that using these cryptographic function is better than not using them at all but is not a miracle technique as it is theoretically impossible to hide the IOC’s content in the used context (Subscriber receive the data to check on its system).\\
+Additionally, it has a performance cost but in my beliefs, it worths it.\\ Their implementation was also in the source-subscriber information sharing model which fits our model where MISP is at the center.\\
+First, they define an IOC as rules that are propositional formula where the propositional variables are defined over features or observables like Internet Protocol (IP) or fingerprints of malicious program (but it could be any categories of MISP). They also claim that every rules (IOCs) can be expressed in the Disjunction Normal Form (DNF) without any negation (e.g. destIP= 198.51.100.43 $\land$ destPort = 80).\\
+Hereandafter the value is considered has the concatenation of all values of the IOCs contained in a rule : IPv4$||$port\_number. It has two advantages, the first is to represent the complete rule and the second one is that it can be a little more difficult to brute force as it is longer and types can differs.\\
+\begin{figure}[h!]
+\begin{center}
+	\includegraphics[scale=0.5]{res/ioc-rules}
+	\caption{IOCs transformed into a rule}
+	\label{IOC-To-Rule}
+\end{center}
+\end{figure}
+So, now, we have a rule that can be checked on computers but, what is needed is the other party to be able to check it while keeping the IOC's content hidden and that is where it becomes really interesting.\\
+As it has to be useful, they have obfuscated the values while keeping the structure of the rule in clear. The basic idea is thus to hash the rule's value. For a subscriber, it is still usable as he only need to hash its data to check for a match. But, in this way, we are doing the same as in the hashstore already explained and there is thus a lack of protection since every individual feature variable can only take a limited set.
+Thus we could face an attacker that would succeed with a TMTO attack or a complete precomputed table.
+
+
+\info{Leakage protection => Trust :)}
 
 startPad = '\\x00'*16
 \subsection{Create a rule}

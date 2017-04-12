@@ -31,16 +31,16 @@
 \contentsline {section}{\numberline {3.6}Conclusion}{21}{section.3.6}
 \contentsline {chapter}{\numberline {4}Implementation}{22}{chapter.4}
 \contentsline {section}{\numberline {4.1}Private Sharing of IOCs and Sightings \cite {van2016private}}{22}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Create a rule}{22}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}match a rule}{22}{subsection.4.1.2}
-\contentsline {section}{\numberline {4.2}My Implementation}{23}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}\cite {van2016private}}{23}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Additional choice}{23}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}Generalization}{23}{subsection.4.2.3}
-\contentsline {section}{\numberline {4.3}Chosen Crytographic System}{23}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Key Derivation functions}{23}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Bcrypt}{23}{subsection.4.3.2}
-\contentsline {subsection}{\numberline {4.3.3}Bloom filter}{23}{subsection.4.3.3}
-\contentsline {section}{\numberline {4.4}Benchmarking}{24}{section.4.4}
-\contentsline {section}{\numberline {4.5}Security Discussion}{24}{section.4.5}
-\contentsline {section}{\numberline {4.6}Further Work}{24}{section.4.6}
+\contentsline {subsection}{\numberline {4.1.1}Create a rule}{23}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}match a rule}{23}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}My Implementation}{24}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}\cite {van2016private}}{24}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Additional choice}{24}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Generalization}{24}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}Chosen Crytographic System}{24}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Key Derivation functions}{24}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Bcrypt}{24}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Bloom filter}{24}{subsection.4.3.3}
+\contentsline {section}{\numberline {4.4}Benchmarking}{25}{section.4.4}
+\contentsline {section}{\numberline {4.5}Security Discussion}{25}{section.4.5}
+\contentsline {section}{\numberline {4.6}Further Work}{25}{section.4.6}
