@@ -5,6 +5,7 @@
 \usepackage{xargs}                      % Use more than one optional parameter in a new commands
 \usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
 % 
+\usepackage{moreverb}
 \usepackage{hyperref} % for url and so on
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
@@ -106,7 +107,7 @@ I've introduce the idea of malware sharing to defend our computer systems agains
 But here I focused on the MISP project which is, as said on their website, an open source software solution for collecting, storing, distributing and sharing cyber security indicators and threat about cyber security incidents analysis and malware analysis. MISP is designed by and for incident analysts, security and IT professionals or malware reverser to support their day-to-day operations to share structured informations efficiently.\\
 MISP also rely on an hub and spoke sharing model (TAXII \cite{taxiiWebsite}). There is a central point called the hub which is the server where all data are kept and the spokes are the organizations that interact with the hub.\\
 A recent paper on MISP \cite{wagner2016misp} had been published this year and could be interesting if your are searching to have a better understanding of the underlying system. Additionally, there is also a recent ietf draft on MISP core format\cite{MispDraft}.\\
-I want also to point out that MISP is spreading, and I've the feeling that communities will continue to grow. I've discussed in Belgium with companies like banks, insurances, consultancy companies that are using it which is, at least to my point of view, a good sign on the usage of the system.
+I want also to point out that MISP is spreading, and I've the feeling that communities will continue to grow. I've discussed in Belgium with companies like banks, insurances, consultancy companies that are using it which is, at least to my point of view, a good sign on the utilization of the system.
 
 \subsection{History}
 Christophe Vandeplas started the project as he was tired of the way IOCs were shared (email, pdf, ... ). Thus, he created a cakePHP website as a proof of concept and managed to convince the Belgian Defense (where he was working) that the project was worth to work on. They even allowed him to work on it during his work-hours. The project continued to move forward and now, Andras Iklody is the lead developer of the MISP project and works for CIRCL.\\
@@ -537,6 +538,8 @@ For solving that, they are using a non secret salt value chosen at random for \t
 
 But they didn't stop there, considering all these ideas, they have added the possibility to include a Course Of Action (COA) message with each rule. This is the real advantage compared to bloom filter. The output is precise, there are neither false positive nor false negative and additionally, a match can give the interesting data to the honest user.\\ To do so, instead of hashing the combined values, they use it as input for a key derivation function (KDF) that generates a key used for encrypting the message in the rule.\\
 Thus this new type of rule, instead of obfuscating the data contains, the type of value (as before), the salt used for the rule and the encrypted message.\\
+As they are now using the values to generate a key for encrypting the message, they have decided that each message must start by 16 bytes of 0.\\ 
+
 
 \begin{figure}[h!]
 \begin{center}
@@ -546,12 +549,48 @@ Thus this new type of rule, instead of obfuscating the data contains, the type o
 \end{center}
 \end{figure}
 
+
+This pseudo code shows how to generate a rule from the IOCs:
+
+\begin{center}
+\begin{boxedverbatim}
+Function createRule(AttributeTypes, values, message, Token):
+        pass = '||'.join(values)
+        salt = GenSalt()
+        key = kdf(token + salt + pass)
+        message = 16 * '\x00' + message
+        encr_message = encrypt(message, key)
+        return dictionary(attributes=AttributeTypes, 
+                            salt=salt,
+                            ciphertext=encr_message)
+\end{boxedverbatim}
+\end{center}
+
+Then, this pseudo code explain how to check values against one rule:
+\begin{center}
+\begin{boxedverbatim}
+Function matchRule(dictianary(type -> value), rule, token):
+        pass = '||'.join(values in rule.attributes)
+        key = kdf(token + rule.salt + pass)
+        if (decipher_16first_bytes(rule.message, key) = 16 * '\x00'):
+                return decipher(rule.message, key)
+        else
+                return notMatched
+\end{boxedverbatim}
+\end{center}
+
+
 Trust is one of the major problem in information sharing and is discussed in all standards, guides and articles. Here they have an attempt of solution that could really work. As a user cannot normally decrypt the complete rules data set, if for each generated rule, we add a source identifier used in each rule in the KDF. If a set of rules is leaked, we can now trace it back to the offending user. \\
 This little additional feature may seem to be a detailed, I'm intimately convinced that it could help organization to decide sharing more confidential data as they could turn themselves 
-again the leakage source in case of problems which could limit the cost damage as well as the reputation damage. Moreover, in MISP there is also an identifier that could be used and moreover that need to be kept private which is called a Token.
+again the leakage source in case of problems which could limit the cost damage as well as the reputation damage. Moreover, in MISP there is also an identifier that could be used and moreover that need to be kept private which is called a Token.\\
+
+In their implementation, they are using both HMAC and Pbkdf2 for the key derivation function. I had the opportunity to exchange mails with the authors of the paper that prefers the HMAC algorithm as it is designed to give a pseudo random key in just a single iteration and that it has been deeply analyzed \cite{cryptoeprint:2010:264}. While pbkdf2 is generating random keys that becomes more secure as we the number of iterations increase. Moreover, the behavior has not been described (to the best of our knowledge) in academic paper even if the is a NIST recommendation on its usage.\\
+
+Their proof of concept code is available on their repository, \url{https://github.com/CRIPTIM/private-IOC-sharing}. 
 
 
-startPad = '\\x00'*16
+\section{My Implementation}
+
 \subsection{Create a rule}
 \begin{itemize}
 \item Create a salt and an iv
@@ -575,17 +614,10 @@ Create 2 backends:\\
 -> from web api + token ==> create rule files and directly into redis \\
 \info{I don't know wich intermediate format to use, redis dump if easy, or the rule files like them}
 
-
-
-Then create the matching system\\
-
-Both system will be really similar to what I need, so I will only have to do few modifications !
-\section{My Implementation}
-
-\subsection{\cite{van2016private}}
-
 \subsection{Additional choice}
-URL normalization => let's look on trello and ressources on the drive that I've used ! and Mostly explain my choices 
+URL normalization => let's look on trello and ressources on the drive that I've used ! and Mostly explain my choices \\
+
+cryptography library instead of the one used also coming from the discussion with Tim van de kamp
 
 \subsection{Generalization}
 
