@@ -596,21 +596,32 @@ The first step was to retrieve data from MISP, either from the web API, or by a 
 Then I've improved the code with different new functionalities and realized that, on the contrary of all university projects we had, here, the project needed to often be completely refactored to allow additional features and to keep it simple for an external user to understand how it works. I will thus go through theses different implementation parts in the next few sections.\\
 
 \subsection{Get data from MISP}
-update from api\\
-		=> Not using the pyMisp, it would have some advantage like beeing kept updated if the api is modified but it was really to heavy for what the only request I was using. => I've made myself the request with the requests python library.
-update from sql\\
+To create the rules with the encrypted messages, we first need to get a subset of IOCs contained in MISP that are destined to IDS. \\
+For doing so, there is two possibilities, the first one is working with the misp API while the second one is directly connected to the mysql database. \\
+The recommended mode will be with the web api, but as rules will be generated directly on the server, it could be more efficient to use directly the mysql connection.\\
+
+For making automation request on MISP, they have implemented a python library called PyMISP. The first idea was to use it was finally not interesting to import the whole library only to make one request. That is why, I've changed the system by making myself the request to the automation api by using the requests python library and the misp token referenced in the configuration file.\\
+
+The Virtual machine has been a great utility to understand how it is working, and especially how is structured the database. I've also added additional check like verifying that the email address specified is the one related to the token. 
 
 \subsection{Parsing logs}
+The idea was to test the system with log files as I did with the hashstore. First I tried to reuse the parser I've created but I tried to go to deep in the analyze and it has bad performances as well as a lot of particular cases that were not working.\\
+I thus changed my mind and used logstash and redis to store the parsed log. \\
+It also has the big advantage to be modular and only a new configuration file is needed to parse any other type of log files.\\
+Beside that, I'm storing the data inside a redis queue and polling on it in the script for trying to match a rule. 
 
 \subsection{Multiprocessing for reading logs}
-=> What can be parallelized => important and explain later in the schemes used
+When there are a lot of logs, doing one by one take too much time, but we can test simultaneously more than one log line at the same time by creating process.\\
+Also it is important to point out that I've started this by trying to use thread but, as I'm using cpython, it is impossible to have two program running simultaneously due to the Global Interpreter Lock (GIL). That is why, I finally choose to create a pool of processes instead.
+
 
 \subsection{I/O and Rule Size Optimization}
-
+In the implementation of Tim van de Kamp et al., for each rule, they created a file to store the rule. \\
+I can understand it in the point of vue of a proof of concept but it is a real bad idea as in unix systems, each files have a minimum size of 4k. Already with 6300 events each one possessing a lot of attributes, it is easy to see the problem coming. Moreover, the I/O were really slowing down the system. \\
+These problems were easy to solve. Create a complete csv file for all rules. But is still not a solution because it would mean that we should load everything in memory even if we don't use everything. That is why I finally chosen to have one csv file per type of IOCs.
 
 \subsection{CSV or TSV}
-
-\subsection{Mysql and the Virtual MISP Training Machine}
+This is a really small modification but makes files more readable and avoid existing coma in the data to make the parsing not working.
 
 \subsection{On URL normalization}
 \info{je pense que l'article s'appelle comme ça !!! }
@@ -620,7 +631,27 @@ While I was adding stuffs, it becomes more and more difficult to allow all these
 \info{Discussion on it}
 \info{Pourquoi il avait fait sa propre implementation}
 
-\subsection{Pycrypto towards cryptography library}
+\subsection{Pycrypto towards cryptography library}`
+While discussing with Tim van de Kamp by mail, he said that if he would have to start over, he would choose the cryptography library \footnote{https://cryptography.io/en/latest/} instead of pycrypto has it seems to be more professional.\\
+I thus have made some research on it. There are some discussion about it but \url{libhunt.com} gives this table \ref{cryptoLibraries} where we can see that even if pycrypto seems better written, the cryptography library is more up to date with a lot of activities.\\
+Beside that, I found the library well defined and really easy to use that is why, I've chosen to refactor the code with this particular library instead.
+
+
+\begin{table}[h!]
+\centering
+\caption{Cryptography Libraries Comparison}
+\label{cryptoLibraries}
+\begin{tabular}{|l|c|c|}
+\hline
+                                                                  & \multicolumn{1}{l|}{{ \textbf{PyCrypto}}} & \multicolumn{1}{l|}{{ \textbf{Cryptography}}}                                              \\ \hline
+Popularity                                                        & 7.2                                          & \textbf{7.3}                                                                                  \\ \hline
+Activity                                                          & 0.0                                          & \textbf{9.0}                                                                                  \\ \hline
+Stars                                                             & 1 345                                        & \textbf{1 431}                                                                                \\ \hline
+Watchers                                                          & \textbf{103}                                 & 86                                                                                            \\ \hline
+Last Commit                                                       & about 3 years ago                            & \textbf{\begin{tabular}[c]{@{}c@{}}7 hours before checking\\ on the 13 April 17\end{tabular}} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Code Quality\\ (L1 to L5)\end{tabular} & \textbf{L4}                                  & L2                                                                                            \\ \hline
+\end{tabular}
+\end{table}
 
 
 \subsection{Structure Refactoring}

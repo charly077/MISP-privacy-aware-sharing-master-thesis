@@ -35,20 +35,19 @@
 \contentsline {subsection}{\numberline {4.2.1}Get data from MISP}{25}{subsection.4.2.1}
 \contentsline {subsection}{\numberline {4.2.2}Parsing logs}{25}{subsection.4.2.2}
 \contentsline {subsection}{\numberline {4.2.3}Multiprocessing for reading logs}{25}{subsection.4.2.3}
-\contentsline {subsection}{\numberline {4.2.4}I/O and Rule Size Optimization}{25}{subsection.4.2.4}
-\contentsline {subsection}{\numberline {4.2.5}CSV or TSV}{25}{subsection.4.2.5}
-\contentsline {subsection}{\numberline {4.2.6}Mysql and the Virtual MISP Training Machine}{25}{subsection.4.2.6}
-\contentsline {subsection}{\numberline {4.2.7}On URL normalization}{25}{subsection.4.2.7}
-\contentsline {subsection}{\numberline {4.2.8}Only Pbkdf2}{25}{subsection.4.2.8}
-\contentsline {subsection}{\numberline {4.2.9}Pycrypto towards cryptography library}{25}{subsection.4.2.9}
-\contentsline {subsection}{\numberline {4.2.10}Structure Refactoring}{25}{subsection.4.2.10}
-\contentsline {subsection}{\numberline {4.2.11}Top Configuration File}{25}{subsection.4.2.11}
-\contentsline {subsection}{\numberline {4.2.12}Create a rule}{26}{subsection.4.2.12}
-\contentsline {subsection}{\numberline {4.2.13}match a rule}{26}{subsection.4.2.13}
-\contentsline {section}{\numberline {4.3}Chosen Crytographic System}{26}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Key Derivation functions}{26}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Bcrypt}{26}{subsection.4.3.2}
-\contentsline {subsection}{\numberline {4.3.3}Bloom filter}{26}{subsection.4.3.3}
-\contentsline {section}{\numberline {4.4}Benchmarking}{27}{section.4.4}
-\contentsline {section}{\numberline {4.5}Security Discussion}{27}{section.4.5}
-\contentsline {section}{\numberline {4.6}Further Work}{27}{section.4.6}
+\contentsline {subsection}{\numberline {4.2.4}I/O and Rule Size Optimization}{26}{subsection.4.2.4}
+\contentsline {subsection}{\numberline {4.2.5}CSV or TSV}{26}{subsection.4.2.5}
+\contentsline {subsection}{\numberline {4.2.6}On URL normalization}{26}{subsection.4.2.6}
+\contentsline {subsection}{\numberline {4.2.7}Only Pbkdf2}{26}{subsection.4.2.7}
+\contentsline {subsection}{\numberline {4.2.8}Pycrypto towards cryptography library}{26}{subsection.4.2.8}
+\contentsline {subsection}{\numberline {4.2.9}Structure Refactoring}{27}{subsection.4.2.9}
+\contentsline {subsection}{\numberline {4.2.10}Top Configuration File}{27}{subsection.4.2.10}
+\contentsline {subsection}{\numberline {4.2.11}Create a rule}{27}{subsection.4.2.11}
+\contentsline {subsection}{\numberline {4.2.12}match a rule}{27}{subsection.4.2.12}
+\contentsline {section}{\numberline {4.3}Chosen Crytographic System}{27}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Key Derivation functions}{27}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Bcrypt}{27}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Bloom filter}{27}{subsection.4.3.3}
+\contentsline {section}{\numberline {4.4}Benchmarking}{28}{section.4.4}
+\contentsline {section}{\numberline {4.5}Security Discussion}{28}{section.4.5}
+\contentsline {section}{\numberline {4.6}Further Work}{28}{section.4.6}
