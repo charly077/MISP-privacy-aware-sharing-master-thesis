@@ -32,14 +32,23 @@
 \contentsline {chapter}{\numberline {4}Implementation}{22}{chapter.4}
 \contentsline {section}{\numberline {4.1}Private Sharing of IOCs and Sightings \cite {van2016private}}{22}{section.4.1}
 \contentsline {section}{\numberline {4.2}My Implementation}{25}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Create a rule}{25}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}match a rule}{25}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}Additional choice}{25}{subsection.4.2.3}
-\contentsline {subsection}{\numberline {4.2.4}Generalization}{25}{subsection.4.2.4}
-\contentsline {section}{\numberline {4.3}Chosen Crytographic System}{25}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Key Derivation functions}{25}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.2.1}Get data from MISP}{25}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Parsing logs}{25}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Multiprocessing for reading logs}{25}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}I/O and Rule Size Optimization}{25}{subsection.4.2.4}
+\contentsline {subsection}{\numberline {4.2.5}CSV or TSV}{25}{subsection.4.2.5}
+\contentsline {subsection}{\numberline {4.2.6}Mysql and the Virtual MISP Training Machine}{25}{subsection.4.2.6}
+\contentsline {subsection}{\numberline {4.2.7}On URL normalization}{25}{subsection.4.2.7}
+\contentsline {subsection}{\numberline {4.2.8}Only Pbkdf2}{25}{subsection.4.2.8}
+\contentsline {subsection}{\numberline {4.2.9}Pycrypto towards cryptography library}{25}{subsection.4.2.9}
+\contentsline {subsection}{\numberline {4.2.10}Structure Refactoring}{25}{subsection.4.2.10}
+\contentsline {subsection}{\numberline {4.2.11}Top Configuration File}{25}{subsection.4.2.11}
+\contentsline {subsection}{\numberline {4.2.12}Create a rule}{26}{subsection.4.2.12}
+\contentsline {subsection}{\numberline {4.2.13}match a rule}{26}{subsection.4.2.13}
+\contentsline {section}{\numberline {4.3}Chosen Crytographic System}{26}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Key Derivation functions}{26}{subsection.4.3.1}
 \contentsline {subsection}{\numberline {4.3.2}Bcrypt}{26}{subsection.4.3.2}
 \contentsline {subsection}{\numberline {4.3.3}Bloom filter}{26}{subsection.4.3.3}
-\contentsline {section}{\numberline {4.4}Benchmarking}{26}{section.4.4}
-\contentsline {section}{\numberline {4.5}Security Discussion}{26}{section.4.5}
-\contentsline {section}{\numberline {4.6}Further Work}{26}{section.4.6}
+\contentsline {section}{\numberline {4.4}Benchmarking}{27}{section.4.4}
+\contentsline {section}{\numberline {4.5}Security Discussion}{27}{section.4.5}
+\contentsline {section}{\numberline {4.6}Further Work}{27}{section.4.6}

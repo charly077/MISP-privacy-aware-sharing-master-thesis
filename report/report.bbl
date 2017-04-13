@@ -83,6 +83,12 @@ Awesome threat intelligence.
 \newblock Guide to cyber threat information sharing.
 \newblock {\em NIST Special Publication 800\/} (2016), 150.
 
+\bibitem{cryptoeprint}
+{\sc Krawczyk, H.}
+\newblock Cryptographic extraction and key derivation: The hkdf scheme.
+\newblock Cryptology ePrint Archive, Report 2010/264, 2010.
+\newblock \url{http://eprint.iacr.org/2010/264}.
+
 \bibitem{li2005private}
 {\sc Li, Y., Tygar, J., and Hellerstein, J.}
 \newblock Private matching.

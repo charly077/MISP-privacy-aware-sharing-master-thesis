@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.2.1)  12 APR 2017 16:30
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.2.1)  13 APR 2017 12:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -794,7 +794,7 @@ LaTeX Info: Redefining \nameref on input line 41.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-<EPL_TFEbanner.jpg, id=183, 526.3665pt x 256.0767pt>
+<EPL_TFEbanner.jpg, id=220, 526.3665pt x 256.0767pt>
 File: EPL_TFEbanner.jpg Graphic file (type jpg)
  <use EPL_TFEbanner.jpg>
 Package pdftex.def Info: EPL_TFEbanner.jpg used on input line 44.
@@ -865,7 +865,7 @@ l.53 \end{abstract}
 e same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.41 ...rline {4.3.2}Bcrypt}{26}{subsection.4.3.2}
+l.41 ...n URL normalization}{25}{subsection.4.2.7}
                                                    [1
 
 ])
@@ -946,20 +946,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 167--169
 
  []
 
-[7] <res/webEvents.png, id=297, 1423.3175pt x 666.49pt>
+[7] <res/webEvents.png, id=343, 1423.3175pt x 666.49pt>
 File: res/webEvents.png Graphic file (type png)
 
 <use res/webEvents.png>
 Package pdftex.def Info: res/webEvents.png used on input line 174.
 (pdftex.def)             Requested size: 455.47092pt x 213.28116pt.
- <res/webEvent.png, id=300, 823.075pt x 437.635pt>
+ <res/webEvent.png, id=346, 823.075pt x 437.635pt>
 File: res/webEvent.png Graphic file (type png)
 
 <use res/webEvent.png>
 Package pdftex.def Info: res/webEvent.png used on input line 186.
 (pdftex.def)             Requested size: 288.08057pt x 153.17455pt.
 
-<res/webAttributes.png, id=302, 1263.72125pt x 265.99374pt>
+<res/webAttributes.png, id=348, 1263.72125pt x 265.99374pt>
 File: res/webAttributes.png Graphic file (type png)
 
 <use res/webAttributes.png>
@@ -969,7 +969,7 @@ Package pdftex.def Info: res/webAttributes.png used on input line 196.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<res/webCorrelationGraph.png, id=304, 572.1375pt x 445.665pt>
+<res/webCorrelationGraph.png, id=350, 572.1375pt x 445.665pt>
 File: res/webCorrelationGraph.png Graphic file (type png)
 
 <use res/webCorrelationGraph.png>
@@ -1080,7 +1080,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 415--418
 
  []
 
-<res/bloom-1.png, id=418, 953.5625pt x 555.07375pt>
+<res/bloom-1.png, id=463, 953.5625pt x 555.07375pt>
 File: res/bloom-1.png Graphic file (type png)
  <use res/bloom-1.png>
 Package pdftex.def Info: res/bloom-1.png used on input line 424.
@@ -1088,7 +1088,7 @@ Package pdftex.def Info: res/bloom-1.png used on input line 424.
 
 [18
 
- <./res/bloom-1.png>] <res/bloom-2.png, id=427, 960.58875pt x 557.08125pt>
+ <./res/bloom-1.png>] <res/bloom-2.png, id=473, 960.58875pt x 557.08125pt>
 File: res/bloom-2.png Graphic file (type png)
 
 <use res/bloom-2.png>
@@ -1152,7 +1152,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 521--525
 
 [22
 
-] <res/ioc-rules.png, id=464, 635.37375pt x 335.2525pt>
+] <res/ioc-rules.png, id=509, 635.37375pt x 335.2525pt>
 File: res/ioc-rules.png Graphic file (type png)
 
 <use res/ioc-rules.png>
@@ -1168,7 +1168,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 539--542
 
  []
 
-<res/obfuscation-rule.png, id=465, 841.1425pt x 388.45125pt>
+<res/obfuscation-rule.png, id=510, 841.1425pt x 388.45125pt>
 File: res/obfuscation-rule.png Graphic file (type png)
 
 <use res/obfuscation-rule.png>
@@ -1184,40 +1184,44 @@ Underfull \hbox (badness 10000) in paragraph at lines 583--586
  []
 
 
-LaTeX Warning: Citation `cryptoeprint:2010:264' on page 24 undefined on input l
-ine 587.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 587--588
+Underfull \hbox (badness 10000) in paragraph at lines 587--589
 
  []
 
 [24 <./res/obfuscation-rule.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 618--619
+Underfull \hbox (badness 10000) in paragraph at lines 594--597
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 634--639
+Underfull \hbox (badness 10000) in paragraph at lines 599--602
 
  []
+
+
+LaTeX Warning: Marginpar on page 25 moved.
 
 [25]
-Underfull \hbox (badness 10000) in paragraph at lines 640--642
+Underfull \hbox (badness 10000) in paragraph at lines 670--675
+
+ []
+
+[26]
+Underfull \hbox (badness 10000) in paragraph at lines 676--678
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 643--644
+Underfull \hbox (badness 10000) in paragraph at lines 679--680
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 645--646
+Underfull \hbox (badness 10000) in paragraph at lines 681--682
 
  []
 
-[26] (./report.bbl
+[27] (./report.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 8--10
 []\T1/lmr/m/n/10.95 (+20) Awesome threat in-tel-li-gence.  []$\T1/lmtt/m/n/10.9
 5 https : / / github . com / hslatman /
@@ -1234,10 +1238,10 @@ re for-mat.  []$\T1/lmtt/m/n/10.95 https : / / tools . ietf . org / html /
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/ucs/data/uni-33.def
 File: uni-33.def 2013/05/13 UCS: Unicode data U+2100..U+21FF
-) [27
+) [28
 
 ])
-[28]
+[29]
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
 * paper: <default>
@@ -1272,41 +1276,37 @@ File: uni-33.def 2013/05/13 UCS: Unicode data U+2100..U+21FF
 
 
 
-Package xcolor Warning: Incompatible color definition on input line 666.
+Package xcolor Warning: Incompatible color definition on input line 702.
 
 
-Package xcolor Warning: Incompatible color definition on input line 666.
+Package xcolor Warning: Incompatible color definition on input line 702.
 
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <9> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 666.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 702.
 
-Package xcolor Warning: Incompatible color definition on input line 666.
+Package xcolor Warning: Incompatible color definition on input line 702.
 
 
-Overfull \hbox (1.90796pt too wide) in paragraph at lines 666--667
+Overfull \hbox (1.90796pt too wide) in paragraph at lines 702--703
  [][][] 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 671.
-[29
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 707.
+[30
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 671.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 707.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 671.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 671.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 707.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 707.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 660A46DD31A290E6DB5D96E6401DEBC4;2957.
-
-
-LaTeX Warning: There were undefined references.
-
+(rerunfilecheck)             Checksum: 305009A77207CD2A7DCA6CEE58B413D7;3672.
  ) 
 Here is how much of TeX's memory you used:
- 18898 strings out of 493315
- 329415 string characters out of 6137905
- 466562 words of memory out of 5000000
- 21686 multiletter control sequences out of 15000+600000
+ 18936 strings out of 493315
+ 330197 string characters out of 6137905
+ 467737 words of memory out of 5000000
+ 21710 multiletter control sequences out of 15000+600000
  99604 words of font info for 128 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  63i,9n,76p,907b,740s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1330,10 +1330,10 @@ dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2013/texmf-dist/fonts
 lic/lm/lmsy6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtt
 10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb>
 </usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on report.pdf (31 pages, 1612301 bytes).
+Output written on report.pdf (32 pages, 1618281 bytes).
 PDF statistics:
- 608 PDF objects out of 1000 (max. 8388607)
- 535 compressed objects within 6 object streams
- 133 named destinations out of 1000 (max. 500000)
- 27546 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 666 PDF objects out of 1000 (max. 8388607)
+ 592 compressed objects within 6 object streams
+ 147 named destinations out of 1000 (max. 500000)
+ 27618 words of extra memory for PDF output out of 29859 (max. 10000000)
 

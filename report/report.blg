@@ -3,52 +3,51 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: report.aux
 The style file: acm-doi.bst
 Database file #1: articles.bib
-Warning--I didn't find a database entry for "cryptoeprint:2010:264"
 Warning--to sort, need author or key in taxiiWebsite
 Warning--to sort, need author or key in AwesomeTreat
 Warning--empty journal in enisaguide2009
 Warning--empty journal in eisasRapport
 Warning--empty publisher in johnson2014guide
 Warning--empty journal in sauerwein2017threat
-You've used 30 entries,
+You've used 31 entries,
             2415 wiz_defined-function locations,
-            711 strings with 9076 characters,
-and the built_in function-call counts, 9426 in all, are:
-= -- 879
-> -- 413
+            716 strings with 9223 characters,
+and the built_in function-call counts, 9655 in all, are:
+= -- 901
+> -- 420
 < -- 0
-+ -- 174
-- -- 142
-* -- 640
-:= -- 1474
-add.period$ -- 84
-call.type$ -- 30
-change.case$ -- 159
++ -- 177
+- -- 144
+* -- 648
+:= -- 1511
+add.period$ -- 88
+call.type$ -- 31
+change.case$ -- 163
 chr.to.int$ -- 0
-cite$ -- 36
-duplicate$ -- 378
-empty$ -- 874
-format.name$ -- 142
-if$ -- 2048
+cite$ -- 37
+duplicate$ -- 386
+empty$ -- 900
+format.name$ -- 144
+if$ -- 2100
 int.to.chr$ -- 0
-int.to.str$ -- 30
+int.to.str$ -- 31
 missing$ -- 25
-newline$ -- 147
-num.names$ -- 56
-pop$ -- 201
+newline$ -- 153
+num.names$ -- 58
+pop$ -- 209
 preamble$ -- 1
-purify$ -- 131
+purify$ -- 134
 quote$ -- 0
-skip$ -- 262
+skip$ -- 268
 stack$ -- 0
-substring$ -- 464
-swap$ -- 105
+substring$ -- 469
+swap$ -- 107
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 118
+type$ -- 122
 warning$ -- 6
-while$ -- 90
-width$ -- 32
-write$ -- 285
-(There were 7 warnings)
+while$ -- 92
+width$ -- 33
+write$ -- 297
+(There were 6 warnings)

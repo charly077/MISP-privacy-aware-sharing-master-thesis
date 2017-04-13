@@ -584,12 +584,53 @@ Trust is one of the major problem in information sharing and is discussed in all
 This little additional feature may seem to be a detailed, I'm intimately convinced that it could help organization to decide sharing more confidential data as they could turn themselves 
 again the leakage source in case of problems which could limit the cost damage as well as the reputation damage. Moreover, in MISP there is also an identifier that could be used and moreover that need to be kept private which is called a Token.\\
 
-In their implementation, they are using both HMAC and Pbkdf2 for the key derivation function. I had the opportunity to exchange mails with the authors of the paper that prefers the HMAC algorithm as it is designed to give a pseudo random key in just a single iteration and that it has been deeply analyzed \cite{cryptoeprint:2010:264}. While pbkdf2 is generating random keys that becomes more secure as we the number of iterations increase. Moreover, the behavior has not been described (to the best of our knowledge) in academic paper even if the is a NIST recommendation on its usage.\\
+In their implementation, they are using both HMAC and Pbkdf2 for the key derivation function. I had the opportunity to exchange mails with the authors of the paper that prefers the HMAC algorithm as it is designed to give a pseudo random key in just a single iteration and that it has been deeply analyzed \cite{cryptoeprint}. While pbkdf2 is generating random keys that becomes more secure as we the number of iterations increase. Moreover, the behavior has not been described (to the best of our knowledge) in academic paper even if the is a NIST recommendation on its usage.\\
+They also used an AES encryption scheme.\\
 
 Their proof of concept code is available on their repository, \url{https://github.com/CRIPTIM/private-IOC-sharing}. 
 
 
 \section{My Implementation}
+The article of Tim van de Kamp et al. gave me the starting point I needed as the code was available and under the MIT license. I've thus created two basic scripts starting from theirs where I've written back nearly the whole code to fit with MISP. At first, I've kept exactly the same scheme as they are.\\
+The first step was to retrieve data from MISP, either from the web API, or by a direct connection towards the mysql database.\\
+Then I've improved the code with different new functionalities and realized that, on the contrary of all university projects we had, here, the project needed to often be completely refactored to allow additional features and to keep it simple for an external user to understand how it works. I will thus go through theses different implementation parts in the next few sections.\\
+
+\subsection{Get data from MISP}
+update from api\\
+		=> Not using the pyMisp, it would have some advantage like beeing kept updated if the api is modified but it was really to heavy for what the only request I was using. => I've made myself the request with the requests python library.
+update from sql\\
+
+\subsection{Parsing logs}
+
+\subsection{Multiprocessing for reading logs}
+=> What can be parallelized => important and explain later in the schemes used
+
+\subsection{I/O and Rule Size Optimization}
+
+
+\subsection{CSV or TSV}
+
+\subsection{Mysql and the Virtual MISP Training Machine}
+
+\subsection{On URL normalization}
+\info{je pense que l'article s'appelle comme ça !!! }
+
+\subsection{Only Pbkdf2}
+While I was adding stuffs, it becomes more and more difficult to allow all these possible choices, I've thus started by limiting the key derivation function (KDF) choice to Pbkdf2 which is not the author advised one but ...
+\info{Discussion on it}
+\info{Pourquoi il avait fait sa propre implementation}
+
+\subsection{Pycrypto towards cryptography library}
+
+
+\subsection{Structure Refactoring}
+
+\subsection{Top Configuration File}
+instead of all different little file + orig explanation
+
+
+
+
 
 \subsection{Create a rule}
 \begin{itemize}
@@ -614,12 +655,7 @@ Create 2 backends:\\
 -> from web api + token ==> create rule files and directly into redis \\
 \info{I don't know wich intermediate format to use, redis dump if easy, or the rule files like them}
 
-\subsection{Additional choice}
-URL normalization => let's look on trello and ressources on the drive that I've used ! and Mostly explain my choices \\
 
-cryptography library instead of the one used also coming from the discussion with Tim van de kamp
-
-\subsection{Generalization}
 
 \section{Chosen Crytographic System}
 The idea of the generalization was quite simple to understand, if we can simply add module to handle the way data are stored / encrypted, we can use completely different crypto systems. In this section, I will discuss my implementing choice as, technologies have already be explained in previous sections.\improvement{Not done yet}

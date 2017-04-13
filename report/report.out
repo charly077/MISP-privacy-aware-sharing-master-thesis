@@ -31,14 +31,23 @@
 \BOOKMARK [0][-]{chapter.4}{Implementation}{}% 31
 \BOOKMARK [1][-]{section.4.1}{Private Sharing of IOCs and Sightings van2016private}{chapter.4}% 32
 \BOOKMARK [1][-]{section.4.2}{My Implementation}{chapter.4}% 33
-\BOOKMARK [2][-]{subsection.4.2.1}{Create a rule}{section.4.2}% 34
-\BOOKMARK [2][-]{subsection.4.2.2}{match a rule}{section.4.2}% 35
-\BOOKMARK [2][-]{subsection.4.2.3}{Additional choice}{section.4.2}% 36
-\BOOKMARK [2][-]{subsection.4.2.4}{Generalization}{section.4.2}% 37
-\BOOKMARK [1][-]{section.4.3}{Chosen Crytographic System}{chapter.4}% 38
-\BOOKMARK [2][-]{subsection.4.3.1}{Key Derivation functions}{section.4.3}% 39
-\BOOKMARK [2][-]{subsection.4.3.2}{Bcrypt}{section.4.3}% 40
-\BOOKMARK [2][-]{subsection.4.3.3}{Bloom filter}{section.4.3}% 41
-\BOOKMARK [1][-]{section.4.4}{Benchmarking}{chapter.4}% 42
-\BOOKMARK [1][-]{section.4.5}{Security Discussion}{chapter.4}% 43
-\BOOKMARK [1][-]{section.4.6}{Further Work}{chapter.4}% 44
+\BOOKMARK [2][-]{subsection.4.2.1}{Get data from MISP}{section.4.2}% 34
+\BOOKMARK [2][-]{subsection.4.2.2}{Parsing logs}{section.4.2}% 35
+\BOOKMARK [2][-]{subsection.4.2.3}{Multiprocessing for reading logs}{section.4.2}% 36
+\BOOKMARK [2][-]{subsection.4.2.4}{I/O and Rule Size Optimization}{section.4.2}% 37
+\BOOKMARK [2][-]{subsection.4.2.5}{CSV or TSV}{section.4.2}% 38
+\BOOKMARK [2][-]{subsection.4.2.6}{Mysql and the Virtual MISP Training Machine}{section.4.2}% 39
+\BOOKMARK [2][-]{subsection.4.2.7}{On URL normalization}{section.4.2}% 40
+\BOOKMARK [2][-]{subsection.4.2.8}{Only Pbkdf2}{section.4.2}% 41
+\BOOKMARK [2][-]{subsection.4.2.9}{Pycrypto towards cryptography library}{section.4.2}% 42
+\BOOKMARK [2][-]{subsection.4.2.10}{Structure Refactoring}{section.4.2}% 43
+\BOOKMARK [2][-]{subsection.4.2.11}{Top Configuration File}{section.4.2}% 44
+\BOOKMARK [2][-]{subsection.4.2.12}{Create a rule}{section.4.2}% 45
+\BOOKMARK [2][-]{subsection.4.2.13}{match a rule}{section.4.2}% 46
+\BOOKMARK [1][-]{section.4.3}{Chosen Crytographic System}{chapter.4}% 47
+\BOOKMARK [2][-]{subsection.4.3.1}{Key Derivation functions}{section.4.3}% 48
+\BOOKMARK [2][-]{subsection.4.3.2}{Bcrypt}{section.4.3}% 49
+\BOOKMARK [2][-]{subsection.4.3.3}{Bloom filter}{section.4.3}% 50
+\BOOKMARK [1][-]{section.4.4}{Benchmarking}{chapter.4}% 51
+\BOOKMARK [1][-]{section.4.5}{Security Discussion}{chapter.4}% 52
+\BOOKMARK [1][-]{section.4.6}{Further Work}{chapter.4}% 53
