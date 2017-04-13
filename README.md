@@ -1,5 +1,5 @@
 # Privacy Sharing
-Latest version of the project which is intended to be more modulable
+Latest version of the project which is intended to be more modular
 
 # rules matching
 The first version of the project (old)
@@ -8,4 +8,4 @@ The first version of the project (old)
 Was a really short report (only the introduction is still relevant)
 
 # Report
-Report not updated in a while (will be soon updated)
+In progress
