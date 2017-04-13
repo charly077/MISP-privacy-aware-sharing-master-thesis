@@ -26,7 +26,7 @@ Nevertheless, they have no problems to share data if, the user already knows it.
 Which means that a user that has seen the IOC on his computer could be able to discover 
 that another organization have seen it and then, to get back information they have, but never otherwise.
 
-And this is on this specific challenge that we are attemding to find a solution.
+And this is on this specific challenge that we are attempting to find a solution.
 
 # Starting point
 The starting point was this article with their prove of concept implementation:
@@ -54,7 +54,7 @@ for each rule:
         return the value
 ```
 
-Then, I've tried to make a modulable code to be able to add new crypto systems on it.
+Then, I've tried to make a code modular to be able to add new crypto systems on it.
 
 # Structure
 conf/ contains all configurations in the configuration file (= filled configuration.orig)
