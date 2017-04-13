@@ -1,6 +1,6 @@
 # Privacy Preserving Sharing in MISP
 
-Nowadays, in computer security, we need more than simple malware detectors or anti-viruses. 
+Nowadays, in computer security, we need more than simple malware detectors or antiviruses. 
 New security threats suddenly appear and we have to react as soon as possible. 
 This is why a new kind of security levels appeared and is called threat sharing.
 
