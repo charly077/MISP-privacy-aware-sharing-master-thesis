@@ -8,6 +8,11 @@ About taxii.
 Awesome threat intelligence.
 \newblock \url{https://github.com/hslatman/awesome-threat-intelligence}.
 
+\bibitem{wikiNormalizationURL}
+Url normalization.
+\newblock wikipedia.
+\newblock \url{https://en.wikipedia.org/wiki/URL_normalization}.
+
 \bibitem{MispDraft}
 {\sc A.~Dulaunoy, A.~I.}
 \newblock Misp core format.
@@ -88,6 +93,12 @@ Awesome threat intelligence.
 \newblock Cryptographic extraction and key derivation: The hkdf scheme.
 \newblock Cryptology ePrint Archive, Report 2010/264, 2010.
 \newblock \url{http://eprint.iacr.org/2010/264}.
+
+\bibitem{lee2005url}
+{\sc Lee, S.~H., Kim, S.~J., and Hong, S.~H.}
+\newblock On url normalization.
+\newblock In {\em International Conference on Computational Science and Its
+  Applications\/} (2005), Springer, pp.~1076--1085.
 
 \bibitem{li2005private}
 {\sc Li, Y., Tygar, J., and Hellerstein, J.}

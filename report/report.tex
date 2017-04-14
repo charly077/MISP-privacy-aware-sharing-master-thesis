@@ -46,10 +46,10 @@
 
 \begin{abstract} 
 Malicious software (malware) are plaguing this computer age. But how to avoid them ?
-An actual solution is threat information sharing where companies share lists of Indicators Of Compromise (e.g. IPs, mail addresses, urls, malware hashes and so on) with each other.
+An actual solution is threat information sharing where companies share lists of Indicators Of Compromise (e.g. IPs, mail addresses, URLs, malware hashes and so on) with each other.
 An interesting tool is the MISP (Malware Information Sharing Platform), a platform that allows companies to share these IOCs but also malware analysis.
 Sometimes, the information is somehow confidential, but still interesting to be shared, thus we need to find a way to share these secret information without disclosing them entirely.
-The goal of this master thesis will be to analyze the state of the art and to implement different solutions working with MISP in order to compare their performances.
+The goal of this master thesis is to analyze the state of the art and to implement different solutions working with MISP in order to compare their performances.
 \end{abstract}
 
 \tableofcontents
@@ -127,7 +127,7 @@ There are also two important things on the sharing strategy that I want to point
 
 Now, as a good open source project, a whole ecosystem has been created around and more and more companies are using it.\\
 MISP become a really good IOC database with automated correlation system. We can even create correlation graphs to see how different events are connected together what helps a lot for the threat analyses.\\
-Beside all that, a lot of different tools like a python client library are available on their repository : \url{https://github.com/MISP/}.\\
+Beside all that, a lot of different tools like a python client library are available on their repository: \url{https://github.com/MISP/}.\\
 They have also improved added a lot of value to the web api like the ability of exporting the attributes in a lot of different format and some that can directly be used in IDS.\\
 
 \subsection{My Settings}
@@ -584,7 +584,7 @@ Trust is one of the major problem in information sharing and is discussed in all
 This little additional feature may seem to be a detailed, I'm intimately convinced that it could help organization to decide sharing more confidential data as they could turn themselves 
 again the leakage source in case of problems which could limit the cost damage as well as the reputation damage. Moreover, in MISP there is also an identifier that could be used and moreover that need to be kept private which is called a Token.\\
 
-In their implementation, they are using both HMAC and Pbkdf2 for the key derivation function. I had the opportunity to exchange mails with the authors of the paper that prefers the HMAC algorithm as it is designed to give a pseudo random key in just a single iteration and that it has been deeply analyzed \cite{cryptoeprint}. While pbkdf2 is generating random keys that becomes more secure as we the number of iterations increase. Moreover, the behavior has not been described (to the best of our knowledge) in academic paper even if the is a NIST recommendation on its usage.\\
+In their implementation, they are using both HMAC and PBKDF2 for the key derivation function. I had the opportunity to exchange mails with the authors of the paper that prefers the HMAC algorithm as it is designed to give a pseudo random key in just a single iteration and that it has been deeply analyzed \cite{cryptoeprint}. While PBKDF2 is generating random keys that becomes more secure as we the number of iterations increase. Moreover, the behavior has not been described (to the best of our knowledge) in academic paper even if the is a NIST recommendation on its usage.\\
 They also used an AES encryption scheme.\\
 
 Their proof of concept code is available on their repository, \url{https://github.com/CRIPTIM/private-IOC-sharing}. 
@@ -624,12 +624,41 @@ These problems were easy to solve. Create a complete csv file for all rules. But
 This is a really small modification but makes files more readable and avoid existing coma in the data to make the parsing not working.
 
 \subsection{On URL normalization}
-\info{je pense que l'article s'appelle comme ça !!! }
+The goal of the system is to look for matches in MISP data. But off course, if an event has for Uniform Resource Locator (URL) www.ioc.com I would like http://www.ioc.com, http://www.ioc.com/, http://www.ioc.com:80/, ... To match as well.\\
+Then I had to choose, doing my own implementation or using one already implemented?\\
+For that, I first needed to dig a little into URL normalization like the standards and techniques already used in practice. I've realized that normalization is difficult as, in the standards, they want URL to always work after, and really be the same. For example http://www.ioc.com is not https://www.ioc.com while in matching, I absolutely don't care and I would like to both trigger an alert.\\
+Beside that there are standards on URL normalization [RFC 3986] that contains either normalizations that preserve or usually preserve the semantic of the URL but not the one that does not preserve it.\\
+Standards are thus focus on keeping the number of false positive near to 0 but it has for impact to miss a lot of real positive and we cannot afford that.\\
+I've thus found this paper \cite{lee2005url} which was focus on url normalization and that goes beyond standards normalization steps like case sensitivity in the path, the last slash symbol at the end of the path and the designation of the default page (index.html, ...).\\
+Beside that, a great summary of all these standardizations steps is available on wikipedia \cite{wikiNormalizationURL}.\\
+In the implementation, I've used the python library url\_normalize:
+\begin{itemize}
+\item[•] Take care of IDN domains.
+\item[•] Always provide the URI scheme in lowercase characters.
+\item[•] Always provide the host, if any, in lowercase characters.
+\item[•] Only perform percent-encoding where it is essential.
+\item[•] Always use uppercase A-through-F characters when percent-encoding.
+\item[•] Prevent dot-segments appearing in non-relative URI paths.
+\item[•] For schemes that define a default authority, use an empty authority if the default is desired.
+\item[•] For schemes that define an empty path to be equivalent to a path of "/", use "/".
+\item[•] For schemes that define a port, use an empty port if the default is desired
+\item[•] All portions of the URI must be utf-8 encoded NFC from Unicode strings
+\end{itemize}
 
-\subsection{Only Pbkdf2}
-While I was adding stuffs, it becomes more and more difficult to allow all these possible choices, I've thus started by limiting the key derivation function (KDF) choice to Pbkdf2 which is not the author advised one but ...
-\info{Discussion on it}
-\info{Pourquoi il avait fait sa propre implementation}
+I thus have to add some additions like:
+\begin{itemize}
+\item Removing directory index : {default.asp, index.html, index.php, index.shtml, index.jsp, default.asp}
+\item Remove the fragment (\#...) which is never seen by the server.
+\item Replacing IP with domain name 
+\item Removing the protocol {http://, https://}
+\item Removing duplicate slashes
+\item Removing  “www” as the first domain label
+\item Removing the "?" when the query is empty
+\end{itemize}
+
+\subsection{Only PBKDF2}
+While I was adding stuffs, it becomes more and more difficult to allow all these possible choices, I've thus started by limiting the key derivation function (KDF) choice to PBKDF2 which is not the author advised one but allow to parametrize the difficulty for an attacker to brute force some small data.\\
+But in the opposite we cannot have a small number iteration if we want the key to look random.
 
 \subsection{Pycrypto towards cryptography library}`
 While discussing with Tim van de Kamp by mail, he said that if he would have to start over, he would choose the cryptography library \footnote{https://cryptography.io/en/latest/} instead of pycrypto has it seems to be more professional.\\
@@ -655,47 +684,39 @@ Last Commit                                                       & about 3 year
 
 
 \subsection{Structure Refactoring}
+The code was becoming less and less clear to understand and as I wanted it to be modular for the cryptographic system used. I've decided to completely re factor the code.\\
+The used structure is as following:
+\begin{itemize}
+\item src: Source code.
+\item conf: Configuration files.
+\item res: All downloaded useful resources like the csv downloaded from misp.
+\item rules: Rules generated.
+\end{itemize}
+
+Inside src, there is also a crypto subdirectory in which are located all cryptographic function in different possible schemes implemented.
 
 \subsection{Top Configuration File}
-instead of all different little file + orig explanation
+Instead of having a lot of configuration files as when I started, I've gathered them back in one general function where we only have to fill what will be used (Specified in function).\\
+The configuration file is divided in categories and is read thanks to the configparser python library.
 
+\section{Chosen Cryptographic System}
+The idea of the generalization was to add module for handling the way data are stored / encrypted, we can use completely different cryptographic systems later called schemes. In this section, I will discuss my implementing choice for each schemes implemented.
 
-
-
-
-\subsection{Create a rule}
-\begin{itemize}
-\item Create a salt and an iv
-\item password = all IOC's value joined by a comma
-\item create the key with from the salt and the password
-\item encrypt the message (CAO) in (aes, ctr) but add a starting padding startPad (used to see if the decryption match )
-\item create the rule with ConfigParser 
-\item return the rule or write it into a file
-\end{itemize}
-
-\subsection{match a rule}
-\begin{itemize}
-\item parse the rule or all rules in a file
-\item for each one test to encrypt the attribute with the salt + value and see if the decryption is correct (startPad)
-\end{itemize}
-
-\info("hmset" pour redis)
-use the token as the client id !
-Create 2 backends:\\
--> from  database ==> create rule files and redis dump \\
--> from web api + token ==> create rule files and directly into redis \\
-\info{I don't know wich intermediate format to use, redis dump if easy, or the rule files like them}
-
-
-
-\section{Chosen Crytographic System}
-The idea of the generalization was quite simple to understand, if we can simply add module to handle the way data are stored / encrypted, we can use completely different crypto systems. In this section, I will discuss my implementing choice as, technologies have already be explained in previous sections.\improvement{Not done yet}
-
-\subsection{Key Derivation functions}
-In this section, I will explain why I have chosen to implement pbkdf2 and mostly why I haven't implemented the hashmac function.\\
-I will also argue on the biggest modification, cryptography instead of pycrypto.
+\subsection{PBKDF2}
+This is the basic system for which all the structure had been optimized and had been thought for. In this section, I will thus briefly introduce these two sequence diagrams to help the understanding the system:
+\begin{figure}[h!]
+\begin{center}
+   \begin{minipage}[c]{.46\linewidth}
+      \includegraphics[scale=0.25]{res/seqDiagramRead}
+   \end{minipage} \hfill
+   \begin{minipage}[c]{.46\linewidth}
+      \includegraphics[scale=0.25]{res/seqDiagramMatch}
+   \end{minipage}
+\end{center}
+\end{figure}
 
 \subsection{Bcrypt}
+The implementation with Bcrypt is similar as my implementation with PBKDF2. It is a password hash function based on the Blowfish cipher. It also incorporate hash to be protected against rainbow table attacks (TMTO) 
 
 \subsection{Bloom filter}
 In this section, I will argue the choice for python-bloom library. This choice was actually a way more complicated than it could be as, I think it is not the fastest implementation.\\
