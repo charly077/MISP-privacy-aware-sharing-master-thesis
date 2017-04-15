@@ -112,28 +112,28 @@ I want also to point out that MISP is spreading, and I've the feeling that commu
 Christophe Vandeplas started the project as he was tired of the way IOCs were shared (email, pdf, ... ). Thus, he created a cakePHP website as a proof of concept and managed to convince the Belgian Defense (where he was working) that the project was worth to work on. They even allowed him to work on it during his work-hours. The project continued to move forward and now, Andras Iklody is the lead developer of the MISP project and works for CIRCL.\\
 
 \subsection{Basics of Misp}
-The basic idea of misp was thus to create an IOC database, for example, if we have two IOCs for the same attack, let's say "IOC@malware.mail" and "192.168.16.2". We are interested to  keep the information that there has been an attack that can be recognized thanks to these two IOCs. That is why they have created events (which is much more general than the term attack that I've been using) and they use these IOCs as the attributes of this specific event. \\
+The basic idea of misp was thus to create an IOC database. If there is an attack and we have two IOCs, "IOC@malware.mail" and "192.168.16.2". We are interested to  keep the information that there has been an attack that can be recognized thanks to these two IOCs. That is why they have created events (which is much more general than the term attack that I've been using) and they use these IOCs as the attributes of this specific event. \\
 Then thanks to this idea, we can analyze the event and even make correlations with other events if they possess similar IOCs.
 
-For clarity concerns, attributes are divided into 13 categories where they are again dived into types. As MISP is no more only targeting malwares, it is interesting to notice that we can also see categories like Financial Fraud. More standard ones are Network Activities, Antivirus detection, Artifacts dropped, and so on.\\
+For clarity concerns, attributes are divided into 13 categories where they are again divided into types. As MISP is no more only targeting malwares, it is interesting to notice that we can also see categories like Financial Fraud. More standard ones are Network Activities, Antivirus detection, Artifacts dropped, and so on.\\
 All the category and types can be found on this web pages \url{https://www.circl.lu/doc/misp/categories-and-types/index.html}
 
 One other really interesting feature is sightings. When an IOC is referenced, we know that it has been seen by someone, but it does not confirm that the IOC is really related to that particular event and is not an error. Moreover, what says that if an IP address is an IOC today that it is going to be the case in 3 months ? \\
 Sightings is thus the solution to this problem as we can monitor an IOC, knowing if it has been seen at other places, and if they are still relevant.
 
 
-There are also two important things on the sharing strategy that I want to point out that are the MISP instances and communities. The first one is easy to understand, MISP is an open source project which means that everybody can decide to run a completely isolated MISP instance for its own needs like a company for storing its own confidential data. Besides that, that does not mean that the instance must be isolated, they have implemented a way to share information between these instances. While the second one is a good property of an instance. When we are connected to MISP as a user, we are connected thanks to the organization that we belongs. Then, the organization can choose to share or not to share their events/attributes with other communities or even with other instances. \\ 
+There are also two important things on the sharing strategy that I want to point out: MISP instances and communities. The first one is easy to understand, MISP is an open source project which means that everybody can decide to run a completely isolated MISP instance for its own needs like a company for storing its own confidential data. But that does not mean that the instance \textbf{must be} isolated, they have implemented a way to share information between these instances. While the second one is a good property of an instance. When we are connected to MISP as a user, we are connected thanks to the organization that we belongs to. Then, the organization can choose to share or not to share their events/attributes with other communities or even with other instances. \\ 
 
 Now, as a good open source project, a whole ecosystem has been created around and more and more companies are using it.\\
-MISP become a really good IOC database with automated correlation system. We can even create correlation graphs to see how different events are connected together what helps a lot for the threat analyses.\\
+MISP becomes a really good IOC database with automated correlation system. We can even create correlation graphs to see how different events are connected together what helps a lot for the threat analyses.\\
 Beside all that, a lot of different tools like a python client library are available on their repository: \url{https://github.com/MISP/}.\\
-They have also improved added a lot of value to the web api like the ability of exporting the attributes in a lot of different format and some that can directly be used in IDS.\\
+They have also added a lot of plugins to the web api like the ability of exporting the attributes in a lot of different formats, standards one and some for specific IDS.\\
 
 \subsection{My Settings}
 
-There is thus a lot of things to understand in order to work with misp. That's why they are giving trainings and that they make available a misp training virtual machine in order to train ourselves and test new developments.\\
-At the beginning, I've started to work directly with the private instance of MISP hosted by CIRCL but, every time that I was working, I needed to have a really good web connection to connect myself and to download all the data. That's why, I have finished by downloading the virtual machine. But, as I was going to work on my computer and I didn't want to be stuck to work inside the virtual machine, I've done some modifications.\\
-The mysql database wasn't accessible from the outside of the virtual machine (which is completely understandable as they don't want anyone to have a direct access to the complete unprotected database) and I've also got some network problems.\\
+MISP is really easy to use, but if we want to go deeper in it, there are a lot of things to understand. That's why they are giving trainings and make available a MISP training virtual machine in order to train ourselves and test new developments.\\
+At the beginning, I've started to work directly with the private instance of MISP hosted by CIRCL but, every time that I was working, I needed to have a really good web connection to connect myself and to download all the data. That's why, I have finished by downloading the virtual machine. But, as I was going to work on my computer and I didn't want to be stuck programming inside the virtual machine, I've done some modifications to make available everything to my local network.\\
+The mysql database wasn't accessible from the outside of the virtual machine (which is completely understandable as they don't want anyone to have a direct access to the complete database) and I've also got some network problems.\\
 The first step was that my virtual machine running on virtualbox was using the virtual vboxnet0 interface and was using, as its IPv4 address, 192.168.56.50. The problem was that, normally it works without problems but my computer does not know about the subnetwork. I thus had to add an ip in the right range by using the command :
 \textbf{ip add add 192.169.56.2/24 dev vboxnet0} .\\
 I'm also sometimes using a second virtual machine to work with and on this virtual machine, I've configured two network interfaces, the first one was to have an internet connection while the second one was the vboxnet0 interface.\\
@@ -145,7 +145,7 @@ address 192.168.56.1
 netmask 255.255.255.0
 \end{verbatim}
  
-After that, I was able to contact the virtual machine via the network but it wasn't enough to have a mysql access. For that, as the misp virtal machine was only accessible from the vboxnet0 interface, it was a problem to create external access for all ip addresses with only a small password protection.\\
+After that, I was able to contact the virtual machine via the network but it wasn't enough to have a mysql access. For that, as the misp virtual machine was only accessible from the vboxnet0 interface, it was a problem to create external access for all ip addresses with only a small password protection.\\
 The first step for that was to modify the configuration file (/etc/mysql/my.conf) where I've juste commented the "bind-address 127.0.0.1" line.
 The next step was to create a user with the rights from the outside. For that, I've connected myself to the database as the misp user and I've added the user:
 \begin{itemize}
@@ -155,7 +155,6 @@ The next step was to create a user with the rights from the outside. For that, I
 \end{itemize}
 
 Once done, I could continue to program more easily and create some tests as I could control the whole available set of data. For testing when the code was modified, I had used a really small set of data. \\
-But speaking about testing, I didn't do any automated test as the system requests some connections, It was not easy to generate them. \improvement{Do automated test !}
 
 \subsection{Illustrations}
 There is nothing better to explain all that than real screen shot of the web application. But, it raised one really important question: what can and cannot be shared from MISP and with who?\\
