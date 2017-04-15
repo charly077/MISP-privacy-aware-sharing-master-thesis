@@ -15,7 +15,7 @@ import json, csv, re
 from functools import lru_cache
 from copy import deepcopy
 import redis
-from url_normalize import url_normalize
+from normalize import normalize
 from collections import OrderedDict
 
 # crypto import 
@@ -107,19 +107,6 @@ def get_rules(attributes, lock):
             for rule in get_file_rules(filename, lock):
                 rules.append(rule)
     return rules
-
-# small normalization to increase matching
-def normalize(ioc):
-    for attr_type in ioc:
-        # distinction between url|uri|link is often misused
-        # Thus they are considered the same
-        if attr_type == 'url' or\
-            attr_type == 'uri' or\
-            attr_type == 'link':
-                ioc[attr_type] = url_normalize(ioc[attr_type])
-        elif attr_type == 'hostname':
-            ioc[attr_type] = ioc[attr_type].lower() 
-    return ioc
 
 
 #####################
