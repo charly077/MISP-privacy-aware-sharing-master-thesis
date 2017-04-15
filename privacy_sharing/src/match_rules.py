@@ -79,7 +79,7 @@ rules_dict = {}
 def joker(lock):
     """
     Get joker file:
-        joker is a special rule that always need to be laoded
+        joker is a special rule that always need to be loaded
     """
     try:
         return rules_dict[filename]
@@ -111,7 +111,7 @@ def get_rules(attributes, lock):
 # small normalization to increase matching
 def normalize(ioc):
     for attr_type in ioc:
-        # distinction bewtwee url|uri|link is often misused
+        # distinction between url|uri|link is often misused
         # Thus they are considered the same
         if attr_type == 'url' or\
             attr_type == 'uri' or\
