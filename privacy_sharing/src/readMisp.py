@@ -7,6 +7,7 @@
 # misp import
 from configuration import Configuration
 from misp import web_api
+from normalize import normalize
 import requests, csv, json
 
 
@@ -110,21 +111,6 @@ def create_message(attr):
     event_id = attr["event_id"]
     date = attr["date"]
     return "{}:{}:{}".format(uuid, event_id, date)
-
-# small normalization to increase matching
-def normalize(ioc):
-    for attr_type in ioc:
-        # distinction bewtwee url|uri|link is often misused
-        # Thus they are considered the same
-        if attr_type == 'url' or\
-            attr_type == 'uri' or\
-            attr_type == 'link':
-                # just solve one specific case:
-                if not '..org' in ioc[attr_type]:
-                    ioc[attr_type] = url_normalize(ioc[attr_type])
-        elif attr_type == 'hostname':
-                ioc[attr_type] = ioc[attr_type].lower()
-    return ioc
 
 def parse_attribute(attr, crypto):
     # IOC can be composed of a unique attribute type or of a list of attribute types
