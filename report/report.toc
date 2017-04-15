@@ -3,10 +3,10 @@
 \contentsline {section}{\numberline {1.1}Interaction with this Latex Document (To be removed)}{3}{section.1.1}
 \contentsline {section}{\numberline {1.2}Introduction}{3}{section.1.2}
 \contentsline {section}{\numberline {1.3}Organization}{4}{section.1.3}
-\contentsline {section}{\numberline {1.4}Indicator of Compromise (IOC)}{5}{section.1.4}
+\contentsline {section}{\numberline {1.4}Indicator of Compromise (IOC)}{4}{section.1.4}
 \contentsline {section}{\numberline {1.5}MISP and Threat Sharing}{5}{section.1.5}
 \contentsline {subsection}{\numberline {1.5.1}History}{5}{subsection.1.5.1}
-\contentsline {subsection}{\numberline {1.5.2}Basics of Misp}{6}{subsection.1.5.2}
+\contentsline {subsection}{\numberline {1.5.2}Basics of Misp}{5}{subsection.1.5.2}
 \contentsline {subsection}{\numberline {1.5.3}My Settings}{6}{subsection.1.5.3}
 \contentsline {subsection}{\numberline {1.5.4}Illustrations}{7}{subsection.1.5.4}
 \contentsline {chapter}{\numberline {2}Information Sharing State of the Art}{10}{chapter.2}
@@ -38,16 +38,14 @@
 \contentsline {subsection}{\numberline {4.2.4}I/O and Rule Size Optimization}{26}{subsection.4.2.4}
 \contentsline {subsection}{\numberline {4.2.5}CSV or TSV}{26}{subsection.4.2.5}
 \contentsline {subsection}{\numberline {4.2.6}On URL normalization}{26}{subsection.4.2.6}
-\contentsline {subsection}{\numberline {4.2.7}Only Pbkdf2}{26}{subsection.4.2.7}
-\contentsline {subsection}{\numberline {4.2.8}Pycrypto towards cryptography library}{26}{subsection.4.2.8}
-\contentsline {subsection}{\numberline {4.2.9}Structure Refactoring}{27}{subsection.4.2.9}
-\contentsline {subsection}{\numberline {4.2.10}Top Configuration File}{27}{subsection.4.2.10}
-\contentsline {subsection}{\numberline {4.2.11}Create a rule}{27}{subsection.4.2.11}
-\contentsline {subsection}{\numberline {4.2.12}match a rule}{27}{subsection.4.2.12}
-\contentsline {section}{\numberline {4.3}Chosen Crytographic System}{27}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Key Derivation functions}{27}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Bcrypt}{27}{subsection.4.3.2}
-\contentsline {subsection}{\numberline {4.3.3}Bloom filter}{27}{subsection.4.3.3}
-\contentsline {section}{\numberline {4.4}Benchmarking}{28}{section.4.4}
-\contentsline {section}{\numberline {4.5}Security Discussion}{28}{section.4.5}
-\contentsline {section}{\numberline {4.6}Further Work}{28}{section.4.6}
+\contentsline {subsection}{\numberline {4.2.7}Only PBKDF2}{27}{subsection.4.2.7}
+\contentsline {subsection}{\numberline {4.2.8}Pycrypto towards cryptography library}{27}{subsection.4.2.8}
+\contentsline {subsection}{\numberline {4.2.9}Structure Refactoring}{28}{subsection.4.2.9}
+\contentsline {subsection}{\numberline {4.2.10}Top Configuration File}{28}{subsection.4.2.10}
+\contentsline {section}{\numberline {4.3}Chosen Cryptographic System}{28}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}PBKDF2}{28}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Bcrypt}{28}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Bloom filter}{29}{subsection.4.3.3}
+\contentsline {section}{\numberline {4.4}Benchmarking}{29}{section.4.4}
+\contentsline {section}{\numberline {4.5}Security Discussion}{29}{section.4.5}
+\contentsline {section}{\numberline {4.6}Further Work}{29}{section.4.6}

@@ -46,10 +46,10 @@
 
 \begin{abstract} 
 Malicious software (malware) are plaguing this computer age. But how to avoid them ?
-An actual solution is threat information sharing where companies share lists of Indicators Of Compromise (e.g. IPs, mail addresses, urls, malware hashes and so on) with each other.
+An actual solution is threat information sharing where companies share lists of Indicators Of Compromise (e.g. IPs, mail addresses, URLs, malware hashes and so on) with each other.
 An interesting tool is the MISP (Malware Information Sharing Platform), a platform that allows companies to share these IOCs but also malware analysis.
 Sometimes, the information is somehow confidential, but still interesting to be shared, thus we need to find a way to share these secret information without disclosing them entirely.
-The goal of this master thesis will be to analyze the state of the art and to implement different solutions working with MISP in order to compare their performances.
+The goal of this master thesis is to analyze the state of the art and to implement and analyze a solution working with MISP.
 \end{abstract}
 
 \tableofcontents
@@ -65,76 +65,75 @@ In order to facilitate comments, I've added some new commands explained by\footn
 \end{itemize}
 
 \section{Introduction}
-In the last report of the Ponemon institute, we can see that the estimated cost of annual data breaches for 384 companies in 12 countries\footnote{United States, United Kingdom, Germany, Australia, France, Brazil, Japan, Italy, India, the Arabian region (United Arab Emirates and Saudi Arabia), Canada and, South Africa} is about \$4 million. Moreover, 48\% of theses breaches are due to malicious and criminal attacks.\\
-Taking that into account, the damage cost per capita is about \$170 only for malicious and criminal attacks. \\
-Beside that, Cybersecurity Ventures predicts the global annual cybercrime costs will grow from \$3 trillion in 2015 to 6\$ trillion by 2021.\\
+In the last report of the Ponemon institute, the estimated cost of annual data breaches for 384 companies in 12 countries\footnote{United States, United Kingdom, Germany, Australia, France, Brazil, Japan, Italy, India, the Arabian region (United Arab Emirates and Saudi Arabia), Canada and, South Africa} is about \$4 million. 48\% of theses breaches are due to malicious and criminal attacks and gives a damage cost per capita around \$170 only for malicious and criminal attacks. \\
+An other example is Cybersecurity Ventures that predicts the global annual cybercrime costs will grow from \$3 trillion in 2015 to \$6 trillion by 2021.\\
 
-We thus need to improve our computer defenses and make them to learn continuously about new appearing threats. Moreover, they should be aware of new threats faster than simple malware detectors or anti-viruses. This is why a new kind of security levels appeared and is called threat sharing. As soon as an organization find a malware, they can prevent others to be compromised just by letting them know about the threat. \\
-Unfortunately, this is not enough as, theses informations, here and after called IOCs, are often considered as confidential because revealing them, can reveal damaging information for the companies.\\
-We thus need to find a way for \textbf{sharing} information without \textbf{giving} the information. And I will try to explain the meaning of this sentence in the report's body. But, for now, we can say that this master's thesis is on finding a "more secure" way of sharing information. More precisely, if we attempt to create an encrypted database of these IOCs, the idea would be to slow down as much as possible a brute force attack for someone who has complete access to the database while still making this database useful for the targeted user.\\
+Our computer defenses need to be improved and being aware of new threats faster than malware detectors or antiviruses. This results in a new kind of security level called threat sharing. As soon as an organization discovers a threat, they can prevent others to be compromised just by informing them about it. \\
+Unfortunately, this is not enough as, theses information traces, here and after called IOCs, are often considered to be confidential. Revealing them, can reveal damaging information for the companies.\\
+Thus a technique is needed for \textbf{sharing} information without \textbf{giving} it directly to the other parties. This master thesis works on finding a "more secure" way of sharing information. More precisely, if we attempt to create an encrypted database of these IOCs, the idea would be to slow down a brute force attack for someone who has complete access to the database while still making this database useful for the targeted user.\\
 
-I've decided to organize the work the same way I've discovered and implemented things but I'm firstly defining the tools an vocabulary that will be used. I'll be continuing this chapter with a state of the art that made me understood the domain and the limitation that I was going to face.\\
-Afterwards, I'll spoke about the implementation ideas I've got, by highlighting theirs strengths and weaknesses. While the third chapter will really be about my implementations, my choices on the system but not only on the way I've implement things but also the library I've chosen.\\
-The next one will be an analyze of the implementation supported with different benchmarks.\\
-Finally, I will conclude on my work with some possible improvement and future work but also by concluding on every thing I've discovered.
+The first chapter is about getting a rough idea on what this work is about by defining the used terms as well as a state of the art.\\
+Then the second chapter is on different ideas I've got, their strengths but also their weaknesses. This will softly bring the next chapter about the implementation.
+The last important chapter is about the results. An analyze of the performance mixed with discussions on the work.\\
+Finally, I will conclude on my work with some possible improvement and future works.
 
 \section{Organization}
 Before going down in the subject, I also think that it is interesting to point out some aspects of the way I've worked on this project.\\
 Firstly, last year, I was searching for a security subject but unfortunately, I wasn't really excited about the proposed ones. But in the other side, I had no idea either on what I could work. I had just the idea to specialize myself into cyber security. Thus, I've looked for ideas where there are plenty of them, directly in security companies.\\
 I've found a company called Conostix which provides security and system services in Luxembourg.\\
-They weren't short of ideas, and even if I have to admit that I didn't understand everything, it seemed really interesting. Later on, William Robinet (from conostix) contacted me again to say that they have a better idea and it was to work on MISP. I've thus met Alexandre Dulaunoy from CIRCL and they gave me the starting point of the project which was malware sharing in MISP.\\
+They weren't short of ideas, and even if I have to admit that I didn't understood everything, it seemed really interesting. Later on, William Robinet (from conostix) contacted me again to say that they have a better idea and it was to work on MISP. I've thus met Alexandre Dulaunoy from CIRCL and they gave me the starting point of the project which was malware sharing in MISP.\\
 
-As I had zero knowledge in this domain, I've chosen to make an internship of four weeks in the company (with no course credits) where I've learned the basics of MISP and I've also worked on network log parsing. But what I mostly learned was that four weeks for trying to specialize myself in a completely new domain wasn't enough but just gave me a rough idea of what it is.\\
+As I had zero knowledge in this domain, I've chosen to make an internship of four weeks in the company (no credited) where I've learned the basics of MISP and I've also worked on network log parsing. But what I mostly learned was that four weeks for trying to specialize myself in a completely new domain was only enough to give me a rough idea of what it is.\\
 During these four weeks, I mostly worked on logs. I've created nothing new, actually it was quite the opposite but it was still interesting to understand how things were working and why they could be useful. \\
 In short, during this internship, I've started to understand how squid3 was working. Then I've installed it on my computer in order to get logs to work on.\\
-Once I've my logs, I would like to get information from them, thus, I've tried to manually parse the logs (which was a mistake). For that purpose, I've started to implement a parser that was using regex to transform each log lines into a set of objects. But even if it was funny to implement, I spent a lot of time on it and each time I finished, I found it not good enough, not modular enough, losing locality and ordering information, and so on. I have thus realized that I was loosing my time as, of course they are plenty of tools for this kind of job like Logstash.\\
+Once I've my logs, I would like to get information from them, thus, I've tried to manually parse the logs (which was a mistake). For that purpose, I've started to implement a parser that was using regex to transform each log lines into a set of objects. But even if it was funny to implement, I spent a lot of time on it and each time I finished, I found it not good enough, not modular enough, losing locality and ordering informations, and so on. I have thus realized that I was loosing my time as, of course they are plenty of tools for this kind of job like Logstash.\\
 Then I've started to work with MISP to see how it was working. I've reimplemented a similar hash store like the misp-workbench project.\\
 I've then used it with my log system by parsing the data from MISP the same way I was parsing the logs before adding them to the hash database on Redis.\\
-(Redis was also a great tool I've learned about and that I think that the time I spent on it worth it.)\\
+(Redis was also a great tool I've learned about there.)\\
 I've then created a system to feed the parsed log in my system and briefly analyze the logs.\\
 Beside that, I also had the opportunity to benefit from a one day MISP training organized by CIRCL.
 I have then continued to work on my master's thesis the whole year long while keeping in touch with Conostix and CIRCL.
 
 \section{Indicator of Compromise (IOC)}
-If there is a crime, detectives can come and look for clues. And they do that because they are wondering questions like what make it happened, why did it happened and how did it happened. The what and why questions can be interesting in order to avoid this crime to happen again while the last one but not the least one, the how can be used to compare this crime with other similar ones.\\
-This idea of being able to compare them is really interesting as seeing the clues of only one place can be not enough while there could be enough of them if we succeed in gathering the whole clues of all related crime.\\
-This is exactly the same idea here, even if the attacker try to minimize its traces, there are always some. They can be email addresses, IP addresses, malware, url and so on.\\
-The idea, is then to use these traces to trigger alarms on other computer system as soon as they are seen. This means that the same attack is perhaps happening again, this is the reason why we call them Indicator Of Compromise.
+While there is a crime, detectives come and look for clues. They do that because they are wondering questions like what make it happened, why did it happened and how did it happened. The what and why questions can be interesting in order to avoid this crime to happen again while the last one but not the least one, the how can be used to compare this crime with other similar ones.\\
+This idea of being able to compare them is really interesting as seeing the clues of only one place can be not enough while there could be enough of them if we succeed in gathering the whole set of clues in all related crime.\\
+This is exactly the same idea here, even if the attacker try to minimize its traces, there are always some. It can be email addresses, Internet Protocol(IP) addresses, malware, URL and so on.\\
+The idea, is then to use these traces to trigger alarms on other computer system as soon as they are seen. This is the reason why we call them Indicator Of Compromise and we can quickly understand why theses intrusion clues are so important as attackers use the same techniques to compromise similar companies.
 
 
 \section{MISP and Threat Sharing}
-I've introduce the idea of malware sharing to defend our computer systems against digital threats and attacks. But MISP is not the only platform to do so, the more current onces are DShield, Critical Stack’s Intel, Microsoft’s Interflow, AlienVault’s Open Threat Exchange, ...\\
+I've introduced the idea of malware sharing to defend our computer systems against digital threats and attacks. But MISP is not the only platform to do so, current ones are DShield, Critical Stack’s Intel, Microsoft’s Interflow, AlienVault’s Open Threat Exchange, ThreatExchange (Facebook), ...\\
 But here I focused on the MISP project which is, as said on their website, an open source software solution for collecting, storing, distributing and sharing cyber security indicators and threat about cyber security incidents analysis and malware analysis. MISP is designed by and for incident analysts, security and IT professionals or malware reverser to support their day-to-day operations to share structured informations efficiently.\\
 MISP also rely on an hub and spoke sharing model (TAXII \cite{taxiiWebsite}). There is a central point called the hub which is the server where all data are kept and the spokes are the organizations that interact with the hub.\\
-A recent paper on MISP \cite{wagner2016misp} had been published this year and could be interesting if your are searching to have a better understanding of the underlying system. Additionally, there is also a recent ietf draft on MISP core format\cite{MispDraft}.\\
-I want also to point out that MISP is spreading, and I've the feeling that communities will continue to grow. I've discussed in Belgium with companies like banks, insurances, consultancy companies that are using it which is, at least to my point of view, a good sign on the utilization of the system.
+A recent paper on MISP \cite{wagner2016misp} had been published this year and could be interesting to get a better understanding of the underlying system. Additionally, there is also a recent ietf draft on MISP core format\cite{MispDraft}.\\
+I want also to point out that MISP is spreading, and I've the feeling that communities will continue to grow. I've discussed in Belgium with companies like banks, insurances, consultancy companies that are using it. I've even met people knowing it when I was in Asia for the black hat conference (2017). All this is, at least to my point of view, a good sign on the utilization of the system.
 
 \subsection{History}
 Christophe Vandeplas started the project as he was tired of the way IOCs were shared (email, pdf, ... ). Thus, he created a cakePHP website as a proof of concept and managed to convince the Belgian Defense (where he was working) that the project was worth to work on. They even allowed him to work on it during his work-hours. The project continued to move forward and now, Andras Iklody is the lead developer of the MISP project and works for CIRCL.\\
 
 \subsection{Basics of Misp}
-The basic idea of misp was thus to create an IOC database, for example, if we have two IOCs for the same attack, let's say "IOC@malware.mail" and "192.168.16.2". We are interested to  keep the information that there has been an attack that can be recognized thanks to these two IOCs. That is why they have created events (which is much more general than the term attack that I've been using) and they use these IOCs as the attributes of this specific event. \\
+The basic idea of misp was thus to create an IOC database. If there is an attack and we have two IOCs, "IOC@malware.mail" and "192.168.16.2". We are interested to  keep the information that there has been an attack that can be recognized thanks to these two IOCs. That is why they have created events (which is much more general than the term attack that I've been using) and they use these IOCs as the attributes of this specific event. \\
 Then thanks to this idea, we can analyze the event and even make correlations with other events if they possess similar IOCs.
 
-For clarity concerns, attributes are divided into 13 categories where they are again dived into types. As MISP is no more only targeting malwares, it is interesting to notice that we can also see categories like Financial Fraud. More standard ones are Network Activities, Antivirus detection, Artifacts dropped, and so on.\\
+For clarity concerns, attributes are divided into 13 categories where they are again divided into types. As MISP is no more only targeting malwares, it is interesting to notice that we can also see categories like Financial Fraud. More standard ones are Network Activities, Antivirus detection, Artifacts dropped, and so on.\\
 All the category and types can be found on this web pages \url{https://www.circl.lu/doc/misp/categories-and-types/index.html}
 
 One other really interesting feature is sightings. When an IOC is referenced, we know that it has been seen by someone, but it does not confirm that the IOC is really related to that particular event and is not an error. Moreover, what says that if an IP address is an IOC today that it is going to be the case in 3 months ? \\
 Sightings is thus the solution to this problem as we can monitor an IOC, knowing if it has been seen at other places, and if they are still relevant.
 
 
-There are also two important things on the sharing strategy that I want to point out that are the MISP instances and communities. The first one is easy to understand, MISP is an open source project which means that everybody can decide to run a completely isolated MISP instance for its own needs like a company for storing its own confidential data. Besides that, that does not mean that the instance must be isolated, they have implemented a way to share information between these instances. While the second one is a good property of an instance. When we are connected to MISP as a user, we are connected thanks to the organization that we belongs. Then, the organization can choose to share or not to share their events/attributes with other communities or even with other instances. \\ 
+There are also two important things on the sharing strategy that I want to point out: MISP instances and communities. The first one is easy to understand, MISP is an open source project which means that everybody can decide to run a completely isolated MISP instance for its own needs like a company for storing its own confidential data. But that does not mean that the instance \textbf{must be} isolated, they have implemented a way to share information between these instances. While the second one is a good property of an instance. When we are connected to MISP as a user, we are connected thanks to the organization that we belongs to. Then, the organization can choose to share or not to share their events/attributes with other communities or even with other instances. \\ 
 
 Now, as a good open source project, a whole ecosystem has been created around and more and more companies are using it.\\
-MISP become a really good IOC database with automated correlation system. We can even create correlation graphs to see how different events are connected together what helps a lot for the threat analyses.\\
-Beside all that, a lot of different tools like a python client library are available on their repository : \url{https://github.com/MISP/}.\\
-They have also improved added a lot of value to the web api like the ability of exporting the attributes in a lot of different format and some that can directly be used in IDS.\\
+MISP becomes a really good IOC database with automated correlation system. We can even create correlation graphs to see how different events are connected together what helps a lot for the threat analyses.\\
+Beside all that, a lot of different tools like a python client library are available on their repository: \url{https://github.com/MISP/}.\\
+They have also added a lot of plugins to the web api like the ability of exporting the attributes in a lot of different formats, standards one and some for specific IDS.\\
 
 \subsection{My Settings}
 
-There is thus a lot of things to understand in order to work with misp. That's why they are giving trainings and that they make available a misp training virtual machine in order to train ourselves and test new developments.\\
-At the beginning, I've started to work directly with the private instance of MISP hosted by CIRCL but, every time that I was working, I needed to have a really good web connection to connect myself and to download all the data. That's why, I have finished by downloading the virtual machine. But, as I was going to work on my computer and I didn't want to be stuck to work inside the virtual machine, I've done some modifications.\\
-The mysql database wasn't accessible from the outside of the virtual machine (which is completely understandable as they don't want anyone to have a direct access to the complete unprotected database) and I've also got some network problems.\\
+MISP is really easy to use, but if we want to go deeper in it, there are a lot of things to understand. That's why they are giving trainings and make available a MISP training virtual machine in order to train ourselves and test new developments.\\
+At the beginning, I've started to work directly with the private instance of MISP hosted by CIRCL but, every time that I was working, I needed to have a really good web connection to connect myself and to download all the data. That's why, I have finished by downloading the virtual machine. But, as I was going to work on my computer and I didn't want to be stuck programming inside the virtual machine, I've done some modifications to make available everything to my local network.\\
+The mysql database wasn't accessible from the outside of the virtual machine (which is completely understandable as they don't want anyone to have a direct access to the complete database) and I've also got some network problems.\\
 The first step was that my virtual machine running on virtualbox was using the virtual vboxnet0 interface and was using, as its IPv4 address, 192.168.56.50. The problem was that, normally it works without problems but my computer does not know about the subnetwork. I thus had to add an ip in the right range by using the command :
 \textbf{ip add add 192.169.56.2/24 dev vboxnet0} .\\
 I'm also sometimes using a second virtual machine to work with and on this virtual machine, I've configured two network interfaces, the first one was to have an internet connection while the second one was the vboxnet0 interface.\\
@@ -146,7 +145,7 @@ address 192.168.56.1
 netmask 255.255.255.0
 \end{verbatim}
  
-After that, I was able to contact the virtual machine via the network but it wasn't enough to have a mysql access. For that, as the misp virtal machine was only accessible from the vboxnet0 interface, it was a problem to create external access for all ip addresses with only a small password protection.\\
+After that, I was able to contact the virtual machine via the network but it wasn't enough to have a mysql access. For that, as the misp virtual machine was only accessible from the vboxnet0 interface, it was a problem to create external access for all ip addresses with only a small password protection.\\
 The first step for that was to modify the configuration file (/etc/mysql/my.conf) where I've juste commented the "bind-address 127.0.0.1" line.
 The next step was to create a user with the rights from the outside. For that, I've connected myself to the database as the misp user and I've added the user:
 \begin{itemize}
@@ -156,7 +155,6 @@ The next step was to create a user with the rights from the outside. For that, I
 \end{itemize}
 
 Once done, I could continue to program more easily and create some tests as I could control the whole available set of data. For testing when the code was modified, I had used a really small set of data. \\
-But speaking about testing, I didn't do any automated test as the system requests some connections, It was not easy to generate them. \improvement{Do automated test !}
 
 \subsection{Illustrations}
 There is nothing better to explain all that than real screen shot of the web application. But, it raised one really important question: what can and cannot be shared from MISP and with who?\\
@@ -584,7 +582,7 @@ Trust is one of the major problem in information sharing and is discussed in all
 This little additional feature may seem to be a detailed, I'm intimately convinced that it could help organization to decide sharing more confidential data as they could turn themselves 
 again the leakage source in case of problems which could limit the cost damage as well as the reputation damage. Moreover, in MISP there is also an identifier that could be used and moreover that need to be kept private which is called a Token.\\
 
-In their implementation, they are using both HMAC and Pbkdf2 for the key derivation function. I had the opportunity to exchange mails with the authors of the paper that prefers the HMAC algorithm as it is designed to give a pseudo random key in just a single iteration and that it has been deeply analyzed \cite{cryptoeprint}. While pbkdf2 is generating random keys that becomes more secure as we the number of iterations increase. Moreover, the behavior has not been described (to the best of our knowledge) in academic paper even if the is a NIST recommendation on its usage.\\
+In their implementation, they are using both HMAC and PBKDF2 for the key derivation function. I had the opportunity to exchange mails with the authors of the paper that prefers the HMAC algorithm as it is designed to give a pseudo random key in just a single iteration and that it has been deeply analyzed \cite{cryptoeprint}. While PBKDF2 is generating random keys that becomes more secure as we the number of iterations increase. Moreover, the behavior has not been described (to the best of our knowledge) in academic paper even if the is a NIST recommendation on its usage.\\
 They also used an AES encryption scheme.\\
 
 Their proof of concept code is available on their repository, \url{https://github.com/CRIPTIM/private-IOC-sharing}. 
@@ -624,12 +622,41 @@ These problems were easy to solve. Create a complete csv file for all rules. But
 This is a really small modification but makes files more readable and avoid existing coma in the data to make the parsing not working.
 
 \subsection{On URL normalization}
-\info{je pense que l'article s'appelle comme ça !!! }
+The goal of the system is to look for matches in MISP data. But off course, if an event has for Uniform Resource Locator (URL) www.ioc.com I would like http://www.ioc.com, http://www.ioc.com/, http://www.ioc.com:80/, ... To match as well.\\
+Then I had to choose, doing my own implementation or using one already implemented?\\
+For that, I first needed to dig a little into URL normalization like the standards and techniques already used in practice. I've realized that normalization is difficult as, in the standards, they want URL to always work after, and really be the same. For example http://www.ioc.com is not https://www.ioc.com while in matching, I absolutely don't care and I would like to both trigger an alert.\\
+Beside that there are standards on URL normalization [RFC 3986] that contains either normalizations that preserve or usually preserve the semantic of the URL but not the one that does not preserve it.\\
+Standards are thus focus on keeping the number of false positive near to 0 but it has for impact to miss a lot of real positive and we cannot afford that.\\
+I've thus found this paper \cite{lee2005url} which was focus on url normalization and that goes beyond standards normalization steps like case sensitivity in the path, the last slash symbol at the end of the path and the designation of the default page (index.html, ...).\\
+Beside that, a great summary of all these standardizations steps is available on wikipedia \cite{wikiNormalizationURL}.\\
+In the implementation, I've used the python library url\_normalize:
+\begin{itemize}
+\item[•] Take care of IDN domains.
+\item[•] Always provide the URI scheme in lowercase characters.
+\item[•] Always provide the host, if any, in lowercase characters.
+\item[•] Only perform percent-encoding where it is essential.
+\item[•] Always use uppercase A-through-F characters when percent-encoding.
+\item[•] Prevent dot-segments appearing in non-relative URI paths.
+\item[•] For schemes that define a default authority, use an empty authority if the default is desired.
+\item[•] For schemes that define an empty path to be equivalent to a path of "/", use "/".
+\item[•] For schemes that define a port, use an empty port if the default is desired
+\item[•] All portions of the URI must be utf-8 encoded NFC from Unicode strings
+\end{itemize}
 
-\subsection{Only Pbkdf2}
-While I was adding stuffs, it becomes more and more difficult to allow all these possible choices, I've thus started by limiting the key derivation function (KDF) choice to Pbkdf2 which is not the author advised one but ...
-\info{Discussion on it}
-\info{Pourquoi il avait fait sa propre implementation}
+I thus have to add some additions like:
+\begin{itemize}
+\item Removing directory index : {default.asp, index.html, index.php, index.shtml, index.jsp, default.asp}
+\item Remove the fragment (\#...) which is never seen by the server.
+\item Replacing IP with domain name 
+\item Removing the protocol {http://, https://}
+\item Removing duplicate slashes
+\item Removing  “www” as the first domain label
+\item Removing the "?" when the query is empty
+\end{itemize}
+
+\subsection{Only PBKDF2}
+While I was adding stuffs, it becomes more and more difficult to allow all these possible choices, I've thus started by limiting the key derivation function (KDF) choice to PBKDF2 which is not the author advised one but allow to parametrize the difficulty for an attacker to brute force some small data.\\
+But in the opposite we cannot have a small number iteration if we want the key to look random.
 
 \subsection{Pycrypto towards cryptography library}`
 While discussing with Tim van de Kamp by mail, he said that if he would have to start over, he would choose the cryptography library \footnote{https://cryptography.io/en/latest/} instead of pycrypto has it seems to be more professional.\\
@@ -655,47 +682,39 @@ Last Commit                                                       & about 3 year
 
 
 \subsection{Structure Refactoring}
+The code was becoming less and less clear to understand and as I wanted it to be modular for the cryptographic system used. I've decided to completely re factor the code.\\
+The used structure is as following:
+\begin{itemize}
+\item src: Source code.
+\item conf: Configuration files.
+\item res: All downloaded useful resources like the csv downloaded from misp.
+\item rules: Rules generated.
+\end{itemize}
+
+Inside src, there is also a crypto subdirectory in which are located all cryptographic function in different possible schemes implemented.
 
 \subsection{Top Configuration File}
-instead of all different little file + orig explanation
+Instead of having a lot of configuration files as when I started, I've gathered them back in one general function where we only have to fill what will be used (Specified in function).\\
+The configuration file is divided in categories and is read thanks to the configparser python library.
 
+\section{Chosen Cryptographic System}
+The idea of the generalization was to add module for handling the way data are stored / encrypted, we can use completely different cryptographic systems later called schemes. In this section, I will discuss my implementing choice for each schemes implemented.
 
-
-
-
-\subsection{Create a rule}
-\begin{itemize}
-\item Create a salt and an iv
-\item password = all IOC's value joined by a comma
-\item create the key with from the salt and the password
-\item encrypt the message (CAO) in (aes, ctr) but add a starting padding startPad (used to see if the decryption match )
-\item create the rule with ConfigParser 
-\item return the rule or write it into a file
-\end{itemize}
-
-\subsection{match a rule}
-\begin{itemize}
-\item parse the rule or all rules in a file
-\item for each one test to encrypt the attribute with the salt + value and see if the decryption is correct (startPad)
-\end{itemize}
-
-\info("hmset" pour redis)
-use the token as the client id !
-Create 2 backends:\\
--> from  database ==> create rule files and redis dump \\
--> from web api + token ==> create rule files and directly into redis \\
-\info{I don't know wich intermediate format to use, redis dump if easy, or the rule files like them}
-
-
-
-\section{Chosen Crytographic System}
-The idea of the generalization was quite simple to understand, if we can simply add module to handle the way data are stored / encrypted, we can use completely different crypto systems. In this section, I will discuss my implementing choice as, technologies have already be explained in previous sections.\improvement{Not done yet}
-
-\subsection{Key Derivation functions}
-In this section, I will explain why I have chosen to implement pbkdf2 and mostly why I haven't implemented the hashmac function.\\
-I will also argue on the biggest modification, cryptography instead of pycrypto.
+\subsection{PBKDF2}
+This is the basic system for which all the structure had been optimized and had been thought for. In this section, I will thus briefly introduce these two sequence diagrams to help the understanding the system:
+\begin{figure}[h!]
+\begin{center}
+   \begin{minipage}[c]{.46\linewidth}
+      \includegraphics[scale=0.25]{res/seqDiagramRead}
+   \end{minipage} \hfill
+   \begin{minipage}[c]{.46\linewidth}
+      \includegraphics[scale=0.25]{res/seqDiagramMatch}
+   \end{minipage}
+\end{center}
+\end{figure}
 
 \subsection{Bcrypt}
+The implementation with Bcrypt is similar as my implementation with PBKDF2. It is a password hash function based on the Blowfish cipher. It also incorporate hash to be protected against rainbow table attacks (TMTO) 
 
 \subsection{Bloom filter}
 In this section, I will argue the choice for python-bloom library. This choice was actually a way more complicated than it could be as, I think it is not the fastest implementation.\\
