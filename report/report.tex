@@ -49,7 +49,7 @@ Malicious software (malware) are plaguing this computer age. But how to avoid th
 An actual solution is threat information sharing where companies share lists of Indicators Of Compromise (e.g. IPs, mail addresses, URLs, malware hashes and so on) with each other.
 An interesting tool is the MISP (Malware Information Sharing Platform), a platform that allows companies to share these IOCs but also malware analysis.
 Sometimes, the information is somehow confidential, but still interesting to be shared, thus we need to find a way to share these secret information without disclosing them entirely.
-The goal of this master thesis is to analyze the state of the art and to implement different solutions working with MISP in order to compare their performances.
+The goal of this master thesis is to analyze the state of the art and to implement and analyze a solution working with MISP.
 \end{abstract}
 
 \tableofcontents
@@ -65,32 +65,31 @@ In order to facilitate comments, I've added some new commands explained by\footn
 \end{itemize}
 
 \section{Introduction}
-In the last report of the Ponemon institute, we can see that the estimated cost of annual data breaches for 384 companies in 12 countries\footnote{United States, United Kingdom, Germany, Australia, France, Brazil, Japan, Italy, India, the Arabian region (United Arab Emirates and Saudi Arabia), Canada and, South Africa} is about \$4 million. Moreover, 48\% of theses breaches are due to malicious and criminal attacks.\\
-Taking that into account, the damage cost per capita is about \$170 only for malicious and criminal attacks. \\
-Beside that, Cybersecurity Ventures predicts the global annual cybercrime costs will grow from \$3 trillion in 2015 to 6\$ trillion by 2021.\\
+In the last report of the Ponemon institute, the estimated cost of annual data breaches for 384 companies in 12 countries\footnote{United States, United Kingdom, Germany, Australia, France, Brazil, Japan, Italy, India, the Arabian region (United Arab Emirates and Saudi Arabia), Canada and, South Africa} is about \$4 million. 48\% of theses breaches are due to malicious and criminal attacks and gives a damage cost per capita around \$170 only for malicious and criminal attacks. \\
+An other example is Cybersecurity Ventures that predicts the global annual cybercrime costs will grow from \$3 trillion in 2015 to \$6 trillion by 2021.\\
 
-We thus need to improve our computer defenses and make them to learn continuously about new appearing threats. Moreover, they should be aware of new threats faster than simple malware detectors or anti-viruses. This is why a new kind of security levels appeared and is called threat sharing. As soon as an organization find a malware, they can prevent others to be compromised just by letting them know about the threat. \\
-Unfortunately, this is not enough as, theses informations, here and after called IOCs, are often considered as confidential because revealing them, can reveal damaging information for the companies.\\
-We thus need to find a way for \textbf{sharing} information without \textbf{giving} the information. And I will try to explain the meaning of this sentence in the report's body. But, for now, we can say that this master's thesis is on finding a "more secure" way of sharing information. More precisely, if we attempt to create an encrypted database of these IOCs, the idea would be to slow down as much as possible a brute force attack for someone who has complete access to the database while still making this database useful for the targeted user.\\
+Our computer defenses need to be improved and being aware of new threats faster than malware detectors or antiviruses. This results in a new kind of security level called threat sharing. As soon as an organization discovers a threat, they can prevent others to be compromised just by informing them about it. \\
+Unfortunately, this is not enough as, theses information traces, here and after called IOCs, are often considered to be confidential. Revealing them, can reveal damaging information for the companies.\\
+Thus a technique is needed for \textbf{sharing} information without \textbf{giving} it directly to the other parties. This master thesis works on finding a "more secure" way of sharing information. More precisely, if we attempt to create an encrypted database of these IOCs, the idea would be to slow down a brute force attack for someone who has complete access to the database while still making this database useful for the targeted user.\\
 
-I've decided to organize the work the same way I've discovered and implemented things but I'm firstly defining the tools an vocabulary that will be used. I'll be continuing this chapter with a state of the art that made me understood the domain and the limitation that I was going to face.\\
-Afterwards, I'll spoke about the implementation ideas I've got, by highlighting theirs strengths and weaknesses. While the third chapter will really be about my implementations, my choices on the system but not only on the way I've implement things but also the library I've chosen.\\
-The next one will be an analyze of the implementation supported with different benchmarks.\\
-Finally, I will conclude on my work with some possible improvement and future work but also by concluding on every thing I've discovered.
+The first chapter is about getting a rough idea on what this work is about by defining the used terms as well as a state of the art.\\
+Then the second chapter is on different ideas I've got, their strengths but also their weaknesses. This will softly bring the next chapter about the implementation.
+The last important chapter is about the results. An analyze of the performance mixed with discussions on the work.\\
+Finally, I will conclude on my work with some possible improvement and future works.
 
 \section{Organization}
 Before going down in the subject, I also think that it is interesting to point out some aspects of the way I've worked on this project.\\
 Firstly, last year, I was searching for a security subject but unfortunately, I wasn't really excited about the proposed ones. But in the other side, I had no idea either on what I could work. I had just the idea to specialize myself into cyber security. Thus, I've looked for ideas where there are plenty of them, directly in security companies.\\
 I've found a company called Conostix which provides security and system services in Luxembourg.\\
-They weren't short of ideas, and even if I have to admit that I didn't understand everything, it seemed really interesting. Later on, William Robinet (from conostix) contacted me again to say that they have a better idea and it was to work on MISP. I've thus met Alexandre Dulaunoy from CIRCL and they gave me the starting point of the project which was malware sharing in MISP.\\
+They weren't short of ideas, and even if I have to admit that I didn't understood everything, it seemed really interesting. Later on, William Robinet (from conostix) contacted me again to say that they have a better idea and it was to work on MISP. I've thus met Alexandre Dulaunoy from CIRCL and they gave me the starting point of the project which was malware sharing in MISP.\\
 
-As I had zero knowledge in this domain, I've chosen to make an internship of four weeks in the company (with no course credits) where I've learned the basics of MISP and I've also worked on network log parsing. But what I mostly learned was that four weeks for trying to specialize myself in a completely new domain wasn't enough but just gave me a rough idea of what it is.\\
+As I had zero knowledge in this domain, I've chosen to make an internship of four weeks in the company (no credited) where I've learned the basics of MISP and I've also worked on network log parsing. But what I mostly learned was that four weeks for trying to specialize myself in a completely new domain was only enough to give me a rough idea of what it is.\\
 During these four weeks, I mostly worked on logs. I've created nothing new, actually it was quite the opposite but it was still interesting to understand how things were working and why they could be useful. \\
 In short, during this internship, I've started to understand how squid3 was working. Then I've installed it on my computer in order to get logs to work on.\\
-Once I've my logs, I would like to get information from them, thus, I've tried to manually parse the logs (which was a mistake). For that purpose, I've started to implement a parser that was using regex to transform each log lines into a set of objects. But even if it was funny to implement, I spent a lot of time on it and each time I finished, I found it not good enough, not modular enough, losing locality and ordering information, and so on. I have thus realized that I was loosing my time as, of course they are plenty of tools for this kind of job like Logstash.\\
+Once I've my logs, I would like to get information from them, thus, I've tried to manually parse the logs (which was a mistake). For that purpose, I've started to implement a parser that was using regex to transform each log lines into a set of objects. But even if it was funny to implement, I spent a lot of time on it and each time I finished, I found it not good enough, not modular enough, losing locality and ordering informations, and so on. I have thus realized that I was loosing my time as, of course they are plenty of tools for this kind of job like Logstash.\\
 Then I've started to work with MISP to see how it was working. I've reimplemented a similar hash store like the misp-workbench project.\\
 I've then used it with my log system by parsing the data from MISP the same way I was parsing the logs before adding them to the hash database on Redis.\\
-(Redis was also a great tool I've learned about and that I think that the time I spent on it worth it.)\\
+(Redis was also a great tool I've learned about there.)\\
 I've then created a system to feed the parsed log in my system and briefly analyze the logs.\\
 Beside that, I also had the opportunity to benefit from a one day MISP training organized by CIRCL.
 I have then continued to work on my master's thesis the whole year long while keeping in touch with Conostix and CIRCL.

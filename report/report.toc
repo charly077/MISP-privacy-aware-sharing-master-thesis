@@ -3,10 +3,10 @@
 \contentsline {section}{\numberline {1.1}Interaction with this Latex Document (To be removed)}{3}{section.1.1}
 \contentsline {section}{\numberline {1.2}Introduction}{3}{section.1.2}
 \contentsline {section}{\numberline {1.3}Organization}{4}{section.1.3}
-\contentsline {section}{\numberline {1.4}Indicator of Compromise (IOC)}{5}{section.1.4}
+\contentsline {section}{\numberline {1.4}Indicator of Compromise (IOC)}{4}{section.1.4}
 \contentsline {section}{\numberline {1.5}MISP and Threat Sharing}{5}{section.1.5}
 \contentsline {subsection}{\numberline {1.5.1}History}{5}{subsection.1.5.1}
-\contentsline {subsection}{\numberline {1.5.2}Basics of Misp}{6}{subsection.1.5.2}
+\contentsline {subsection}{\numberline {1.5.2}Basics of Misp}{5}{subsection.1.5.2}
 \contentsline {subsection}{\numberline {1.5.3}My Settings}{6}{subsection.1.5.3}
 \contentsline {subsection}{\numberline {1.5.4}Illustrations}{7}{subsection.1.5.4}
 \contentsline {chapter}{\numberline {2}Information Sharing State of the Art}{10}{chapter.2}
