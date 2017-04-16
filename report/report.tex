@@ -323,11 +323,12 @@ For that, we can categorize the standards into four categories (lists of other e
 \begin{enumerate}
 \item Enumerations
 \item Scoring Systems
-\item Languages (CybOX, STIX)
+\item Languages (CybOX, STIX, MISP-core format)
 \item Transport (TAXII)
 \end{enumerate}
 
-I will only focus on the three that I've cited before as we can see in \cite{fransen2015cyber, sauerwein2017threat} that the most promising standards for a threat sharing intelligence sharing infrastructure are CybOX, STIX and TAXII. They have been developed under coordination of the MITRE Corporation and have very strong momentum in adoption by industry leaders and threat intelligence communities such as the Financial Services - Information Sharing and Analysis Center (FS-ISAC).\\
+I will only focus on the four that I've cited before as we can see in \cite{fransen2015cyber, sauerwein2017threat} that the most promising standards for a threat sharing intelligence sharing infrastructure are CybOX, STIX and TAXII. They have been developed under coordination of the MITRE Corporation and have very strong momentum in adoption by industry leaders and threat intelligence communities such as the Financial Services - Information Sharing and Analysis Center (FS-ISAC).\\
+On the other hand, MISP core format is defined in a draft written by A. Dulaunoy and A. Iklody in \cite{MispDraft} and is an alternative to STIX that supports more attribute types.\\
 The  Structured Threat Information eXpression (STIX) \cite{barnum2012standardizing} provides a language to represent cyber threat information in a structured manner and is really interesting as it provides a structure to express a wide set of contextual information regarding threats in addition of the IOCs. The complete list is :
 
 \begin{itemize}
@@ -345,12 +346,12 @@ chains, tools, infrastructure, victim targeting, etc.)
  Moreover it tries to stay as "human-readable as possible". And the chapter 9 of \cite{barnum2012standardizing} may be really interesting to spend time on it. It explain in detail the structure of STIX.\\
  For expressing the observable, STIX is using Cyber Observable eXpression (CybOX)\cite{barnum2012cybox} that allows to state the specification of events or stateful properties.
 Then, we need a transport standard which is the Trusted Automated eXchange of Indicator of Information (TAXII) \cite{connolly2014trusted} .
-
+\improvement{Taxii explanation = ?}
 
 \section{Sum up}
 When I started the master thesis, my knowledge about threat information sharing was clearly none. I had to look up for articles and information where I was able to find some. I've finally chosen some articles and some points that I found interesting to share in order to understand the different step I followed and the different ideas on which I thought about.\\
 Also, I've spoken about MISP as it is the platform I'm interesting on. There is an available really good awesome list \cite{AwesomeTreat} available where all different existing standards, tools and techniques available in this domain.\\
-But in order to come back to MISP. The main advantages compared to the proprietary solutions (like Soltra Edge) is that :
+But in order to come back to MISP. The main advantages compared to the proprietary solutions are that :
 \begin{itemize}
 \item[$\bullet$] Transparency in term of code and of the contributor.
 \item[$\bullet$] Quantity and diversity of connected entities
@@ -358,13 +359,13 @@ But in order to come back to MISP. The main advantages compared to the proprieta
 \end{itemize}
 On the other hands, there exist also other kind of sharing types like DShield but they are sharing the whole bench of indicators and deals with a lot of data while MISP is more interested in events and in the analyses of what is going on.\\
 
-The difference between privacy and confidentiality had been well explained but I want to add that here, when I speak about anonymity in sharing, I mean that what would be interesting would be to have a way of sharing what is going on without the need of sharing who had seen the indicators.//
+The difference between privacy and confidentiality had been well explained but I want to add that here, when I speak about anonymity in sharing, I mean that what would be interesting would be to have a way of sharing what is going on without the need of sharing who had seen the indicators.\\
 Then, I could find a lot of techniques in order to generate blacklists, detect event correlations and protect companies with it.\\
 In the state of the art, I've also spoken about attack scenarios and cardinality of intersection to evaluate the benefit of sharing before doing it. These kind of techniques are not yet implemented in MISP but could appear one day.\\
 
 As discussed with the risk, there are a lot of privacy concerns about sharing data. And thus, a lot of separate techniques. But there is an additional important problem that we need to take care of. For example, one of the solution for preserving privacy was simply hash the data. For big sized data, It's not feasible to brute force in order to get back the information but, for IP addresses, since in general, there are only 256 or 65536 IP addresses for a specific company, we could create a table with all possible hashes and test them all!\\
 
-Then, it was really useful to see these existing techniques but it unfortunately does not mean that it could solve all of our problems. They had other purpose when designing their solutions and it can lead to some disadvantage in what we are attempting to do.\\
+Then, it was really useful to see these existing techniques but it unfortunately does not mean that it could solve all of our problems. They had other purposes when designing their solutions and it can lead to some disadvantage in what we are attempting to do.\\
 For example, Bloom Filters are a really good idea but they are not enough by their own has they do not give data at the end but just a probability of a specific IOC to belong to a specific set.\\
 On the other hand, sanitization is not good for us either as we would lose all the interesting data with the explained techniques. Noise is thus not a valid choice either.
 
@@ -372,7 +373,7 @@ On the other hand, sanitization is not good for us either as we would lose all t
 \section{Where did it lead me ?}
 
 We have a data set of malicious data, IOCs, events and we want to share them. This is what is already done by the MISP project. But now, what if we want to distribute these information by giving the data set to an organization without having to trust her?\\
-It would be really nice, computer specialists would be able to check on computers to discover infections, problems and moreover learn how to fix it thanks to the previous analyses contained in MISP. But there is still a problem, some information are confidential and we need to have some privacy concerns while sharing. \\
+It would be really nice, computer specialists would be able to check on computers to discover infections, problems and moreover learn how to fix it thanks to the previous analyses contained in MISP. The problem is that some information are confidential and we need to have some privacy concerns while sharing. \\
 Actually, if a company discover information on its system, why should they share it ? They already have been compromised and sharing could give useful information to an attacker, as the company topology ... \\
 But if they do not share, why other should accept to share with them ? That is why, actually all sharing groups rely on trust. Here, the trust must be replaced by something else.\\
 Sanitization is a good idea but, it would modify data up to make them unusable for every one.\\
@@ -395,7 +396,7 @@ On the other hand, coming back on the small data problem, if we consider an atta
 
 \section{Limitation}
 
-What we want ? A way to share information only with people that has already some information or that are facing the related event. It would be amazing to do so but it would mean to make available a dataset where we could allow them to query.\\
+What we want ? A way to share information only with people that have already some information or that are facing the related event. It would be amazing to do so but it would mean to make available a dataset where we could allow them to query.\\
 The hashstore was a great idea as we need to now what we are looking for to request but, for a small data that could have only 10000 possibilities. What if the opposite player try ever 10000 possibilities to get what we know? \\
 We could make a limitation on the allowed number of request but, a system that would like to check everything that it sees on its network should still be allowed. Could we differentiate both ? \\
 So if we want to make the task more complicated for the attacker, we need to make it more complicated as well for the authorized used. This is quite difficult because if we make it infeasible for the attacker, we are also making it infeasible for the user as, with the example, there is only a 10000 factor between legal utilization and an attack.\\
