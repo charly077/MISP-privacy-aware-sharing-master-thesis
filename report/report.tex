@@ -160,12 +160,12 @@ Once done, I could continue to program more easily and create some tests as I co
 There is nothing better to explain all that than real screen shot of the web application. But, it raised one really important question: what can and cannot be shared from MISP and with who?\\
 For example, Am I allowed to show screen shot of data from MISP without any risk ?\\
 To respond to that question, I need to introduce the Traffic Light Protocol (TLP) that was created in order to facilitate information sharing by defining the authorized level of disclosure. And thus, it can be used to know what can be shared with a specific audience.\\
-This protocol is defined by FIRST in \cite{FirstTLP} but also in this NIST cyber threat information sharing guide \cite{johnson2016guide}.\\
+This protocol is defined by FIRST in \cite{FirstTLP} but also explained in this NIST cyber threat information sharing guide \cite{johnson2016guide}.\\
 
 Knowing that, I know that I can share the data from the virtual machine that I have explained in the previous section as the default OSINT feed is TLP:WHITE. Which means, according to FIRST, that the disclosure is not limited: \\
 Sources may use TLP:WHITE when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release. Subject to standard copyright rules, TLP:WHITE information may be distributed without restriction.\\
 
-The first pages (after the connection) of the web application is a list of all latest events on figure \ref{webevents} (notice the tlp:while appearing in the Tags):
+The first pages (after the connection) of the web application is a list of all latest events on figure \ref{webevents} (notice the "tlp:while" appearing in the Tags):
 
 \begin{figure}[!h]
 	\begin{center}
@@ -210,13 +210,13 @@ And the last thing that I want to show is one of the way of showing the correlat
 
 \chapter{Information Sharing State of the Art}
 
-This chapter is aimed to give an overview of information sharing mostly by explaining previous works in mainly two specific domains, the first one will be about information sharing itself as well as techniques used for privacy concerns.\\
-I will also take advantage of this chapter to explain the followed standards before sum up on all that this state of the art brings.
+This chapter is aimed to give an overview of existing works in mainly two specific domains, the first one will be about information sharing itself as well as techniques used for privacy concerns.\\
+I will also take advantage of this chapter to explain standards before concluding on this state of the art.
 
 \section{Information Sharing}
 As usual, a good starting point is the already made state of the art on the subject, one really interesting is done by Gregory White and Keith Harison in \cite{white2017state} where they explain the evolution of the information sharing by comparing it with the evolutions of the USA laws and their impacts.\\
-Even if the analysis is about the USA, it is interesting to have an understanding of where it comes from like that the first try of sharing standardization was done just after the worm released by Robert Morris in 1988.\\
-We can understand that it seems logic as we usually implement new things only when we know that it could help and here, it was the first time that they realized information sharing could have been a better and faster way to protect critical infrastructures. They also explain, in correlation with the two principal laws called the Presidential Decision Directive-63 in 1998 and the Executive Order 13636 in February 2013; how organization like Information Sharing and Analysis Organizations (ISAOs) where created with their four foundational objectives. I've sum up them as they are still really relevant:
+Even if the analysis is about the USA, it is interesting to have an understanding of how it starts. For example, the first try of sharing standardization was done just after the worm released by Robert Morris in 1988.\\
+With a step back, they rapidly realized that information sharing could have been a better and faster way to protect critical infrastructures. They also explain, in correlation with the two principal laws called the Presidential Decision Directive-63 in 1998 and the Executive Order 13636 in February 2013; how organization like Information Sharing and Analysis Organizations (ISAOs) where created with their four foundational objectives. I've sum up them:
 \begin{itemize}
 \item[$\bullet$] Each organization should be able to participate.
 \item[$\bullet$] Development should be kept public.
@@ -224,22 +224,22 @@ We can understand that it seems logic as we usually implement new things only wh
 \item[$\bullet$] Take into account the need for confidentiality and privacy.
 \end{itemize}
 They also introduce the first sharing program developed by the Department of Homeland Security (DHS) which is the Cyber Information Sharing and Collaboration Program (CISCP).\\
-With that, they introduce some standards like TAXII, STIX and CybOX on which I will spend more time later in their respective sections. After that, they also explain the main challenges that are facing the ISAOs. For example, the major one is a privacy and confidentially concern, any information that an organization agrees to share with others, no matter who those others are need to be kept private and confidential and only released to individuals or organizations that have a right to have access based on the agreement that are signed by members of an ISAO. This concern is really interesting as this master thesis is really on trying to ensure that property without the need of trust. What is also interesting is that they explained that privacy means that personal information about individuals within a member organization should remain private (in the context of information sharing).
+With that, they introduce some standards like TAXII, STIX and CybOX on which I will spend more time later in their respective sections. After that, they go through challenges that are facing the ISAOs. The major one is a privacy and confidentially concern, any information that an organization agrees to share with others, no matter who those others are need to be kept private and confidential and only released to individuals or organizations that have a right to have access based on the agreement that are signed by members of an ISAO. This concern is really interesting as this master thesis is really on trying to ensure that property without the need of trust. What is also interesting is that they explained that privacy means that personal information about individuals within a member organization should remain private (in the context of information sharing).
 While, confidentiality refers to information about organization that could lead to give others a competitive advantage.
-In this article they were focus a lot on trust on trust which is one of the most important property to ensure when dealing with a sharing group.\\
-We cannot share confidential information if we do not trust the other party to keep it confidential! This is already a clue on what I explained in the introduction, I want to share the information but not to give it as I'm not sure that I can trust the opposite party.\\
+In this article they were focus a lot on trust which is one of the most important property to ensure when dealing with a sharing group.\\
+We cannot share confidential information if we do not trust the other party to keep it confidential! \\
 
 After that, a recent survey trying to compare the different vendors for threat information sharing was published in 2017 \cite{sauerwein2017threat}. The authors have conducted a systematic study of 22 threat intelligence sharing platforms and this article is a short sum up of their key findings I believe not always true and with a lack of example to support their say. Thus it was a general still really interesting survey even if a detailed analyze of the 22 different tools would be really welcome.\\
 On the other hand, their analyze of the different types, focuses, standards and licenses used by the different platforms bring a lot of information on what should be used in todays sharing platform.\\
 
-I've just introduce the name of some standards. They are really important as we cannot share if we cannot speak the same language. Thus these standards make possible threat sharing but also allow to make it automated. Beside that, when we decide to start in this subject. It is really too important to avoid making mistakes that perhaps have already been made. That is why some organizations like the National Institute of Standards and Technology (NIST) and the European Union Agency for Network and Information Security (ENISA) took care of publishing guidelines to help organization to involve themselves in threat sharing.\\
-In Europe, the Commission recognized that they have a role to play in making the information more secure. In order to do that, they wanted to create the first pan European Information Sharing and Alerting System (EISAS on which we can find a report on the implementation \cite{eisasRapport}). For that, they have asked to ENISA to define the requirements. After that, member states that weren't yet using information sharing were really interested by and asked ENISA to develop a good practise guide based on the observation of existing exchange. This gave an intersting guide \cite{enisaguide2009} that is aimed to assist member states but also relevant stakeholders (organizations that are using communication network and information systems) in setting up and running network security information exchange.\\
-In this guide, they go through setting up information sharing but they first look at the advantages and also identify laws that could get in the way. This is really important as organizations need to ensure not being recognized as a cartel or as a commercial advantage. They also focus on the trust that needs, for them, to be created thanks to regular face-to-face meetings. They also need to use TLP in these meetings.\\
+I've introduced the name of some standards. They are really important as we cannot share if we cannot speak the same language. Thus these standards make possible threat sharing but also allow to make it automated. Beside that, when we decide to start in this subject. It is really too important to avoid making mistakes that perhaps have already been made. That is why some organizations like the National Institute of Standards and Technology (NIST) and the European Union Agency for Network and Information Security (ENISA) took care of publishing guidelines to help organization to involve themselves in threat sharing.\\
+In Europe, the Commission recognized that they have a role to play in making the information more secure. In order to do that, they wanted to create the first pan European Information Sharing and Alerting System (EISAS on which we can find a report on the implementation \cite{eisasRapport}). For that, they have asked to ENISA to define the requirements. After that, member states that weren't yet using information sharing were really interested by and asked ENISA to develop a good practise guide based on the observation of existing exchange. This gave an intersting guide \cite{enisaguide2009} aimed to assist member states but also relevant stakeholders (organizations that are using communication network and information systems) in setting up and running network security information exchange.\\
+In this guide, they go through setting up information sharing but they first look at the advantages and also identify laws that could get in the way. This is really important as organizations need to ensure not being recognized as a cartel or sharing as a commercial advantage. They also focused on the trust that needs, for them, to be created thanks to regular face-to-face meetings. They also need to use TLP in these meetings.\\
 Then, in 2016, NIST also published its guide \cite{johnson2014guide} that seems to me more complete and more mature. This publication is also more focused on organization than on States (unlike ENISA) and provides guidelines to improve cybersecurity operations and risk management activities through safe and effective information sharing practices.\\
 For them, cyber threat information consist of IOCs, TTP (tactic, techniques and procedures), suggested actions to dectect, contain or prevent attacks and finally the findings from the analyses of incidents. \\
 They go through different topics that are benefits and challenges encountered. How to establish and participate to sharing relations. Onces again, they draw attention on the importance of trust and to be compliant with legal and organizational requirements among other challenges.\\
 
-On an other side, the paper written in February 2017 by Aziz Mohaisen et al. \cite{mohaisen2017rethinking} focus themselves on rethinking threat intelligence and to assess the risks. They argue by \cite{MalikThreat} that intelligence sharing is the only way to combat our growing skills gap in term of security. But they mostly claim that there are a lot of issues that needs to be explored in order to realize efficient and effective information sharing paradigms for actionable intelligence. They even go further by saying that understanding the risk of sharing but also not sharing is absolutely needed.\\
+On an other side, the paper written in February 2017 by Aziz Mohaisen et al. \cite{mohaisen2017rethinking} focus themselves on rethinking threat intelligence and to assess the risks. They argue by \cite{MalikThreat} that intelligence sharing is the only way to combat our growing skills gap in term of security. But they mostly claim that there are a lot of issues that needs to be explored in order to realize efficient and effective information sharing paradigms for actionable intelligence. They even go further by saying that understanding the risk of sharing or not sharing is absolutely needed for every organization.\\
 Briefly, not sharing is a risk as we don't receive information that could avoid us to be compromise as we can see that more and more security breaches use the same attack vectors. But in the other way, sharing information without proper restrictions may leak a significant amount of information about participant and their operation context and that can be used by an attacker to learn their vulnerabilities.\\
 One solution to that is to have a very limited sharing community only with highly trusted participants. But is it really what we need to do ? If the participant are not enough, we could not get the needed information ...\\
 But, if we have less trusted participant, we also need to understand to risk of leakage that could lead to both monetary and reputation loss. Taking all that into account, they propose new way of thinking for threat intelligence by defining models, communities and adversaries with their threat model.
@@ -248,24 +248,22 @@ They propose then architectural solutions as a way of assessing the quality of s
 \section{Existing Techniques}
 Then, It is interesting to see existing techniques used in information sharing to ensure privacy and confidentiality in case where we do not want to rely on trust. This following paragraphs are then used to discover what is use and what was used before in order to get ideas on what could be implemented.\\
 
-These articles can be divided into some sections, the first one is data sanitization, this is quite interesting even if it could not be applied in our case (as explained in a later section).\\
+The first step is data sanitization, this is quite interesting even if it could not be applied in our case (as explained in a later section).\\
 Then there are articles on confidential database and S2P computations.\\
 
 One of the first article that presents some concerns about privacy in sharing security alert is \cite{lincoln2004privacy}.
 More precisely, they were concerned about protecting site-private topology, proprietary content, client relationship and site defensive capabilities or vulnerabilities.\\
-This was done in two steps, the first one, data sanitization, consist in removing confidential data and remove useless information. We don't take the chance of revealing information to an attacker if this one is not needed.\\
-The second one is the correlation/aggregation work were alerts are linked together for analyses purpose.\\
-Before explaining deeper how they sanitize data, it's interesting to first focus on how they get them.\\
- They have used three different categories:
+This was done in two steps, the first one, data sanitization, consist in removing confidential data and remove useless information: Don't take the risk revealing information to an attacker if this information is not needed by the user.\\
+The second one is the correlation/aggregation work were alerts are linked together for analysis purpose.\\
+ They have used three different categories of data coming from DShield ansd Symantec's DeepSight:
 \begin{itemize}
 \item Firewalls : They consider all "deny" as a possible attack
 \item IDS : They remember logs of attacks that the IDS has found
 \item Anti-viruses softwares : gives also some interesting logs
 \end{itemize}
-They based their analyses on data coming from DShield and Symantec's DeepSight.\\
 
-Let's come back on data sanitization, as already explained, we first remove all useless information, then, we can hash all confidential data.\\
-The advantage of leaving this work to the company is to avoid the need of trust on the repository.\\
+For removing all useless informations, we can hash all confidential data.\\
+This work is directly done by the company. This has for advantage to avoid the need of trust on the repository.\\
 This technique is quite well working if, the data has a certain size. But, on the other hand, it is not useful for IP addresses, if an attacker is targeting a company, it has to precompute only 256 or perhaps 65536 IP address hashes. Thus this is not brute force resistant.\\
 For each alert, we have two different IPs, the source IP (ip\_src) and the destination IP (ip\_dest). We can classify all these IPs in two categories:
 \begin{itemize}
@@ -275,16 +273,16 @@ For each alert, we have two different IPs, the source IP (ip\_src) and the desti
 
 The first category is, of course, the one that we want to protect and in order to do so, these IPs are hashed with a keyed hash function like HMAC. While the second type is hashed by a simple hash algorithm like SHA-1.\\
 The result is that we can compare all SHA-1 hashed IPs together while only companies can decrypt their own internal IP addresses.\\
-It is an efficient technique as they receive millions of IPs at all the time. And, as the attacker is not able to see if the IP is hashed by HMAC or SHA-1, he has to test all hashed IPs against a precomputed table which is not feasible.\\
+An attacker can not make the difference between an IP hashed by HMAC  or SHA-1. Thus, for attacking the dataset, he would need to try to crack all IPs as if they were SHA-1 fingerprints (For example TMTO). This, without forgetting that they receive millions of IPs, make it unfeasible for an attacker to bruteforce the whole dataset.\\
 They are also using another set of protections like the randomized threshold for publication of an alert but it goes out of the scope of this work.\\
-In sanitization, the also round all timestamp to the nearest minute in order to add some uncertainty!\\
-The second step is the correlation, they spoke about historical trend analyses, source/target-based analyses and event-driven analyses but some other articles are more interesting for the correlation principle, thus I'm not going deeper in it.\\
+In sanitization, the also round all timestamp to the nearest minute in order to add some uncertainty.\\
+The second step is the correlation, they spoke about historical trend analyses, source/target-based analyses and event-driven analyses. These analyses worth spending time on but independently of this specific focus.\\
 
 Then, \cite{xu2005privacy} was also working on confidential data sharing starting from the first article, but they came up with a new interesting idea, instead of hashing confidential data, why not generalize it and do probabilistic correlations.\\
 (They also used a technique to create probabilistic attack scenario which is a set of alerts that are put together to create a bigger attack).\\
 \textbf{Guided alert sanitization with concept hierarchies:}\\
 For example, if we have an IP 192.168.1.123/32, we can generalize it to 192.168.0.0/16.\\
-The depth of the generalization is chosen thanks to the entropy or the differential entropy technique explained in \cite{cover1991elements}.
+The depth of the generalization is chosen thanks to the entropy or by the differential entropy technique explained in \cite{cover1991elements}.
 \\
 \textbf{Alert Correlation:}\\
 They focused on defining similarity functions between sanitized attributes and building attack scenarios from sanitized attributes
@@ -298,11 +296,11 @@ That's the goal of \cite{parekh2006privacy} ! Today, it's not enough to analyze 
 They used PAYL and Anagram \cite{wang2006network}, systems that they have created and which are really useful in these analyses.\improvement{To remove ??? => Check articles}\\
 
 Sanitization is used to protect information by keeping privacy, but, as \cite{mohaisen2017rethinking} is referencing, there are other ways for sanitizing data. Some of them are k-anonymity \cite{sweeney2002k}, l-diversity \cite{machanavajjhala2007diversity} and the key privacy guarantee that has emerged is the differential privacy \cite{dwork2008differential}.\\
-First, k-anonymity is an attempt to solve the problem of anonymizing a person-specific field structured data with formal guaranteed while still producing useful data. A dataset is said to have the k-anonymity property if the information for each person in the dataset cannot be distinguished from at least k-1 individuals. This is done by removing attributes or by generalization as seen earlier. But this technique was unfortunatly performing poorly for certain applications. Thus, l-diversity was an extension to it in order to handle some of the weakness of k-anonymity. It does that by increasing group diversity for sensitive attributes in the anonymization mechanism.\improvement{Read cited articles instead of simple the first article to be sure of my understanding}
+First, k-anonymity is an attempt to solve the problem of anonymizing a person-specific field structured data with formal guaranteed while still producing useful data. A dataset is said to have the k-anonymity property if the information for each person in the dataset cannot be distinguished from at least k-1 individuals. This is done by removing attributes or by generalization as seen earlier. But this technique was unfortunatly performing poorly for certain applications. Thus, l-diversity was an extension to it in order to handle some of the weakness of k-anonymity. It does that by increasing group diversity for sensitive attributes in the anonymization mechanism.\improvement{Read cited articles instead of simple the first article to be sure of my understanding}\\
 
 
 As confidentiality and privacy are such a big deal, could we only share data when there is mutual benefits ? Yes and it is what will be done in the master thesis but there are also existing techniques where each organization are able to do some secure two-party computations with others.\\
-The interest is to get some metrics, for example, if there are only IPs in the databases, if we can get the intersection or even only the cardinality of this intersection. That is, if it is non-negligible, we know it could be interesting to share with them!\\
+The interest is to get some metrics, for example, if there are only IPs in the databases, if we can get the intersection or even only the cardinality of this intersection. We can decide, if it is non-negligible, that it could be interesting to share with them!\\
 The paper written by Freudiger et al.\cite{freudiger2015controlled} focused on this problem by working on a DShield dataset. They've experimented some strategies to know if it could be useful to share or not with another organization. And then, they also experimented to share the whole dataset of the company, only the data set linked to the intersection just found or only, the intersection (just to get a rough idea of what they have in common ... ).\\
 Their conclusion were intuitively expected but still interesting :
 \begin{itemize}
@@ -314,7 +312,7 @@ Their conclusion were intuitively expected but still interesting :
 
 \info{Mutiparty private matching peut aussi être interessant dans mon domaine non ?}
 
-Now that we see more concretely what is information sharing, a good question is to understand it is used in todays system. A usual way of using the information is via Intrusion Detection System (IDS). Contrarily at what we could think, IDS are as important as Intrusion Prevention System (IPS) as all analyses cannot be done in real time and moreover, new information on new threats could appear latter on thanks to sharing or other ways. This could then allow to discover the attacker, even if he is already in, we need to discover him as soon as possible! Analyses had shown that the mean time an attacker stay in the system before beeing detected is about 200 days which is unbelievable.\improvement{Find article about it}
+Now that we see more concretely what is information sharing, a good question is to understand how it is used in todays system. A usual way of using the information is via Intrusion Detection System (IDS). Contrarily at what we could think, IDS are as important as Intrusion Prevention System (IPS) as all analyses cannot be done in real time and moreover, new information on new threats could appear latter on thanks to sharing or other ways. This could then allow to discover the attacker, even if he is already in, we need to discover him as soon as possible! Analyses had shown that the mean time an attacker stay in the system before beeing detected is about 200 days which is unbelievable.\improvement{Find article about it}
 \info{Parler un peu des IDS .. }
 
 
@@ -729,6 +727,8 @@ On this first implementation, I would like to have only one bloom filter for the
 bloom vs scalable bloom \\
 
 Sharing their bloom filter idea \\
+
+\chapter{Results}
 
 \section{Benchmarking}
 
