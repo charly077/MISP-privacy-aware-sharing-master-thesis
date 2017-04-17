@@ -406,7 +406,7 @@ We thus know that it is intrinsically impossible to fully hide small IOCs while 
 
 \chapter{Implementation Ideas}
 
-Now that the subject seems clearer, there are a lot of different possibilities that could be explored. This chapter will be the opportunity to dwell on some of them in order to compare their strong points as well as their weakness.
+Now that the subject seems clearer, there are a lot of different possibilities that could be explored. This chapter will be the opportunity to dwell on some of them in order to look for their strong points as well as their weakness.
 
 \section{Bloom filter}
 Bloom filter is a space efficient probabilistic data structure  used to efficiently test the membership of specific values.\\
@@ -424,13 +424,13 @@ A bloom filter is a m bits array (fig. \ref{bloom-1}) all set to 0 at the starti
 	\end{center}
 \end{figure}
 
-To add the value v1, each hash function gives an index where we set the indexed bit to 0. In the opposite, if we want to test a value for membership, we have to check all indexes given by the hash functions. As we can see on figure \ref{bloom-1}, v2 is not in the set.
+To add the value v1, each hash function gives an index where we set the indexed bit to 1. In the opposite, if we want to test a value for membership, we have to check all indexes given by the hash functions. As we can see on figure \ref{bloom-1}, v2 is not in the set.
 
 \subsection{False Positive}
 
 Bloom filter is a probabilistic data structure as when we are checking for a value, either the value is \textbf{not} in the set or is \textbf{perhaps} in the set. \\
-In the latest case, this is due to false positive where all the k hash functions gives indexes already set to 1 (fig. \ref{bloom-2})while the element should not be in the set.\\
-Even if this could be annoying that is what could make that data structure interesting while trying to to reveal the whole data set.
+In the latest case, this is due to false positive where all the k hash functions gives indexes already set to 1 (fig. \ref{bloom-2}) while the element should not be in the set.\\
+Even if this could be annoying that is what could make that data structure interesting while trying not to reveal the whole data set.
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[scale=0.3]{res/bloom-2}
@@ -441,10 +441,10 @@ Even if this could be annoying that is what could make that data structure inter
 
 \subsection{Control False Positive Rate}
 If we check for a value in a bloom filter, at the end, we only know if it is not in the set or a probability to be in the set. Playing with this probability could be interesting for hiding some informations. \\
-If the probability is about 50\% in ip, it loose all interest for an attacker to brute force attack as at the end it would give him no information. While, for a real user, requesting for one ip could still bring some information for example knowing that an element had never been signaled before.\\
+If the probability is about 50\% in IPs, it looses all interest for an attacker to brute force attack as at the end it would give him no information. While, for a real user, requesting for one IP could still bring some information for example knowing that an element had never been signaled before.\\
 This is why it could be useful to get more information on the false positive rate and how we could use it.\\
 
-If n is the number of element inside the data structure we can approximate\footnote{https://en.wikipedia.org/wiki/Bloom\_filter} the false positive rate by $(1-e^{\frac{-kn}{m}})^k$ but a more useful is to define k in function of the willing rate for the false positive. In this case, we can notice that k is independent of the number of element inside the set while on the opposite, it is m who need to change in function of the number of values n:
+If n is the number of element inside the data structure we can approximate\footnote{https://en.wikipedia.org/wiki/Bloom\_filter} the false positive rate by $(1-e^{\frac{-kn}{m}})^k$ but a more useful way is to define k in function of the willing rate for the false positive. In this case, we can notice that k is independent of the number of element inside the set while on the opposite, it is m who need to be changed in function of the number of values n:
 $$m = - \frac{m\ \ln(p)}{\ln(2)^2}$$
 $$k = - \frac{\ln(p)}{\ln(2)}$$
 (These are approximations)
@@ -455,58 +455,63 @@ $$n* = - \frac{m}{k} \ln\left[1 - \frac{X}{m}\right] $$
 with X the number of bit set to 1.
 
 \subsection{Could it be useful alone ?}
-It is not enough alone as we not only need to test element for membership but we also need to get back information if it is. Moreover, when developing a system with bloom filter we need to take into account all small data that could leak. \\
+It is not enough alone as we not only need to test element for membership but we also need to get back information if it is. Moreover, when developing a system with bloom filter we need to take into account the small amount of information that could leak. \\
 But it is still an interesting solution and twinned with the later explained implementation could have great benefits.
 
 \section{Machine Learning}
 
 Machine learning is \textbf{the} actual technology for security. A system that could evolve and learn by itself. No need for updates! \\
-And as the conference "Beyond the blacklists: Detecting malicious URL through machine learning" showed at the Black Hat Asia conferences, it can work.\\
-They focused on URL lexical feature like the url length, vocabulary, path, hostname, parameters, http headers (in average, there are less fields with malicious connections) and they manage to get a 84\% detection rate on  about 750K malicious URLs which is really promising.\\
+Early in April, "Beyond the blacklists: Detecting malicious URL through machine learning" showed at the Black Hat Asia conferences that it can work.\\
+They focused on URL lexical feature like the URL length, vocabulary, path, hostname, parameters, HTTP headers (in average, there are less fields with malicious connections) and they manage to get a 84\% detection rate on about 750K malicious URLs which is really promising.\\
 
-But on an other hand, Machine algorithm also brings false positive like in bloom filter but also false negative.\\
-Even if a false negative could be really bad, it could be use to protect our data.\\
-Here, we don't want to be able to discover new malwares but we want the same as with bloom filter, knowing if an element belongs to a set.\\
-With this objective in mind, the goal would be to analyze the impact of false positive and false negative while training an algorithm that like a decision tree as, in this particular case, overfitting is a property that we need.\\
-Then it could be interesting to check the base concept representation (BCR) to analyze if this technique could be interesting. \\
+Machine learning is thus a really promising tool in this domain but, the idea here would be to use it completely differently. We don't want it to continuously learn but we want an algorithm to learn a specific data set.\\
+Then the control of false negative and positive would be done via overfitting.\\
+In this particular case, overfitting is what is needed as we are not interested in inference but just in recognizing the elements' membership.\\
+
+This technique could be interesting to keep more control on the privacy and confidentiality, an attacker would learn even less things than with a bloom filter.\\
+For the size, a model can also fit with less memory than remembering the whole set but will differ in each algorithm.\\
+So the base concept representation (BCR) of this technique on different example could bring a lot of information on the usability of this technique. But it could be difficult to tune and would have the same disadvantage as the bloom filter which is that it only decides membership and cannot give useful data back to the user. One last important thing to be aware is that some kind of models could leak informations inside them for someone really understanding the system. (Ex clear decisions for a decision tree)\\
 
 
 
 \section{Secure Multi-Party Computation}
-In our case, we could imagine, an organizations with informations to check if it belongs to IOCs of other organizations.\\
 Each organization possesses its IOC database and is not ready to share all their informations. But, once again, if it could help an other organization to solve its problem, they agree on sharing only these informations.\\
 That is where Secure Multi-Party Computation could play a role as there are techniques to find the intersections of 2 datasets. This is also called private matching \cite{agrawal2003information, li2005private}.\\
 
-This technique could be really interesting but has the disadvantage of heavy computations on both side.
-
-\section{All in one request}
-Here the goal is quite different, Imagine the case of a forensic detection of what had gone wrong.\\
-We can do it differently, we do a full analyze of the machine, then, once we have the whole data set that we want to test, we send everything and the data system just answer with the id(s) of the triggered event but we don't know what triggered it thus we don't really know the content.\\
-In order to avoid brute force, we could allow only a limited amount of request per day with a limited amount of data.
+This technique has only a big disadvantage which is heavy computations on both side. But still, it could be very useful to share information between MISP instances.
 
 \section{Proof of Work Database}
 This idea is to slow down brute force attack thanks to proof of work. Even if this idea is one step closer to the final implementation, it is still different by the need of a server to communicate with for each requests.\\
 
-Here, we want to keep a database, we don't want any false positive nor false negative. But by doing that, we make our database available to brute force attacks.
-But we can try to avoid that or to make it more time consuming by adding computation.\\
+Here, we want to keep a database, we don't want any false positive nor false negative. But by doing that, we make our database available to brute force attacks.\\
+We just need to add a new wall between the user and the dataset that add time consuming computation for the requests.\\
 
-A possible implementation could be one we a random key chosen by the database server. This key could be regenerated with a small period and also every 1000 thousands requests.\\
+A possible implementation could be with a random key chosen by the database server. This key could be regenerated with a small period and also every 1000 thousands requests.\\
 On the other hand, the client should brute force this small key each time it has changed. This slow down brute force attack while still be useful for a user that is doing less than 1000 requests to test its system.
 
 For example, a possible request message for an ip could be : hash(IP)||hash(IP||key)\\
 
-The idea is interesting by is still not bullet proof against brute force attack. And also need a server to respond at each request.
+The idea is interesting even if it is still not bullet proof against brute force attack. It also need a server to respond at each request.
 
 \section{Conclusion}
 I've explained some basic ideas that could lead to different implementations, lot of work are done especially on private multi-party matching that could lead to the best option if requests are rare or, for example if it is used to periodically compare and synchronize data related to the same events between MISP instances.\\
 Nearly all solutions still needs a server that we would like to get rid of (After the data had been generated) and for that, a machine learning model or bloom filters are the right track.
 
+
+
+
+
+
+
+
+
+
 \chapter{Implementation}
-I've explained ideas in the previous chapter, some of these could be implemented. But a nice article \cite{van2016private} was published in the few first months of my work and they had found a technique that could also work for us as their goal was similar as they say that they propos a technique that allows parties to share information without the need to immediately reveal private information.\\
+I've explained ideas in the previous chapter, some of these could be implemented. But a nice article \cite{van2016private} was published in the few first months of my work and they had found a technique that could also work here as their goal was similar one: allow parties to share information without the need to immediately reveal private information.\\
 Their implementation was for bro, here I will make an implementation working with MISP and improve its matching properties and the modularity of the code. \\
-By modularity, I mean that I to be able to add what I will call cryptographic modules in order to test different techniques with the same code.\\
+By modularity, I mean that I to be able to add "cryptographic modules" in order to test different techniques with the same code.\\
 In this chapter, I will first explain their article, then the modifications I've made with some improvements.\\
-A discussion on the libraries and tools will follow before benchmarking test with discussion on the implementation.
+A discussion on the libraries and tools will follow before benchmarking tests and discussions on the implementation will follow in the next chapter on results.
 
 \section{Private Sharing of IOCs and Sightings \cite{van2016private}}
 This paper consider a cryptographic approach to hide the details of an indicator of compromise. They consider two different phases, the first one is sharing these IOCs while the second one is to privately reporting the sightings of IOCs.\\

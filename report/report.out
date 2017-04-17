@@ -25,27 +25,26 @@
 \BOOKMARK [2][-]{subsection.3.1.5}{Could it be useful alone ?}{section.3.1}% 25
 \BOOKMARK [1][-]{section.3.2}{Machine Learning}{chapter.3}% 26
 \BOOKMARK [1][-]{section.3.3}{Secure Multi-Party Computation}{chapter.3}% 27
-\BOOKMARK [1][-]{section.3.4}{All in one request}{chapter.3}% 28
-\BOOKMARK [1][-]{section.3.5}{Proof of Work Database}{chapter.3}% 29
-\BOOKMARK [1][-]{section.3.6}{Conclusion}{chapter.3}% 30
-\BOOKMARK [0][-]{chapter.4}{Implementation}{}% 31
-\BOOKMARK [1][-]{section.4.1}{Private Sharing of IOCs and Sightings van2016private}{chapter.4}% 32
-\BOOKMARK [1][-]{section.4.2}{My Implementation}{chapter.4}% 33
-\BOOKMARK [2][-]{subsection.4.2.1}{Get data from MISP}{section.4.2}% 34
-\BOOKMARK [2][-]{subsection.4.2.2}{Parsing logs}{section.4.2}% 35
-\BOOKMARK [2][-]{subsection.4.2.3}{Multiprocessing for reading logs}{section.4.2}% 36
-\BOOKMARK [2][-]{subsection.4.2.4}{I/O and Rule Size Optimization}{section.4.2}% 37
-\BOOKMARK [2][-]{subsection.4.2.5}{CSV or TSV}{section.4.2}% 38
-\BOOKMARK [2][-]{subsection.4.2.6}{On URL normalization}{section.4.2}% 39
-\BOOKMARK [2][-]{subsection.4.2.7}{Only PBKDF2}{section.4.2}% 40
-\BOOKMARK [2][-]{subsection.4.2.8}{Pycrypto towards cryptography library}{section.4.2}% 41
-\BOOKMARK [2][-]{subsection.4.2.9}{Structure Refactoring}{section.4.2}% 42
-\BOOKMARK [2][-]{subsection.4.2.10}{Top Configuration File}{section.4.2}% 43
-\BOOKMARK [1][-]{section.4.3}{Chosen Cryptographic System}{chapter.4}% 44
-\BOOKMARK [2][-]{subsection.4.3.1}{PBKDF2}{section.4.3}% 45
-\BOOKMARK [2][-]{subsection.4.3.2}{Bcrypt}{section.4.3}% 46
-\BOOKMARK [2][-]{subsection.4.3.3}{Bloom filter}{section.4.3}% 47
-\BOOKMARK [0][-]{chapter.5}{Results}{}% 48
-\BOOKMARK [1][-]{section.5.1}{Benchmarking}{chapter.5}% 49
-\BOOKMARK [1][-]{section.5.2}{Security Discussion}{chapter.5}% 50
-\BOOKMARK [1][-]{section.5.3}{Further Work}{chapter.5}% 51
+\BOOKMARK [1][-]{section.3.4}{Proof of Work Database}{chapter.3}% 28
+\BOOKMARK [1][-]{section.3.5}{Conclusion}{chapter.3}% 29
+\BOOKMARK [0][-]{chapter.4}{Implementation}{}% 30
+\BOOKMARK [1][-]{section.4.1}{Private Sharing of IOCs and Sightings van2016private}{chapter.4}% 31
+\BOOKMARK [1][-]{section.4.2}{My Implementation}{chapter.4}% 32
+\BOOKMARK [2][-]{subsection.4.2.1}{Get data from MISP}{section.4.2}% 33
+\BOOKMARK [2][-]{subsection.4.2.2}{Parsing logs}{section.4.2}% 34
+\BOOKMARK [2][-]{subsection.4.2.3}{Multiprocessing for reading logs}{section.4.2}% 35
+\BOOKMARK [2][-]{subsection.4.2.4}{I/O and Rule Size Optimization}{section.4.2}% 36
+\BOOKMARK [2][-]{subsection.4.2.5}{CSV or TSV}{section.4.2}% 37
+\BOOKMARK [2][-]{subsection.4.2.6}{On URL normalization}{section.4.2}% 38
+\BOOKMARK [2][-]{subsection.4.2.7}{Only PBKDF2}{section.4.2}% 39
+\BOOKMARK [2][-]{subsection.4.2.8}{Pycrypto towards cryptography library}{section.4.2}% 40
+\BOOKMARK [2][-]{subsection.4.2.9}{Structure Refactoring}{section.4.2}% 41
+\BOOKMARK [2][-]{subsection.4.2.10}{Top Configuration File}{section.4.2}% 42
+\BOOKMARK [1][-]{section.4.3}{Chosen Cryptographic System}{chapter.4}% 43
+\BOOKMARK [2][-]{subsection.4.3.1}{PBKDF2}{section.4.3}% 44
+\BOOKMARK [2][-]{subsection.4.3.2}{Bcrypt}{section.4.3}% 45
+\BOOKMARK [2][-]{subsection.4.3.3}{Bloom filter}{section.4.3}% 46
+\BOOKMARK [0][-]{chapter.5}{Results}{}% 47
+\BOOKMARK [1][-]{section.5.1}{Benchmarking}{chapter.5}% 48
+\BOOKMARK [1][-]{section.5.2}{Security Discussion}{chapter.5}% 49
+\BOOKMARK [1][-]{section.5.3}{Further Work}{chapter.5}% 50
