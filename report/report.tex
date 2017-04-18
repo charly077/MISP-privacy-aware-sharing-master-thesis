@@ -627,10 +627,9 @@ These problems were easy to solve. Create a complete csv file for all rules. But
 This is a really small modification but makes files more readable and avoid existing coma in the data to make the parsing not working.
 
 \subsection{On URL normalization}
-The goal of the system is to look for matches in MISP data. But off course, if an event has for Uniform Resource Locator (URL) www.ioc.com I would like http://www.ioc.com, http://www.ioc.com/, http://www.ioc.com:80/, ... To match as well.\\
-Then I had to choose, doing my own implementation or using one already implemented?\\
-For that, I first needed to dig a little into URL normalization like the standards and techniques already used in practice. I've realized that normalization is difficult as, in the standards, they want URL to always work after, and really be the same. For example http://www.ioc.com is not https://www.ioc.com while in matching, I absolutely don't care and I would like to both trigger an alert.\\
-Beside that there are standards on URL normalization [RFC 3986] that contains either normalizations that preserve or usually preserve the semantic of the URL but not the one that does not preserve it.\\
+The goal of the system is looking for matches in MISP data. But off course, if an event has for Uniform Resource Locator (URL) www.ioc.com I would like http://www.ioc.com, http://www.ioc.com/, http://www.ioc.com:80/, ... To match as well.\\
+I first dug a little into URL normalization like the standards and techniques already used in practice. I've realized that normalization is difficult as, in the standards, they want URL to always work after, and really be the same. For example http://www.ioc.com is not https://www.ioc.com while in matching, I absolutely don't care and I would like to both trigger an alert.\\
+Besides that, there are standards on URL normalization [RFC 3986] that contains either normalizations that preserve or usually preserve the semantic of the URL but non that does not preserve it.\\
 Standards are thus focus on keeping the number of false positive near to 0 but it has for impact to miss a lot of real positive and we cannot afford that.\\
 I've thus found this paper \cite{lee2005url} which was focus on url normalization and that goes beyond standards normalization steps like case sensitivity in the path, the last slash symbol at the end of the path and the designation of the default page (index.html, ...).\\
 Beside that, a great summary of all these standardizations steps is available on wikipedia \cite{wikiNormalizationURL}.\\
@@ -650,13 +649,11 @@ In the implementation, I've used the python library url\_normalize:
 
 I thus have to add some additions like:
 \begin{itemize}
-\item Removing directory index : {default.asp, index.html, index.php, index.shtml, index.jsp, default.asp}
+\item Removing directory index : {default.asp, index.html, index.php, index.shtml, index.jsp, default.asp}.
 \item Remove the fragment (\#...) which is never seen by the server.
-\item Replacing IP with domain name 
-\item Removing the protocol {http://, https://}
-\item Removing duplicate slashes
-\item Removing  “www” as the first domain label
-\item Removing the "?" when the query is empty
+\item Removing the protocol {http://, https://}.
+\item Removing  “www” as the first domain label.
+\item Removing the "?" when the query is empty.
 \end{itemize}
 
 \subsection{Only PBKDF2}
@@ -664,8 +661,8 @@ While I was adding stuffs, it becomes more and more difficult to allow all these
 But in the opposite we cannot have a small number iteration if we want the key to look random.
 
 \subsection{Pycrypto towards cryptography library}`
-While discussing with Tim van de Kamp by mail, he said that if he would have to start over, he would choose the cryptography library \footnote{https://cryptography.io/en/latest/} instead of pycrypto has it seems to be more professional.\\
-I thus have made some research on it. There are some discussion about it but \url{libhunt.com} gives this table \ref{cryptoLibraries} where we can see that even if pycrypto seems better written, the cryptography library is more up to date with a lot of activities.\\
+While discussing with Tim van de Kamp by email, he said that if he had to start over, he would choose the cryptography library \footnote{https://cryptography.io/en/latest/} instead of pycrypto because it seems to be a more professional implementation.\\
+I thus have made some research on it. There are some discussion about it but \url{libhunt.com} gives this table \ref{cryptoLibraries} where we can see that even if pycrypto seems better written, the cryptography library is more up to date and still with a lot of activities.\\
 Beside that, I found the library well defined and really easy to use that is why, I've chosen to refactor the code with this particular library instead.
 
 
