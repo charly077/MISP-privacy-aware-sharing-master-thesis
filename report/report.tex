@@ -514,16 +514,16 @@ In this chapter, I will first explain their article, then the modifications I've
 A discussion on the libraries and tools will follow before benchmarking tests and discussions on the implementation will follow in the next chapter on results.
 
 \section{Private Sharing of IOCs and Sightings \cite{van2016private}}
-This paper consider a cryptographic approach to hide the details of an indicator of compromise. They consider two different phases, the first one is sharing these IOCs while the second one is to privately reporting the sightings of IOCs.\\
+This paper consider a cryptographic approach to hide the details of an indicator of compromise. They consider two different phases, sharing these IOCs and privately reporting the sightings of IOCs.\\
 
-The second could be really important as explained before to monitor the events and attributes in MISP.\\ 
-Moreover MISP had now the possibility to add sightings but their technique seems not efficient enough and really difficult to implement in MISP. I've got some other ideas but I finally only focused myself on the sharing part as it is not yet totally clear how the feature will be synchronized between organizations and other instances.\\ 
-But still, It could be an important and really useful further work to do.\\
+Reporting the sightings is important for monitoring the events and attributes in MISP.\\ 
+Moreover MISP is now able to remember a sightings number per attribute but their technique seems difficult to implement in MISP for a standard subscriber as we should go through each attributes for each instances and each reporters while beeing online periodically (not practical at all). I've got some other ideas but I finally only focused myself on the sharing part as I would have not get enough time.\\ 
+But still, It could be the most important and really useful further work to do.\\
 
-But before starting, they warned the reader as I did in the limitation section, that using these cryptographic function is better than not using them at all but is not a miracle technique as it is theoretically impossible to hide the IOC’s content in the used context (Subscriber receive the data to check on its system).\\
+They also started by warning the reader that using these cryptographic function is better than not using them at all but is not a miracle technique as it is theoretically impossible to hide the IOC’s content in the used context (Subscriber receive the data to check on its system).\\
 Additionally, it has a performance cost but in my beliefs, it worths it.\\ Their implementation was also in the source-subscriber information sharing model which fits our model where MISP is at the center.\\
 First, they define an IOC as rules that are propositional formula where the propositional variables are defined over features or observables like Internet Protocol (IP) or fingerprints of malicious program (but it could be any categories of MISP). They also claim that every rules (IOCs) can be expressed in the Disjunction Normal Form (DNF) without any negation (e.g. destIP= 198.51.100.43 $\land$ destPort = 80).\\
-Hereandafter the value is considered has the concatenation of all values of the IOCs contained in a rule : IPv4$||$port\_number. It has two advantages, the first is to represent the complete rule and the second one is that it can be a little more difficult to brute force as it is longer and types can differs.\\
+Hereandafter the value is considered has the concatenation of all values of the IOCs contained in a rule : IPv4$||$port\_number. It has two advantages, the first is to represent all linked values directly together and then increase the size and the number of element hashed increase the difficulty for an attacker to perform a bruteforce attack or to precompute all possible hashes.\\
 
 \begin{figure}[h!]
 \begin{center}
@@ -533,14 +533,14 @@ Hereandafter the value is considered has the concatenation of all values of the 
 \end{center}
 \end{figure}
 
-So, now, we have a rule that can be checked on computers but, what is needed is the other party to be able to check it while keeping the IOC's content hidden and that is where it becomes really interesting.\\
-As it has to be useful, they have obfuscated the values while keeping the structure of the rule in clear. The basic idea is thus to hash the rule's value. For a subscriber, it is still usable as he only need to hash its data to check for a match. But, in this way, we are doing the same as in the hashstore already explained and there is thus a lack of protection since every individual feature variable can only take a limited set.
-Thus we could face an attacker that would succeed with a TMTO attack or a complete precomputed table.
-For solving that, they are using a non secret salt value chosen at random for \textbf{each} rule (IOC). Beside that, the attacker time can be increased as well thanks to the cryptographic hash function used. The second part is really affecting the honest subscriber performance as well but is needed to slow down enough an attack.\\
+Rules as created can be directly checked on computers but they do not fit with our model yet as every values are still in clear. To solve this problem, they decided to hash the values concatenation while still keeping the structure (e.g. ip-dst||port) in clear.\\
+The structure is what make it still usable as it says the user which are the values they need to try against the rule.\\
+The only additional computation is that the user needs to hash his values each time he tried to match the rule.\\
+In this way, we are still really close to the hashstore previously explained. We still lack some protections since every individual feature variable can only take a limited set and we do not get data while there is a match.\\
+For solving that, they are using a non secret salt value chosen at random for \textbf{each} rules (IOC). Beside that, the attack time can be increased as well thanks to the cryptographic hash function used. The second part is really affecting the honest subscriber performance as well but is needed to slow down enough an attack.\\
 
-But they didn't stop there, considering all these ideas, they have added the possibility to include a Course Of Action (COA) message with each rule. This is the real advantage compared to bloom filter. The output is precise, there are neither false positive nor false negative and additionally, a match can give the interesting data to the honest user.\\ To do so, instead of hashing the combined values, they use it as input for a key derivation function (KDF) that generates a key used for encrypting the message in the rule.\\
-Thus this new type of rule, instead of obfuscating the data contains, the type of value (as before), the salt used for the rule and the encrypted message.\\
-As they are now using the values to generate a key for encrypting the message, they have decided that each message must start by 16 bytes of 0.\\ 
+They didn't stop there, considering all these ideas, they have added the possibility to include a Course Of Action (COA) message with each rule. This is the real advantage compared to other techniques. The output is precise, there are neither false positive nor false negative and additionally, a match can give the interesting data to the honest user.\\ To do so, instead of hashing the combined values, they use it as input for a key derivation function (KDF) that generates a key used for encrypting a message.\\
+Thus this new type of rule, instead of just obfuscating the data, contains the type of value (as before), the salt used for the rule and the encrypted message.\\
 
 
 \begin{figure}[h!]
@@ -582,9 +582,9 @@ Function matchRule(dictianary(type -> value), rule, token):
 \end{center}
 
 
-Trust is one of the major problem in information sharing and is discussed in all standards, guides and articles. Here they have an attempt of solution that could really work. As a user cannot normally decrypt the complete rules data set, if for each generated rule, we add a source identifier used in each rule in the KDF. If a set of rules is leaked, we can now trace it back to the offending user. \\
-This little additional feature may seem to be a detailed, I'm intimately convinced that it could help organization to decide sharing more confidential data as they could turn themselves 
-again the leakage source in case of problems which could limit the cost damage as well as the reputation damage. Moreover, in MISP there is also an identifier that could be used and moreover that need to be kept private which is called a Token.\\
+Trust is one of the major problem in information sharing and is discussed in all standards, guides and articles. Here they have an attempt of solution that could really works. As a user cannot normally decrypt the complete rules data set, if for each generated rule, we add a source identifier in the KDF. This result in the ability to track the origin of a leak. \\
+Even if it is a small add, I'm intimately convinced that it could help organization to decide sharing more confidential data as they could turn themselves 
+again the leakage source in case of problems which could limit the cost damage as well as the reputation damage. Moreover, in MISP there is also an identifier that could be used and which is called a Token.\\
 
 In their implementation, they are using both HMAC and PBKDF2 for the key derivation function. I had the opportunity to exchange mails with the authors of the paper that prefers the HMAC algorithm as it is designed to give a pseudo random key in just a single iteration and that it has been deeply analyzed \cite{cryptoeprint}. While PBKDF2 is generating random keys that becomes more secure as we the number of iterations increase. Moreover, the behavior has not been described (to the best of our knowledge) in academic paper even if the is a NIST recommendation on its usage.\\
 They also used an AES encryption scheme.\\
@@ -593,16 +593,16 @@ Their proof of concept code is available on their repository, \url{https://githu
 
 
 \section{My Implementation}
-The article of Tim van de Kamp et al. gave me the starting point I needed as the code was available and under the MIT license. I've thus created two basic scripts starting from theirs where I've written back nearly the whole code to fit with MISP. At first, I've kept exactly the same scheme as they are.\\
+The article of Tim van de Kamp et al. gave me the starting point I needed as the code was available and under the MIT license. I've thus created two basic scripts starting from theirs where I've written it back to fit with MISP. At first, I've kept exactly the same scheme as they are.\\
 The first step was to retrieve data from MISP, either from the web API, or by a direct connection towards the mysql database.\\
-Then I've improved the code with different new functionalities and realized that, on the contrary of all university projects we had, here, the project needed to often be completely refactored to allow additional features and to keep it simple for an external user to understand how it works. I will thus go through theses different implementation parts in the next few sections.\\
+Then I've improved the code with different new functionalities and realized that, on the contrary of all university projects we had, the project needed to often be completely refactored to allow additional features and to keep it simple for an external user to understand how it works. I will thus go through theses different implementation parts in the next few sections.\\
 
 \subsection{Get data from MISP}
 To create the rules with the encrypted messages, we first need to get a subset of IOCs contained in MISP that are destined to IDS. \\
 For doing so, there is two possibilities, the first one is working with the misp API while the second one is directly connected to the mysql database. \\
-The recommended mode will be with the web api, but as rules will be generated directly on the server, it could be more efficient to use directly the mysql connection.\\
+The recommended mode will be with the web API, but as rules will be generated directly on the server, it could be more efficient to use directly the MySQL connection.\\
 
-For making automation request on MISP, they have implemented a python library called PyMISP. The first idea was to use it was finally not interesting to import the whole library only to make one request. That is why, I've changed the system by making myself the request to the automation api by using the requests python library and the misp token referenced in the configuration file.\\
+For making automation request on MISP, they have implemented a python library called PyMISP. The first idea was to use it but it was finally not interesting to import the whole library only to make one request. That is why, I've changed the system by making myself the request to the automation API by using the requests python library and the MISP token referenced in the configuration file.\\
 
 The Virtual machine has been a great utility to understand how it is working, and especially how is structured the database. I've also added additional check like verifying that the email address specified is the one related to the token. 
 
@@ -610,7 +610,8 @@ The Virtual machine has been a great utility to understand how it is working, an
 The idea was to test the system with log files as I did with the hashstore. First I tried to reuse the parser I've created but I tried to go to deep in the analyze and it has bad performances as well as a lot of particular cases that were not working.\\
 I thus changed my mind and used logstash and redis to store the parsed log. \\
 It also has the big advantage to be modular and only a new configuration file is needed to parse any other type of log files.\\
-Beside that, I'm storing the data inside a redis queue and polling on it in the script for trying to match a rule. 
+Beside that, I'm storing the data inside a redis queue and polling on it in the script for trying to match a rule. \\
+\improvement{ Add details, schemas, Structure explanation, ...;}
 
 \subsection{Multiprocessing for reading logs}
 When there are a lot of logs, doing one by one take too much time, but we can test simultaneously more than one log line at the same time by creating process.\\
@@ -619,9 +620,9 @@ Also it is important to point out that I've started this by trying to use thread
 
 \subsection{I/O and Rule Size Optimization}
 In the implementation of Tim van de Kamp et al., for each rule, they created a file to store the rule. \\
-I can understand it in the point of vue of a proof of concept but it is a real bad idea as in unix systems, each files have a minimum size of 4k. Already with 6300 events each one possessing a lot of attributes, it is easy to see the problem coming. Moreover, the I/O were really slowing down the system. \\
+I can understand it in the point of vue of a proof of concept but it is a real bad idea as in unix systems, each files have a minimum size of 4k. Already with 6300 events each one possessing 153 attributes in average, it is easy to see the problem coming. Moreover, the I/O were really slowing down the system. \\
 These problems were easy to solve. Create a complete csv file for all rules. But is still not a solution because it would mean that we should load everything in memory even if we don't use everything. That is why I finally chosen to have one csv file per type of IOCs.
-
+\improvement{Plus de détails}
 \subsection{CSV or TSV}
 This is a really small modification but makes files more readable and avoid existing coma in the data to make the parsing not working.
 
@@ -735,6 +736,8 @@ bloom vs scalable bloom \\
 Sharing their bloom filter idea \\
 
 \chapter{Results}
+
+\section{Dataset}
 
 \section{Benchmarking}
 
