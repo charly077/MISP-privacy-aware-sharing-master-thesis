@@ -39,7 +39,7 @@ conf = Configuration()
 # helper functions #
 ####################
 
-def iter_queue(queue):
+def iterator_result(queue):
     # iter on a queue without infinite loop
     def next():
         if queue.empty():
@@ -119,7 +119,7 @@ def redis_matching_process(r, queue, lock, crypto):
         log = log.decode("utf8")
         log_dico = json.loads(log)
         ordered_dico = OrderedDico(log_dico)
-        dico_matching(ordered_dico, queue, lock, crypto)
+        matching(ordered_dico, queue, lock, crypto)
         log = r.rpop("logstash")
 
 def print_queue_process(queue):
@@ -132,7 +132,7 @@ def print_queue_process(queue):
 # match functions #
 ###################
 #@lru_cache(maxsize=None)
-def dico_matching(attributes, queue, lock, crypto):
+def matching(attributes, queue, lock, crypto):
     # normalize data 
     attributes = normalize(attributes)
     # test each rules
@@ -142,10 +142,10 @@ def dico_matching(attributes, queue, lock, crypto):
 def argument_matching(crypto, values=args.attribute):
     attributes = OrderedDict(pair.split("=") for pair in values)
     match = SimpleQueue()
-    dico_matching(attributes, match, Lock(), crypto)
+    matching(attributes, match, Lock(), crypto)
 
     # print matches
-    for match in iter_queue(match):
+    for match in iterator_result(match):
         print(match)
 
 def redis_matching(crypto):
@@ -171,11 +171,11 @@ def redis_matching(crypto):
         print_process.terminate()
     else:
         redis_matching_process(r, match, lock)
-        for item in iter_queue(match):
+        for item in iterator_result(match):
             print(item)
 
 # for Benchmarking
-def rangeip_matching(crypto):
+def rangeip_test(crypto):
     for ip4 in range(256):
         ip=["ip-dst=192.168.0." + str(ip4)]
         argument_matching(crypto, ip)
@@ -207,6 +207,6 @@ if __name__ == "__main__":
     if args.input == "redis":
         redis_matching(crypto)
     elif args.input == "rangeip":
-        rangeip_matching(crypto)
+        rangeip_test(crypto)
     else:
         argument_matching(crypto)
