@@ -17,6 +17,7 @@ import sys, subprocess, os, shutil
 import datetime, copy, re
 from url_normalize import url_normalize
 from collections import OrderedDict
+from progressbar import ProgressBar
 
 # crypto import
 import glob, hashlib, os
@@ -112,7 +113,8 @@ def create_message(attr):
     date = attr["date"]
     return "{}:{}:{}".format(uuid, event_id, date)
 
-def parse_attribute(attr, crypto):
+def parse_attribute(attr, crypto, bar, i):
+    bar.update(i)
     # IOC can be composed of a unique attribute type or of a list of attribute types
     split_type = attr["type"].split('|')
     ioc = OrderedDict()
@@ -152,7 +154,8 @@ if __name__ == "__main__":
 
     # Parse IOCs
     printv("Create rules")
-    iocs = [parse_attribute(ioc, crypto) for ioc in IOCs]
+    with ProgressBar(max_value = len(IOCs)) as bar:
+        iocs = [parse_attribute(ioc, crypto, bar, i) for (i,ioc) in enumerate(IOCs)]
 
     # sort iocs in different files for optimization
     printv("Sort IOCs with attributes")
