@@ -502,10 +502,6 @@ Nearly all solutions still needs a server that we would like to get rid of (Afte
 
 
 
-
-
-
-
 \chapter{Implementation}
 I've explained ideas in the previous chapter, some of these could be implemented. But a nice article \cite{van2016private} was published in the few first months of my work and they had found a technique that could also work here as their goal was similar one: allow parties to share information without the need to immediately reveal private information.\\
 Their implementation was for bro, here I will make an implementation working with MISP and improve its matching properties and the modularity of the code. \\
@@ -715,8 +711,12 @@ This is the basic system for which all the structure had been optimized and had 
 \end{center}
 \end{figure}
 
+For the cryptographic system, there is also an small difference in the rules that allow a really faster matching.\\
+Instead of directly encrypt the whole message, I've decided to divide it in two parts (easy to do with the cryptography library). The first is the ciphertext-check and the other one is the ciphertext. The ciphertext-check is simply the first bock of the encrypted message. It is used only for matching, decrypt it must result in only zeros if there is a match.
+
 \subsection{Bcrypt}
-The implementation with Bcrypt is similar as my implementation with PBKDF2. It is a password hash function based on the Blowfish cipher. It also incorporate hash to be protected against rainbow table attacks (TMTO) 
+The implementation with Bcrypt is similar as my implementation with PBKDF2. It is a password hash function based on the Blowfish cipher. It also incorporate hash to be protected against rainbow table attacks (TMTO).\\
+It has also advantages as being more configurable and is more efficient against GPU attacks. It also seems better to use but the NIST recommendations are about PBKDF2.
 
 \subsection{Bloom filter}
 In this section, I will argue the choice for python-bloom library. This choice was actually a way more complicated than it could be as, I think it is not the fastest implementation.\\
@@ -733,10 +733,95 @@ bloom vs scalable bloom \\
 Sharing their bloom filter idea \\
 
 \chapter{Results}
+Finally, the most interesting part is coming, is it really working? Is the additional computation worth it? Can we trust this system with our data ? Could with improve the code for the computation time ?\\
+This final chapter will try to answer those questions. With the code restructuring, I think I have succeeded in creating code easy to understand but there are still some tricky hacks that I will need to get rid of for make easier addons creation.
+This first part will be on understanding the used dataset, then I will focus on the code profiling to understand which parts could be improved.\\
+Then I will explain a set of benchmark to try to show the interest of this system.\\
+Discussion on the security of the techniques and their usability will serve as a nice conclusion.\\
 
 \section{Dataset}
+The objective was to make all data available if additional computation must be done or this work must be continued. For that, following the same reflection as with the starting screen-shots, the data directly inside the virtual machine are TLP white and are available for every one as we can directly download them on the CIRCL website : \url{https://circl.lu/services/misp-training-materials/}.\\
+Thus I've used these data instead of the one directly from an instance. Even if there are a lot less data here, the computations and analyze give the necessary idea.
+
+\section{Code Profiling with PBKDF2}
+
+This section is divided in three parts, a deeper understanding of the code work flow is needed to understand where the time is lost during the execution. Then, the code will be profiled for two different executions, the first is aimed to compare the time of the key generation with only one iteration. That give a right comparison point between the different functions and the second will be with 1000 iterations to see how it occupies the time.
+
+
+\subsection{Code Flow}
+As previously explained, a deeper understanding of the different work flow of the code are important to understand the later profile.\\
+This explanation will be separated into the read, match and crypto part as crypto is used by both.
+
+\subsubsection{ReadMisp}
+\begin{figure}[h!]
+\begin{center}
+	\includegraphics[scale=0.3]{res/flowReadMisp}
+	\caption{Code2flow: ReadMisp WorkFlow}
+	\label{code2flow-readMisp}
+\end{center}
+\end{figure}
+ReadMisp (fig. \ref{code2flow-readMisp}) will first retrieve the data, either via the web API or the MySQL connection. The advantage of the MySQL is the speed for two reasons, first, there are no data transformation as we request the data as it is stored and secondly, in general, the MySQL server is accessible only from the server which means that there is less network delay.\\
+On the flow chart, we can also see the function printv which is a call to print only if the program runs in verbose mode.\\
+Once the IOCs available, the attributes are parsed and the message is created.\\
+For the parsing is the real creation of the rule, which is done in several steps:
+
+\begin{itemize}
+\item[$\bullet$] Values from Misp are split and associated with their type in a dictionary.
+\item[$\bullet$] URL are normalized.
+\item[$\bullet$] The message is created.
+\item[$\bullet$] The Crypto package is called to create the rule.
+\end{itemize}
+
+In order to be modular, all the code for rule creation is separated. Each time that the program is started, it goes to the configuration file to see which Crypto module to load from the crypto package.\\
+All modules need to implement the interface (interface.py) and then must be add in the choose\_crypto.py.\\
+For an example, the work flow for the PKKDF module is available on figure \ref{code2flow-pbkdf2}.
+
+\subsubsection{MatchRules}
+\begin{figure}[h!]
+\begin{center}
+	\includegraphics[scale=0.3]{res/flowMatchRules}
+	\caption{Code2flow: MatchRules WorkFlow}
+	\label{code2flow-matchRules}
+\end{center}
+\end{figure}
+
+Match rules has two really different ways of working, try to match an element from the arguments (argument matching) or from redis if the pipeline system with logs is used.\\
+The additional rangeip test is just for testing purpose and will be further explained in the benchmark sections.\\
+
+For redis matching, the only difference is that a pool of process running a redis matching process is used.\\
+Each process is actually polling the redis queue for new logs and is then feeding them to the matching system.\\
+In the other system, the arguments are directly seeded to the matching system.\\
+
+The matching system is working in different steps, first, in function of the argument types, it will load and cache the needed rules.\\
+There are two types of rules, the standards one are divided into files but, as I've added systems like bloom filter, it was easier to have a special file always loaded that I called Joker.\\
+
+Once the rules loaded, for each attributes to check, the crypto module will try to decrypt each rules up to find or not a match.
+
+\subsubsection{Crypto Module PBKDF2}
+
+\begin{figure}[h!]
+\begin{center}
+	\includegraphics[scale=0.3]{res/flowPBKDF2}
+	\caption{Code2flow: PBKDF2 Crypto Module WorkFlow}
+	\label{code2flow-pbkdf2}
+\end{center}
+\end{figure}
+
+The crypto modules are responsible for creating and matching rules. In the particular case of the PBKDF2 module, it generate the keys and encrypt the message or try to decipher it.\\
+
+As the types of file can differ from modules to modules, this is also the crypto module wich is responsible to save data and meta data files.\\
+This part can take a lot of time as for saving the elements (as well as getting them), we cannot afford problems inside the files like special characters to appear. So for that the idea is to use base64 encoding for the encrypted message, the salt (or nounce) and also the cipher-check argument (used for faster match checking).
+
+
+\subsection{Profile of ReadMisp for 1 iteration}
+Allow to really compare execution time of diff function
+
+\subsection{Profile of ReadMisp for 1000 iteration}
+See that iteration take the whole time even with the optimizations :) 
+
 
 \section{Benchmarking}
+\improvement{Do all needed analyzes}
 
 \section{Security Discussion}
 
