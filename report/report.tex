@@ -823,15 +823,31 @@ This part can take a lot of time as for saving the elements (as well as getting 
 
 
 \subsection{Profile of ReadMisp for 1 iteration}
-We thus need to check that generating the key and encrypting/decrypting data is taking much more time than everything else even with one iteration.\\
-We should also do especially close attention to the normalization of urls as it is the part that could increase the time and that could be improved if needed.\\
+We thus need to verify that generating the keys and encrypting/decrypting data is much more time consuming than everything else even with one iteration.\\
+We should also do especially close attention to the normalization of URLs. Normalizations could be inefficient as I don't know how the library is implemented and moreover, I'm additionally iterating for searching regex after that.\\
+
 For profiling the code, I've had some difficulties, first, I tried to use the vprof profiler as it seems to be the best and it was said that it supports python3.\\
 But there were a lot of errors and I first didn't succeed in using it. I've thus tried to use a line\_profiler (only working with python2) then profiling which was really complicated to used. \\
 I finally managed to use vprof with a little modification (to force it using python3) and I was really impressed by this tool that analyze everything. We can have graphs of the function utilizations, a line by line profiler but also a memory analyzer which can be really useful.\\
 
-Allow to really compare execution time of diff function
+\begin{figure}[h!]
+\begin{center}
+	\includegraphics[scale=0.3]{res/profile-1iter}
+	\caption{Vprof - Flame Chart Profile of readMisp  PBKDF2(1 iteration)}
+	\label{profile-readMisp}
+\end{center}
+\end{figure}
 
 \subsection{Profile of ReadMisp for 1000 iteration}
+\begin{figure}[h!]
+\begin{center}
+	\includegraphics[scale=0.3]{res/profile-1000iter}
+	\caption{Vprof - Flame Chart Profile of readMisp  PBKDF2(1000 iteration)}
+	\label{profile-readMisp1000}
+\end{center}
+\end{figure}
+
+
 See that iteration take the whole time even with the optimizations :) 
 
 
