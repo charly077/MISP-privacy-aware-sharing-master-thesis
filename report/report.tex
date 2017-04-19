@@ -807,13 +807,28 @@ Once the rules loaded, for each attributes to check, the crypto module will try 
 \end{center}
 \end{figure}
 
+\begin{figure}[h!]
+\begin{center}
+	\includegraphics[scale=0.3]{res/flowBloomFilter}
+	\caption{Code2flow: Bloom Filter Crypto Module WorkFlow}
+	\label{code2flow-bloom}
+\end{center}
+\end{figure}
+
 The crypto modules are responsible for creating and matching rules. In the particular case of the PBKDF2 module, it generate the keys and encrypt the message or try to decipher it.\\
+I've additionally add the bloom filter chart as well to see the difference is small as they inherit the same interface.\\
 
 As the types of file can differ from modules to modules, this is also the crypto module wich is responsible to save data and meta data files.\\
-This part can take a lot of time as for saving the elements (as well as getting them), we cannot afford problems inside the files like special characters to appear. So for that the idea is to use base64 encoding for the encrypted message, the salt (or nounce) and also the cipher-check argument (used for faster match checking).
+This part can take a lot of time as for saving the elements (as well as getting them) because we cannot afford problems inside the files like special characters to appear. So for that the idea is to use base64 encoding for the encrypted message, the salt (or nounce) and also the cipher-check argument (used for faster match checking).\\
 
 
 \subsection{Profile of ReadMisp for 1 iteration}
+We thus need to check that generating the key and encrypting/decrypting data is taking much more time than everything else even with one iteration.\\
+We should also do especially close attention to the normalization of urls as it is the part that could increase the time and that could be improved if needed.\\
+For profiling the code, I've had some difficulties, first, I tried to use the vprof profiler as it seems to be the best and it was said that it supports python3.\\
+But there were a lot of errors and I first didn't succeed in using it. I've thus tried to use a line\_profiler (only working with python2) then profiling which was really complicated to used. \\
+I finally managed to use vprof with a little modification (to force it using python3) and I was really impressed by this tool that analyze everything. We can have graphs of the function utilizations, a line by line profiler but also a memory analyzer which can be really useful.\\
+
 Allow to really compare execution time of diff function
 
 \subsection{Profile of ReadMisp for 1000 iteration}
