@@ -1,5 +1,0 @@
-pytest
-cryptography
-pandas
-matplotlib
-argparse
