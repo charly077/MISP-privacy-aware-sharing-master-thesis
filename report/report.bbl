@@ -152,6 +152,21 @@ Url normalization.
 \newblock {\em International Journal of Uncertainty, Fuzziness and
   Knowledge-Based Systems 10}, 05 (2002), 557--570.
 
+\bibitem{turan2010nist}
+{\sc Turan, M.~S., Barker, E., Burr, W., and Chen, L.}
+\newblock Nist: Special publication 800-132, recommendation for password-based
+  key derivation.
+\newblock {\em Computer Security Division Information Technology Laboratory.
+  http://csrc. nist. gov/publications/nistpubs/800-132/nist-sp800-132. pdf\/}
+  (2010).
+
+\bibitem{van2015password}
+{\sc Van~Acker, S., Hausknecht, D., Joosen, W., and Sabelfeld, A.}
+\newblock Password meters and generators on the web: From large-scale empirical
+  study to getting it right.
+\newblock In {\em Proceedings of the 5th ACM Conference on Data and Application
+  Security and Privacy\/} (2015), ACM, pp.~253--262.
+
 \bibitem{van2016private}
 {\sc van~de Kamp, T., Peter, A., Everts, M.~H., and Jonker, W.}
 \newblock Private sharing of iocs and sightings.
