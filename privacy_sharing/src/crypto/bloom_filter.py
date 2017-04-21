@@ -14,7 +14,6 @@ class Bloom_filter(Crypto):
         self.conf = conf
         self.token = conf['misp']['token']
         self.passwords = list()
-        self.writeMeta = (rate == None)
         self.rate = rate
         if not rate:
             self.rate = conf['bloom_filter']['error_rate']
@@ -60,19 +59,21 @@ class Bloom_filter(Crypto):
                 queue.put("Value(s) {} matched for {}\n".format(attributes, p[:-len(self.token)]))
 
 
-
-    def save_meta(self):
-        if self.writeMeta:
-            meta = configparser.ConfigParser()
-            meta['crypto'] = {}
-            meta['crypto']['name'] = 'bloom_filter' 
-            err_rate = self.rate
-            meta['crypto']['error_rate'] = err_rate
-            with open(self.conf['rules']['location'] + '/metadata', 'w') as config:
-                meta.write(config)
-
+    def write_bloom():
         # create Bloom filter
-        f = BloomFilter(capacity=len(self.passwords), error_rate=float(err_rate))
+        f = BloomFilter(capacity=len(self.passwords), error_rate=float(self.rate))
         [f.add(password) for password in self.passwords ]
         with open(self.conf['rules']['location'] + '/joker', 'wb') as fd:
             f.tofile(fd)
+
+    def save_meta(self):
+        meta = configparser.ConfigParser()
+        meta['crypto'] = {}
+        meta['crypto']['name'] = 'bloom_filter' 
+        err_rate = self.rate
+        meta['crypto']['error_rate'] = err_rate
+        with open(self.conf['rules']['location'] + '/metadata', 'w') as config:
+            meta.write(config)
+        
+        self.write_bloom()
+
