@@ -14,6 +14,7 @@ class Bloom_filter(Crypto):
         self.conf = conf
         self.token = conf['misp']['token']
         self.passwords = list()
+        self.writeMeta = (rate == None)
         self.rate = rate
         if not rate:
             self.rate = conf['bloom_filter']['error_rate']
@@ -61,13 +62,14 @@ class Bloom_filter(Crypto):
 
 
     def save_meta(self):
-        meta = configparser.ConfigParser()
-        meta['crypto'] = {}
-        meta['crypto']['name'] = 'bloom_filter' 
-        err_rate = self.rate
-        meta['crypto']['error_rate'] = err_rate
-        with open(self.conf['rules']['location'] + '/metadata', 'w') as config:
-            meta.write(config)
+        if self.writeMeta:
+            meta = configparser.ConfigParser()
+            meta['crypto'] = {}
+            meta['crypto']['name'] = 'bloom_filter' 
+            err_rate = self.rate
+            meta['crypto']['error_rate'] = err_rate
+            with open(self.conf['rules']['location'] + '/metadata', 'w') as config:
+                meta.write(config)
 
         # create Bloom filter
         f = BloomFilter(capacity=len(self.passwords), error_rate=float(err_rate))
