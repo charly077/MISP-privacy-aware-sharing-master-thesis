@@ -10,10 +10,13 @@ from base64 import b64encode
 from crypto.pybloom import BloomFilter
 
 class Bloom_filter(Crypto):
-    def __init__(self, conf, metadata=None):
+    def __init__(self, conf, metadata=None, rate=None):
         self.conf = conf
         self.token = conf['misp']['token']
         self.passwords = list()
+        self.rate = rate
+        if not rate:
+            self.rate = conf['bloom_filter']['error_rate']
         # if for matching
         if metadata != None:
             filename = self.conf['rules']['location'] + '/joker'
@@ -61,7 +64,7 @@ class Bloom_filter(Crypto):
         meta = configparser.ConfigParser()
         meta['crypto'] = {}
         meta['crypto']['name'] = 'bloom_filter' 
-        err_rate = self.conf['bloom_filter']['error_rate']
+        err_rate = self.rate
         meta['crypto']['error_rate'] = err_rate
         with open(self.conf['rules']['location'] + '/metadata', 'w') as config:
             meta.write(config)
