@@ -12,8 +12,5 @@ def Crypto(name, conf, metadata=None):
         from crypto.bloomy import Bloomy
         print(name[7:])
         return Bloomy(conf, metadata, name[7:])
-    elif (name == 'bloomy_pbkdf2'):
-        from crypto.pbkdfBloom import PbkdfBloom
-        return PbkdfBloom(conf, metadata)
     else:
         print('Not recognized')
