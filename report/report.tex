@@ -712,12 +712,24 @@ This is the basic system for which all the structure had been optimized and had 
 \end{figure}
 
 For the cryptographic system, there is also an small difference in the rules that allow a really faster matching.\\
-Instead of directly encrypt the whole message, I've decided to divide it in two parts (easy to do with the cryptography library). The first is the ciphertext-check and the other one is the ciphertext. The ciphertext-check is simply the first bock of the encrypted message. It is used only for matching, decrypt it must result in only zeros if there is a match.
+Instead of directly encrypt the whole message, I've decided to divide it in two parts (easy to do with the cryptography library). The first is the ciphertext-check and the other one is the ciphertext. The ciphertext-check is simply the first bock of the encrypted message. It is used only for matching, decrypt it must result in only zeros if there is a match.\\
+
+For this algorithm, the user must choose an important meta parameter that will determine the "security level". This meta parameter is the number of iterations for the key derivation functions.\\
+In 2000, the RFC advised 1000 iterations for password storing. In 2015, OWASP password storage cheat sheet \cite{van2015password} advised about 10 000 iterations while NIST recommends on its appendix A.2.2 of its guide \cite{turan2010nist} to use as many iterations as it is possible with the needed performances.
 
 \subsection{Bcrypt}
 The implementation with Bcrypt is similar as my implementation with PBKDF2. It is a password hash function based on the Blowfish cipher. It also incorporate hash to be protected against rainbow table attacks (TMTO).\\
-It has also advantages as being more configurable and is more efficient against GPU attacks. It also seems better to use but the NIST recommendations are about PBKDF2.
+It has also advantages as being more configurable and is more efficient against GPU attacks. It also seems better to use but the NIST recommendations are about PBKDF2.\\
 
+On the other hand, the time complexity is not the same as for PBKDF2.\\
+The problem with this algorithm is that they only consider the 72 firsts characters of the password for the key generation. It can seems a lot but even this url \url{https://translate.google.com/#fr/en/72\%20caract\%C3\%A8re\%2C\%20ce\%20n'est\%20pas\%20beaucoup} is 88 characters long. This mean is we add the token at the end (like in PKKDF2) it will not be included. On the other side, if we first put the token and the the data, an attacker would know that the 40 firsts characters will always be the same and moreover, there are only 32 characters left for the data which is not enough even for an IPv6.\\
+As the goal was that the whole string has an impact to the key generated as well as the token to have an impact on all bits. The solution was thus obviously to hash the concatenation of the value and the token and then seed this fingerprint to the key generation function.\\
+
+We also know that such key derivation function are aimed to have a time complexity that growth exponentially with the number of characters. Here every element can be considered as a 72 characters element (has the hash is longer) which means that with this technique, it can take really longer to check IPs in the system and so for bruteforcing as well. It thus need to be taken into consideration before choosing the number of iterations for small data.
+
+
+\subsection{ARGON-2 ????}
+Winner so it could be interesting to use it %TODO 
 \subsection{Bloom filter}
 In this section, I will argue the choice for python-bloom library. This choice was actually a way more complicated than it could be as, I think it is not the fastest implementation.\\
 But first, to understand my choice, we need to know what I really was searching for. I needed to find a way for avoiding brute forcing the database, but, on the other hand, I want it to be really fast for a common user. Thus Bloom filters already take car of the first part so, I only needed to find a fast implementation.\\
@@ -728,9 +740,12 @@ I've finally found the python-bloom library, It seems less efficient but well im
 For the bloom filter, I've got different ideas, first, I need to implement the bloom filter as a tsv file. But, I also need it to be loaded each time. For this, I've added a special joker rule that is always loaded if it exists.\\
 On this first implementation, I would like to have only one bloom filter for the whole data set. I could have implemented a bloom filter for attributes but as it is fast enough, it would use less memory and will be more efficient to use only one bloom filter.\\
 
-bloom vs scalable bloom \\
 
-Sharing their bloom filter idea \\
+
+
+
+
+
 
 \chapter{Results}
 Finally, the most interesting part is coming, is it really working? Is the additional computation worth it? Can we trust this system with our data ? Could with improve the code for the computation time ?\\
@@ -838,7 +853,23 @@ I finally managed to use vprof with a little modification (to force it using pyt
 \end{center}
 \end{figure}
 
+This graph \ref{profile-readMisp} shows that getting the IOCs from MySQL takes approximately one third of the time. And there, we also see that two thirds of this section are used directly for Mysql but the one third left is used for ordering and small modification of the format of some values. This could be slightly improved but this would not increase the average performance as we can see with 1000 iterations.\\
+Then writing data to files (Rightmost dark blue) takes time but cannot be improved significantly.\\  
+The first question about the normalization time is answered and we see that it shows that normalizations of URLs is already a small amount of time compared to one iteration for the key derivation.\\
+We also see that in this particular case, the major part of the time is taken by the encryption of the messages.
+
+\begin{figure}[h!]
+\begin{center}
+	\includegraphics[scale=0.3]{res/profile-mem-readMisp-1iter}
+	\caption{Vprof - Memory Chart Profile of readMisp  PBKDF2(1 iteration)}
+	\label{profile-mem-readMisp}
+\end{center}
+\end{figure}
+
+The memory graph we can see that the highest level (on the right) is approximately at 200MB used for 27663 rules. This does not vary with the number of iterations.\\ \improvement{Analyze the increase of memory in function of the number of rules !}
+
 \subsection{Profile of ReadMisp for 1000 iteration}
+
 \begin{figure}[h!]
 \begin{center}
 	\includegraphics[scale=0.3]{res/profile-1000iter}
@@ -847,8 +878,8 @@ I finally managed to use vprof with a little modification (to force it using pyt
 \end{center}
 \end{figure}
 
+The goal of this work is to slow down the system, which means that a lot of iteration will be used. \\
 
-See that iteration take the whole time even with the optimizations :) 
 
 
 \section{Benchmarking}
