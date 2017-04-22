@@ -16,7 +16,7 @@ class Pbkdf2(Crypto):
         self.btoken = bytes(conf['misp']['token'], encoding='ascii')
         self.iterations = int(self.conf['pbkdf2']['iterations'])
         self.ipiterations = int(self.conf['pbkdf2']['ipiterations'])
-        # for martching (only token is kept from config file)
+        # for matching (only token is kept from config file)
         if metadata is not None:
             metadata = metadata['crypto']
             self.hash_name = metadata['hash_name']

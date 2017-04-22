@@ -18,7 +18,7 @@ class Bcrypt(Crypto):
         self.btoken = bytes(conf['misp']['token'], encoding='ascii')
         self.round = int(self.conf['bcrypt']['round'])
         self.ipround = int(self.conf['bcrypt']['ipround'])
-        # for martching (only token is kept from config file)
+        # for matching (only token is kept from config file)
         if metadata is not None:
             metadata = metadata['crypto']
             self.round = int(metadata['round'])
@@ -42,12 +42,10 @@ class Bcrypt(Crypto):
         digest.update(bpassword)
         digest.update(self.btoken)
         token_pass = digest.finalize()
-        print(attr_types)
         key =  bcrypt.kdf(password = token_pass, 
                 salt = bsalt,
                 desired_key_bytes = 16,
                 rounds = rd)
-        print(key)
         return key
 
     def create_rule(self, ioc, message):

@@ -38,7 +38,7 @@ class Bloom_filter(Crypto):
         return {'joker':True}
 
 
-    def check(attributes, rule):
+    def check(self, attributes, rule):
         """
         return a list of password to test or an empty list
         """
@@ -66,11 +66,11 @@ class Bloom_filter(Crypto):
         ciphertext to know if there is a match
         as it is the case here thanks to ctr mode
         """
-        for p in check(attributes, rule):
+        for p in self.check(attributes, rule):
             queue.put("Value(s) {} matched for {}\n".format(attributes, p[:-len(self.token)]))
 
 
-    def write_bloom():
+    def write_bloom(self):
         # create Bloom filter
         f = BloomFilter(capacity=len(self.passwords), error_rate=float(self.rate))
         [f.add(password) for password in self.passwords ]

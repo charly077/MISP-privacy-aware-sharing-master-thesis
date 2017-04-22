@@ -16,9 +16,9 @@ import glob, hashlib, os
 from base64 import b64encode
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
-from bloom_filter import Bloom_filter as BF
+from crypto.bloom_filter import Bloom_filter as BF
 
-class Pbkdf2(Crypto):
+class PbkdfBloom(Crypto):
     def __init__(self, conf, metadata=None):
         self.conf = conf
         self.hash_name = conf['pbkdf2']['hash_name']
@@ -26,7 +26,7 @@ class Pbkdf2(Crypto):
         self.btoken = bytes(conf['misp']['token'], encoding='ascii')
         self.iterations = int(self.conf['pbkdf2']['iterations'])
         self.ipiterations = int(self.conf['pbkdf2']['ipiterations'])
-        # for martching (only token is kept from config file)
+        # for matching (only token is kept from config file)
         if metadata is not None:
             metadata = metadata['crypto']
             self.hash_name = metadata['hash_name']
@@ -34,7 +34,7 @@ class Pbkdf2(Crypto):
             self.iterations = int(metadata['iterations'])
             self.ipiterations = int(metadata['ipiterations'])
         # set up bloom
-        self.bloom = BF(conf, rate=0.5)
+        self.bloom = BF(conf, metadata=metadata, rate=0.5)
 
     def derive_key(self, bpassword, bsalt, attr_types):
         """
@@ -100,7 +100,7 @@ class Pbkdf2(Crypto):
 
         Attention: Here we first check the bloom filter !
         """
-        if len(self.bloom.check(attributes, rule)>0:
+        if len(self.bloom.check(attributes, rule))>0:
             rule_attr = rule['attributes']
             password = ''
             try:
@@ -120,7 +120,7 @@ class Pbkdf2(Crypto):
     def save_meta(self):
         meta = configparser.ConfigParser()
         meta['crypto'] = {}
-        meta['crypto']['name'] = 'pbkdf2' 
+        meta['crypto']['name'] = 'bloomy_pbkdf2' 
         meta['crypto']['hash_name'] = self.conf['pbkdf2']['hash_name']
         meta['crypto']['dklen'] = self.conf['pbkdf2']['dklen'] # AES block size
         meta['crypto']['iterations'] = str(self.iterations)
@@ -129,5 +129,5 @@ class Pbkdf2(Crypto):
             meta.write(config)
 
         # Create bloom filter
-        self.bloom.save_meta()
+        self.bloom.write_bloom()
 
