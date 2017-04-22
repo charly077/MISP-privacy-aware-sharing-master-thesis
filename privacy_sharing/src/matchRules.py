@@ -206,12 +206,12 @@ if __name__ == "__main__":
         sys.exit("No rules found.")
 
 
-    # get all files attribbutes
+    # get all files attributes
     filenames = os.listdir(conf['rules']['location'])
     for name in filenames:
         split = (name.split('.')[0]).split('_')
         file_attributes[name] = split
-
+    
     if args.input == "redis":
         redis_matching(crypto)
     elif args.input == "rangeip":
