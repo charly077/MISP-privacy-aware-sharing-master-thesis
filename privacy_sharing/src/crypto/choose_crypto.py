@@ -8,3 +8,10 @@ def Crypto(name, conf, metadata=None):
     elif (name == 'bloom_filter'):
         from crypto.bloom_filter import Bloom_filter
         return Bloom_filter(conf, metadata)
+    elif (name == 'bloomy_pbkdf2'):
+        from crypto.pbkdfBloom import PbkdfBloom
+        return PbkdfBloom(conf, metadata)
+    elif (name.startswith('bloomy_')):
+        return todo #TODO
+    else:
+        print('Not recognized')
