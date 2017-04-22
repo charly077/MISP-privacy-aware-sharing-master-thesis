@@ -100,21 +100,20 @@ class Pbkdf2(Crypto):
 
         Attention: Here we first check the bloom filter !
         """
-        if self.bloom.match(attributes, rule, queue):
-            # TODO ==> FUCK that does not work with the queue
-        rule_attr = rule['attributes']
-        password = ''
-        try:
-            password = '||'.join([attributes[attr] for attr in rule_attr])
-            attr_types = '||'.join(attr_type for attr_type in rule_attr)
-        except:
-            pass # nothing to do
-        ciphertext = [rule['ciphertext-check'], rule['ciphertext']]
-        match, plaintext = self.cryptographic_match(password, rule['salt'],\
-                rule['nonce'], ciphertext, attr_types)
+        if len(self.bloom.check(attributes, rule)>0:
+            rule_attr = rule['attributes']
+            password = ''
+            try:
+                password = '||'.join([attributes[attr] for attr in rule_attr])
+                attr_types = '||'.join(attr_type for attr_type in rule_attr)
+            except:
+                pass # nothing to do
+            ciphertext = [rule['ciphertext-check'], rule['ciphertext']]
+            match, plaintext = self.cryptographic_match(password, rule['salt'],\
+                    rule['nonce'], ciphertext, attr_types)
 
-        if match:
-            queue.put("IOC matched for: {}\nSecret Message (uuid-event id-date)\n===================================\n{}\n".format(attributes, plaintext.decode('utf-8')))
+            if match:
+                queue.put("IOC matched for: {}\nSecret Message (uuid-event id-date)\n===================================\n{}\n".format(attributes, plaintext.decode('utf-8')))
 
 
 
