@@ -38,11 +38,9 @@ class Bloom_filter(Crypto):
         return {'joker':True}
 
 
-    def match(self, attributes, rule, queue):
+    def check(attributes, rule):
         """
-        Sometimes we don't need to decrypt the whole
-        ciphertext to know if there is a match
-        as it is the case here thanks to ctr mode
+        return a list of password to test or an empty list
         """
         passwords = list()
 
@@ -53,10 +51,23 @@ class Bloom_filter(Crypto):
 
         for attr in attributes:
             passwords.append(attributes[attr]+ self.token)
-        
+
+        matchPasswords = list()
         for p in passwords:
             if p in self.f:
-                queue.put("Value(s) {} matched for {}\n".format(attributes, p[:-len(self.token)]))
+                matchPasswords.append(p)
+
+        return matchPasswords
+        
+
+    def match(self, attributes, rule, queue):
+        """
+        Sometimes we don't need to decrypt the whole
+        ciphertext to know if there is a match
+        as it is the case here thanks to ctr mode
+        """
+        for p in check(attributes, rule):
+            queue.put("Value(s) {} matched for {}\n".format(attributes, p[:-len(self.token)]))
 
 
     def write_bloom():
