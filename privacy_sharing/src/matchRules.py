@@ -17,6 +17,7 @@ from copy import deepcopy
 import redis
 from normalize import normalize
 from collections import OrderedDict
+from progressbar import ProgressBar
 
 # crypto import 
 import hashlib
@@ -27,7 +28,9 @@ parser = argparse.ArgumentParser(description='Evaluate a network dump against ru
 parser.add_argument('attribute', nargs='*', help='key-value attribute eg. ip=192.168.0.0 port=5012')
 parser.add_argument('--input', default="argument",
         help='input is redis, argument or rangeip (testing purpose)')
-
+parser.add_argument('-v', '--verbose',\
+                dest='verbose', action='store_true',\
+                        help='Shows progress bar')
 parser.add_argument('-p', '--multiprocess', action='store',
         type=int, help='Use multiprocess, the maximum is the number of cores minus 1 (only for redis)', default=0, )
 args = parser.parse_args()
@@ -136,8 +139,13 @@ def matching(attributes, queue, lock, crypto):
     # normalize data 
     attributes = normalize(attributes)
     # test each rules
-    for rule in get_rules(attributes, lock):
-        crypto.match(attributes, rule, queue)
+    if args.verbose:
+        bar = ProgressBar()
+        for rule in bar(get_rules(attributes, lock)):
+            crypto.match(attributes, rule, queue) 
+    else:
+        for rule in get_rules(attributes, lock):
+            crypto.match(attributes, rule, queue)
 
 def argument_matching(crypto, values=args.attribute):
     attributes = OrderedDict(pair.split("=") for pair in values)
