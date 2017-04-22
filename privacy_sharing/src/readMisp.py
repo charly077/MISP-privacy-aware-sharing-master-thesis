@@ -39,8 +39,6 @@ parser = argparse.ArgumentParser(description='Create an encrypted IOC \
         rule.')
 parser.add_argument('--misp', default='web',
         help='web (for web api);mysql (directly from mysql)')
-parser.add_argument('--crypto', default='pbkdf2',
-        help='name of the crypto system (in crypto package)')
 parser.add_argument('-v', '--verbose',\
         dest='verbose', action='store_true',\
         help='Explain what is being done')
@@ -150,7 +148,7 @@ if __name__ == "__main__":
         sys.exit('misp argument is mis configured. Please select csv or mysql')
 
     # choose crypto system
-    crypto = Crypto(args.crypto, conf)
+    crypto = Crypto(conf["rules"]["cryptomodule"], conf)
 
     # Parse IOCs
     printv("Create rules")
