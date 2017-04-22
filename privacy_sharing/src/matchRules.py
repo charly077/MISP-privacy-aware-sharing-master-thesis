@@ -53,12 +53,13 @@ def iterator_result(queue):
     return iter(next, None)
 
 # from the csv file, read the rules and return them as a list
-def rules_from_csv(filename, lock, parse=True):
+def rules_from_csv(filename, lock, parse=True, printErr=True):
     lock.acquire()
     path = conf['rules']['location']+'/'+filename
     rules = list()
     if not os.path.exists(path):
-        print("path does not exist")
+        if printErr:
+            print("path does not exist")
         lock.release()
         return rules
     with open(path, "r") as f:
@@ -87,11 +88,7 @@ def joker(lock):
     try:
         return rules_dict[filename]
     except:
-        try:
-            rules_dict['joker'] = rules_from_csv('joker.tsv', lock, False)
-        except:
-            rules_dict['joker'] = list()
-        return rules_dict['joker']
+        return rules_from_csv('joker.tsv', lock, False, False)
 
 def get_file_rules(filename, lock):
     # get rules :
