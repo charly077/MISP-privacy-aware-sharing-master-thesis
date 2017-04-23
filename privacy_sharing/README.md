@@ -57,7 +57,7 @@ for each rule:
 Then, I've tried to make a code modular to be able to add new crypto systems on it.
 
 # Structure
-conf/ contains all configurations in the configuration file (= filled configuration.orig)
+conf/ contains all configurations in the configuration file (= configuration.orig)
 
 src/ contains all the source files
 
