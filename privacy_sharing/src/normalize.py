@@ -3,10 +3,10 @@
 
 """
 Do not duplicate code in both readMisp and match Rules !
-The goal first to normalize URLs and IPv6 addresses
+The goal is first to normalize URLs and IPv6 addresses
 URLs:
     - standards normalization as done with the library
-    - additionnal 'normalizations' steps explained in the report
+    - additionnal 'normalization' steps explained in the report
         (could transform the URL but better for matching)
 IPv6: 
     - # TODO 
@@ -17,8 +17,8 @@ from url_normalize import url_normalize
 
 def normalize(ioc):
     for attr_type in ioc:
-        # distinction bewtwee url|uri|link is often misused
-        # Thus they are considered the same
+        # url|uri|link are often misused
+        # Thus they are considered to be the same
         if attr_type == 'url' or\
             attr_type == 'uri' or\
             attr_type == 'link':
@@ -41,6 +41,6 @@ def urlNorm(url):
     for index in directory_indexes:
         url = re.sub(index+ '$', '', url)
     
-    # remove http https
+    # remove http https and www.
     url = re.sub("^https?://(www.)?", '', url)
     return url
