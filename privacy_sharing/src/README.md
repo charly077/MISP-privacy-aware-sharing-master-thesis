@@ -33,7 +33,7 @@ optional arguments:
   
 # matchRules.py : check for a match
 - help :
-	- ./match_rules.py
+	- ./matchRules.py -h
   ```
 usage: matchRules.py [-h] [--input INPUT] [-v] [-p MULTIPROCESS]
                      [attribute [attribute ...]]
