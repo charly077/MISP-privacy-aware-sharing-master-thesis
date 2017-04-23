@@ -53,7 +53,7 @@ class Pbkdf2(Crypto):
         ct_message = encryptor.update(message.encode('utf-8'))
         ct_message += encryptor.finalize()
 
-        # create the rule
+        # Create the rule
         rule = {}
         rule['salt'] = b64encode(salt).decode('ascii')
         rule['attributes'] = attr_types
