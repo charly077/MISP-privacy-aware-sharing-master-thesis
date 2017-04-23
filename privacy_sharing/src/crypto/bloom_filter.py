@@ -6,7 +6,7 @@ import configparser
 import glob, hashlib, os
 from base64 import b64encode
 
-# hash and crypto import
+# Hash and crypto import
 from crypto.pybloom import BloomFilter
 
 class Bloom_filter(Crypto):
@@ -17,7 +17,7 @@ class Bloom_filter(Crypto):
         self.rate = rate
         if not rate:
             self.rate = conf['bloom_filter']['error_rate']
-        # if for matching
+        # If for matching
         if metadata != None:
             filename = self.conf['rules']['location'] + '/joker'
             with open(filename, 'rb') as fd:
@@ -40,7 +40,7 @@ class Bloom_filter(Crypto):
 
     def check(self, attributes, rule):
         """
-        return a list of password to test or an empty list
+        Return a list of password to test or an empty list
         """
         passwords = list()
 
@@ -61,17 +61,12 @@ class Bloom_filter(Crypto):
         
 
     def match(self, attributes, rule, queue):
-        """
-        Sometimes we don't need to decrypt the whole
-        ciphertext to know if there is a match
-        as it is the case here thanks to ctr mode
-        """
         for p in self.check(attributes, rule):
             queue.put("Value(s) {} matched for {}\n".format(attributes, p[:-len(self.token)]))
 
 
     def write_bloom(self):
-        # create Bloom filter
+        # Create Bloom filter
         f = BloomFilter(capacity=len(self.passwords), error_rate=float(self.rate))
         [f.add(password) for password in self.passwords ]
         with open(self.conf['rules']['location'] + '/joker', 'wb') as fd:
