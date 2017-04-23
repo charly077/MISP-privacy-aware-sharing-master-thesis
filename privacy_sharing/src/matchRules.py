@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# this code is inspired from https://github.com/CRIPTIM/private-IOC-sharing
+# This code is inspired from https://github.com/CRIPTIM/private-IOC-sharing written by Tim van de Kamp
 # which is using the MIT license
 
-# misp import
+# MISP import
 from configuration import Configuration
 
-# tools import
+# Tools import
 import argparse, configparser
 import os, sys, glob, subprocess
 from multiprocessing import SimpleQueue, Process, cpu_count, Lock
@@ -19,10 +19,14 @@ from normalize import normalize
 from collections import OrderedDict
 from progressbar import ProgressBar
 
-# crypto import 
+# Crypto import 
 import hashlib
 from base64 import b64decode
 from crypto.choose_crypto import Crypto
+
+###################
+# Parse arguments #
+###################
 
 parser = argparse.ArgumentParser(description='Evaluate a network dump against rules.')
 parser.add_argument('attribute', nargs='*', help='key-value attribute eg. ip=192.168.0.0 port=5012')
@@ -39,20 +43,20 @@ metadata = {}
 conf = Configuration()
 
 ####################
-# helper functions #
+# Helper functions #
 ####################
 
 def iterator_result(queue):
-    # iter on a queue without infinite loop
+    # Iter on a queue without infinite loop
     def next():
         if queue.empty():
             return None
         else:
             return queue.get()
-    # return iterator
+    # Return iterator
     return iter(next, None)
 
-# from the csv file, read the rules and return them as a list
+# From the csv file, read the rules and return them as a list
 def rules_from_csv(filename, lock, parse=True, printErr=True):
     lock.acquire()
     path = conf['rules']['location']+'/'+filename
@@ -83,7 +87,7 @@ rules_dict = {}
 def joker(lock):
     """
     Get joker file:
-        joker is a special rule that always need to be loaded
+        joker is a special rule that always loaded
     """
     try:
         return rules_dict[filename]
@@ -91,7 +95,7 @@ def joker(lock):
         return rules_from_csv('joker.tsv', lock, False, False)
 
 def get_file_rules(filename, lock):
-    # get rules :
+    # Get rules :
     try:
         return rules_dict[filename]
     except:
@@ -99,9 +103,9 @@ def get_file_rules(filename, lock):
         return rules_dict[filename]
 
 def get_rules(attributes, lock):
-    # get joker
+    # Get joker
     rules = joker(lock)
-    # wich combinaison
+    # Which combinaison
     for filename in file_attributes:
         if all([i in attributes for i in file_attributes[filename]]):
             for rule in get_file_rules(filename, lock):
@@ -110,10 +114,10 @@ def get_rules(attributes, lock):
 
 
 #####################
-# process functions #
+# Process functions #
 #####################
 def redis_matching_process(r, queue, lock, crypto):
-    # get data
+    # Get data
     log = r.rpop("logstash")
     while log:
         log = log.decode("utf8")
@@ -123,13 +127,13 @@ def redis_matching_process(r, queue, lock, crypto):
         log = r.rpop("logstash")
 
 def print_queue_process(queue):
-    # this is an infinite loop as get waits when empty
+    # This is an infinite loop as get waits when empty
     for elem in iter(queue.get, None):
        print(elem)
 
 
 ###################
-# match functions #
+# Match functions #
 ###################
 #@lru_cache(maxsize=None)
 def matching(attributes, queue, lock, crypto):
@@ -149,12 +153,12 @@ def argument_matching(crypto, values=args.attribute):
     match = SimpleQueue()
     matching(attributes, match, Lock(), crypto)
 
-    # print matches
+    # Print matches (Easy to modify)
     for match in iterator_result(match):
         print(match)
 
 def redis_matching(crypto):
-    # data is enriched in logstash
+    # Data is enriched in logstash
     conf = Configuration()
     r = redis.StrictRedis(host=conf['redis']['host'], port=conf['redis']['port'], db=conf['redis']['db'])
 
@@ -168,7 +172,7 @@ def redis_matching(crypto):
             process.start()
             processes.append(process)
 
-        # print match if there are some
+        # Print match(es)
         print_process = Process(target=print_queue_process, args=([match]))
         print_process.start()
         for process in processes:
@@ -179,7 +183,7 @@ def redis_matching(crypto):
         for item in iterator_result(match):
             print(item)
 
-# for Benchmarking
+# For Benchmarking
 def rangeip_test(crypto):
     for ip4 in range(256):
         ip=["ip-dst=192.168.0." + str(ip4)]
@@ -191,19 +195,19 @@ def rangeip_test(crypto):
 if __name__ == "__main__":
     conf = Configuration()
     rules = list()
-    # get configuration
+    # Get configuration
     metaParser = configparser.ConfigParser()
     metaParser.read(conf['rules']['location'] + "/metadata")
     metadata = metaParser._sections
 
-    # choose crypto
+    # Choose crypto
     crypto = Crypto(metadata['crypto']['name'], conf, metadata)
 
     if not os.path.exists(conf['rules']['location']):
         sys.exit("No rules found.")
 
 
-    # get all files attributes
+    # Get all files attributes
     filenames = os.listdir(conf['rules']['location'])
     for name in filenames:
         split = (name.split('.')[0]).split('_')
