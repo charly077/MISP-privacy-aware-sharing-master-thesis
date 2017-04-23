@@ -1,3 +1,4 @@
 rules/*
 res/*
 __pycache__
+*.pyc
