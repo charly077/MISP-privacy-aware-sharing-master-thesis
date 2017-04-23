@@ -75,7 +75,7 @@ if we need to access the database from an other host, add remove sql access: (on
 - replace line "bind-address = 127.0.0.1" by "# bind-address = 127.0.0.1"
 - mysql -uroot -pPassword1234
 - CREATE USER 'user'@'%' IDENTIFIED BY 'Password1234';
-- GRANT ALL ON *.* TO 'user'@'%';
+- GRANT ALL ON \*.\* TO 'user'@'\%';
 ```
 
 
