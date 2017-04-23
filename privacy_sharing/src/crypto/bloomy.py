@@ -14,7 +14,7 @@ class Bloomy(Crypto):
     def __init__(self, conf, metadata=None, cryptoName=''):
         self.conf = conf
         self.Crypto = ChooseCrypto(cryptoName, conf, metadata)
-        # set up bloom
+        # Set up bloom
         self.bloom = BF(conf, metadata=metadata, rate=0.5)
 
     def create_rule(self, ioc, message):
@@ -29,9 +29,9 @@ class Bloomy(Crypto):
         conf = self.conf
         # Create bloom filter
         self.bloom.write_bloom()
-        # save metadat
+        # Save metadat
         self.Crypto.save_meta()
-        # add bloomy_
+        # Add bloomy_
         metaParser = ConfigParser()
         metaParser.read(conf['rules']['location'] + '/metadata')
         metadata = metaParser._sections
