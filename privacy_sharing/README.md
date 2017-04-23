@@ -67,7 +67,7 @@ src/ contains all the source files
 - pip3 install -r requirements.txt
 
 # Setup Misp Virtual Machine (testing purpose)
-- download the image on https://circl.lu/services/misp-training-materials/
+- Image available on : https://circl.lu/services/misp-training-materials/
 
 if we need to access the database from an other host, add remove sql access: (on the vm)
 ```
