@@ -86,7 +86,7 @@ if we need to access the database from an other host, add remove sql access: (on
 - fill in misp/rules/pbkdf2 sections and save it
 - cd ..
 - ./readMisp.py -v
-- ./readMisp.py ip-dst=192.168.1.1
+- ./matchRules.py ip-dst=192.168.1.1
 
 
 [1]https://github.com/MISP/MISP
