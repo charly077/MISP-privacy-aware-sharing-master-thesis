@@ -8,3 +8,5 @@ argparse
 url_normalize
 bcrypt
 progressbar2
+cffi
+argon2_cffi
