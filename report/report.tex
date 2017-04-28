@@ -715,7 +715,23 @@ For the cryptographic system, there is also an small difference in the rules tha
 Instead of directly encrypt the whole message, I've decided to divide it in two parts (easy to do with the cryptography library). The first is the ciphertext-check and the other one is the ciphertext. The ciphertext-check is simply the first bock of the encrypted message. It is used only for matching, decrypt it must result in only zeros if there is a match.\\
 
 For this algorithm, the user must choose an important meta parameter that will determine the "security level". This meta parameter is the number of iterations for the key derivation functions.\\
-In 2000, the RFC advised 1000 iterations for password storing. In 2015, OWASP password storage cheat sheet \cite{van2015password} advised about 10 000 iterations while NIST recommends on its appendix A.2.2 of its guide \cite{turan2010nist} to use as many iterations as it is possible with the needed performances.
+In 2000, the RFC advised 1000 iterations for password storing. In 2015, OWASP password storage cheat sheet \cite{van2015password} advised about 10 000 iterations while NIST recommends on its appendix A.2.2 of its guide \cite{turan2010nist} to use as many iterations as it is possible with the needed performances.\\
+
+Some additional analyze can be make on the ability to sustain an attack, the article make by the CryptoSense\footnote{\url{https://cryptosense.com/parameter-choice-for-pbkdf2/}} website is really well documented.\\
+They have analyzed previous work and have done some estimation for 2015. Their approximation is more a guess than anything else and I wouldn't dare trying their approximation for 2017 but I will nevertheless show their results to get a rough ideas of what could be the time to crack a password from a key generated with PBKDF2 (AES + SHA-1):\\
+\begin{table}[h!]
+\centering
+\caption{My caption}
+\label{my-label}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Password Complexity & Estimated Entropy (bits) & 1 000 Iterations & 10 000 iterations \\ \hline
+Comprehensive8 & 33 & 4h46 & 47h \\ \hline
+8 random lowercase letters & 37 & 12h & 5 days \\ \hline
+8 random letters & 45 & 123 days & 3 years 5 months \\ \hline
+\begin{tabular}[c]{@{}c@{}}8 letters + numbers + punctuation \\ OR \\ 4 random Diceware words\end{tabular} & 52 & 325 years & 3250 years \\ \hline
+\end{tabular}
+\end{table}
 
 \subsection{Bcrypt}
 The implementation with Bcrypt is similar as my implementation with PBKDF2. It is a password hash function based on the Blowfish cipher. It also incorporate hash to be protected against rainbow table attacks (TMTO).\\
@@ -728,8 +744,6 @@ As the goal was that the whole string has an impact to the key generated as well
 We also know that such key derivation function are aimed to have a time complexity that growth exponentially with the number of characters. Here every element can be considered as a 72 characters element (has the hash is longer) which means that with this technique, it can take really longer to check IPs in the system and so for bruteforcing as well. It thus need to be taken into consideration before choosing the number of iterations for small data.
 
 
-\subsection{ARGON-2 ????}
-Winner so it could be interesting to use it %TODO 
 \subsection{Bloom filter}
 In this section, I will argue the choice for python-bloom library. This choice was actually a way more complicated than it could be as, I think it is not the fastest implementation.\\
 But first, to understand my choice, we need to know what I really was searching for. I needed to find a way for avoiding brute forcing the database, but, on the other hand, I want it to be really fast for a common user. Thus Bloom filters already take car of the first part so, I only needed to find a fast implementation.\\
@@ -742,10 +756,26 @@ On this first implementation, I would like to have only one bloom filter for the
 
 
 
+\subsection{Bloom filter used as to improve performance of Key Derivation Functions}
+%TODO
+\improvement{Attention explain how to use it => Cryptoname = "bloomy\_" + name}
+\improvement{Explain how it works (workflow)}
 
 
+\section{An other KDF}
+An open competition called Password Hashing Competition (PHC) started on 2013 to meet the needs of a standard password hashing algorithm.\\ 
+It ended in 2015 by selecting the winner as Argon2 and also a special recognition to some other algorithms like Catena, Lyra2, yescrypt and Makwa.\\
+Argon2 was designed in the University of Luxembourg and there is three versions:
+\begin{itemize}
+\item[$\bullet$] Argon2d maximizes resistance to GPU cracking attacks.
+\item[$\bullet$] Argon2i is optimized to resist side-channel attacks.
+\item[$\bullet$] Argon2id is a hybrid version out of Argon2d and Argon2i.
+\end{itemize}
 
-
+There are two available libraries that implements Argon2 which are passlib and argon2\_cffi.\\
+This could be interesting to use it instead of bcrypt or pbkdf2 but unfortunately, the two existing libraries have directly integrated the salt generation. \\
+The only way of using it for now would have been to take a salt of length zero and to generate the salt by myself. \\
+But I'm not sure that it would keep it's security value doing so.
 
 \chapter{Results}
 Finally, the most interesting part is coming, is it really working? Is the additional computation worth it? Can we trust this system with our data ? Could with improve the code for the computation time ?\\
@@ -880,7 +910,7 @@ The memory graph we can see that the highest level (on the right) is approximate
 
 The goal of this work is to slow down the system, which means that a lot of iteration will be used. \\
 
-
+\subsection{Analyse pbkdf2 module vs bloomy\_pbkdf2 module}
 
 \section{Benchmarking}
 \improvement{Do all needed analyzes}
