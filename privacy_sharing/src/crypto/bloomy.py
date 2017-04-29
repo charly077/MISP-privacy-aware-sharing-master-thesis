@@ -15,7 +15,7 @@ class Bloomy(Crypto):
         self.conf = conf
         self.Crypto = ChooseCrypto(cryptoName, conf, metadata)
         # Set up bloom
-        self.bloom = BF(conf, metadata=metadata, rate=0.5)
+        self.bloom = BF(conf, metadata=metadata, rate=0.3)
 
     def create_rule(self, ioc, message):
         self.bloom.create_rule(ioc, message)

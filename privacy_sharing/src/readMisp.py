@@ -38,7 +38,9 @@ from sqlalchemy.sql import select
 parser = argparse.ArgumentParser(description='Create an encrypted IOC \
         rule.')
 parser.add_argument('--misp', default='web',
-        help='web (for web api);mysql (directly from mysql)')
+        help='web (for web api);mysql (directly from mysql); res for the csv')
+parser.add_argument('--csvname', default='misp_events',
+        help='Name of the csv in the res/ folder')
 parser.add_argument('-v', '--verbose',\
         dest='verbose', action='store_true',\
         help='Explain what is being done')
@@ -65,8 +67,11 @@ def printv(value):
 def ioc_web():
     printv("Update data from misp")
     web_api.update()
+    ioc_csv()
+
+def ioc_csv():
     printv("Cache misp data")
-    with open("../res/misp_events.csv", "r") as f:
+    with open("../res/"+ args.csvname +".csv", "r") as f:
         data = csv.DictReader(f)
         for d in data:
             IOCs.append(d)
@@ -143,8 +148,10 @@ if __name__ == "__main__":
         ioc_web()
     elif args.misp == 'mysql':
         ioc_mysql()
+    elif args.misp == 'res':
+        ioc_csv()
     else:
-        sys.exit('misp argument is mis configured. Please select csv or mysql')
+        sys.exit('misp argument is miss configured. Please select web, res or mysql')
 
     # Choose crypto system
     crypto = Crypto(conf["rules"]["cryptomodule"], conf)
