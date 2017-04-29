@@ -169,22 +169,33 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2.10}Top Configuration File}{28}{subsection.4.2.10}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.3}Chosen Cryptographic System}{28}{section.4.3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}PBKDF2}{28}{subsection.4.3.1}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces My caption}}{29}{table.4.2}}
+\newlabel{my-label}{{4.2}{29}{My caption}{table.4.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Bcrypt}{29}{subsection.4.3.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}ARGON-2 ????}{29}{subsection.4.3.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.4}Bloom filter}{29}{subsection.4.3.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.4}Bloom filter}{30}{subsection.4.3.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.5}Bloom filter used as to improve performance of Key Derivation Functions}{30}{subsection.4.3.5}}
+\@writefile{tdo}{\contentsline {todo}{\color@box {}{Plum!25}{\leavevmode {\color  {Plum!25}o}}\ Attention explain how to use it => Cryptoname = "bloomy\_" + name}{30}{section*.11}}
+\pgfsyspdfmark {pgfid46}{4661699}{16034224}
+\@writefile{tdo}{\contentsline {todo}{\color@box {}{Plum!25}{\leavevmode {\color  {Plum!25}o}}\ Explain how it works (workflow)}{30}{section*.12}}
+\pgfsyspdfmark {pgfid51}{4661699}{16034224}
+\pgfsyspdfmark {pgfid49}{36773952}{16049671}
+\pgfsyspdfmark {pgfid50}{38395967}{15802497}
+\pgfsyspdfmark {pgfid54}{36773952}{12575573}
+\pgfsyspdfmark {pgfid55}{38395967}{12328399}
 \@writefile{toc}{\contentsline {chapter}{\numberline {5}Results}{31}{chapter.5}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {5.1}Dataset}{31}{section.5.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.2}Code Profiling with PBKDF2}{31}{section.5.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Code Flow}{31}{subsection.5.2.1}}
-\@writefile{toc}{\contentsline {subsubsection}{ReadMisp}{32}{section*.11}}
+\@writefile{toc}{\contentsline {subsubsection}{ReadMisp}{32}{section*.13}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Code2flow: ReadMisp WorkFlow}}{32}{figure.5.1}}
 \newlabel{code2flow-readMisp}{{5.1}{32}{Code2flow: ReadMisp WorkFlow}{figure.5.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{MatchRules}{32}{section*.12}}
+\@writefile{toc}{\contentsline {subsubsection}{MatchRules}{32}{section*.14}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Code2flow: MatchRules WorkFlow}}{33}{figure.5.2}}
 \newlabel{code2flow-matchRules}{{5.2}{33}{Code2flow: MatchRules WorkFlow}{figure.5.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Crypto Module PBKDF2}{33}{section*.13}}
+\@writefile{toc}{\contentsline {subsubsection}{Crypto Module PBKDF2}{33}{section*.15}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Code2flow: PBKDF2 Crypto Module WorkFlow}}{33}{figure.5.3}}
 \newlabel{code2flow-pbkdf2}{{5.3}{33}{Code2flow: PBKDF2 Crypto Module WorkFlow}{figure.5.3}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces Code2flow: Bloom Filter Crypto Module WorkFlow}}{34}{figure.5.4}}
@@ -194,16 +205,17 @@
 \newlabel{profile-readMisp}{{5.5}{34}{Vprof - Flame Chart Profile of readMisp PBKDF2(1 iteration)}{figure.5.5}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces Vprof - Memory Chart Profile of readMisp PBKDF2(1 iteration)}}{35}{figure.5.6}}
 \newlabel{profile-mem-readMisp}{{5.6}{35}{Vprof - Memory Chart Profile of readMisp PBKDF2(1 iteration)}{figure.5.6}{}}
-\@writefile{tdo}{\contentsline {todo}{\color@box {}{Plum!25}{\leavevmode {\color  {Plum!25}o}}\ Analyze the increase of memory in function of the number of rules !}{35}{section*.14}}
-\pgfsyspdfmark {pgfid46}{4661699}{23138081}
-\pgfsyspdfmark {pgfid49}{36773952}{23153528}
-\pgfsyspdfmark {pgfid50}{38395967}{22906354}
+\@writefile{tdo}{\contentsline {todo}{\color@box {}{Plum!25}{\leavevmode {\color  {Plum!25}o}}\ Analyze the increase of memory in function of the number of rules !}{35}{section*.16}}
+\pgfsyspdfmark {pgfid56}{4661699}{23138081}
+\pgfsyspdfmark {pgfid59}{36773952}{23153528}
+\pgfsyspdfmark {pgfid60}{38395967}{22906354}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Profile of ReadMisp for 1000 iteration}{35}{subsection.5.2.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.4}Analyse pbkdf2 module vs bloomy\_pbkdf2 module}{35}{subsection.5.2.4}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.3}Benchmarking}{35}{section.5.3}}
-\@writefile{tdo}{\contentsline {todo}{\color@box {}{Plum!25}{\leavevmode {\color  {Plum!25}o}}\ Do all needed analyzes}{35}{section*.15}}
-\pgfsyspdfmark {pgfid51}{4661699}{14216136}
-\pgfsyspdfmark {pgfid54}{36773952}{14231583}
-\pgfsyspdfmark {pgfid55}{38395967}{13984409}
+\@writefile{tdo}{\contentsline {todo}{\color@box {}{Plum!25}{\leavevmode {\color  {Plum!25}o}}\ Do all needed analyzes}{35}{section*.17}}
+\pgfsyspdfmark {pgfid61}{4661699}{12912420}
+\pgfsyspdfmark {pgfid64}{36773952}{12927867}
+\pgfsyspdfmark {pgfid65}{38395967}{12680693}
 \@writefile{toc}{\contentsline {section}{\numberline {5.4}Security Discussion}{35}{section.5.4}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.5}Further Work}{35}{section.5.5}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces Vprof - Flame Chart Profile of readMisp PBKDF2(1000 iteration)}}{36}{figure.5.7}}

@@ -45,16 +45,18 @@
 \contentsline {subsection}{\numberline {4.3.1}PBKDF2}{28}{subsection.4.3.1}
 \contentsline {subsection}{\numberline {4.3.2}Bcrypt}{29}{subsection.4.3.2}
 \contentsline {subsection}{\numberline {4.3.3}ARGON-2 ????}{29}{subsection.4.3.3}
-\contentsline {subsection}{\numberline {4.3.4}Bloom filter}{29}{subsection.4.3.4}
+\contentsline {subsection}{\numberline {4.3.4}Bloom filter}{30}{subsection.4.3.4}
+\contentsline {subsection}{\numberline {4.3.5}Bloom filter used as to improve performance of Key Derivation Functions}{30}{subsection.4.3.5}
 \contentsline {chapter}{\numberline {5}Results}{31}{chapter.5}
 \contentsline {section}{\numberline {5.1}Dataset}{31}{section.5.1}
 \contentsline {section}{\numberline {5.2}Code Profiling with PBKDF2}{31}{section.5.2}
 \contentsline {subsection}{\numberline {5.2.1}Code Flow}{31}{subsection.5.2.1}
-\contentsline {subsubsection}{ReadMisp}{32}{section*.11}
-\contentsline {subsubsection}{MatchRules}{32}{section*.12}
-\contentsline {subsubsection}{Crypto Module PBKDF2}{33}{section*.13}
+\contentsline {subsubsection}{ReadMisp}{32}{section*.13}
+\contentsline {subsubsection}{MatchRules}{32}{section*.14}
+\contentsline {subsubsection}{Crypto Module PBKDF2}{33}{section*.15}
 \contentsline {subsection}{\numberline {5.2.2}Profile of ReadMisp for 1 iteration}{34}{subsection.5.2.2}
 \contentsline {subsection}{\numberline {5.2.3}Profile of ReadMisp for 1000 iteration}{35}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}Analyse pbkdf2 module vs bloomy\_pbkdf2 module}{35}{subsection.5.2.4}
 \contentsline {section}{\numberline {5.3}Benchmarking}{35}{section.5.3}
 \contentsline {section}{\numberline {5.4}Security Discussion}{35}{section.5.4}
 \contentsline {section}{\numberline {5.5}Further Work}{35}{section.5.5}
