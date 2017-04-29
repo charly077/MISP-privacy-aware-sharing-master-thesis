@@ -394,6 +394,14 @@ Like that, if you want an information on a particular IOC, you need to already k
 On the other hand, coming back on the small data problem, if we consider an attacker that want to try every possible IPs, for IPv4 it represents 4.228.250.625 different IPs that needs to be tested. Even if it is a lot it is still feasible as redis is really fast (The attacker even pipeline its requests\improvement{Check that, I think that it was not feasible in the system but I need to check why})! Moreover, not all IPv4 need to be tested, for an example we can avoid private subnet like 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 which already represent 17.891.328 addresses.
 
 
+\section{The goal\improvement{Change that title}}
+\begin{itemize}
+\item Explain that we want the user to have a data base directly on his computer 
+\item Explain that this database should help the user to get information on the events
+\item Explain that even if the information we still need ot have access to misp => But as we don't have the whole information we could have in this database data from other instances that we have not access yet and allow to later share
+\item Explain the analyses that will be done
+\end{itemize}
+
 \section{Limitation}
 
 What we want ? A way to share information only with people that have already some information or that are facing the related event. It would be amazing to do so but it would mean to make available a dataset where we could allow them to query.\\
@@ -404,7 +412,8 @@ So if we want to make the task more complicated for the attacker, we need to mak
 We thus know that it is intrinsically impossible to fully hide small IOCs while still allowing a subscriber to evaluate the rule. But we want to find a solution that could be an approach this problem.
 
 
-\chapter{Implementation Ideas}
+
+\chapter{Standards Ideas}
 
 Now that the subject seems clearer, there are a lot of different possibilities that could be explored. This chapter will be the opportunity to dwell on some of them in order to look for their strong points as well as their weakness.
 
@@ -757,9 +766,18 @@ On this first implementation, I would like to have only one bloom filter for the
 
 
 \subsection{Bloom filter used as to improve performance of Key Derivation Functions}
-%TODO
-\improvement{Attention explain how to use it => Cryptoname = "bloomy\_" + name}
-\improvement{Explain how it works (workflow)}
+Key derivation function are working to slow down a brute force attack. This is working really well as the complexity of a brute force attack time complexity increases exponentially with then length of the string to "crack". On the other hand, if we know exactly the data we are looking for and that there is a small set of different values. We cannot do anything against it. \\
+
+So if we came back on a longer sized data like URLs, brute forcing them (if we are not looking especially for a value) is close to impossible and making the task easier for a user makes the task easier as well for the attacker. But it can still be nearly infeasible for an attacker to brute force the whole dataset while making the system a way more faster for the user.\\
+
+With this idea in mind, I've used both type of implementations to create key derivation function improved with a bloom filter. The bloom filter avoid decrypting each rules if no rules contains the data we are looking for. \\
+And, on the other side, when there is a match, rules can be used to get back the information needed to retrieve the event information from MISP. \improvement{Add an explanation on the message generated and how we could use it to find informations on an event}\\
+
+This is a serious advantage for matching. In function of the bloom filter false positive rate the system could me made a lot faster. So much faster that we could use it directly as an IDS that could updated time to time and that could work on computers, logs and that could work stand alone to generate reports on event that could affect a system.\\
+The previous system was first aimed to be used like that but we a recommended number of iterations, the system was too slow to use in that way as data to check accumulates at a much bigger rate than the system need to look through all rules.\\
+
+Thus increasing the speed can be done by decreasing the rate of false positive of the bloom filter but what if an attacker is only interesting in knowing the element belonging to the data set ?\\
+The bloom filter could give him all the information he needs. This is the reason why we can not take a too small rate for the bloom filter.\\
 
 
 \section{An other KDF}
@@ -878,7 +896,7 @@ I finally managed to use vprof with a little modification (to force it using pyt
 \begin{figure}[h!]
 \begin{center}
 	\includegraphics[scale=0.3]{res/profile-1iter}
-	\caption{Vprof - Flame Chart Profile of readMisp  PBKDF2(1 iteration)}
+	\caption{Vprof - Flame Chart Profile of readMisp PBKDF2(1 iteration)}
 	\label{profile-readMisp}
 \end{center}
 \end{figure}
@@ -891,7 +909,7 @@ We also see that in this particular case, the major part of the time is taken by
 \begin{figure}[h!]
 \begin{center}
 	\includegraphics[scale=0.3]{res/profile-mem-readMisp-1iter}
-	\caption{Vprof - Memory Chart Profile of readMisp  PBKDF2(1 iteration)}
+	\caption{Vprof - Memory Chart Profile of readMisp PBKDF2(1 iteration)}
 	\label{profile-mem-readMisp}
 \end{center}
 \end{figure}
@@ -903,19 +921,44 @@ The memory graph we can see that the highest level (on the right) is approximate
 \begin{figure}[h!]
 \begin{center}
 	\includegraphics[scale=0.3]{res/profile-1000iter}
-	\caption{Vprof - Flame Chart Profile of readMisp  PBKDF2(1000 iteration)}
+	\caption{Vprof - Flame Chart Profile of readMisp PBKDF2(1000 iteration)}
 	\label{profile-readMisp1000}
 \end{center}
 \end{figure}
 
 The goal of this work is to slow down the system, which means that a lot of iteration will be used. \\
 
-\subsection{Analyse pbkdf2 module vs bloomy\_pbkdf2 module}
+\subsection{Profile of the bloomy\_pbkdf2 module}
+The first step is to look for the additional computing time for creating the rules and as we can see on figure \ref{}. The key derivation function is still more computationally intensive than the creation of the bloom filter.\\
+
+\improvement{Add picture her but I was not able to do so as my computer is not working anymore}
+
+Then it could be interesting to compare the flow when there is a match and then when the Bloom filter can directly say that the element is not in the set of IOCs.\\
+
+\begin{figure}[h!]
+\begin{center}
+	\includegraphics[scale=0.3]{res/match-exist}
+	\caption{Vprof - Flame Chart Profile of matchRules bloomy\_pbkdf2 (1 iteration) with a match}
+	\label{profile-bloomy-match}
+\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+	\includegraphics[scale=0.3]{res/match-bloom-not}
+	\caption{Vprof - Flame Chart Profile of matchRules bloomy\_pbkdf2 (1 iteration) with no match in the bloom filter}
+	\label{profile-bloomy-no-match}
+\end{center}
+\end{figure}
 
 \section{Benchmarking}
-\improvement{Do all needed analyzes}
+The ideas have been explained, in the first few sections, then the implementation had been explained followed by profiles that help understand how the behavior of the system and how the computation power is used inside the system. Now it is time to see how it is working with real data, what would be the right parameters to use and why these choices. Moreover, this is in this section that we could analyse if the goal had been totally reached, reached for some part and decide if it can or cannot be used in real implementations.\\
+This is important as we are aware of the benefits that it could have but we must stay aware of the risk of that exposure on which a system like this one could lead.\\
+
+\improvement{Do all needed analyzes; ajouter brute force de string avec bcrypt => explain expo and why not here}
 
 \section{Security Discussion}
+Must be dimensioned carefully !!! => puis expliquer pourquoi c'est trop cool et que l'idée fonctionne vraiment bein mm dans les domaines où on était pas sur
 
 \section{Further Work}
 \begin{itemize}
