@@ -45,11 +45,10 @@
 
 
 \begin{abstract} 
-Malicious software (malware) are plaguing this computer age. But how to avoid them ?
-An actual solution is threat information sharing where companies share lists of Indicators Of Compromise (e.g. IPs, mail addresses, URLs, malware hashes and so on) with each other.
-An interesting tool is the MISP (Malware Information Sharing Platform), a platform that allows companies to share these IOCs but also malware analysis.
-Sometimes, the information is somehow confidential, but still interesting to be shared, thus we need to find a way to share these secret information without disclosing them entirely.
-The goal of this master thesis is to analyze the state of the art and to implement and analyze a solution working with MISP.
+Malware are plaguing this computer age. An actual solution to protect computer systems against them is threat information sharing: Organisations share lists of Indicators Of Compromise with each other.\\
+For that, an interesting open source platform called MISP allows companies to share these IOCs but also malware analyses and attack correlations in an online fashion.\\
+On the other hand, offline lookup would also be an important feature but is stopped by the need of data privacy and confidentiality. This master thesis looks for sharing the dataset of IOCs while still protecting privacy and confidentiality by not directly disclosing the information. \\
+After a state of the art, a possible found solution had been implemented with  some improvements before finally being analysed.
 \end{abstract}
 
 \tableofcontents
@@ -111,8 +110,8 @@ I want also to point out that MISP is spreading, and I've the feeling that commu
 \subsection{History}
 Christophe Vandeplas started the project as he was tired of the way IOCs were shared (email, pdf, ... ). Thus, he created a cakePHP website as a proof of concept and managed to convince the Belgian Defense (where he was working) that the project was worth to work on. They even allowed him to work on it during his work-hours. The project continued to move forward and now, Andras Iklody is the lead developer of the MISP project and works for CIRCL.\\
 
-\subsection{Basics of Misp}
-The basic idea of misp was thus to create an IOC database. If there is an attack and we have two IOCs, "IOC@malware.mail" and "192.168.16.2". We are interested to  keep the information that there has been an attack that can be recognized thanks to these two IOCs. That is why they have created events (which is much more general than the term attack that I've been using) and they use these IOCs as the attributes of this specific event. \\
+\subsection{Basics of MISP}
+The basic idea of MISP was thus to create an IOC database. If there is an attack and we have two IOCs, "IOC@malware.mail" and "192.168.16.2". We are interested to  keep the information that there has been an attack that can be recognized thanks to these two IOCs. That is why they have created events (which is much more general than the term attack that I've been using) and they use these IOCs as the attributes of this specific event. \\
 Then thanks to this idea, we can analyze the event and even make correlations with other events if they possess similar IOCs.
 
 For clarity concerns, attributes are divided into 13 categories where they are again divided into types. As MISP is no more only targeting malwares, it is interesting to notice that we can also see categories like Financial Fraud. More standard ones are Network Activities, Antivirus detection, Artifacts dropped, and so on.\\
@@ -145,7 +144,7 @@ address 192.168.56.1
 netmask 255.255.255.0
 \end{verbatim}
  
-After that, I was able to contact the virtual machine via the network but it wasn't enough to have a mysql access. For that, as the misp virtual machine was only accessible from the vboxnet0 interface, it was a problem to create external access for all ip addresses with only a small password protection.\\
+After that, I was able to contact the virtual machine via the network but it wasn't enough to have a mysql access. For that, as the MISP virtual machine was only accessible from the vboxnet0 interface, it was a problem to create external access for all ip addresses with only a small password protection.\\
 The first step for that was to modify the configuration file (/etc/mysql/my.conf) where I've juste commented the "bind-address 127.0.0.1" line.
 The next step was to create a user with the rights from the outside. For that, I've connected myself to the database as the misp user and I've added the user:
 \begin{itemize}
@@ -156,7 +155,7 @@ The next step was to create a user with the rights from the outside. For that, I
 
 Once done, I could continue to program more easily and create some tests as I could control the whole available set of data. For testing when the code was modified, I had used a really small set of data. \\
 
-\subsection{Illustrations}
+\subsection{MISP in a few Pictures}
 There is nothing better to explain all that than real screen shot of the web application. But, it raised one really important question: what can and cannot be shared from MISP and with who?\\
 For example, Am I allowed to show screen shot of data from MISP without any risk ?\\
 To respond to that question, I need to introduce the Traffic Light Protocol (TLP) that was created in order to facilitate information sharing by defining the authorized level of disclosure. And thus, it can be used to know what can be shared with a specific audience.\\
@@ -348,7 +347,7 @@ chains, tools, infrastructure, victim targeting, etc.)
 Then, we need a transport standard which is the Trusted Automated eXchange of Indicator of Information (TAXII) \cite{connolly2014trusted} .
 \improvement{Taxii explanation = ?}
 
-\section{Sum up}
+\section{Sum up???}
 When I started the master thesis, my knowledge about threat information sharing was clearly none. I had to look up for articles and information where I was able to find some. I've finally chosen some articles and some points that I found interesting to share in order to understand the different step I followed and the different ideas on which I thought about.\\
 Also, I've spoken about MISP as it is the platform I'm interesting on. There is an available really good awesome list \cite{AwesomeTreat} available where all different existing standards, tools and techniques available in this domain.\\
 But in order to come back to MISP. The main advantages compared to the proprietary solutions are that :
@@ -398,11 +397,11 @@ On the other hand, coming back on the small data problem, if we consider an atta
 \begin{itemize}
 \item Explain that we want the user to have a data base directly on his computer 
 \item Explain that this database should help the user to get information on the events
-\item Explain that even if the information we still need ot have access to misp => But as we don't have the whole information we could have in this database data from other instances that we have not access yet and allow to later share
+\item Explain that even if the information we still need ot have access to MISP => But as we don't have the whole information we could have in this database data from other instances that we have not access yet and allow to later share
 \item Explain the analyses that will be done
 \end{itemize}
 
-\section{Limitation}
+\section{Limitation: What could be expected}
 
 What we want ? A way to share information only with people that have already some information or that are facing the related event. It would be amazing to do so but it would mean to make available a dataset where we could allow them to query.\\
 The hashstore was a great idea as we need to now what we are looking for to request but, for a small data that could have only 10000 possibilities. What if the opposite player try ever 10000 possibilities to get what we know? \\
@@ -417,7 +416,7 @@ We thus know that it is intrinsically impossible to fully hide small IOCs while 
 
 Now that the subject seems clearer, there are a lot of different possibilities that could be explored. This chapter will be the opportunity to dwell on some of them in order to look for their strong points as well as their weakness.
 
-\section{Bloom filter}
+\section{Bloom Filters}
 Bloom filter is a space efficient probabilistic data structure  used to efficiently test the membership of specific values.\\
 If a dataset is only used for testing the membership, instead of storing the whole dataset that could be really large, we can use a bloom filter structure that use less than 10 bits of memory per element with a 1\% rate of false positive which makes it space efficient.\\
 A simple example to show the interest could be a data set of all the students' name and surname at university. Taking the hypothesis that each name and surname has approximately 6 characters and that there are about 20 000 students ( Harvard ). The dataset should use 20 000 * 6 * 2 * 8 (=1920000) bits while a 1\% false positive bloom filter could be only about 20 000 * 10 bits which is already 9 times smaller for such a small data example.\\
@@ -435,7 +434,7 @@ A bloom filter is a m bits array (fig. \ref{bloom-1}) all set to 0 at the starti
 
 To add the value v1, each hash function gives an index where we set the indexed bit to 1. In the opposite, if we want to test a value for membership, we have to check all indexes given by the hash functions. As we can see on figure \ref{bloom-1}, v2 is not in the set.
 
-\subsection{False Positive}
+\subsection{False Positive Rate}
 
 Bloom filter is a probabilistic data structure as when we are checking for a value, either the value is \textbf{not} in the set or is \textbf{perhaps} in the set. \\
 In the latest case, this is due to false positive where all the k hash functions gives indexes already set to 1 (fig. \ref{bloom-2}) while the element should not be in the set.\\
@@ -448,7 +447,7 @@ Even if this could be annoying that is what could make that data structure inter
 	\end{center}
 \end{figure}
 
-\subsection{Control False Positive Rate}
+\subsection{Control the False Positive Rate}
 If we check for a value in a bloom filter, at the end, we only know if it is not in the set or a probability to be in the set. Playing with this probability could be interesting for hiding some informations. \\
 If the probability is about 50\% in IPs, it looses all interest for an attacker to brute force attack as at the end it would give him no information. While, for a real user, requesting for one IP could still bring some information for example knowing that an element had never been signaled before.\\
 This is why it could be useful to get more information on the false positive rate and how we could use it.\\
@@ -458,12 +457,13 @@ $$m = - \frac{m\ \ln(p)}{\ln(2)^2}$$
 $$k = - \frac{\ln(p)}{\ln(2)}$$
 (These are approximations)
 
-\subsection{Bloom Filter could Leak Informations}
+\subsection{Information Leaked by Bloom Filters}
 It could seems useless but nevertheless it could have huge impacts. If we create bloom filter and we ensure a false positive rate, with the size of the array (m) and the number of hash functions (k). An attacker could approximate the number of values in a bloom filter like shown by Swamidass et al. \cite{swamidass2007mathematical}:
 $$n* = - \frac{m}{k} \ln\left[1 - \frac{X}{m}\right] $$
-with X the number of bit set to 1.
+with X the number of bit set to 1.\\
+\improvement{Is it important ? => Important à expliquer vu que j'ai le mm prob :O}
 
-\subsection{Could it be useful alone ?}
+\subsection{Is it enough?}
 It is not enough alone as we not only need to test element for membership but we also need to get back information if it is. Moreover, when developing a system with bloom filter we need to take into account the small amount of information that could leak. \\
 But it is still an interesting solution and twinned with the later explained implementation could have great benefits.
 
@@ -604,7 +604,7 @@ Then I've improved the code with different new functionalities and realized that
 
 \subsection{Get data from MISP}
 To create the rules with the encrypted messages, we first need to get a subset of IOCs contained in MISP that are destined to IDS. \\
-For doing so, there is two possibilities, the first one is working with the misp API while the second one is directly connected to the mysql database. \\
+For doing so, there is two possibilities, the first one is working with the MISP API while the second one is directly connected to the mysql database. \\
 The recommended mode will be with the web API, but as rules will be generated directly on the server, it could be more efficient to use directly the MySQL connection.\\
 
 For making automation request on MISP, they have implemented a python library called PyMISP. The first idea was to use it but it was finally not interesting to import the whole library only to make one request. That is why, I've changed the system by making myself the request to the automation API by using the requests python library and the MISP token referenced in the configuration file.\\
@@ -618,20 +618,20 @@ It also has the big advantage to be modular and only a new configuration file is
 Beside that, I'm storing the data inside a redis queue and polling on it in the script for trying to match a rule. \\
 \improvement{ Add details, schemas, Structure explanation, ...;}
 
-\subsection{Multiprocessing for reading logs}
+\subsection{Multiprocessing}
 When there are a lot of logs, doing one by one take too much time, but we can test simultaneously more than one log line at the same time by creating process.\\
 Also it is important to point out that I've started this by trying to use thread but, as I'm using cpython, it is impossible to have two program running simultaneously due to the Global Interpreter Lock (GIL). That is why, I finally choose to create a pool of processes instead.
 
-
+\improvement{Data could be shared on redis instead}
 \subsection{I/O and Rule Size Optimization}
 In the implementation of Tim van de Kamp et al., for each rule, they created a file to store the rule. \\
 I can understand it in the point of vue of a proof of concept but it is a real bad idea as in unix systems, each files have a minimum size of 4k. Already with 6300 events each one possessing 153 attributes in average, it is easy to see the problem coming. Moreover, the I/O were really slowing down the system. \\
 These problems were easy to solve. Create a complete csv file for all rules. But is still not a solution because it would mean that we should load everything in memory even if we don't use everything. That is why I finally chosen to have one csv file per type of IOCs.
 \improvement{Plus de détails}
-\subsection{CSV or TSV}
+\subsection{CSV or TSV?}
 This is a really small modification but makes files more readable and avoid existing coma in the data to make the parsing not working.
 
-\subsection{On URL normalization}
+\subsection{On URL Normalization}
 The goal of the system is looking for matches in MISP data. But off course, if an event has for Uniform Resource Locator (URL) www.ioc.com I would like http://www.ioc.com, http://www.ioc.com/, http://www.ioc.com:80/, ... To match as well.\\
 I first dug a little into URL normalization like the standards and techniques already used in practice. I've realized that normalization is difficult as, in the standards, they want URL to always work after, and really be the same. For example http://www.ioc.com is not https://www.ioc.com while in matching, I absolutely don't care and I would like to both trigger an alert.\\
 Besides that, there are standards on URL normalization [RFC 3986] that contains either normalizations that preserve or usually preserve the semantic of the URL but non that does not preserve it.\\
@@ -665,7 +665,7 @@ I thus have to add some additions like:
 While I was adding stuffs, it becomes more and more difficult to allow all these possible choices, I've thus started by limiting the key derivation function (KDF) choice to PBKDF2 which is not the author advised one but allow to parametrize the difficulty for an attacker to brute force some small data.\\
 But in the opposite we cannot have a small number iteration if we want the key to look random.
 
-\subsection{Pycrypto towards cryptography library}`
+\subsection{library: Pycrypto towards Cryptography}
 While discussing with Tim van de Kamp by email, he said that if he had to start over, he would choose the cryptography library \footnote{https://cryptography.io/en/latest/} instead of pycrypto because it seems to be a more professional implementation.\\
 I thus have made some research on it. There are some discussion about it but \url{libhunt.com} gives this table \ref{cryptoLibraries} where we can see that even if pycrypto seems better written, the cryptography library is more up to date and still with a lot of activities.\\
 Beside that, I found the library well defined and really easy to use that is why, I've chosen to refactor the code with this particular library instead.
@@ -688,13 +688,13 @@ Last Commit                                                       & about 3 year
 \end{table}
 
 
-\subsection{Structure Refactoring}
+\subsection{Structure Improvement}
 The code was becoming less and less clear to understand and as I wanted it to be modular for the cryptographic system used. I've decided to completely re factor the code.\\
 The used structure is as following:
 \begin{itemize}
 \item src: Source code.
 \item conf: Configuration files.
-\item res: All downloaded useful resources like the csv downloaded from misp.
+\item res: All downloaded useful resources like the csv downloaded from MISP.
 \item rules: Rules generated.
 \end{itemize}
 
@@ -806,9 +806,8 @@ Discussion on the security of the techniques and their usability will serve as a
 The objective was to make all data available if additional computation must be done or this work must be continued. For that, following the same reflection as with the starting screen-shots, the data directly inside the virtual machine are TLP white and are available for every one as we can directly download them on the CIRCL website : \url{https://circl.lu/services/misp-training-materials/}.\\
 Thus I've used these data instead of the one directly from an instance. Even if there are a lot less data here, the computations and analyze give the necessary idea.
 
-\section{Code Profiling with PBKDF2}
-
-This section is divided in three parts, a deeper understanding of the code work flow is needed to understand where the time is lost during the execution. Then, the code will be profiled for two different executions, the first is aimed to compare the time of the key generation with only one iteration. That give a right comparison point between the different functions and the second will be with 1000 iterations to see how it occupies the time.
+\section{Code Profiling}
+This section is divided in three parts, a deeper understanding of the code work flow is needed to understand where the time is lost during the execution. Then, the code will be profiled for two different executions, the first is aimed to compare the time of the key generation with only one iteration. That give a right comparison point between the different functions and the second will be with 1000 iterations to see how it occupies the time. 
 
 
 \subsection{Code Flow}
