@@ -71,7 +71,7 @@ src/ contains all the source files
 
 if we need to access the database from an other host, add remove sql access: (on the vm)
 ```
-- vim /etc/mysql/my.cnf
+- vim /etc/mysql/my.cnf (/etc/mysql/mysql.conf.d/mysql.cnf in new virtual machines)
 - replace line "bind-address = 127.0.0.1" by "# bind-address = 127.0.0.1"
 - mysql -uroot -pPassword1234
 - CREATE USER 'user'@'%' IDENTIFIED BY 'Password1234';
