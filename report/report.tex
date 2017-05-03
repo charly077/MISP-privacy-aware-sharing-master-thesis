@@ -64,76 +64,91 @@ In order to facilitate comments, I've added some new commands explained by\footn
 \end{itemize}
 
 \section{Introduction}
-In the last report of the Ponemon institute, the estimated cost of annual data breaches for 384 companies in 12 countries\footnote{United States, United Kingdom, Germany, Australia, France, Brazil, Japan, Italy, India, the Arabian region (United Arab Emirates and Saudi Arabia), Canada and, South Africa} is about \$4 million. 48\% of theses breaches are due to malicious and criminal attacks and gives a damage cost per capita around \$170 only for malicious and criminal attacks. \\
-An other example is Cybersecurity Ventures that predicts the global annual cybercrime costs will grow from \$3 trillion in 2015 to \$6 trillion by 2021.\\
+%Ponemon Institute conducts independent research on privacy, data protection and information security policy
+In the last reports of the Ponemon institute\cite{ponemon2016cost, ponemon2016costFr}, the estimated cost of the annual data breaches for 384 companies in 12 countries\footnote{United States, United Kingdom, Germany, Australia, France, Brazil, Japan, Italy, India, the Arabian region (United Arab Emirates and Saudi Arabia), Canada and, South Africa} is about \$4 million in 2016.\\
+A data breach means that records containing private data linked to a name had been leaked. This originates from system glitches, human errors but  mostly from malicious and criminal attacks. In France, the percentages are respectively 23\%, 27\% and 50\% which gives an average cost of \$1.85 million a year only for criminal attack.\\
+This cost mostly comes from business losses due to the lack of confidence resulting of a data breach. Unfortunately it is growing from year to year and it will probably continue to increase as the global annual cybercrime costs predicted by Cybersecurity Ventures will grow from  \$3 trillion in 2015 to \$6 trillion by 2021.
 
-Our computer defenses need to be improved and being aware of new threats faster than malware detectors or antiviruses. This results in a new kind of security level called threat sharing. As soon as an organization discovers a threat, they can prevent others to be compromised just by informing them about it. \\
-Unfortunately, this is not enough as, theses information traces, here and after called IOCs, are often considered to be confidential. Revealing them, can reveal damaging information for the companies.\\
-Thus a technique is needed for \textbf{sharing} information without \textbf{giving} it directly to the other parties. This master thesis works on finding a "more secure" way of sharing information. More precisely, if we attempt to create an encrypted database of these IOCs, the idea would be to slow down a brute force attack for someone who has complete access to the database while still making this database useful for the targeted user.\\
+Companies thus need to protect themselves against business losses and thus against cybersecurty threats by increasing their computer system defences. By that, it also means being able to improve the reactivity to new threats as they appear faster and faster which results in a delay for standards malware detection systems. An other important characteristic to notice is that analyses showed that the same attack vectors are used against the same type of organisations as they generally use the same kind of systems. From that, the idea of correlation between trusted organization arose and gave birth to threat sharing.  As soon as an organisation discovers a threat, they can prevent others to be compromised just by informing them on it.\\
 
-The first chapter is about getting a rough idea on what this work is about by defining the used terms as well as a state of the art.\\
-Then the second chapter is on different ideas I've got, their strengths but also their weaknesses. This will softly bring the next chapter about the implementation.
-The last important chapter is about the results. An analyze of the performance mixed with discussions on the work.\\
-Finally, I will conclude on my work with some possible improvement and future works.
+For helping information sharing, a lot of tools appeared like standards (NIST, ENISA, ...), guidelines to involve an organisation in information sharing group but also platforms. One of them is called Malware Information Sharing Platform and Threat Sharing (MISP). It allows organisations to share information like Indicator of Compromise (IOC), analyses of the compromises and correlations between events.\\
+This plateform is mostly used in an online fashion with a direct access to the web interface or available API.\\
+But on the other side, it could be really useful to go one step further and allow to directly share the data set. It could have a lot of uses like for sharing information between MISP instances, for incidence response team, forensics, ... .\\
+Unfortunately a large wall stands between the idea and its realization: the combination of privacy and confidentiality needs.\\ 
+A technique is therefore required for \textbf{sharing} information without \textbf{disclosing} damageable information to other parties. This master thesis works on finding a "more secure" way of sharing an encrypted database of these IOCs in order to protect the data by slowing down as much as possible a brute force attack while still making this database useful for the targeted users.\\
+
+The first chapter is to learn about the used concepts. A brief overview of the recent works and of the state of the art follows.\\
+After that, an explanation of existing techniques will allow to understand the advantages but also disadvantages of the possible tracks to follow.\\
+
+The last chapters are about the implementation, tests, and results obtained.\\
+Finally, I will conclude on my work with some possible improvement and future works and discussions.
 
 \section{Organization}
-Before going down in the subject, I also think that it is interesting to point out some aspects of the way I've worked on this project.\\
-Firstly, last year, I was searching for a security subject but unfortunately, I wasn't really excited about the proposed ones. But in the other side, I had no idea either on what I could work. I had just the idea to specialize myself into cyber security. Thus, I've looked for ideas where there are plenty of them, directly in security companies.\\
+Before going deep in the subject, I want to point out some aspects of the way I've worked on this project.\\
+Firstly, last year, I was searching for a security subject but unfortunately, I was not really excited about the proposed ones. On the other side, I had no idea either on what I could work in cybersecurity. Thus, I've looked for ideas where there are plenty of them, directly in security companies.\\
 I've found a company called Conostix which provides security and system services in Luxembourg.\\
 They weren't short of ideas, and even if I have to admit that I didn't understood everything, it seemed really interesting. Later on, William Robinet (from conostix) contacted me again to say that they have a better idea and it was to work on MISP. I've thus met Alexandre Dulaunoy from CIRCL and they gave me the starting point of the project which was malware sharing in MISP.\\
 
-As I had zero knowledge in this domain, I've chosen to make an internship of four weeks in the company (no credited) where I've learned the basics of MISP and I've also worked on network log parsing. But what I mostly learned was that four weeks for trying to specialize myself in a completely new domain was only enough to give me a rough idea of what it is.\\
+As I had zero knowledge in this domain, I've chosen to make an internship of four weeks in the company (not credited) where I've learned the basics of MISP. I've also worked on network log parsing. But what I mostly learned was that four weeks for trying to specialize myself in a completely new domain was only enough to give me a rough idea of what it is.\\
 During these four weeks, I mostly worked on logs. I've created nothing new, actually it was quite the opposite but it was still interesting to understand how things were working and why they could be useful. \\
-In short, during this internship, I've started to understand how squid3 was working. Then I've installed it on my computer in order to get logs to work on.\\
-Once I've my logs, I would like to get information from them, thus, I've tried to manually parse the logs (which was a mistake). For that purpose, I've started to implement a parser that was using regex to transform each log lines into a set of objects. But even if it was funny to implement, I spent a lot of time on it and each time I finished, I found it not good enough, not modular enough, losing locality and ordering informations, and so on. I have thus realized that I was loosing my time as, of course they are plenty of tools for this kind of job like Logstash.\\
+In short, during this internship, I have started to understand how the proxy squid3 was working and have installed it on my computer in order to get logs to work on.\\
+Once done, I tried to get information from them, thus, I have manually parsed the logs (which was a mistake). For that purpose, I've started to implement a parser that was using regular expressions to transform each log lines into a set of objects. But even if it was funny to implement, I spent a lot of time on it and each time I finished, I found it to be not good enough, not modular enough, losing locality and ordering information, and so on. I have thus realized that I was loosing my time as, of course they are plenty of tools for this kind of job like the later used Logstash.\\
 Then I've started to work with MISP to see how it was working. I've reimplemented a similar hash store like the misp-workbench project.\\
-I've then used it with my log system by parsing the data from MISP the same way I was parsing the logs before adding them to the hash database on Redis.\\
-(Redis was also a great tool I've learned about there.)\\
-I've then created a system to feed the parsed log in my system and briefly analyze the logs.\\
+I've then used it with my log system by parsing the data from MISP before adding them to the hash database on Redis.\\
+(Redis was also another great tool I've learned about there.)\\
+I've then created a way to feed the parsed log in my system and briefly analyze them.\\
 Beside that, I also had the opportunity to benefit from a one day MISP training organized by CIRCL.
-I have then continued to work on my master's thesis the whole year long while keeping in touch with Conostix and CIRCL.
+I have then continued to work on my master thesis the whole year long while keeping in touch with Conostix and CIRCL.
 
 \section{Indicator of Compromise (IOC)}
-While there is a crime, detectives come and look for clues. They do that because they are wondering questions like what make it happened, why did it happened and how did it happened. The what and why questions can be interesting in order to avoid this crime to happen again while the last one but not the least one, the how can be used to compare this crime with other similar ones.\\
-This idea of being able to compare them is really interesting as seeing the clues of only one place can be not enough while there could be enough of them if we succeed in gathering the whole set of clues in all related crime.\\
+When there is a crime, detectives come and look for clues. They do that to answer important questions as what made it happened, why it happened and also how it happened. This is really important, not only for solving a specific crime but also for gathering information that could allow to solve other correlated crimes and why perhaps avoid other similar ones as well.\\
 This is exactly the same idea here, even if the attacker try to minimize its traces, there are always some. It can be email addresses, Internet Protocol(IP) addresses, malware, URL and so on.\\
-The idea, is then to use these traces to trigger alarms on other computer system as soon as they are seen. This is the reason why we call them Indicator Of Compromise and we can quickly understand why theses intrusion clues are so important as attackers use the same techniques to compromise similar companies.
+The idea, is then to use these traces to trigger alarms on other computer systems as soon as they are seen to protect them as well as gathering new information. This is the reason why we call these type of clues Indicator Of Compromise.
 
 
 \section{MISP and Threat Sharing}
-I've introduced the idea of malware sharing to defend our computer systems against digital threats and attacks. But MISP is not the only platform to do so, current ones are DShield, Critical Stack’s Intel, Microsoft’s Interflow, AlienVault’s Open Threat Exchange, ThreatExchange (Facebook), ...\\
-But here I focused on the MISP project which is, as said on their website, an open source software solution for collecting, storing, distributing and sharing cyber security indicators and threat about cyber security incidents analysis and malware analysis. MISP is designed by and for incident analysts, security and IT professionals or malware reverser to support their day-to-day operations to share structured informations efficiently.\\
-MISP also rely on an hub and spoke sharing model (TAXII \cite{taxiiWebsite}). There is a central point called the hub which is the server where all data are kept and the spokes are the organizations that interact with the hub.\\
+I've introduced the idea of malware sharing to defend computer systems against digital threats and attacks. But MISP is not the only platform to do so, current ones are DShield, Critical Stack’s Intel, Microsoft’s Interflow, AlienVault’s Open Threat Exchange, ThreatExchange (Facebook).\\
+But here I focused on the MISP project which is, as said on their website, an open source software solution for collecting, storing, distributing and sharing cybersecurity indicators and threat about cybersecurity incidents analysis and malware analysis. MISP is designed by and for incident analysts, security and IT professionals or malware reverser to support their day-to-day operations to share structured information efficiently.\\
+MISP rely on an hub and spoke sharing model (TAXII \cite{taxiiWebsite}). There is a central point called the hub which is the server responsible for a MISP instance, where all data are kept and the spokes are the organizations that interact with the hub.\\
 A recent paper on MISP \cite{wagner2016misp} had been published this year and could be interesting to get a better understanding of the underlying system. Additionally, there is also a recent ietf draft on MISP core format\cite{MispDraft}.\\
-I want also to point out that MISP is spreading, and I've the feeling that communities will continue to grow. I've discussed in Belgium with companies like banks, insurances, consultancy companies that are using it. I've even met people knowing it when I was in Asia for the black hat conference (2017). All this is, at least to my point of view, a good sign on the utilization of the system.
+I want also to point out that MISP is spreading, and I've the feeling that communities will continue to grow. I've discussed in Belgium with companies like banks, insurances, consultancy companies that are using it. I've even met people knowing it when I was in Singapore for the Black Hat Asia conference (2017). All this is, at least to my point of view, a good sign on the utilization of the system.
 
 \subsection{History}
-Christophe Vandeplas started the project as he was tired of the way IOCs were shared (email, pdf, ... ). Thus, he created a cakePHP website as a proof of concept and managed to convince the Belgian Defense (where he was working) that the project was worth to work on. They even allowed him to work on it during his work-hours. The project continued to move forward and now, Andras Iklody is the lead developer of the MISP project and works for CIRCL.\\
+Christophe Vandeplas started the project as he was tired of the way IOCs were shared (email, pdf, ... ). He created therefore a cakePHP website as a proof of concept and managed to convince the Belgian Defence (where he was working) that the project was worth it. They even allowed him to work on it during his work-hours. At that time, the project was named CyDefSIG: Cyber Defence Signatures.\\
+
+Then NATO heard of it and got a first presentation on January 2012 to introduce in more depth the project and they started to invest themselves into the project. Andrzej Dereszowski was the first part-time developer from NATO side.\\
+One thing led to another and some months later NATO hired a full-time developer to improve the code and add more features. A collaborative development started from that date. \\
+As with many personal projects the license was not explicitly written yet, it was collaboratively decided that the project would be released publicly under the Affero GPL license. This to share the code with as many people as possible and to protect it from any harm.\\
+The project was then renamed to MISP: Malware Information Sharing Project, a name invented by Alex Vandurme from NATO.\\
+In January 2013 Andras Iklody became the main full-time developer of MISP, during the day initially hired by NATO and during the evening and week-end contributor to an open source project.\\
+
+Meanwhile other organisations started to adopt the software and promoted it around the CERT world. (CERT-EU, CIRCL, and many others …)\\
+Nowadays, Andras Iklody is the lead developer of the MISP project and works for CIRCL.\\
 
 \subsection{Basics of MISP}
-The basic idea of MISP was thus to create an IOC database. If there is an attack and we have two IOCs, "IOC@malware.mail" and "192.168.16.2". We are interested to  keep the information that there has been an attack that can be recognized thanks to these two IOCs. That is why they have created events (which is much more general than the term attack that I've been using) and they use these IOCs as the attributes of this specific event. \\
-Then thanks to this idea, we can analyze the event and even make correlations with other events if they possess similar IOCs.
+The idea of MISP was first to create an IOC database. That is, if there is an attack where those two IOCs had been seen, "IOC@malware.mail" and "192.168.16.2". We have two types of information, the two IOCs by themselves but also the relation between them. For expressing the later one, IOCs are grouped by event, a more general term than "attack" previously used in this work.  Then, the IOCs, are considered as the attributes of the specific event representing that particular attack.\\
+This representation is quite efficient to analyse as it can immediately correlates events thanks to their attributes.\\
 
-For clarity concerns, attributes are divided into 13 categories where they are again divided into types. As MISP is no more only targeting malwares, it is interesting to notice that we can also see categories like Financial Fraud. More standard ones are Network Activities, Antivirus detection, Artifacts dropped, and so on.\\
-All the category and types can be found on this web pages \url{https://www.circl.lu/doc/misp/categories-and-types/index.html}
+For clarity concerns, attributes then are divided into 13 categories again divided into types. As MISP is not any more limited to malware, it is interesting to notice that we can also see categories like Financial Fraud. More standard ones are Network Activities, Antivirus detection, Artifacts dropped, and so on.\\
+All the category and types can be found on their web pages\footnote {\url{https://www.circl.lu/doc/misp/categories-and-types/index.html}}
 
 One other really interesting feature is sightings. When an IOC is referenced, we know that it has been seen by someone, but it does not confirm that the IOC is really related to that particular event and is not an error. Moreover, what says that if an IP address is an IOC today that it is going to be the case in 3 months ? \\
 Sightings is thus the solution to this problem as we can monitor an IOC, knowing if it has been seen at other places, and if they are still relevant.
 
 
-There are also two important things on the sharing strategy that I want to point out: MISP instances and communities. The first one is easy to understand, MISP is an open source project which means that everybody can decide to run a completely isolated MISP instance for its own needs like a company for storing its own confidential data. But that does not mean that the instance \textbf{must be} isolated, they have implemented a way to share information between these instances. While the second one is a good property of an instance. When we are connected to MISP as a user, we are connected thanks to the organization that we belongs to. Then, the organization can choose to share or not to share their events/attributes with other communities or even with other instances. \\ 
+There are also two important things on the sharing strategy that I want to point out: MISP instances and communities. The first one is easy to understand, MISP is an open source project which means that everybody can decide to run a completely isolated MISP instance for its own needs. For example, a company that want to storing its own confidential data. But that does not mean that the instance \textbf{must be} isolated, they have implemented a way to share information between these instances. While the second one is a good property of each instance. When we are connected to MISP as a user, we are connected thanks to the organization that we belong to. Then, the organization can choose to share or not to share their events/attributes with other communities or even with other instances. \\ 
 
 Now, as a good open source project, a whole ecosystem has been created around and more and more companies are using it.\\
-MISP becomes a really good IOC database with automated correlation system. We can even create correlation graphs to see how different events are connected together what helps a lot for the threat analyses.\\
-Beside all that, a lot of different tools like a python client library are available on their repository: \url{https://github.com/MISP/}.\\
-They have also added a lot of plugins to the web api like the ability of exporting the attributes in a lot of different formats, standards one and some for specific IDS.\\
+MISP becomes a really good IOC database with automated correlation system. These correlations can be represented under the form of a graph that helps the analyst to visually see connections.\\
+Beside all that, a lot of different tools had been implemented like a python client library and are available on their repository: \url{https://github.com/MISP/}.\\
+They have also added a lot of plugins to the web interface like the ability of exporting the attributes in different formats, standard ones and some other for specific IDS.\\
 
 \subsection{My Settings}
 
-MISP is really easy to use, but if we want to go deeper in it, there are a lot of things to understand. That's why they are giving trainings and make available a MISP training virtual machine in order to train ourselves and test new developments.\\
-At the beginning, I've started to work directly with the private instance of MISP hosted by CIRCL but, every time that I was working, I needed to have a really good web connection to connect myself and to download all the data. That's why, I have finished by downloading the virtual machine. But, as I was going to work on my computer and I didn't want to be stuck programming inside the virtual machine, I've done some modifications to make available everything to my local network.\\
-The mysql database wasn't accessible from the outside of the virtual machine (which is completely understandable as they don't want anyone to have a direct access to the complete database) and I've also got some network problems.\\
-The first step was that my virtual machine running on virtualbox was using the virtual vboxnet0 interface and was using, as its IPv4 address, 192.168.56.50. The problem was that, normally it works without problems but my computer does not know about the subnetwork. I thus had to add an ip in the right range by using the command :
+MISP is really easy to use, but if we want to go deeper in it, there are a lot of things to understand. That's why they give trainings and make available a MISP training virtual machine in order to train ourselves and test new developments.\\
+At the beginning, I've started to work on a private instance of MISP hosted by CIRCL but, every time that I was working, I needed to have a really good web connection to download all the data. That's why, I finally downloaded the virtual machine. 
+The mysql database was not accessible from outside the virtual machine but, as I was going to work on my computer and I didn't want to be stuck programming inside the virtual machine, I've done some modifications to make available the database to my local network.\\
+The first step was to check that my virtual machine runsusing the virtual vboxnet0 interface (Standard interface used for a network only between hosts and the hypervisor) and was using the IPv4 address 192.168.56.50. Normally it works without problems but it doesn't worked on my computer, I thus added an IP in the right range by using the command :
 \textbf{ip add add 192.169.56.2/24 dev vboxnet0} .\\
 I'm also sometimes using a second virtual machine to work with and on this virtual machine, I've configured two network interfaces, the first one was to have an internet connection while the second one was the vboxnet0 interface.\\
 For simplifying the use of the vbox interface, I've configured my network to automatically add an ip in the right range (/etc/network/interfaces). This is the addition on the basic configuration:
@@ -144,27 +159,33 @@ address 192.168.56.1
 netmask 255.255.255.0
 \end{verbatim}
  
-After that, I was able to contact the virtual machine via the network but it wasn't enough to have a mysql access. For that, as the MISP virtual machine was only accessible from the vboxnet0 interface, it was a problem to create external access for all ip addresses with only a small password protection.\\
-The first step for that was to modify the configuration file (/etc/mysql/my.conf) where I've juste commented the "bind-address 127.0.0.1" line.
+After that, I was able to contact the virtual machine via the network but it wasn't enough to have a mysql access. \\
+Therefore, I modified the configuration file (/etc/mysql/my.conf or /etc/mysql/mysql.conf.d/mysql.cnf depending on the VM version) where I've just commented the "bind-address 127.0.0.1" line.
 The next step was to create a user with the rights from the outside. For that, I've connected myself to the database as the misp user and I've added the user:
 \begin{itemize}
 \item[•] mysql -uroot -pPassword1234 
-\item[•] CREATE USER 'username'@'\%';
+\item[•] CREATE USER 'username'@'\%' IDENTIFIED BY 'Password1234';
 \item[•] GRANT ALL ON *.* TO 'username'@'\%';
 \end{itemize}
 
-Once done, I could continue to program more easily and create some tests as I could control the whole available set of data. For testing when the code was modified, I had used a really small set of data. \\
+Once done, I could continue to program more easily and create some tests as I could control the whole available dataset.\\
 
-\subsection{MISP in a few Pictures}
-There is nothing better to explain all that than real screen shot of the web application. But, it raised one really important question: what can and cannot be shared from MISP and with who?\\
-For example, Am I allowed to show screen shot of data from MISP without any risk ?\\
-To respond to that question, I need to introduce the Traffic Light Protocol (TLP) that was created in order to facilitate information sharing by defining the authorized level of disclosure. And thus, it can be used to know what can be shared with a specific audience.\\
+\subsection{MISP in a few Pictures and Traffic Light Protocol}
+There is nothing better to explain all that than real screenshots of the web application. But, it raised one really important question: what can be shared from MISP and with whom?\\
+For example, Am I allowed to show screenshots of data from MISP without any risk ?\\
+For answering that question, I need to introduce the Traffic Light Protocol (TLP) that was created in order to facilitate information sharing by defining the authorized level of disclosure. And thus, it can be used to know what can be shared with a specific audience.\\
 This protocol is defined by FIRST in \cite{FirstTLP} but also explained in this NIST cyber threat information sharing guide \cite{johnson2016guide}.\\
 
 Knowing that, I know that I can share the data from the virtual machine that I have explained in the previous section as the default OSINT feed is TLP:WHITE. Which means, according to FIRST, that the disclosure is not limited: \\
-Sources may use TLP:WHITE when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release. Subject to standard copyright rules, TLP:WHITE information may be distributed without restriction.\\
 
-The first pages (after the connection) of the web application is a list of all latest events on figure \ref{webevents} (notice the "tlp:while" appearing in the Tags):
+\begin{boxedverbatim}
+	Sources may use TLP:WHITE when information carries minimal or no foreseeable 
+	risk of misuse, in accordance with applicable rules and procedures for public 
+	release. Subject to standard copyright rules, TLP:WHITE information may be 
+	distributed without restriction.
+\end{boxedverbatim}
+
+The main page of the web application is a list of all latest events on figure \ref{webevents} (notice the "tlp:while" appearing in the Tags):
 
 \begin{figure}[!h]
 	\begin{center}
@@ -261,7 +282,7 @@ The second one is the correlation/aggregation work were alerts are linked togeth
 \item Anti-viruses softwares : gives also some interesting logs
 \end{itemize}
 
-For removing all useless informations, we can hash all confidential data.\\
+For removing all useless information, we can hash all confidential data.\\
 This work is directly done by the company. This has for advantage to avoid the need of trust on the repository.\\
 This technique is quite well working if, the data has a certain size. But, on the other hand, it is not useful for IP addresses, if an attacker is targeting a company, it has to precompute only 256 or perhaps 65536 IP address hashes. Thus this is not brute force resistant.\\
 For each alert, we have two different IPs, the source IP (ip\_src) and the destination IP (ip\_dest). We can classify all these IPs in two categories:
@@ -317,7 +338,7 @@ Now that we see more concretely what is information sharing, a good question is 
 
 
 \section{Standards}
-As we want organizations to share threat informations, we need them to "speak the same language" or more formally, to use the same standards.\\
+As we want organizations to share threat information, we need them to "speak the same language" or more formally, to use the same standards.\\
 For that, we can categorize the standards into four categories (lists of other existing standards can be found in \cite{AwesomeTreat, mohaisen2017rethinking}):
 \begin{enumerate}
 \item Enumerations
@@ -448,7 +469,7 @@ Even if this could be annoying that is what could make that data structure inter
 \end{figure}
 
 \subsection{Control the False Positive Rate}
-If we check for a value in a bloom filter, at the end, we only know if it is not in the set or a probability to be in the set. Playing with this probability could be interesting for hiding some informations. \\
+If we check for a value in a bloom filter, at the end, we only know if it is not in the set or a probability to be in the set. Playing with this probability could be interesting for hiding some information. \\
 If the probability is about 50\% in IPs, it looses all interest for an attacker to brute force attack as at the end it would give him no information. While, for a real user, requesting for one IP could still bring some information for example knowing that an element had never been signaled before.\\
 This is why it could be useful to get more information on the false positive rate and how we could use it.\\
 
@@ -479,12 +500,12 @@ In this particular case, overfitting is what is needed as we are not interested 
 
 This technique could be interesting to keep more control on the privacy and confidentiality, an attacker would learn even less things than with a bloom filter.\\
 For the size, a model can also fit with less memory than remembering the whole set but will differ in each algorithm.\\
-So the base concept representation (BCR) of this technique on different example could bring a lot of information on the usability of this technique. But it could be difficult to tune and would have the same disadvantage as the bloom filter which is that it only decides membership and cannot give useful data back to the user. One last important thing to be aware is that some kind of models could leak informations inside them for someone really understanding the system. (Ex clear decisions for a decision tree)\\
+So the base concept representation (BCR) of this technique on different example could bring a lot of information on the usability of this technique. But it could be difficult to tune and would have the same disadvantage as the bloom filter which is that it only decides membership and cannot give useful data back to the user. One last important thing to be aware is that some kind of models could leak information inside them for someone really understanding the system. (Ex clear decisions for a decision tree)\\
 
 
 
 \section{Secure Multi-Party Computation}
-Each organization possesses its IOC database and is not ready to share all their informations. But, once again, if it could help an other organization to solve its problem, they agree on sharing only these informations.\\
+Each organization possesses its IOC database and is not ready to share all their information. But, once again, if it could help an other organization to solve its problem, they agree on sharing only these information.\\
 That is where Secure Multi-Party Computation could play a role as there are techniques to find the intersections of 2 datasets. This is also called private matching \cite{agrawal2003information, li2005private}.\\
 
 This technique has only a big disadvantage which is heavy computations on both side. But still, it could be very useful to share information between MISP instances.
@@ -756,7 +777,7 @@ We also know that such key derivation function are aimed to have a time complexi
 \subsection{Bloom filter}
 In this section, I will argue the choice for python-bloom library. This choice was actually a way more complicated than it could be as, I think it is not the fastest implementation.\\
 But first, to understand my choice, we need to know what I really was searching for. I needed to find a way for avoiding brute forcing the database, but, on the other hand, I want it to be really fast for a common user. Thus Bloom filters already take car of the first part so, I only needed to find a fast implementation.\\
-I also wanted the system to be storable in files without any additional informations.\\
+I also wanted the system to be storable in files without any additional information.\\
 So the first I've found was to use bloomd server with a python client. But, it would means that we would have to install all these things which seems not really interesting. But why not using redis to store data ? It is fast and there was a really fast implementation of bloom filters in python for redis (actually in c interfaced with python) call pyrebloom. But the code was really complicated and not easy to read. Moreover, I discovered that they are keeping additional information on keys to be able to remove elements. that, without forgetting the fact that it doesn't seemed savable in a file make me drop this implementation.\\
 I've finally found the python-bloom library, It seems less efficient but well implemented, without any additional state and a way to save the bloom filter.\\
 
@@ -771,7 +792,7 @@ Key derivation function are working to slow down a brute force attack. This is w
 So if we came back on a longer sized data like URLs, brute forcing them (if we are not looking especially for a value) is close to impossible and making the task easier for a user makes the task easier as well for the attacker. But it can still be nearly infeasible for an attacker to brute force the whole dataset while making the system a way more faster for the user.\\
 
 With this idea in mind, I've used both type of implementations to create key derivation function improved with a bloom filter. The bloom filter avoid decrypting each rules if no rules contains the data we are looking for. \\
-And, on the other side, when there is a match, rules can be used to get back the information needed to retrieve the event information from MISP. \improvement{Add an explanation on the message generated and how we could use it to find informations on an event}\\
+And, on the other side, when there is a match, rules can be used to get back the information needed to retrieve the event information from MISP. \improvement{Add an explanation on the message generated and how we could use it to find information on an event}\\
 
 This is a serious advantage for matching. In function of the bloom filter false positive rate the system could me made a lot faster. So much faster that we could use it directly as an IDS that could updated time to time and that could work on computers, logs and that could work stand alone to generate reports on event that could affect a system.\\
 The previous system was first aimed to be used like that but we a recommended number of iterations, the system was too slow to use in that way as data to check accumulates at a much bigger rate than the system need to look through all rules.\\

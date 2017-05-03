@@ -134,6 +134,16 @@ Url normalization.
 \newblock In {\em Proceedings of the 2006 SIGCOMM workshop on Large-scale
   attack defense\/} (2006), ACM, pp.~99--106.
 
+\bibitem{ponemon2016costFr}
+{\sc Ponemon, L.}
+\newblock Cost of data breach study: France.
+\newblock {\em Poneomon Institute sponsored by IBM\/} (2016).
+
+\bibitem{ponemon2016cost}
+{\sc Ponemon, L.}
+\newblock Cost of data breach study: Global analysis.
+\newblock {\em Poneomon Institute sponsored by IBM\/} (2016).
+
 \bibitem{sauerwein2017threat}
 {\sc Sauerwein, C., Sillaber, C., Mussmann, A., and Breu, R.}
 \newblock Threat intelligence sharing platforms: An exploratory study of

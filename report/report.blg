@@ -1,4 +1,6 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: report.aux
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: report.aux
 The style file: acm-doi.bst
 Database file #1: articles.bib
 Warning--to sort, need author or key in taxiiWebsite
@@ -8,4 +10,45 @@ Warning--empty journal in enisaguide2009
 Warning--empty journal in eisasRapport
 Warning--empty publisher in johnson2014guide
 Warning--empty journal in sauerwein2017threat
+You've used 37 entries,
+            2415 wiz_defined-function locations,
+            742 strings with 10252 characters,
+and the built_in function-call counts, 11595 in all, are:
+= -- 1087
+> -- 496
+< -- 0
++ -- 209
+- -- 170
+* -- 771
+:= -- 1797
+add.period$ -- 106
+call.type$ -- 37
+change.case$ -- 194
+chr.to.int$ -- 0
+cite$ -- 44
+duplicate$ -- 470
+empty$ -- 1085
+format.name$ -- 170
+if$ -- 2537
+int.to.chr$ -- 0
+int.to.str$ -- 37
+missing$ -- 30
+newline$ -- 183
+num.names$ -- 68
+pop$ -- 250
+preamble$ -- 1
+purify$ -- 159
+quote$ -- 0
+skip$ -- 332
+stack$ -- 0
+substring$ -- 571
+swap$ -- 136
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 146
+warning$ -- 7
+while$ -- 108
+width$ -- 39
+write$ -- 355
 (There were 7 warnings)
