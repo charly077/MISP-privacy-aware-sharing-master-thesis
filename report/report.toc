@@ -16,48 +16,48 @@
 \contentsline {section}{\numberline {2.4}Sum up???}{18}{section.2.4}
 \contentsline {section}{\numberline {2.5}Where did it lead me ?}{19}{section.2.5}
 \contentsline {section}{\numberline {2.6}Misp-Worbench - hashstore}{20}{section.2.6}
-\contentsline {section}{\numberline {2.7}The goal\improvement {Change that title}}{20}{section*.10}
+\contentsline {section}{\numberline {2.7}The goal\improvement {Change that title}}{20}{section*.7}
 \contentsline {section}{\numberline {2.8}Limitation: What could be expected}{20}{section.2.8}
-\contentsline {chapter}{\numberline {3}Standards Ideas}{21}{chapter.3}
-\contentsline {section}{\numberline {3.1}Bloom Filters}{21}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Data Structure}{21}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}False Positive Rate}{22}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}Control the False Positive Rate}{22}{subsection.3.1.3}
-\contentsline {subsection}{\numberline {3.1.4}Information Leaked by Bloom Filters}{23}{subsection.3.1.4}
-\contentsline {subsection}{\numberline {3.1.5}Is it enough?}{23}{subsection.3.1.5}
-\contentsline {section}{\numberline {3.2}Machine Learning}{23}{section.3.2}
-\contentsline {section}{\numberline {3.3}Secure Multi-Party Computation}{24}{section.3.3}
-\contentsline {section}{\numberline {3.4}Proof of Work Database}{24}{section.3.4}
-\contentsline {section}{\numberline {3.5}Conclusion}{24}{section.3.5}
-\contentsline {chapter}{\numberline {4}Implementation}{25}{chapter.4}
-\contentsline {section}{\numberline {4.1}Private Sharing of IOCs and Sightings \cite {van2016private}}{25}{section.4.1}
-\contentsline {section}{\numberline {4.2}My Implementation}{28}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Get data from MISP}{28}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Parsing logs}{28}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}Multiprocessing}{28}{subsection.4.2.3}
-\contentsline {subsection}{\numberline {4.2.4}I/O and Rule Size Optimization}{29}{subsection.4.2.4}
-\contentsline {subsection}{\numberline {4.2.5}CSV or TSV?}{29}{subsection.4.2.5}
-\contentsline {subsection}{\numberline {4.2.6}On URL Normalization}{29}{subsection.4.2.6}
-\contentsline {subsection}{\numberline {4.2.7}Only PBKDF2}{30}{subsection.4.2.7}
-\contentsline {subsection}{\numberline {4.2.8}library: Pycrypto towards Cryptography}{30}{subsection.4.2.8}
-\contentsline {subsection}{\numberline {4.2.9}Structure Improvement}{30}{subsection.4.2.9}
-\contentsline {subsection}{\numberline {4.2.10}Top Configuration File}{31}{subsection.4.2.10}
-\contentsline {section}{\numberline {4.3}Chosen Cryptographic System}{31}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}PBKDF2}{31}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Bcrypt}{32}{subsection.4.3.2}
-\contentsline {subsection}{\numberline {4.3.3}Bloom filter}{32}{subsection.4.3.3}
-\contentsline {subsection}{\numberline {4.3.4}Bloom filter used as to improve performance of Key Derivation Functions}{33}{subsection.4.3.4}
-\contentsline {section}{\numberline {4.4}An other KDF}{34}{section.4.4}
-\contentsline {chapter}{\numberline {5}Results}{35}{chapter.5}
-\contentsline {section}{\numberline {5.1}Dataset}{35}{section.5.1}
-\contentsline {section}{\numberline {5.2}Code Profiling}{35}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Code Flow}{35}{subsection.5.2.1}
-\contentsline {subsubsection}{ReadMisp}{36}{section*.16}
-\contentsline {subsubsection}{MatchRules}{36}{section*.17}
-\contentsline {subsubsection}{Crypto Module PBKDF2}{37}{section*.18}
-\contentsline {subsection}{\numberline {5.2.2}Profile of ReadMisp for 1 iteration}{38}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {5.2.3}Profile of ReadMisp for 1000 iteration}{39}{subsection.5.2.3}
-\contentsline {subsection}{\numberline {5.2.4}Profile of the bloomy\_pbkdf2 module}{39}{subsection.5.2.4}
-\contentsline {section}{\numberline {5.3}Benchmarking}{40}{section.5.3}
-\contentsline {section}{\numberline {5.4}Security Discussion}{41}{section.5.4}
-\contentsline {section}{\numberline {5.5}Further Work}{41}{section.5.5}
+\contentsline {chapter}{\numberline {3}Standards Ideas}{23}{chapter.3}
+\contentsline {section}{\numberline {3.1}Bloom Filters}{23}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Data Structure}{23}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}False Positive Rate}{24}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Control the False Positive Rate}{24}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}Information Leaked by Bloom Filters}{25}{subsection.3.1.4}
+\contentsline {subsection}{\numberline {3.1.5}Is it enough?}{25}{subsection.3.1.5}
+\contentsline {section}{\numberline {3.2}Machine Learning}{25}{section.3.2}
+\contentsline {section}{\numberline {3.3}Secure Multi-Party Computation}{26}{section.3.3}
+\contentsline {section}{\numberline {3.4}Proof of Work Database}{26}{section.3.4}
+\contentsline {section}{\numberline {3.5}Conclusion}{26}{section.3.5}
+\contentsline {chapter}{\numberline {4}Implementation}{27}{chapter.4}
+\contentsline {section}{\numberline {4.1}Private Sharing of IOCs and Sightings \cite {van2016private}}{27}{section.4.1}
+\contentsline {section}{\numberline {4.2}My Implementation}{30}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Get data from MISP}{30}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Parsing logs}{30}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Multiprocessing}{30}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}I/O and Rule Size Optimization}{31}{subsection.4.2.4}
+\contentsline {subsection}{\numberline {4.2.5}CSV or TSV?}{31}{subsection.4.2.5}
+\contentsline {subsection}{\numberline {4.2.6}On URL Normalization}{31}{subsection.4.2.6}
+\contentsline {subsection}{\numberline {4.2.7}Only PBKDF2}{32}{subsection.4.2.7}
+\contentsline {subsection}{\numberline {4.2.8}library: Pycrypto towards Cryptography}{32}{subsection.4.2.8}
+\contentsline {subsection}{\numberline {4.2.9}Structure Improvement}{32}{subsection.4.2.9}
+\contentsline {subsection}{\numberline {4.2.10}Top Configuration File}{33}{subsection.4.2.10}
+\contentsline {section}{\numberline {4.3}Chosen Cryptographic System}{33}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}PBKDF2}{33}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Bcrypt}{34}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Bloom filter}{34}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}Bloom filter used as to improve performance of Key Derivation Functions}{35}{subsection.4.3.4}
+\contentsline {section}{\numberline {4.4}An other KDF}{36}{section.4.4}
+\contentsline {chapter}{\numberline {5}Results}{37}{chapter.5}
+\contentsline {section}{\numberline {5.1}Dataset}{37}{section.5.1}
+\contentsline {section}{\numberline {5.2}Code Profiling}{37}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Code Flow}{37}{subsection.5.2.1}
+\contentsline {subsubsection}{ReadMisp}{38}{section*.13}
+\contentsline {subsubsection}{MatchRules}{38}{section*.14}
+\contentsline {subsubsection}{Crypto Module PBKDF2}{39}{section*.15}
+\contentsline {subsection}{\numberline {5.2.2}Profile of ReadMisp for 1 iteration}{40}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Profile of ReadMisp for 1000 iteration}{41}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}Profile of the bloomy\_pbkdf2 module}{41}{subsection.5.2.4}
+\contentsline {section}{\numberline {5.3}Benchmarking}{42}{section.5.3}
+\contentsline {section}{\numberline {5.4}Security Discussion}{43}{section.5.4}
+\contentsline {section}{\numberline {5.5}Further Work}{43}{section.5.5}
