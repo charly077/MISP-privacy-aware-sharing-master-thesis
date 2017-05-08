@@ -8,6 +8,11 @@ About taxii.
 Awesome threat intelligence.
 \newblock \url{https://github.com/hslatman/awesome-threat-intelligence}.
 
+\bibitem{TAXIIProjectWeb}
+Taxii project.
+\newblock taxiiproject.
+\newblock \url{http://taxiiproject.github.io/about/}.
+
 \bibitem{wikiNormalizationURL}
 Url normalization.
 \newblock wikipedia.

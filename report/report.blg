@@ -5,50 +5,51 @@ The style file: acm-doi.bst
 Database file #1: articles.bib
 Warning--to sort, need author or key in taxiiWebsite
 Warning--to sort, need author or key in AwesomeTreat
+Warning--to sort, need author or key in TAXIIProjectWeb
 Warning--to sort, need author or key in wikiNormalizationURL
 Warning--empty journal in enisaguide2009
 Warning--empty journal in eisasRapport
 Warning--empty publisher in johnson2014guide
 Warning--empty journal in sauerwein2017threat
-You've used 37 entries,
+You've used 38 entries,
             2415 wiz_defined-function locations,
-            742 strings with 10252 characters,
-and the built_in function-call counts, 11595 in all, are:
-= -- 1087
-> -- 496
+            747 strings with 10349 characters,
+and the built_in function-call counts, 11769 in all, are:
+= -- 1104
+> -- 497
 < -- 0
-+ -- 209
++ -- 210
 - -- 170
-* -- 771
-:= -- 1797
-add.period$ -- 106
-call.type$ -- 37
-change.case$ -- 194
+* -- 776
+:= -- 1816
+add.period$ -- 109
+call.type$ -- 38
+change.case$ -- 197
 chr.to.int$ -- 0
-cite$ -- 44
-duplicate$ -- 470
-empty$ -- 1085
+cite$ -- 46
+duplicate$ -- 477
+empty$ -- 1111
 format.name$ -- 170
-if$ -- 2537
+if$ -- 2582
 int.to.chr$ -- 0
-int.to.str$ -- 37
+int.to.str$ -- 38
 missing$ -- 30
-newline$ -- 183
+newline$ -- 188
 num.names$ -- 68
-pop$ -- 250
+pop$ -- 260
 preamble$ -- 1
-purify$ -- 159
+purify$ -- 161
 quote$ -- 0
-skip$ -- 332
+skip$ -- 337
 stack$ -- 0
-substring$ -- 571
-swap$ -- 136
+substring$ -- 576
+swap$ -- 137
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 146
-warning$ -- 7
+type$ -- 150
+warning$ -- 8
 while$ -- 108
-width$ -- 39
-write$ -- 355
-(There were 7 warnings)
+width$ -- 40
+write$ -- 364
+(There were 8 warnings)

@@ -54,16 +54,15 @@ After a state of the art, a possible found solution had been implemented with  s
 \tableofcontents
 
 \chapter{Introduction}
-\section{Interaction with this Latex Document (To be removed)}
-In order to facilitate comments, I've added some new commands explained by\footnote{http://tex.stackexchange.com/questions/9796/how-to-add-todo-notes}:\\
-\begin{itemize}
-\item unsure => What I need to check
-\item change => What have to be modified
-\item info => Add simple comment
-\item improvement => Indicate a possible improvement
-\end{itemize}
+%\section{Interaction with this Latex Document (To be removed)}
+%In order to facilitate comments, I've added some new commands explained by\footnote{http://tex.stackexchange.com/questions/9796/how-to-add-todo-notes}:\\
+%\begin{itemize}
+%\item unsure => What I need to check
+%\item change => What have to be modified
+%\item info => Add simple comment
+%\item improvement => Indicate a possible improvement
+%\end{itemize}
 
-\section{Introduction}
 %Ponemon Institute conducts independent research on privacy, data protection and information security policy
 In the last reports of the Ponemon institute\cite{ponemon2016cost, ponemon2016costFr}, the estimated cost of the annual data breaches for 384 companies in 12 countries\footnote{United States, United Kingdom, Germany, Australia, France, Brazil, Japan, Italy, India, the Arabian region (United Arab Emirates and Saudi Arabia), Canada and, South Africa} is about \$4 million in 2016.\\
 A data breach means that records containing private data linked to a name had been leaked. This originates from system glitches, human errors but  mostly from malicious and criminal attacks. In France, the percentages are respectively 23\%, 27\% and 50\% which gives an average cost of \$1.85 million a year only for criminal attack.\\
@@ -100,10 +99,20 @@ I've then created a way to feed the parsed log in my system and briefly analyze 
 Beside that, I also had the opportunity to benefit from a one day MISP training organized by CIRCL.
 I have then continued to work on my master thesis the whole year long while keeping in touch with Conostix and CIRCL.
 
+\chapter{Background}
+This small chapter is intended to give a quick overview of the tools on which this master thesis is based.
+
 \section{Indicator of Compromise (IOC)}
 When there is a crime, detectives come and look for clues. They do that to answer important questions as what made it happened, why it happened and also how it happened. This is really important, not only for solving a specific crime but also for gathering information that could allow to solve other correlated crimes and why perhaps avoid other similar ones as well.\\
 This is exactly the same idea here, even if the attacker try to minimize its traces, there are always some. It can be email addresses, Internet Protocol(IP) addresses, malware, URL and so on.\\
 The idea, is then to use these traces to trigger alarms on other computer systems as soon as they are seen to protect them as well as gathering new information. This is the reason why we call these type of clues Indicator Of Compromise.
+
+\section{Confidentiality and Privacy}
+These two terms are used a lot and nearly in an interchangeable way in this master thesis. Actually most of the time, when I speak about one, I also speak of the other one without any clear separation. But it is still important to look more closely to the difference of meaning between those two terms at first.\\
+
+Confidentiality is related to confidence, we entrust others with our information even if they could affect us if they reveal it to non authorized people. Confidentiality is a right in some health domain like medicine and so on but is also something requested by companies when the share the information.\\
+
+Privacy on the other hand is that we don't want to be investigate more on what we share. This is not because we give the finger that the arm could be taken.
 
 
 \section{MISP and Threat Sharing}
@@ -338,7 +347,7 @@ Today the estimation is that the mean time an attacker stay on a system before b
 
 \section{Standards}
 As we want organizations to share threat information, we need them to "speak the same language" or more formally, to use the same standards.\\
-For that, we can categorize the standards into four categories (lists of other existing standards can be found in \cite{AwesomeTreat, mohaisen2017rethinking}):
+For that, we can categorize the standards into four categories (standards list can be found in \cite{AwesomeTreat, mohaisen2017rethinking}):
 \begin{enumerate}
 \item Enumerations
 \item Scoring Systems
@@ -346,9 +355,8 @@ For that, we can categorize the standards into four categories (lists of other e
 \item Transport (TAXII)
 \end{enumerate}
 
-I will only focus on the four that I've cited before as we can see in \cite{fransen2015cyber, sauerwein2017threat} that the most promising standards for a threat sharing intelligence sharing infrastructure are CybOX, STIX and TAXII. They have been developed under coordination of the MITRE Corporation and have very strong momentum in adoption by industry leaders and threat intelligence communities such as the Financial Services - Information Sharing and Analysis Center (FS-ISAC).\\
-On the other hand, MISP core format is defined in a draft written by A. Dulaunoy and A. Iklody in \cite{MispDraft} and is an alternative to STIX that supports more attribute types.\\
-The  Structured Threat Information eXpression (STIX) \cite{barnum2012standardizing} provides a language to represent cyber threat information in a structured manner and is really interesting as it provides a structure to express a wide set of contextual information regarding threats in addition of the IOCs. The complete list is :
+I will only focus on the four cited before. From these articles \cite{fransen2015cyber, sauerwein2017threat}, we can read that the most promising standards for a threat sharing intelligence sharing infrastructure are CybOX, STIX and TAXII. They have been developed under coordination of the MITRE Corporation and have very strong momentum in adoption by industry leaders and threat intelligence communities such as the Financial Services - Information Sharing and Analysis Center (FS-ISAC).\\
+The  Structured Threat Information eXpression (STIX) \cite{barnum2012standardizing} provides a language to represent cyber threat information in a structured manner and it provides a structure to express a wide set of contextual information regarding threats in addition of the IOCs. The complete list is :
 
 \begin{itemize}
 \item[$\bullet$] Cyber Observables
@@ -362,87 +370,79 @@ chains, tools, infrastructure, victim targeting, etc.)
 \item[$\bullet$] Cyber Threat Actors
 \end{itemize}
 
- Moreover it tries to stay as "human-readable as possible". And the chapter 9 of \cite{barnum2012standardizing} may be really interesting to spend time on it. It explain in detail the structure of STIX.\\
- For expressing the observable, STIX is using Cyber Observable eXpression (CybOX)\cite{barnum2012cybox} that allows to state the specification of events or stateful properties.
-Then, we need a transport standard which is the Trusted Automated eXchange of Indicator of Information (TAXII) \cite{connolly2014trusted} .
-\improvement{Taxii explanation = ?}
+ One of its real advantage is taht it tries to stay as "human-readable as possible". The complete STIX structure is deeply explained in the ninth chapter of \cite{barnum2012standardizing}.\\
+ For expressing the observable, STIX is using the Cyber Observable eXpression (CybOX)\cite{barnum2012cybox} that allows to state the specification of events or stateful properties. At first, CybOX was developed independently but is now integrated into Version 2.0 of STIX. It is a Structured language for cyber observables.\\
+Then, we need a standardized transport mechanism and for that, we have the Trusted Automated eXchange of Indicator of Information (TAXII) \cite{connolly2014trusted, TAXIIProjectWeb} which is community effort to standardize the trusted, automated exchange of cyber threat information. It defines a set of services and message exchanges that, when implemented, enable sharing of actionable cyber threat information across organization and product/service boundaries for the detection, prevention, and mitigation of cyber threats..\\
+TAXII is defined around sharing models. There exist three of them:
+\begin{itemize}
+\item \textbf{Hub and Spoke}  is a sharing model where one organization functions as the central clearinghouse for information, or hub, coordinating information exchange between partner organizations, or spokes. Spokes can produce and/or consume information from the Hub.\\
+\centering
+\includegraphics[scale=0.5]{res/hub-and-spoke}
+\item \textbf{Source/Subscribers} is a sharing model where one organization functions as the single source of information and sends that information to subscribers.\\
+\centering
+\includegraphics[scale=0.5]{res/source-subscriber}
+\item \textbf{Peer to Peer}  is a sharing model where two or more organizations share information directly with one another. A Peer to Peer sharing model may be ad-hoc, where information exchange is not coordinated ahead of time and is done on an as-needed basis, may be well defined with legal agreements and established procedures, or somewhere in the middle.\\
+\centering
+\includegraphics[scale=0.5]{res/peer-to-peer}
+\end{itemize}
 
-\section{Sum up???}
-When I started the master thesis, my knowledge about threat information sharing was clearly none. I had to look up for articles and information where I was able to find some. I've finally chosen some articles and some points that I found interesting to share in order to understand the different step I followed and the different ideas on which I thought about.\\
-Also, I've spoken about MISP as it is the platform I'm interesting on. There is an available really good awesome list \cite{AwesomeTreat} available where all different existing standards, tools and techniques available in this domain.\\
+
+On the other hand, in the MISP project, they decided to support more attribute types and to have an easier model to use. Therefore, A. Dulaunoy and A. Iklody describe an alternative, the MISP core format, in the second version of the draft\cite{MispDraft} while still allowing to directly export data into the STIX format in the web interface. On the other hand, they are using the Hub and Spoke TAXII model for transportation as explained in the introduction.
+
+\section{Contextualization}
+When I started the master thesis, my knowledge about threat information sharing was clearly none. I had to look up for articles and information where I was able to find some. I've finally chosen some articles and some points that I found interesting to share in order to understand the different steps I followed and the different ideas on which I thought about.\\
+Also, I've spoken about MISP as it is the platform I'm interesting in but there is an available really good awesome list \cite{AwesomeTreat} available where a bunch of existing standards, tools and techniques available in this domain are listed (Unfortunately I found it only at the end of the master thesis).\\
 But in order to come back to MISP. The main advantages compared to the proprietary solutions are that :
 \begin{itemize}
 \item[$\bullet$] Transparency in term of code and of the contributor.
 \item[$\bullet$] Quantity and diversity of connected entities
-\item[$\bullet$] The price and the non-existence of entrance barriers
+\item[$\bullet$] The price and the non-existence of entrance barriers\info{Any additional are welcome}
 \end{itemize}
-On the other hands, there exist also other kind of sharing types like DShield but they are sharing the whole bench of indicators and deals with a lot of data while MISP is more interested in events and in the analyses of what is going on.\\
 
-The difference between privacy and confidentiality had been well explained but I want to add that here, when I speak about anonymity in sharing, I mean that what would be interesting would be to have a way of sharing what is going on without the need of sharing who had seen the indicators.\\
-Then, I could find a lot of techniques in order to generate blacklists, detect event correlations and protect companies with it.\\
+On the other hands, there exist also other kind of platforms like DShield but they are sharing the whole bench of indicators and deals with a lot of data while MISP is more interested in events and in the analyses of what is going on.\\
+
 In the state of the art, I've also spoken about attack scenarios and cardinality of intersection to evaluate the benefit of sharing before doing it. These kind of techniques are not yet implemented in MISP but could appear one day.\\
 
-As discussed with the risk, there are a lot of privacy concerns about sharing data. And thus, a lot of separate techniques. But there is an additional important problem that we need to take care of. For example, one of the solution for preserving privacy was simply hash the data. For big sized data, It's not feasible to brute force in order to get back the information but, for IP addresses, since in general, there are only 256 or 65536 IP addresses for a specific company, we could create a table with all possible hashes and test them all!\\
+Back on the sharing problem have a data set of malicious data, IOCs, events coming from MISP and we want to share them in a privacy-preserving way and moreover, we want to get rid of this needed trust in sharing.
+It would be really nice, computer specialists would be able to check on computers to discover infections, problems and moreover learn how to fix it thanks to the previous analyses contained in MISP. The problem is that some information are confidential and we need to have some confidentiality concerns while sharing. \\
+
 
 Then, it was really useful to see these existing techniques but it unfortunately does not mean that it could solve all of our problems. They had other purposes when designing their solutions and it can lead to some disadvantage in what we are attempting to do.\\
-For example, Bloom Filters are a really good idea but they are not enough by their own has they do not give data at the end but just a probability of a specific IOC to belong to a specific set.\\
-On the other hand, sanitization is not good for us either as we would lose all the interesting data with the explained techniques. Noise is thus not a valid choice either.
-
-
-\section{Where did it lead me ?}
-
-We have a data set of malicious data, IOCs, events and we want to share them. This is what is already done by the MISP project. But now, what if we want to distribute these information by giving the data set to an organization without having to trust her?\\
-It would be really nice, computer specialists would be able to check on computers to discover infections, problems and moreover learn how to fix it thanks to the previous analyses contained in MISP. The problem is that some information are confidential and we need to have some privacy concerns while sharing. \\
-Actually, if a company discover information on its system, why should they share it ? They already have been compromised and sharing could give useful information to an attacker, as the company topology ... \\
-But if they do not share, why other should accept to share with them ? That is why, actually all sharing groups rely on trust. Here, the trust must be replaced by something else.\\
-Sanitization is a good idea but, it would modify data up to make them unusable for every one.\\
-What then if we could find a way to share only if the user has really knowledge of the event and can share information on it as well, or is really infected by and need help that could be given by the information.\\
-I will consider this problem but with two different kind of solution. The first part is when the database could be shared because an attacker could not get information from it (Easier to get data, so perhaps we cannot put all data on it).\\
-And the second approach is one that still need a server to respond but allowing more privacy.\\
-
-But still, the idea that a common user have access to data while an attacker, which is a specialist, cannot seems infeasible in a lot of cases. The attacker always ends with the data but, if he takes 1 second, 1 day, 1 week, 3 months or years is different because, we can then think about how long a data is valid? \\
-
+Sanitization is a good example as it is really useful for the existing implementation but in this case, it would modify data up to make them unusable for every one.\\
+Other sharing strategy needs server always up which is not interesting either so we still need to find a way of sharing only if the user has really knowledge of the event and can share information on it as well, or is really infected by and need help that could be given by the information.\\
 
 
 \section{Misp-Worbench - hashstore}
 
 MISP workbench\footnote{https://github.com/MISP/misp-workbench} is a set of tools to export data out of the MISP MySQL database and use and abuse them outside of this platform.\\
 
-They have already implemented a privacy aware tool called hashstore. This was implemented in redis\footnote{http://redis.io}. This is working by creating a dataset of all hashed IOCs. And then by the use of the redis server, we can use a redis client to request data.\\
+CIRCL has already implemented a privacy aware tool called hashstore and implemented in redis\footnote{http://redis.io}. This is working by creating a dataset of all hashed IOCs. And then by the use of the redis server, we can use a redis client to request data.\\
 Like that, if you want an information on a particular IOC, you need to already know it to be able to take its value's fingerprint and make the request.\\
-On the other hand, coming back on the small data problem, if we consider an attacker that want to try every possible IPs, for IPv4 it represents 4.228.250.625 different IPs that needs to be tested. Even if it is a lot it is still feasible as redis is really fast (The attacker even pipeline its requests\improvement{Check that, I think that it was not feasible in the system but I need to check why})! Moreover, not all IPv4 need to be tested, for an example we can avoid private subnet like 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 which already represent 17.891.328 addresses.
+On the other hand, coming back on the small data problem, if we consider an attacker that want to try every possible IPs, for IPv4 it represents 4.228.250.625 different IPs that needs to be tested. Even if it is a lot it is still feasible as redis is really fast. Moreover, not all IPv4 need to be tested, for an example we can avoid private subnet like 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 which already represent 17.891.328 addresses.
 
-
-\section{The goal\improvement{Change that title}}
-\begin{itemize}
-\item Explain that we want the user to have a data base directly on his computer 
-\item Explain that this database should help the user to get information on the events
-\item Explain that even if the information we still need ot have access to MISP => But as we don't have the whole information we could have in this database data from other instances that we have not access yet and allow to later share
-\item Explain the analyses that will be done
-\end{itemize}
 
 \section{Limitation: What could be expected}
 
-What we want ? A way to share information only with people that have already some information or that are facing the related event. It would be amazing to do so but it would mean to make available a dataset where we could allow them to query.\\
-The hashstore was a great idea as we need to now what we are looking for to request but, for a small data that could have only 10000 possibilities. What if the opposite player try ever 10000 possibilities to get what we know? \\
-We could make a limitation on the allowed number of request but, a system that would like to check everything that it sees on its network should still be allowed. Could we differentiate both ? \\
-So if we want to make the task more complicated for the attacker, we need to make it more complicated as well for the authorized used. This is quite difficult because if we make it infeasible for the attacker, we are also making it infeasible for the user as, with the example, there is only a 10000 factor between legal utilization and an attack.\\
+As discussed with the risk, there are a lot of privacy concerns about sharing data. And therefore, a lot of separate techniques. But there is an additional important problem that needs to be taken care of. For example, one of the solution for preserving privacy is simply hashing the data. For big sized data, it's not feasible to brute force it but, for IP addresses, since in general, there are only 256 or 65536 different IP addresses in the range of IPs of a specific company, we could create a table with all possible hashes and test them all!\\
 
-We thus know that it is intrinsically impossible to fully hide small IOCs while still allowing a subscriber to evaluate the rule. But we want to find a solution that could be an approach this problem.
+But still, the idea that a common user have access to data while an attacker, which is a specialist, cannot seems infeasible in a lot of cases. The attacker always ends with the data but, if he takes 1 second, 1 day, 1 week, 3 months or years is different because, we can then think about how long a data is valid? \\
 
+These questions are important as we want to share the data in a way that a user could get the complete database on its computer and make requests on it without needing an internet access.\\
+We thus now that brute force attack on suck system are unnoticeable and also that it is intrinsically impossible to fully hide small IOCs while still allowing a subscriber to evaluate the rule. \\
 
+The solution I'm looking for will thus approach the real solution but we already know that it cannot be perfect.
 
 \chapter{Standards Ideas}
 
-Now that the subject seems clearer, there are a lot of different possibilities that could be explored. This chapter will be the opportunity to dwell on some of them in order to look for their strong points as well as their weakness.
+Now that the subject seems clearer, there are a lot of different possibilities that could be explored. This chapter will be the opportunity to dwell on some of them in order to look for their strong points as well as their weaknesses.
 
 \section{Bloom Filters}
 Bloom filter is a space efficient probabilistic data structure  used to efficiently test the membership of specific values.\\
-If a dataset is only used for testing the membership, instead of storing the whole dataset that could be really large, we can use a bloom filter structure that use less than 10 bits of memory per element with a 1\% rate of false positive which makes it space efficient.\\
-A simple example to show the interest could be a data set of all the students' name and surname at university. Taking the hypothesis that each name and surname has approximately 6 characters and that there are about 20 000 students ( Harvard ). The dataset should use 20 000 * 6 * 2 * 8 (=1920000) bits while a 1\% false positive bloom filter could be only about 20 000 * 10 bits which is already 9 times smaller for such a small data example.\\
+It has an enormous advantage which is to be able to test for membership without requiring to store the complete set of member data. On the other hand, even if this data structure never forgets a member, it can falsely believe in the membership of a data even not related to it. The rate to which a data is wrongly recognized is called the false positive rate and will be explored later on.\\
+This small example of a small dataset of small data already shows the memory advantage: the data set of all the students' name and surname at Harvard. Taking the hypothesis that each name and surname has approximately 6 characters and that there are about 20 000 students. The dataset should use 20 000 * 6 * 2 * 8 (=1920 000) bits while a 1\% false positive bloom filter could be only around 20 000 * 10 bits which is already more than 9 times smaller.\\
 
 \subsection{Data Structure}
-A bloom filter is a m bits array (fig. \ref{bloom-1}) all set to 0 at the starting point. Beside that, there are also k independent hash functions. 
+A bloom filter is a m bits array (fig. \ref{bloom-1}) all set to 0 at the starting point. Besides that, there are also k independent hash functions. 
 
 \begin{figure}[h!]
 	\begin{center}
@@ -452,13 +452,14 @@ A bloom filter is a m bits array (fig. \ref{bloom-1}) all set to 0 at the starti
 	\end{center}
 \end{figure}
 
-To add the value v1, each hash function gives an index where we set the indexed bit to 1. In the opposite, if we want to test a value for membership, we have to check all indexes given by the hash functions. As we can see on figure \ref{bloom-1}, v2 is not in the set.
+To add the value v1, each hash function gives a fingerprint of the value which is considered as an index in the array where the value needs to be set to 1. In the opposite, if we want to test a value for membership, we have to check all indexes given by the hash functions. As we can see on figure \ref{bloom-1}, v1 is in the set while v2 is not.
 
 \subsection{False Positive Rate}
 
 Bloom filter is a probabilistic data structure as when we are checking for a value, either the value is \textbf{not} in the set or is \textbf{perhaps} in the set. \\
-In the latest case, this is due to false positive where all the k hash functions gives indexes already set to 1 (fig. \ref{bloom-2}) while the element should not be in the set.\\
-Even if this could be annoying that is what could make that data structure interesting while trying not to reveal the whole data set.
+In the latest case, this is due to false positive where all the k hash functions gives indexes already set to 1 while the element should not be in the set.\\
+An example can be seen on figure \ref{bloom-2} where v3 do not belong to the set.
+
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[scale=0.3]{res/bloom-2}
@@ -468,24 +469,23 @@ Even if this could be annoying that is what could make that data structure inter
 \end{figure}
 
 \subsection{Control the False Positive Rate}
-If we check for a value in a bloom filter, at the end, we only know if it is not in the set or a probability to be in the set. Playing with this probability could be interesting for hiding some information. \\
-If the probability is about 50\% in IPs, it looses all interest for an attacker to brute force attack as at the end it would give him no information. While, for a real user, requesting for one IP could still bring some information for example knowing that an element had never been signalled before.\\
+If we check for a value in a bloom filter, at the end, we only know if it is not in the set or a probability to be in the set. Playing with this probability could be interesting for hiding some information and can be a really important feature for privacy and confidentiality.\\
 This is why it could be useful to get more information on the false positive rate and how we could use it.\\
 
-If n is the number of element inside the data structure we can approximate\footnote{https://en.wikipedia.org/wiki/Bloom\_filter} the false positive rate by $(1-e^{\frac{-kn}{m}})^k$ but a more useful way is to define k in function of the willing rate for the false positive. In this case, we can notice that k is independent of the number of element inside the set while on the opposite, it is m who need to be changed in function of the number of values n:
+If n is the number of element inside the data structure we can approximate\footnote{https://en.wikipedia.org/wiki/Bloom\_filter} the false positive rate by $(1-e^{\frac{-kn}{m}})^k$ but a more useful way is to define k in function of the willing rate for the false positive. In this case, we can notice that k is independent of the number of element inside the set while on the opposite, it is m who needs to be changed in function of the number of values n:
 $$m = - \frac{m\ \ln(p)}{\ln(2)^2}$$
 $$k = - \frac{\ln(p)}{\ln(2)}$$
 (These are approximations)
 
 \subsection{Information Leaked by Bloom Filters}
-It could seems useless but nevertheless it could have huge impacts. If we create bloom filter and we ensure a false positive rate, with the size of the array (m) and the number of hash functions (k). An attacker could approximate the number of values in a bloom filter like shown by Swamidass et al. \cite{swamidass2007mathematical}:
+It could seems useless but nevertheless it could have huge impacts. If we create bloom filter and we ensure a false positive rate, with the size of the array (m), the number of hash functions (k) and the number of bit set to 1(X). An attacker could approximate the number of values in a bloom filter like shown by Swamidass et al. \cite{swamidass2007mathematical}:
 $$n* = - \frac{m}{k} \ln\left[1 - \frac{X}{m}\right] $$
-with X the number of bit set to 1.\\
-\improvement{Is it important ? => Important à expliquer vu que j'ai le mm prob :O}
 
-\subsection{Is it enough?}
-It is not enough alone as we not only need to test element for membership but we also need to get back information if it is. Moreover, when developing a system with bloom filter we need to take into account the small amount of information that could leak. \\
-But it is still an interesting solution and twinned with the later explained implementation could have great benefits.
+This does not bring a lot of information and the number of elements in the set is leaked as well in the final solution but it is important to have a knowledge of that while implementing a system based on those solutions.
+
+\subsection{Is this a complete solution to the problem?}
+It is not enough alone as we not only need to test element for membership but we also need to get back information on it.\\
+But it is still an interesting solution and could have great benefits once twinned with a later explained implementation .
 
 \section{Machine Learning}
 
@@ -501,22 +501,22 @@ This technique could be interesting to keep more control on the privacy and conf
 For the size, a model can also fit with less memory than remembering the whole set but will differ in each algorithm.\\
 So the base concept representation (BCR) of this technique on different example could bring a lot of information on the usability of this technique. But it could be difficult to tune and would have the same disadvantage as the bloom filter which is that it only decides membership and cannot give useful data back to the user. One last important thing to be aware is that some kind of models could leak information inside them for someone really understanding the system. (Ex clear decisions for a decision tree)\\
 
-
+This technique has the advantage of bringing more data protection due to the false negative rate but it also looses an important characteristic as it could be bad to know an attack IOCs but do not detect it because of that rate.
 
 \section{Secure Multi-Party Computation}
 Each organization possesses its IOC database and is not ready to share all their information. But, once again, if it could help an other organization to solve its problem, they agree on sharing only these information.\\
 That is where Secure Multi-Party Computation could play a role as there are techniques to find the intersections of 2 datasets. This is also called private matching \cite{agrawal2003information, li2005private}.\\
 
-This technique has only a big disadvantage which is heavy computations on both side. But still, it could be very useful to share information between MISP instances.
+This technique has only a big disadvantage which is heavy computations on both sides. But still, it could be very useful to share information between MISP instances.
 
 \section{Proof of Work Database}
 This idea is to slow down brute force attack thanks to proof of work. Even if this idea is one step closer to the final implementation, it is still different by the need of a server to communicate with for each requests.\\
 
 Here, we want to keep a database, we don't want any false positive nor false negative. But by doing that, we make our database available to brute force attacks.\\
-We just need to add a new wall between the user and the dataset that add time consuming computation for the requests.\\
+We just need to add a new wall of time consuming computation between the user and the dataset for the requests.\\
 
 A possible implementation could be with a random key chosen by the database server. This key could be regenerated with a small period and also every 1000 thousands requests.\\
-On the other hand, the client should brute force this small key each time it has changed. This slow down brute force attack while still be useful for a user that is doing less than 1000 requests to test its system.
+On the other hand, the client should brute force this small key each time it has changed. This slows down brute force attacks while still be useful for a user that is doing less than 1000 requests to test its system.
 
 For example, a possible request message for an ip could be : hash(IP)||hash(IP||key)\\
 
@@ -524,31 +524,28 @@ The idea is interesting even if it is still not bullet proof against brute force
 
 \section{Conclusion}
 I've explained some basic ideas that could lead to different implementations, lot of work are done especially on private multi-party matching that could lead to the best option if requests are rare or, for example if it is used to periodically compare and synchronize data related to the same events between MISP instances.\\
-Nearly all solutions still needs a server that we would like to get rid of (After the data had been generated) and for that, a machine learning model or bloom filters are the right track.
-
-
-
+Nearly all solutions still needs a server that we would like to get rid of (After the data had been generated) and for that, a machine learning model or bloom filters are the right track but there is still a lack as we do not get back information. That is why the final implemented solution will find something similar to proof of work  to slow down the attack and the bloom filter to increase the system speed.
 
 
 
 \chapter{Implementation}
 I've explained ideas in the previous chapter, some of these could be implemented. But a nice article \cite{van2016private} was published in the few first months of my work and they had found a technique that could also work here as their goal was similar one: allow parties to share information without the need to immediately reveal private information.\\
 Their implementation was for bro, here I will make an implementation working with MISP and improve its matching properties and the modularity of the code. \\
-By modularity, I mean that I to be able to add "cryptographic modules" in order to test different techniques with the same code.\\
+By modularity, I mean that I want to be able to add "cryptographic modules" in order to test different techniques with the same code.\\
 In this chapter, I will first explain their article, then the modifications I've made with some improvements.\\
-A discussion on the libraries and tools will follow before benchmarking tests and discussions on the implementation will follow in the next chapter on results.
+A discussion on the libraries and tools will follow before benchmarking tests and discussions on the implementation in the next chapters.
 
 \section{Private Sharing of IOCs and Sightings \cite{van2016private}}
 This paper consider a cryptographic approach to hide the details of an indicator of compromise. They consider two different phases, sharing these IOCs and privately reporting the sightings of IOCs.\\
 
 Reporting the sightings is important for monitoring the events and attributes in MISP.\\ 
-Moreover MISP is now able to remember a sightings number per attribute but their technique seems difficult to implement in MISP for a standard subscriber as we should go through each attributes for each instances and each reporters while being online periodically (not practical at all). I've got some other ideas but I finally only focused myself on the sharing part as I would have not get enough time.\\ 
+Moreover MISP is now able to remember a sightings number per attribute but their technique seems difficult to implement in MISP for a standard subscriber as we should go through each attributes for each instances and each reporters while being online periodically (not practical at all). I've got some other ideas but I finally only focused myself on the sharing part as I would have not enough time.\\ 
 But still, It could be the most important and really useful further work to do.\\
 
-They also started by warning the reader that using these cryptographic function is better than not using them at all but is not a miracle technique as it is theoretically impossible to hide the IOC’s content in the used context (Subscriber receive the data to check on its system).\\
-Additionally, it has a performance cost but in my beliefs, it is well worth it.\\ Their implementation was also in the source-subscriber information sharing model which fits our model where MISP is at the center.\\
-First, they define an IOC as rules that are propositional formula where the propositional variables are defined over features or observables like Internet Protocol (IP) or fingerprints of malicious program (but it could be any categories of MISP). They also claim that every rules (IOCs) can be expressed in the Disjunction Normal Form (DNF) without any negation (e.g. destIP= 198.51.100.43 $\land$ destPort = 80).\\
-Hereandafter the value is considered has the concatenation of all values of the IOCs contained in a rule : IPv4$||$port\_number. It has two advantages, the first is to represent all linked values directly together and then increase the size and the number of element hashed increase the difficulty for an attacker to perform a bruteforce attack or to precompute all possible hashes.\\
+They also started by warning the reader that using these cryptographic function is better than not using them at all but it is not a miracle technique as it is theoretically impossible to hide the IOC’s content in the used context (Subscribers receive the data to check on its system).\\
+Additionally, it has a performance cost but in my beliefs, it is well worth it.\\ Their implementation is in the source-subscriber TAXII sharing model but it can nevertheless fit with our model.\\
+First, they define an IOC as propositional formula where the propositional variables are defined over features or observables like Internet Protocol (IP) or fingerprints of malicious program (but it could be any categories of MISP). They also claim that every IOC can be expressed in the Disjunction Normal Form (DNF) without any negation (e.g. destIP= 198.51.100.43 $\land$ destPort = 80).\\
+Hereandafter the values of the rules generated are considered as the concatenation of all values of the IOCs contained in a rule : IPv4$||$port\_number. It has two advantages, the first is to represent all linked values directly together and then increasing the size and the number of element hashed increases the difficulty for an attacker to perform a bruteforce attack or to precompute all possible hashes.\\
 
 \begin{figure}[h!]
 \begin{center}
@@ -557,20 +554,21 @@ Hereandafter the value is considered has the concatenation of all values of the 
 	\label{IOC-To-Rule}
 \end{center}
 \end{figure}
+\improvement{Not Combined IOCs But RELATED}
 
 Rules as created can be directly checked on computers but they do not fit with our model yet as every values are still in clear. To solve this problem, they decided to hash the values concatenation while still keeping the structure (e.g. ip-dst||port) in clear.\\
-The structure is what make it still usable as it says the user which are the values they need to try against the rule.\\
+The structure is what makes it still usable as it says the user which are the values they need to try against the rule.\\
 The only additional computation is that the user needs to hash his values each time he tried to match the rule.\\
-In this way, we are still really close to the hashstore previously explained. We still lack some protections since every individual feature variable can only take a limited set and we do not get data while there is a match.\\
-For solving that, they are using a non secret salt value chosen at random for \textbf{each} rules (IOC). Beside that, the attack time can be increased as well thanks to the cryptographic hash function used. The second part is really affecting the honest subscriber performance as well but is needed to slow down enough an attack.\\
+In this way, we are still really close to the hashstore previously explained but with the advantage of beeing able to individually store and share rules. We still lack some protections since every individual variable can only take a limited set and we still do not get back information while there is a match.\\
+For solving that, they are using a non secret salt value chosen at random for \textbf{each} rules (IOC). Besides that, the attack time can be increased as well thanks to the cryptographic hash function used. The second part is really affecting the honest subscriber performance as well but is needed to slow down enough an attack for small data.\\
 
-They didn't stop there, considering all these ideas, they have added the possibility to include a Course Of Action (COA) message with each rule. This is the real advantage compared to other techniques. The output is precise, there are neither false positive nor false negative and additionally, a match can give the interesting data to the honest user.\\ To do so, instead of hashing the combined values, they use it as input for a key derivation function (KDF) that generates a key used for encrypting a message.\\
+They didn't stop there, considering all these ideas, they have added the possibility to include a Course Of Action (COA) message with each rule. This is the real advantage compared to other techniques. The output is precise, there are neither false positive nor false negative and additionally, a match can give information to the honest user.\\ To do so, instead of hashing the combined values, they use it as input for a key derivation function (KDF) that generates a key used for encrypting a message.\\
 Thus this new type of rule, instead of just obfuscating the data, contains the type of value (as before), the salt used for the rule and the encrypted message.\\
 
 
 \begin{figure}[h!]
 \begin{center}
-	\includegraphics[scale=0.3]{res/obfuscation-rule}
+	\includegraphics[scale=0.5]{res/obfuscation-rule}
 	\caption{New format for the rules}
 	\label{Obfuscation-Rule}
 \end{center}
@@ -607,11 +605,10 @@ Function matchRule(dictianary(type -> value), rule, token):
 \end{center}
 
 
-Trust is one of the major problem in information sharing and is discussed in all standards, guides and articles. Here they have an attempt of solution that could really works. As a user cannot normally decrypt the complete rules data set, if for each generated rule, we add a source identifier in the KDF. This result in the ability to track the origin of a leak. \\
-Even if it is a small add, I'm intimately convinced that it could help organization to decide sharing more confidential data as they could turn themselves 
-again the leakage source in case of problems which could limit the cost damage as well as the reputation damage. Moreover, in MISP there is also an identifier that could be used and which is called a Token.\\
+Trust is one of the major problem in information sharing and is discussed in all standards, guides and articles. Here they have an attempt of solution that could really works. As a user cannot normally decrypt the complete rules data set, if for each generated rule, we add a source identifier in the KDF. This results in the ability to track the origin of a leak. \\
+Even if it is a small add, I'm intimately convinced that it could help organizations to decide sharing more confidential data as they could turn themselves against the leakage source in case of problems which could limit the cost damage as well as the reputation damage. Moreover, in MISP there is also an identifier that could be used and which is called a Token.\\
 
-In their implementation, they are using both HMAC and PBKDF2 for the key derivation function. I had the opportunity to exchange mails with the authors of the paper that prefers the HMAC algorithm as it is designed to give a pseudo random key in just a single iteration and that it has been deeply analyzed \cite{cryptoeprint}. While PBKDF2 is generating random keys that becomes more secure as we the number of iterations increase. Moreover, the behavior has not been described (to the best of our knowledge) in academic paper even if the is a NIST recommendation on its usage.\\
+In their implementation, they are using both HMAC and PBKDF2 for the key derivation function. I had the opportunity to exchange emails with the authors of the paper that prefers the HMAC algorithm as it is designed to give a pseudo random key in just a single iteration and that it has been deeply analyzed \cite{cryptoeprint}. While PBKDF2 is generating random keys that becomes more secure as the number of iterations increases. Moreover, the behavior has not been described (to the best of our knowledge) in academic paper even if there is a NIST recommendation on its usage.\\
 They also used an AES encryption scheme.\\
 
 Their proof of concept code is available on their repository, \url{https://github.com/CRIPTIM/private-IOC-sharing}. 
@@ -624,28 +621,29 @@ Then I've improved the code with different new functionalities and realized that
 
 \subsection{Get data from MISP}
 To create the rules with the encrypted messages, we first need to get a subset of IOCs contained in MISP that are destined to IDS. \\
-For doing so, there is two possibilities, the first one is working with the MISP API while the second one is directly connected to the mysql database. \\
+For doing so, there is tree possibilities, the first one is working with the MISP webAPI while the second one is directly connected to the mysql database. \\
+A third that directly reads from a csv file had been added to be able to select what should be shared and for a testing purpose.\\
 The recommended mode will be with the web API, but as rules will be generated directly on the server, it could be more efficient to use directly the MySQL connection.\\
 
 For making automation request on MISP, they have implemented a python library called PyMISP. The first idea was to use it but it was finally not interesting to import the whole library only to make one request. That is why, I've changed the system by making myself the request to the automation API by using the requests python library and the MISP token referenced in the configuration file.\\
 
-The Virtual machine has been a great utility to understand how it is working, and especially how is structured the database. I've also added additional check like verifying that the email address specified is the one related to the token. 
+The virtual machine has been a great utility to understand how it is working, and especially how the database is structured. I've also added additional check like verifying that the email address specified is the one related to the token when the MySQL connection is used.
 
 \subsection{Parsing logs}
 The idea was to test the system with log files as I did with the hashstore. First I tried to reuse the parser I've created but I tried to go to deep in the analyze and it has bad performances as well as a lot of particular cases that were not working.\\
 I thus changed my mind and used logstash and redis to store the parsed log. \\
 It also has the big advantage to be modular and only a new configuration file is needed to parse any other type of log files.\\
-Beside that, I'm storing the data inside a redis queue and polling on it in the script for trying to match a rule. \\
+Besides that, I'm storing the data inside a redis queue and polling on it in the script for trying to match a rule. \\
 \improvement{ Add details, schemas, Structure explanation, ...;}
 
 \subsection{Multiprocessing}
-When there are a lot of logs, doing one by one take too much time, but we can test simultaneously more than one log line at the same time by creating process.\\
-Also it is important to point out that I've started this by trying to use thread but, as I'm using cpython, it is impossible to have two program running simultaneously due to the Global Interpreter Lock (GIL). That is why, I finally choose to create a pool of processes instead.
+When there are a lot of logs, doing one by one take too much time, but we can test simultaneously more than one log line at the same time by creating processes.\\
+Also it is important to point out that I've started this by trying to use threads but, as I'm using the cpython interpreter, it is impossible to have two program running simultaneously due to the Global Interpreter Lock (GIL). That is why, I finally chose to create a pool of processes instead.
 
 \improvement{Data could be shared on redis instead}
 \subsection{I/O and Rule Size Optimization}
 In the implementation of Tim van de Kamp et al., for each rule, they created a file to store the rule. \\
-I can understand it in the point of vue of a proof of concept but it is a real bad idea as in unix systems, each files have a minimum size of 4k. Already with 6300 events each one possessing 153 attributes in average, it is easy to see the problem coming. Moreover, the I/O were really slowing down the system. \\
+I can understand it in the point of vue of a proof of concept but it is a real bad idea as in UNIX systems, each file has a minimum size of 4k. Already with 6300 events each one possessing 153 attributes in average, it is easy to see the problem coming. Moreover, the I/O were really slowing down the system. \\
 These problems were easy to solve. Create a complete csv file for all rules. But is still not a solution because it would mean that we should load everything in memory even if we don't use everything. That is why I finally chosen to have one csv file per type of IOCs.
 \improvement{Plus de détails}
 \subsection{CSV or TSV?}
@@ -654,10 +652,10 @@ This is a really small modification but makes files more readable and avoid exis
 \subsection{On URL Normalization}
 The goal of the system is looking for matches in MISP data. But off course, if an event has for Uniform Resource Locator (URL) www.ioc.com I would like http://www.ioc.com, http://www.ioc.com/, http://www.ioc.com:80/, ... To match as well.\\
 I first dug a little into URL normalization like the standards and techniques already used in practice. I've realized that normalization is difficult as, in the standards, they want URL to always work after, and really be the same. For example http://www.ioc.com is not https://www.ioc.com while in matching, I absolutely don't care and I would like to both trigger an alert.\\
-Besides that, there are standards on URL normalization [RFC 3986] that contains either normalizations that preserve or usually preserve the semantic of the URL but non that does not preserve it.\\
+Besides that, there are standards on URL normalization [RFC 3986] that contains either normalizations that preserve or usually preserve the semantic of the URL but none that does not preserve it.\\
 Standards are thus focus on keeping the number of false positive near to 0 but it has for impact to miss a lot of real positive and we cannot afford that.\\
 I've thus found this paper \cite{lee2005url} which was focus on url normalization and that goes beyond standards normalization steps like case sensitivity in the path, the last slash symbol at the end of the path and the designation of the default page (index.html, ...).\\
-Beside that, a great summary of all these standardizations steps is available on wikipedia \cite{wikiNormalizationURL}.\\
+Besides that, a great summary of all these standardizations steps is available on wikipedia \cite{wikiNormalizationURL}.\\
 In the implementation, I've used the python library url\_normalize:
 \begin{itemize}
 \item[•] Take care of IDN domains.
@@ -672,7 +670,7 @@ In the implementation, I've used the python library url\_normalize:
 \item[•] All portions of the URI must be utf-8 encoded NFC from Unicode strings
 \end{itemize}
 
-I thus have to add some additions like:
+I thus added some additional steps like:
 \begin{itemize}
 \item Removing directory index : {default.asp, index.html, index.php, index.shtml, index.jsp, default.asp}.
 \item Remove the fragment (\#...) which is never seen by the server.
@@ -683,12 +681,12 @@ I thus have to add some additions like:
 
 \subsection{Only PBKDF2}
 While I was adding stuffs, it becomes more and more difficult to allow all these possible choices, I've thus started by limiting the key derivation function (KDF) choice to PBKDF2 which is not the author advised one but allow to parametrize the difficulty for an attacker to brute force some small data.\\
-But in the opposite we cannot have a small number iteration if we want the key to look random.
+But in the opposite we cannot have a small number iteration if we want the key to look random. Which is finally the intended use as we want to slow down bruteforce attacks.
 
 \subsection{library: Pycrypto towards Cryptography}
 While discussing with Tim van de Kamp by email, he said that if he had to start over, he would choose the cryptography library \footnote{https://cryptography.io/en/latest/} instead of pycrypto because it seems to be a more professional implementation.\\
 I thus have made some research on it. There are some discussion about it but \url{libhunt.com} gives this table \ref{cryptoLibraries} where we can see that even if pycrypto seems better written, the cryptography library is more up to date and still with a lot of activities.\\
-Beside that, I found the library well defined and really easy to use that is why, I've chosen to refactor the code with this particular library instead.
+Besides that, I found the library well defined and really easy to use that is why, I've chosen to refactor the code with this particular library instead.
 
 
 \begin{table}[h!]
@@ -718,14 +716,14 @@ The used structure is as following:
 \item rules: Rules generated.
 \end{itemize}
 
-Inside src, there is also a crypto subdirectory in which are located all cryptographic function in different possible schemes implemented.
+Inside src, there is also a crypto subdirectory in which are located all cryptographic functions in the different possible schemes implemented.
 
 \subsection{Top Configuration File}
-Instead of having a lot of configuration files as when I started, I've gathered them back in one general function where we only have to fill what will be used (Specified in function).\\
+Instead of having a lot of configuration files as when I started, I've gathered them back in one general file where we only have to fill what will be used (Specified in function).\\
 The configuration file is divided in categories and is read thanks to the configparser python library.
 
 \section{Chosen Cryptographic System}
-The idea of the generalization was to add module for handling the way data are stored / encrypted, we can use completely different cryptographic systems later called schemes. In this section, I will discuss my implementing choice for each schemes implemented.
+The idea of the generalization was to add module for handling the way data are stored / encrypted, we can use completely different cryptographic systems later called schemes. In this section, I will discuss my implementation choices for each schemes implemented.
 
 \subsection{PBKDF2}
 This is the basic system for which all the structure had been optimized and had been thought for. In this section, I will thus briefly introduce these two sequence diagrams to help the understanding the system:
@@ -746,7 +744,7 @@ Instead of directly encrypt the whole message, I've decided to divide it in two 
 For this algorithm, the user must choose an important meta parameter that will determine the "security level". This meta parameter is the number of iterations for the key derivation functions.\\
 In 2000, the RFC advised 1000 iterations for password storing. In 2015, OWASP password storage cheat sheet \cite{van2015password} advised about 10 000 iterations while NIST recommends on its appendix A.2.2 of its guide \cite{turan2010nist} to use as many iterations as it is possible with the needed performances.\\
 
-Some additional analyze can be make on the ability to sustain an attack, the article make by the CryptoSense\footnote{\url{https://cryptosense.com/parameter-choice-for-pbkdf2/}} website is really well documented.\\
+Some additional analyses can be make on the ability to sustain an attack, the article make by the CryptoSense\footnote{\url{https://cryptosense.com/parameter-choice-for-pbkdf2/}} website is really well documented.\\
 They have analyzed previous work and have done some estimation for 2015. Their approximation is more a guess than anything else and I wouldn't dare trying their approximation for 2017 but I will nevertheless show their results to get a rough ideas of what could be the time to crack a password from a key generated with PBKDF2 (AES + SHA-1):\\
 \begin{table}[h!]
 \centering
@@ -763,12 +761,12 @@ Comprehensive8 & 33 & 4h46 & 47h \\ \hline
 \end{table}
 
 \subsection{Bcrypt}
-The implementation with Bcrypt is similar as my implementation with PBKDF2. It is a password hash function based on the Blowfish cipher. It also incorporate hash to be protected against rainbow table attacks (TMTO).\\
-It has also advantages as being more configurable and is more efficient against GPU attacks. It also seems better to use but the NIST recommendations are about PBKDF2.\\
+The implementation with Bcrypt is similar as my implementation with PBKDF2. It is a password hash function based on the Blowfish cipher. It also incorporates salts to be protected against rainbow table attacks (TMTO).\\
+It has also advantages as being more configurable and is more efficient against GPU attacks. It also seems better to use but the NIST recommendations are still about PBKDF2.\\
 
-On the other hand, the time complexity is not the same as for PBKDF2.\\
-The problem with this algorithm is that they only consider the 72 firsts characters of the password for the key generation. It can seems a lot but even this url \url{https://translate.google.com/#fr/en/72\%20caract\%C3\%A8re\%2C\%20ce\%20n'est\%20pas\%20beaucoup} is 88 characters long. This mean is we add the token at the end (like in PKKDF2) it will not be included. On the other side, if we first put the token and the the data, an attacker would know that the 40 firsts characters will always be the same and moreover, there are only 32 characters left for the data which is not enough even for an IPv6.\\
-As the goal was that the whole string has an impact to the key generated as well as the token to have an impact on all bits. The solution was thus obviously to hash the concatenation of the value and the token and then seed this fingerprint to the key generation function.\\
+On the other hand, the time complexity of the implementation is not the same as for PBKDF2.\\
+The problem with this algorithm is that they only consider the 72 firsts characters of the password for the key generation. It can seems a lot but even this url \url{https://translate.google.com/#fr/en/72\%20caract\%C3\%A8re\%2C\%20ce\%20n'est\%20pas\%20beaucoup} is 88 characters long. This means that if we add the token at the end (like in PKKDF2) it will not be included. On the other side, if we first put the token before the data, an attacker would know that the 40 firsts characters will always be the same and moreover, there are only 32 characters left for the data which is not enough even for an IPv6.\\
+As the goal was that the whole string has an impact to the key generated as well as the token to have an impact on all bits. The solution was thus obviously to hash the concatenation of the value with the token and then seed this fingerprint to the key generation function.\\
 
 We also know that such key derivation function are aimed to have a time complexity that growth exponentially with the number of characters. Here every element can be considered as a 72 characters element (has the hash is longer) which means that with this technique, it can take really longer to check IPs in the system and so for bruteforcing as well. It thus need to be taken into consideration before choosing the number of iterations for small data.
 
