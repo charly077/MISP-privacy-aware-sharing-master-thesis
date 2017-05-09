@@ -1,6 +1,6 @@
 \select@language {english}
 \contentsline {chapter}{\numberline {1}Introduction}{5}{chapter.1}
-\contentsline {section}{\numberline {1.1}Organization}{6}{section.1.1}
+\contentsline {section}{\numberline {1.1}Organisation}{6}{section.1.1}
 \contentsline {chapter}{\numberline {2}Background}{7}{chapter.2}
 \contentsline {section}{\numberline {2.1}Indicator of Compromise (IOC)}{7}{section.2.1}
 \contentsline {section}{\numberline {2.2}Confidentiality and Privacy}{7}{section.2.2}
@@ -50,9 +50,9 @@
 \contentsline {section}{\numberline {6.1}Dataset}{37}{section.6.1}
 \contentsline {section}{\numberline {6.2}Code Profiling}{37}{section.6.2}
 \contentsline {subsection}{\numberline {6.2.1}Code Flow}{37}{subsection.6.2.1}
-\contentsline {subsubsection}{ReadMisp}{37}{section*.9}
-\contentsline {subsubsection}{MatchRules}{38}{section*.11}
-\contentsline {subsubsection}{Crypto Module PBKDF2}{39}{section*.12}
+\contentsline {subsubsection}{ReadMisp}{37}{section*.8}
+\contentsline {subsubsection}{MatchRules}{38}{section*.10}
+\contentsline {subsubsection}{Crypto Module PBKDF2}{39}{section*.11}
 \contentsline {subsection}{\numberline {6.2.2}Profile of ReadMisp for 1 iteration}{40}{subsection.6.2.2}
 \contentsline {subsection}{\numberline {6.2.3}Profile of ReadMisp for 1000 iteration}{41}{subsection.6.2.3}
 \contentsline {subsection}{\numberline {6.2.4}Profile of the bloomy\_pbkdf2 module}{41}{subsection.6.2.4}
