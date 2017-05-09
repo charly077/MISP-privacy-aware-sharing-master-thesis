@@ -18,7 +18,7 @@ host = put_mysql_ip
 dbname = misp
 
 [rules]
-rules_location = ../rules
+location = ../rules
 cryptoModule = pbkdf2
 
 [pbkdf2]
