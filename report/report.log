@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.5.1)  8 MAY 2017 23:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.5.1)  9 MAY 2017 09:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1368,185 +1368,182 @@ Underfull \hbox (badness 10000) in paragraph at lines 781--783
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 787--788
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 789--790
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 791--793
+Underfull \hbox (badness 10000) in paragraph at lines 791--792
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 793--795
 
  []
 
 [35]
-Underfull \hbox (badness 10000) in paragraph at lines 794--796
+Underfull \hbox (badness 10000) in paragraph at lines 796--798
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 797--799
+Underfull \hbox (badness 10000) in paragraph at lines 799--801
 
  []
 
 [36]
 Chapter 6.
 
-Underfull \hbox (badness 10000) in paragraph at lines 817--822
+Underfull \hbox (badness 10000) in paragraph at lines 821--826
 
  []
 
-<res/flowReadMisp.png, id=631, 1117.17375pt x 396.48125pt>
+<res/flowReadMisp.png, id=630, 1117.17375pt x 396.48125pt>
 File: res/flowReadMisp.png Graphic file (type png)
 
 <use res/flowReadMisp.png>
-Package pdftex.def Info: res/flowReadMisp.png used on input line 838.
+Package pdftex.def Info: res/flowReadMisp.png used on input line 842.
 (pdftex.def)             Requested size: 335.15471pt x 118.94528pt.
- [37
 
-]
-<res/flowMatchRules.png, id=639, 1093.08376pt x 781.92125pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[37
+
+] <res/flowMatchRules.png, id=640, 1093.08376pt x 781.92125pt>
 File: res/flowMatchRules.png Graphic file (type png)
 
 <use res/flowMatchRules.png>
-Package pdftex.def Info: res/flowMatchRules.png used on input line 862.
+Package pdftex.def Info: res/flowMatchRules.png used on input line 867.
 (pdftex.def)             Requested size: 327.92766pt x 234.57819pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 868--870
+Underfull \hbox (badness 10000) in paragraph at lines 873--875
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 871--874
+Underfull \hbox (badness 10000) in paragraph at lines 876--879
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 875--877
+Underfull \hbox (badness 10000) in paragraph at lines 880--882
 
  []
 
 [38 <./res/flowReadMisp.png>]
-<res/flowPBKDF2.png, id=649, 997.7275pt x 438.63875pt>
+<res/flowPBKDF2.png, id=652, 997.7275pt x 438.63875pt>
 File: res/flowPBKDF2.png Graphic file (type png)
 
 <use res/flowPBKDF2.png>
-Package pdftex.def Info: res/flowPBKDF2.png used on input line 884.
+Package pdftex.def Info: res/flowPBKDF2.png used on input line 889.
 (pdftex.def)             Requested size: 299.32056pt x 131.59264pt.
 
-<res/flowBloomFilter.png, id=650, 1370.11874pt x 213.79875pt>
+<res/flowBloomFilter.png, id=653, 1370.11874pt x 213.79875pt>
 File: res/flowBloomFilter.png Graphic file (type png)
 
 <use res/flowBloomFilter.png>
-Package pdftex.def Info: res/flowBloomFilter.png used on input line 892.
+Package pdftex.def Info: res/flowBloomFilter.png used on input line 897.
 (pdftex.def)             Requested size: 411.03879pt x 64.1401pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 898--900
+Underfull \hbox (badness 10000) in paragraph at lines 903--905
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 901--903
-
- []
-
-[39 <./res/flowMatchRules.png> <./res/flowPBKDF2.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 906--908
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 909--912
+[39 <./res/flowMatchRules.png> <./res/flowPBKDF2.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 911--913
 
  []
 
-<res/profile-1iter.png, id=658, 1443.3925pt x 700.6175pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 914--917
+
+ []
+
+<res/profile-1iter.png, id=661, 1443.3925pt x 700.6175pt>
 File: res/profile-1iter.png Graphic file (type png)
 
 <use res/profile-1iter.png>
-Package pdftex.def Info: res/profile-1iter.png used on input line 915.
+Package pdftex.def Info: res/profile-1iter.png used on input line 920.
 (pdftex.def)             Requested size: 433.02109pt x 210.18686pt.
  [40 <./res/flowBloomFilter.png> <./res/profile-1iter.png>]
-<res/profile-mem-readMisp-1iter.png, id=668, 1017.8025pt x 671.50874pt>
+<res/profile-mem-readMisp-1iter.png, id=671, 1017.8025pt x 671.50874pt>
 File: res/profile-mem-readMisp-1iter.png Graphic file (type png)
 
 <use res/profile-mem-readMisp-1iter.png>
 Package pdftex.def Info: res/profile-mem-readMisp-1iter.png used on input line 
-928.
+933.
 (pdftex.def)             Requested size: 305.34311pt x 201.45418pt.
 
-<res/profile-1000iter.png, id=669, 1443.3925pt x 700.6175pt>
+<res/profile-1000iter.png, id=672, 1443.3925pt x 700.6175pt>
 File: res/profile-1000iter.png Graphic file (type png)
 
 <use res/profile-1000iter.png>
-Package pdftex.def Info: res/profile-1000iter.png used on input line 940.
+Package pdftex.def Info: res/profile-1000iter.png used on input line 945.
 (pdftex.def)             Requested size: 433.02109pt x 210.18686pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 946--947
+Underfull \hbox (badness 10000) in paragraph at lines 951--952
 
  []
 
 
-LaTeX Warning: Reference `' on page 41 undefined on input line 949.
+LaTeX Warning: Reference `' on page 41 undefined on input line 954.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 949--950
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 953--954
+Underfull \hbox (badness 10000) in paragraph at lines 954--955
 
  []
 
-<res/match-exist.png, id=670, 1439.3775pt x 693.59125pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 958--959
+
+ []
+
+<res/match-exist.png, id=673, 1439.3775pt x 693.59125pt>
 File: res/match-exist.png Graphic file (type png)
 
 <use res/match-exist.png>
-Package pdftex.def Info: res/match-exist.png used on input line 957.
+Package pdftex.def Info: res/match-exist.png used on input line 962.
 (pdftex.def)             Requested size: 431.81659pt x 208.07898pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<res/match-bloom-not.png, id=671, 1440.38126pt x 696.6025pt>
+<res/match-bloom-not.png, id=674, 1440.38126pt x 696.6025pt>
 File: res/match-bloom-not.png Graphic file (type png)
 
 <use res/match-bloom-not.png>
-Package pdftex.def Info: res/match-bloom-not.png used on input line 965.
+Package pdftex.def Info: res/match-bloom-not.png used on input line 970.
 (pdftex.def)             Requested size: 432.1177pt x 208.98236pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 972--974
+[41 <./res/profile-mem-readMisp-1iter.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 979--981
 
  []
 
-
-Underfull \vbox (badness 1810) has occurred while \output is active []
-
- [41 <./res/profile-mem-readMisp-1iter.png>]
-Underfull \vbox (badness 1735) has occurred while \output is active []
-
- [42 <./res/profile-1000iter.png> <./res/match-exist.png>] [43 <./res/match-blo
-om-not.png>] (./report.bbl [44
+[42 <./res/profile-1000iter.png> <./res/match-exist.png>] [43 <./res/match-bloo
+m-not.png>] (./report.bbl [44
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 8--10
@@ -1601,29 +1598,29 @@ File: uni-33.def 2013/05/13 UCS: Unicode data U+2100..U+21FF
 
 
 
-Package xcolor Warning: Incompatible color definition on input line 995.
+Package xcolor Warning: Incompatible color definition on input line 1002.
 
 
-Package xcolor Warning: Incompatible color definition on input line 995.
+Package xcolor Warning: Incompatible color definition on input line 1002.
 
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <9> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 995.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 1002.
 
-Package xcolor Warning: Incompatible color definition on input line 995.
+Package xcolor Warning: Incompatible color definition on input line 1002.
 
 
-Overfull \hbox (1.90796pt too wide) in paragraph at lines 995--996
+Overfull \hbox (1.90796pt too wide) in paragraph at lines 1002--1003
  [][][] 
  []
 
 [48
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1000.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1000.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1007.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1007.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1000.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1000.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1007.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1007.
 
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: E774103DF056800AF4B0BC6D26BB7FAC;4003.
@@ -1633,10 +1630,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 20766 strings out of 493014
- 379745 string characters out of 6133352
- 507352 words of memory out of 5000000
- 23545 multiletter control sequences out of 15000+600000
+ 20779 strings out of 493014
+ 379965 string characters out of 6133352
+ 517186 words of memory out of 5000000
+ 23553 multiletter control sequences out of 15000+600000
  100746 words of font info for 136 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,15n,76p,839b,862s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1661,10 +1658,10 @@ lic/lm/lmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt
 10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></us
 r/local/texlive/2016/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local
 /texlive/2016/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on report.pdf (49 pages, 3290778 bytes).
+Output written on report.pdf (49 pages, 3292148 bytes).
 PDF statistics:
- 840 PDF objects out of 1000 (max. 8388607)
- 722 compressed objects within 8 object streams
- 190 named destinations out of 1000 (max. 500000)
+ 845 PDF objects out of 1000 (max. 8388607)
+ 727 compressed objects within 8 object streams
+ 195 named destinations out of 1000 (max. 500000)
  28232 words of extra memory for PDF output out of 29859 (max. 10000000)
 

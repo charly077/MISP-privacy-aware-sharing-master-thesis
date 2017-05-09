@@ -773,34 +773,38 @@ We also know that such key derivation function are aimed to have a time complexi
 
 \subsection{Bloom filter}
 In this section, I will argue the choice for python-bloom library. This choice was actually a way more complicated than it could be as, I think it is not the fastest implementation.\\
-But first, to understand my choice, we need to know what I really was searching for. I needed to find a way for avoiding brute forcing the database, but, on the other hand, I want it to be really fast for a common user. Thus Bloom filters already take car of the first part so, I only needed to find a fast implementation.\\
+But first, to understand my choice, we need to know what I really was searching for. I needed to find a way for avoiding brute forcing the database, but, on the other hand, I want it to be really fast for a common user. Thus Bloom filters already take care of the first part so, I only needed to find a fast implementation.\\
 I also wanted the system to be storable in files without any additional information.\\
-So the first I've found was to use bloomd server with a python client. But, it would means that we would have to install all these things which seems not really interesting. But why not using redis to store data ? It is fast and there was a really fast implementation of bloom filters in python for redis (actually in c interfaced with python) call pyrebloom. But the code was really complicated and not easy to read. Moreover, I discovered that they are keeping additional information on keys to be able to remove elements. that, without forgetting the fact that it doesn't seemed savable in a file make me drop this implementation.\\
-I've finally found the python-bloom library, It seems less efficient but well implemented, without any additional state and a way to save the bloom filter.\\
+So the first I've found was to use bloomd server with a python client. But, it would means that we would have to install all these things which seems not really interesting. But why not using redis to store data ? It is fast and there was a really fast implementation of bloom filters in python for redis (actually in c interfaced with python) called pyrebloom. But the code was really complicated and not easy to read. Moreover, I discovered that they are keeping additional information on keys to be able to remove elements. That, without forgetting the fact that it doesn't seemed savable in a file make me drop this implementation.\\
+I've finally found the python-bloom library, It seems less efficient but well implemented, without any additional state and there is a way to save the bloom filter.\\
 
 For the bloom filter, I've got different ideas, first, I need to implement the bloom filter as a tsv file. But, I also need it to be loaded each time. For this, I've added a special joker rule that is always loaded if it exists.\\
 On this first implementation, I would like to have only one bloom filter for the whole data set. I could have implemented a bloom filter for attributes but as it is fast enough, it would use less memory and will be more efficient to use only one bloom filter.\\
+
+For this library, I could not install it in the standard way as I did a small modification on the code to make it works with python3 correctly. This is why the code of the library is directly included.
 
 
 
 \subsection{Bloom filter used as to improve performance of Key Derivation Functions}
 Key derivation function are working to slow down a brute force attack. This is working really well as the complexity of a brute force attack time complexity increases exponentially with then length of the string to "crack". On the other hand, if we know exactly the data we are looking for and that there is a small set of different values. We cannot do anything against it. \\
 
-So if we came back on a longer sized data like URLs, brute forcing them (if we are not looking especially for a value) is close to impossible and making the task easier for a user makes the task easier as well for the attacker. But it can still be nearly infeasible for an attacker to brute force the whole dataset while making the system a way more faster for the user.\\
+So if we came back on a longer sized data like URLs, brute forcing them (if we are not looking especially for a value) is close to impossible and even if making the task easier for a user makes the task easier as well for the attacker, but it can still be nearly infeasible for an attacker to brute force the whole dataset while making the system a way more faster for the user.\\
 
 With this idea in mind, I've used both type of implementations to create key derivation function improved with a bloom filter. The bloom filter avoid decrypting each rules if no rules contains the data we are looking for. \\
-And, on the other side, when there is a match, rules can be used to get back the information needed to retrieve the event information from MISP. \improvement{Add an explanation on the message generated and how we could use it to find information on an event}\\
+And, on the other side, when there is a match, rules can be used to get back the information needed to retrieve the event information from MISP.\\
 
-This is a serious advantage for matching. In function of the bloom filter false positive rate the system could me made a lot faster. So much faster that we could use it directly as an IDS that could updated time to time and that could work on computers, logs and that could work stand alone to generate reports on event that could affect a system.\\
+This is a serious advantage for matching. In function of the bloom filter false positive rate the system could be made a lot faster. So much faster that we could use it directly as an IDS that could be updated time to time and that could work on computer logs and that could work stand alone to generate reports on event that could affect a system.\\
 The previous system was first aimed to be used like that but we a recommended number of iterations, the system was too slow to use in that way as data to check accumulates at a much bigger rate than the system need to look through all rules.\\
 
 Thus increasing the speed can be done by decreasing the rate of false positive of the bloom filter but what if an attacker is only interesting in knowing the element belonging to the data set ?\\
 The bloom filter could give him all the information he needs. This is the reason why we can not take a too small rate for the bloom filter.\\
 
+A complete analyse of this solution will follow in the result chapter.
+
 
 \section{An other KDF}
 An open competition called Password Hashing Competition (PHC) started on 2013 to meet the needs of a standard password hashing algorithm.\\ 
-It ended in 2015 by selecting the winner as Argon2 and also a special recognition to some other algorithms like Catena, Lyra2, yescrypt and Makwa.\\
+It ended in 2015 by selecting the winner as Argon2 and also with a special recognition to some other algorithms like Catena, Lyra2, Yescrypt and Makwa.\\
 Argon2 was designed in the University of Luxembourg and there is three versions:
 \begin{itemize}
 \item[$\bullet$] Argon2d maximizes resistance to GPU cracking attacks.
@@ -815,21 +819,21 @@ But I'm not sure that it would keep it's security value doing so.
 
 \chapter{Results}
 Finally, the most interesting part is coming, is it really working? Is the additional computation worth it? Can we trust this system with our data ? Could with improve the code for the computation time ?\\
-This final chapter will try to answer those questions. With the code restructuring, I think I have succeeded in creating code easy to understand but there are still some tricky hacks that I will need to get rid of for make easier addons creation.
+This final chapter will try to answer those questions. With the code reorganization, I think I have succeeded in making the code easy to understand.\\
 This first part will be on understanding the used dataset, then I will focus on the code profiling to understand which parts could be improved.\\
 Then I will explain a set of benchmark to try to show the interest of this system.\\
 Discussion on the security of the techniques and their usability will serve as a nice conclusion.\\
 
 \section{Dataset}
-The objective was to make all data available if additional computation must be done or this work must be continued. For that, following the same reflection as with the starting screen-shots, the data directly inside the virtual machine are TLP white and are available for every one as we can directly download them on the CIRCL website : \url{https://circl.lu/services/misp-training-materials/}.\\
-Thus I've used these data instead of the one directly from an instance. Even if there are a lot less data here, the computations and analyze give the necessary idea.
+The objective was to make all data available if additional analyses are done or if this work is continued. For that, following the same reflection as with the starting screen-shots, the data directly inside the virtual machine are TLP white and are available for every one as we can directly download them on the CIRCL website : \url{https://circl.lu/services/misp-training-materials/}.\\
+Thus I've used these data instead of the one directly from an instance. Even if there are a lot less data here, the computations and analyses give the necessary idea.
 
 \section{Code Profiling}
-This section is divided in three parts, a deeper understanding of the code work flow is needed to understand where the time is lost during the execution. Then, the code will be profiled for two different executions, the first is aimed to compare the time of the key generation with only one iteration. That give a right comparison point between the different functions and the second will be with 1000 iterations to see how it occupies the time. 
-
+This section is divided in three parts, a deeper understanding of the code work flow is needed to understand where the time is lost during the execution. Then, the code will be profiled for two different executions in the PBKDF2 mode, the first is aimed to compare the time of the key generation with only one iteration. That gives a right comparison point between the different functions and the second that will be with 1000 iterations to see how it occupies the time. \\
+And finally, I will focus on the bloomy implementation.
 
 \subsection{Code Flow}
-As previously explained, a deeper understanding of the different work flow of the code are important to understand the later profile.\\
+As previously explained, a deeper understanding of the different work flows of the code are important to understand the later profile.\\
 This explanation will be separated into the read, match and crypto part as crypto is used by both.
 
 \subsubsection{ReadMisp}
@@ -840,17 +844,18 @@ This explanation will be separated into the read, match and crypto part as crypt
 	\label{code2flow-readMisp}
 \end{center}
 \end{figure}
-ReadMisp (fig. \ref{code2flow-readMisp}) will first retrieve the data, either via the web API or the MySQL connection. The advantage of the MySQL is the speed for two reasons, first, there are no data transformation as we request the data as it is stored and secondly, in general, the MySQL server is accessible only from the server which means that there is less network delay.\\
+\improvement{Regenerates for csv}
+ReadMisp (fig. \ref{code2flow-readMisp}) will first retrieve the data, either via the web API, the MySQL connection or directly from csv (located in the res folder). The advantage of the MySQL is the speed for two reasons, first, there are no data transformation as we request the data as it is stored and secondly, in general, the MySQL server is accessible only from the server which means that there is less network delay.\\
 On the flow chart, we can also see the function printv which is a call to print only if the program runs in verbose mode.\\
-Once the IOCs available, the attributes are parsed and the message is created.\\
+Once the IOCs available, the attributes are parsed and the message is created. The message is the important information as it is that that actually identifies the threat and allows the user to connect himself to MISP and get back all information related to the event.\\
 For the parsing is the real creation of the rule, which is done in several steps:
 
-\begin{itemize}
-\item[$\bullet$] Values from Misp are split and associated with their type in a dictionary.
-\item[$\bullet$] URL are normalized.
-\item[$\bullet$] The message is created.
-\item[$\bullet$] The Crypto package is called to create the rule.
-\end{itemize}
+\begin{enumerate}
+\item Values from Misp are split and associated with their type in a dictionary.
+\item URL are normalized.
+\item The message is created.
+\item The Crypto package is called to create the rule.
+\end{enumerate}
 
 In order to be modular, all the code for rule creation is separated. Each time that the program is started, it goes to the configuration file to see which Crypto module to load from the crypto package.\\
 All modules need to implement the interface (interface.py) and then must be add in the choose\_crypto.py.\\
@@ -868,12 +873,12 @@ For an example, the work flow for the PKKDF module is available on figure \ref{c
 Match rules has two really different ways of working, try to match an element from the arguments (argument matching) or from redis if the pipeline system with logs is used.\\
 The additional rangeip test is just for testing purpose and will be further explained in the benchmark sections.\\
 
-For redis matching, the only difference is that a pool of process running a redis matching process is used.\\
+For redis matching, the only difference is that a pool of processes running a redis matching process is used.\\
 Each process is actually polling the redis queue for new logs and is then feeding them to the matching system.\\
 In the other system, the arguments are directly seeded to the matching system.\\
 
-The matching system is working in different steps, first, in function of the argument types, it will load and cache the needed rules.\\
-There are two types of rules, the standards one are divided into files but, as I've added systems like bloom filter, it was easier to have a special file always loaded that I called Joker.\\
+The matching system is working in different steps, first, in function of the argument types, it will load and cache the needed rules (get\_rules).\\
+There are two types of rules, the standards one are divided into files but, as I've added systems like bloom filters where it was easier to have a special file always loaded that I called Joker.\\
 
 Once the rules loaded, for each attributes to check, the crypto module will try to decrypt each rules up to find or not a match.
 
@@ -896,10 +901,10 @@ Once the rules loaded, for each attributes to check, the crypto module will try 
 \end{figure}
 
 The crypto modules are responsible for creating and matching rules. In the particular case of the PBKDF2 module, it generate the keys and encrypt the message or try to decipher it.\\
-I've additionally add the bloom filter chart as well to see the difference is small as they inherit the same interface.\\
+I've additionally added the bloom filter chart as well to see that the difference is small as they inherit the same interface.\\
 
 As the types of file can differ from modules to modules, this is also the crypto module wich is responsible to save data and meta data files.\\
-This part can take a lot of time as for saving the elements (as well as getting them) because we cannot afford problems inside the files like special characters to appear. So for that the idea is to use base64 encoding for the encrypted message, the salt (or nounce) and also the cipher-check argument (used for faster match checking).\\
+This part can take a lot of time as for saving the elements (as well as getting them) we cannot afford problems inside the files with special characters. So for that the idea is to use base64 encoding for the encrypted message, the salt (or nounce) and also the cipher-check argument (used for faster match checking).\\
 
 
 \subsection{Profile of ReadMisp for 1 iteration}
@@ -908,7 +913,7 @@ We should also do especially close attention to the normalization of URLs. Norma
 
 For profiling the code, I've had some difficulties, first, I tried to use the vprof profiler as it seems to be the best and it was said that it supports python3.\\
 But there were a lot of errors and I first didn't succeed in using it. I've thus tried to use a line\_profiler (only working with python2) then profiling which was really complicated to used. \\
-I finally managed to use vprof with a little modification (to force it using python3) and I was really impressed by this tool that analyze everything. We can have graphs of the function utilizations, a line by line profiler but also a memory analyzer which can be really useful.\\
+I finally managed to use vprof with a little modification (to force it using python3) and I was really impressed by this tool that analyzes everything. We can have graphs of the function utilizations, a line by line profile as well as a memory analyse which can be really useful.\\
 
 \begin{figure}[h!]
 \begin{center}
@@ -943,14 +948,14 @@ The memory graph we can see that the highest level (on the right) is approximate
 \end{center}
 \end{figure}
 
-The goal of this work is to slow down the system, which means that a lot of iteration will be used. \\
+The goal of this work is to slow down the system, which means that a lot of iteration will be used. This is the reason why this is closer to a real execution of the system. Of course we can see that the major part of time is used by the key derivation function.\\
 
 \subsection{Profile of the bloomy\_pbkdf2 module}
 The first step is to look for the additional computing time for creating the rules and as we can see on figure \ref{}. The key derivation function is still more computationally intensive than the creation of the bloom filter.\\
 
 \improvement{Add picture her but I was not able to do so as my computer is not working anymore}
 
-Then it could be interesting to compare the flow when there is a match and then when the Bloom filter can directly say that the element is not in the set of IOCs.\\
+Then it is interesting to compare the flow when there is a match and then when the Bloom filter can directly say that the element is not in the set of IOCs.\\
 
 \begin{figure}[h!]
 \begin{center}
@@ -967,6 +972,8 @@ Then it could be interesting to compare the flow when there is a match and then 
 	\label{profile-bloomy-no-match}
 \end{center}
 \end{figure}
+
+In this case, we can realize that there is a problem with the implementation, as I tried to have a modular implementation and doing everything inside module, it does not always respect the system as here, for one attributes, whatever the result of the bloom filter for one rule it will test the bloom filter every time. This is really bad as the bloom filter is not related to the rule but only to the attribute tested. To solve this problem \improvement{A cache must be implemented !!!!} 
 
 \section{Benchmarking}
 The ideas have been explained, in the first few sections, then the implementation had been explained followed by profiles that help understand how the behavior of the system and how the computation power is used inside the system. Now it is time to see how it is working with real data, what would be the right parameters to use and why these choices. Moreover, this is in this section that we could analyse if the goal had been totally reached, reached for some part and decide if it can or cannot be used in real implementations.\\
