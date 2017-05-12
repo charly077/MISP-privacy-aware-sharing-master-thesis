@@ -131,6 +131,62 @@ def parse_attribute(attr, crypto, bar, i):
     msg = create_message(attr)
     return crypto.create_rule(ioc, msg)
 
+def parsing(IOCs, crypto, iocDic={}):
+	# Parse IOCs
+    printv("Create rules")
+    with ProgressBar(max_value = len(IOCs)) as bar:
+        iocs = [parse_attribute(ioc, crypto, bar, i) for (i,ioc) in enumerate(IOCs)]
+
+    # Sort IOCs in different files for optimization
+    printv("Sort IOCs with attributes")
+	# The first case only happens when only using bloom filter (!=bloomy)
+    try:
+        if iocs[0]['joker']:
+            iocDic['joker'] = [{'joker':True}] # (for bloom filter)
+    except:
+        for ioc in iocs:
+            typ = "_".join(ioc["attributes"].split('||'))
+            try:
+                iocDic[typ].append(ioc)
+            except:
+                iocDic[typ] = [ioc]
+    return iocDic
+
+def store_rules(iocDic, conf=conf):
+	printv("Store IOCs in files")
+	for typ in iocDic:
+		with open(conf['rules']['location'] + '/' + typ +'.tsv', 'wt') as output_file:
+			dict_writer = csv.DictWriter(output_file, iocDic[typ][0].keys(), delimiter='\t')
+			dict_writer.writeheader()
+			dict_writer.writerows(iocDic[typ])
+
+
+def get_file_rules(filename, conf):
+	path = conf['rules']['location']+'/'+filename
+	rules = list()
+	if not os.path.exists(path):
+		if printErr:
+			print("path does not exist")
+		return rules
+	    
+	with open(path, "r") as f:
+		data = csv.DictReader(f, delimiter='\t')
+		for d in data:
+			rules.append(d)
+
+	return rules
+
+def get_iocDic(conf=conf):
+	printv("Get existing rules")
+
+	iocDict = {}
+	filenames = os.listdir(conf['rules']['location'])
+	for name in filenames:
+		if name != 'metadata':
+			attr_type = (name.split('.')[0]).split('_')[0]
+			iocDict[attr_type] = get_file_rules(name, conf)
+
+	return iocDict
 
 ########
 # Main #
@@ -157,30 +213,9 @@ if __name__ == "__main__":
     crypto = Crypto(conf["rules"]["cryptomodule"], conf)
 
     # Parse IOCs
-    printv("Create rules")
-    with ProgressBar(max_value = len(IOCs)) as bar:
-        iocs = [parse_attribute(ioc, crypto, bar, i) for (i,ioc) in enumerate(IOCs)]
-
-    # Sort IOCs in different files for optimization
-    printv("Sort IOCs with attributes")
-    iocDic = {}
-    try:
-        if iocs[0]['joker']:
-            iocDic['joker'] = [{'joker':True}] # (for bloom filter)
-    except:
-        for ioc in iocs:
-            typ = "_".join(ioc["attributes"].split('||'))
-            try:
-                iocDic[typ].append(ioc)
-            except:
-                iocDic[typ] = [ioc]
-
-    printv("Store IOCs in files")
-    for typ in iocDic:
-        with open(conf['rules']['location'] + '/' + typ +'.tsv', 'wt') as output_file:
-            dict_writer = csv.DictWriter(output_file, iocDic[typ][0].keys(), delimiter='\t')
-            dict_writer.writeheader()
-            dict_writer.writerows(iocDic[typ])
+    iocDic = parsing(IOCs, crypto)
+    store_rules(iocDic)
+    
 
     # Create metadata (End function for Crypto modules)
     printv("Create metadata")
