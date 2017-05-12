@@ -54,16 +54,6 @@ def askContinue():
 IOCs = list()
 conf = Configuration()
 
-# Get configuration
-printv('Get meta parameters')
-metaParser = configparser.ConfigParser()
-try:
-	metaParser.read(conf['rules']['location'] + '/metadata')
-	metadata = metaParser._sections
-except:
-	print('Rules must have already been created for adding news')
-	sys.exit(1)
-
 
 def ioc_csv(filename=args.CSVname):
 	printv('Get new IOCs')
@@ -107,7 +97,23 @@ def ioc_arg():
 	IOCs.append(ioc)
 	
 def saveIOCs():
-	pass
+	metaParser = configparser.ConfigParser()
+	try:
+		metaParser.read(conf['rules']['location'] + '/metadata')
+		metadata = metaParser._sections
+	except:
+		print('Rules must have already been created for adding news')
+		sys.exit(1)
+
+	crypto = Crypto(conf["rules"]["cryptomodule"], conf, metadata)
+	# Sort rules in function of the style
+
+	# Get rules dico
+
+	# Add rules to dico
+
+	# Save rules dico
+
 if __name__ == '__main__':
 	"""Let's go!"""
 	if args.misp == 'args':
