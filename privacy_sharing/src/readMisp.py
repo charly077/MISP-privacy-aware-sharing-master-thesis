@@ -30,22 +30,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.schema import MetaData, Table
 from sqlalchemy.sql import select
 
-
-
-###################
-# Parse Arguments #
-###################
-parser = argparse.ArgumentParser(description='Create an encrypted IOC \
-        rule.')
-parser.add_argument('--misp', default='web',
-        help='web (for web api);mysql (directly from mysql); res for the csv')
-parser.add_argument('--csvname', default='misp_events',
-        help='Name of the csv in the res/ folder')
-parser.add_argument('-v', '--verbose',\
-        dest='verbose', action='store_true',\
-        help='Explain what is being done')
-args = parser.parse_args()
-
+args = {}
 
 ####################
 # Global Variables #
@@ -192,6 +177,20 @@ def get_iocDic(conf=conf):
 # Main #
 ########
 if __name__ == "__main__":
+    ###################
+    # Parse Arguments #
+    ###################
+    parser = argparse.ArgumentParser(description='Create an encrypted IOC \
+            rule.')
+    parser.add_argument('--misp', default='web',
+            help='web (for web api);mysql (directly from mysql); res for the csv')
+    parser.add_argument('--csvname', default='misp_events',
+            help='Name of the csv in the res/ folder')
+    parser.add_argument('-v', '--verbose',\
+            dest='verbose', action='store_true',\
+            help='Explain what is being done')
+    args = parser.parse_args()
+    
     # Clean up the rule folder
     printv("Clean rules folder")
     if os.path.exists(conf['rules']['location']):
@@ -220,3 +219,6 @@ if __name__ == "__main__":
     # Create metadata (End function for Crypto modules)
     printv("Create metadata")
     crypto.save_meta()
+else:
+    def printv():
+        pass

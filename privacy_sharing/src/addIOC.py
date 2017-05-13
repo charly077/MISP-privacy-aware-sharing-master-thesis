@@ -10,33 +10,25 @@
 		=> Here NO RULES are removed when running, the only action is to add some
 			from res or from the form
 """
+import sys
+import os
 
 # MISP import
 from configuration import Configuration
 from readMisp import create_message, parse_attribute, get_iocDic, parsing as readMisp_parsing, store_rules
+from misp.web_api import update as updateMispResCSV
 
 # Tools import
-import argparse, configparser, csv, sys, datetime, os
+import argparse
+import configparser
+import csv
+import datetime
 from progressbar import ProgressBar
 
 # Crypto import
 from crypto.choose_crypto import Crypto
 
-###################
-# Parse Arguments #
-###################
-parser = argparse.ArgumentParser(description='Add new rules to already generated ones.')
-parser.add_argument('--misp', default='args',
-        help='form for filling the form OR res to get data from res in a CSV file')
-parser.add_argument('--CSVname', default='addIOCs',
-        help='Name of the CSV in the res/ folder (Without .csv)')
-parser.add_argument('-v', '--verbose',\
-        dest='verbose', action='store_true',\
-        help='Explain what is being done')
-parser.add_argument('-u', '--updateRes',\
-        dest='updateRes', action='store_true',\
-        help='Download new IOCs from misp web api and then, compare with old res to create the new rules')
-args = parser.parse_args()
+args = {}
 ###########
 # Helpers #
 ###########
@@ -60,14 +52,16 @@ IOCs = list()
 conf = Configuration()
 
 
-def ioc_csv(filename=args.CSVname):
+def ioc_csv(filename):
+	iocList = []
 	printv('Get new IOCs')
 	if '.csv' not in filename:
 		filename += '.csv'
 	with open('../res/' + filename, 'r') as f:
 		data = csv.DictReader(f)
 		for d in data:
-			IOCs.append(d)
+			iocList.append(d)
+	return iocList
 
 def ioc_arg():
 	print("Pay attention that no check are make on the inputs")
@@ -106,6 +100,25 @@ def ioc_arg():
 	if ioc['to_ids']==1:
 		IOCs.append(ioc)
 
+def updateRes():
+	# first get oldIOCs in clear
+	printv('Cache old iocs')
+	oldIOCs = ioc_csv('misp_events')
+
+	# get new data from misp
+	printv('Update res')
+	updateMispResCSV()
+	UpdatedIOCs = ioc_csv('misp_events')
+
+	printv('Check new var')
+	bar = ProgressBar()
+	for ioc in bar(UpdatedIOCs):
+		if ioc not in oldIOCs:
+			IOCs.append(ioc)
+
+	printv('Save new IOCs')
+	saveIOCs()
+
 def create_ioc_lines(rowNames, TypedIOCList):
 	lines = []
 	for ioc in TypedIOCList:
@@ -135,7 +148,8 @@ def saveIOCs():
 
 	# For each type add to file if exist
 	iocNewType = {}
-	for iocType in iocDic.keys():
+	bar = ProgressBar()
+	for iocType in bar(iocDic.keys()):
 		# exist rules of the same type
 		try:
 			filename = ruleFiles[iocType]
@@ -155,17 +169,36 @@ def saveIOCs():
 	printv("Rewrite metadata")
 	crypto.save_meta()
 
-	
+
 
 if __name__ == '__main__':
+	###################
+	# Parse Arguments #
+	###################
+
+	parser = argparse.ArgumentParser(description='Add new rules to already generated ones.')
+	parser.add_argument('--misp', default='args',
+	        help='form for filling the form OR res to get data from res in a CSV file')
+	parser.add_argument('--CSVname', default='addIOCs',
+	        help='Name of the CSV in the res/ folder (Without .csv)')
+	parser.add_argument('-v', '--verbose',\
+	        dest='verbose', action='store_true',\
+	        help='Explain what is being done')
+	parser.add_argument('-u', '--updateRes',\
+	        dest='updateRes', action='store_true',\
+	        help='Download new IOCs from misp web api and then, compare with old res to create the new rules')
+	args = parser.parse_args()
+
 	"""Let's go!"""
-	if args.misp == 'args':
+	if args.updateRes:
+		updateRes()
+	elif args.misp == 'args':
 		cont = True
 		while cont:
 			ioc_arg()
 			cont = askContinue()
 	elif args.misp == 'res':
-		ioc_csv()
+		IOCs = ioc_csv(args.CSVname)
 	else:
 		print("Choose a correct argument for misp")
 	
