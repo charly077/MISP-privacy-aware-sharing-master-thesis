@@ -100,8 +100,9 @@ def ioc_arg():
 			ok = 1
 		except:
 			print('timestamp, distribution and sharing group id must be integers')
-	
-	IOCs.append(ioc)
+			
+	if ioc['to_ids']==1:
+		IOCs.append(ioc)
 
 def create_ioc_lines(rowNames, TypedIOCList):
 	lines = []
@@ -119,6 +120,7 @@ def saveIOCs():
 	except:
 		print('Rules must have already been created for adding news')
 		sys.exit(1)
+	os.remove(conf['rules']['location'] + '/metadata')
 
 	crypto = Crypto(conf["rules"]["cryptomodule"], conf, metadata)
 
@@ -147,7 +149,7 @@ def saveIOCs():
 	if len(iocNewType) > 0:
 		store_rules(iocDic, conf)
 
-	# ReSave metaparameter
+	# ReSave metaparameter important for bloom filters
 	printv("Rewrite metadata")
 	crypto.save_meta()
 
@@ -161,7 +163,7 @@ if __name__ == '__main__':
 			ioc_arg()
 			cont = askContinue()
 	elif args.misp == 'res':
-		ioc_arg()
+		ioc_csv()
 	else:
 		print("Choose a correct argument for misp")
 	
