@@ -33,8 +33,10 @@ parser.add_argument('--CSVname', default='addIOCs',
 parser.add_argument('-v', '--verbose',\
         dest='verbose', action='store_true',\
         help='Explain what is being done')
+parser.add_argument('-u', '--updateRes',\
+        dest='updateRes', action='store_true',\
+        help='Download new IOCs from misp web api and then, compare with old res to create the new rules')
 args = parser.parse_args()
-
 ###########
 # Helpers #
 ###########
@@ -100,7 +102,7 @@ def ioc_arg():
 			ok = 1
 		except:
 			print('timestamp, distribution and sharing group id must be integers')
-			
+
 	if ioc['to_ids']==1:
 		IOCs.append(ioc)
 
