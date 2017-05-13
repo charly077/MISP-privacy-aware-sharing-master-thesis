@@ -220,5 +220,5 @@ if __name__ == "__main__":
     printv("Create metadata")
     crypto.save_meta()
 else:
-    def printv():
+    def printv(val):
         pass
