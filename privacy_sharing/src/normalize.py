@@ -13,6 +13,7 @@ IPv6:
 """
 import re, urllib
 from url_normalize import url_normalize
+from ipaddress import ip_address
 
 
 def normalize(ioc):
@@ -27,8 +28,14 @@ def normalize(ioc):
                     ioc[attr_type] = urlNorm(ioc[attr_type])
         elif attr_type == 'hostname':
                 ioc[attr_type] = ioc[attr_type].lower()
+        elif 'ip' in attr_type:
+            ioc[attr_type] = ipNorm(ioc[attr_type])
     return ioc
 
+
+def ipNorm(ip):
+    # This normalize IPv6
+    return str(ip_address(ip))
 
 directory_indexes = ['default.asp', 'index.html', 'index.php', 'index.shtml'\
                     'index.jsp', '\?']
