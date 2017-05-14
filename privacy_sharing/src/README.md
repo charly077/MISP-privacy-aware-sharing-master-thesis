@@ -51,6 +51,7 @@ optional arguments:
   -u, --updateRes    Download new IOCs from misp web api and then, compare
                      with old res to create the new rules
  ```
+ 
 # matchRules.py : check for a match
 - help :
 	- ./matchRules.py -h
