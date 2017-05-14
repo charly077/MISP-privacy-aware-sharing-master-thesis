@@ -50,27 +50,27 @@ optional arguments:
   -v, --verbose      Explain what is being done
   -u, --updateRes    Download new IOCs from misp web api and then, compare
                      with old res to create the new rules
- ```
+```
  
 # matchRules.py : check for a match
 - help :
 	- ./matchRules.py -h
   ```
-usage: matchRules.py [-h] [--input INPUT] [-v] [-p MULTIPROCESS]
-                     [attribute [attribute ...]]
+	usage: matchRules.py [-h] [--input INPUT] [-v] [-p MULTIPROCESS]
+			     [attribute [attribute ...]]
 
-Evaluate a network dump against rules.
+	Evaluate a network dump against rules.
 
-positional arguments:
-  attribute             key-value attribute eg. ip=192.168.0.0 port=5012
+	positional arguments:
+	  attribute             key-value attribute eg. ip=192.168.0.0 port=5012
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --input INPUT         input is redis, argument or rangeip (testing purpose)
-  -v, --verbose         Shows progress bar
-  -p MULTIPROCESS, --multiprocess MULTIPROCESS
-                        Use multiprocess, the maximum is the number of cores
-                        minus 1 (only for redis)
+	optional arguments:
+	  -h, --help            show this help message and exit
+	  --input INPUT         input is redis, argument or rangeip (testing purpose)
+	  -v, --verbose         Shows progress bar
+	  -p MULTIPROCESS, --multiprocess MULTIPROCESS
+				Use multiprocess, the maximum is the number of cores
+				minus 1 (only for redis)
 
   ```
 
