@@ -16,14 +16,19 @@ class Bloomy(Crypto):
         self.Crypto = ChooseCrypto(cryptoName, conf, metadata)
         # Set up bloom
         self.bloom = BF(conf, metadata=metadata, rate=0.3)
+        # Make it faster without modifying 
+        self.cache = {}
 
     def create_rule(self, ioc, message):
         self.bloom.create_rule(ioc, message)
         return self.Crypto.create_rule(ioc, message)
 
     def match(self, attributes, rule, queue):
-        if len(self.bloom.check(attributes, rule))>0:
-            self.Crypto.match(attributes, rule, queue)
+        if str(attributes) not in self.cache:
+            if len(self.bloom.check(attributes, rule))>0:
+                self.Crypto.match(attributes, rule, queue)
+            else:
+                self.cache[str(attributes)] = True
 
     def save_meta(self):
         conf = self.conf
