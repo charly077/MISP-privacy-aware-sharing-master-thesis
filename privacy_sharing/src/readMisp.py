@@ -50,7 +50,7 @@ def printv(value):
         print(value)
 
 def ioc_web():
-    printv("Update data from misp")
+    printv("Get data from misp")
     web_api.get_IOCs()
     ioc_csv()
 
@@ -95,10 +95,13 @@ def ioc_mysql():
             IOCs.append(dic_attr)
 
 def create_message(attr):
-    uuid = attr["uuid"]
-    event_id = attr["event_id"]
-    date = attr["date"]
-    return "{}:{}:{}".format(uuid, event_id, date)
+    # conf rules: message = uuid event_id date
+    #conf = Configuration()
+    message_attr = (conf['rules']['message']).split(" ")
+    message = ""
+    for mattr in message_attr:
+        message += ',' + attr[mattr]
+    return message[1:]
 
 def parse_attribute(attr, crypto, bar, i):
     bar.update(i)
