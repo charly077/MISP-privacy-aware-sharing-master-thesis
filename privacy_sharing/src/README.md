@@ -35,7 +35,9 @@ optional arguments:
 	- ./readmisp --misp web
 
 # addIOC.py :
-Finally, instead of regenerating all rules, this script allows to add new rules either one by one directly on the terminal, or by using a csv or also, if using readMisp with '--misp web' then, it can be used to automatically get new IOCs in a csv format and then creating the rules
+Finally, instead of regenerating all rules, this script allows to add new rules either one by one directly on the terminal, or by using a csv or also, if using readMisp with '--misp web' then, it can be used to automatically get new IOCs in a csv format and then creating the rules.
+
+```
 usage: addIOC.py [-h] [--misp MISP] [--CSVname CSVNAME] [-v] [-u]
 
 Add new rules to already generated ones.
@@ -48,7 +50,7 @@ optional arguments:
   -v, --verbose      Explain what is being done
   -u, --updateRes    Download new IOCs from misp web api and then, compare
                      with old res to create the new rules
-  
+ ```
 # matchRules.py : check for a match
 - help :
 	- ./matchRules.py -h
