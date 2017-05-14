@@ -51,7 +51,7 @@ def printv(value):
 
 def ioc_web():
     printv("Update data from misp")
-    web_api.update()
+    web_api.get_IOCs()
     ioc_csv()
 
 def ioc_csv():

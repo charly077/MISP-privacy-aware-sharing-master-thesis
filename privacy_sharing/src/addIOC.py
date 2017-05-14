@@ -16,7 +16,7 @@ import os
 # MISP import
 from configuration import Configuration
 from readMisp import create_message, parse_attribute, get_iocDic, parsing as readMisp_parsing, store_rules
-from misp.web_api import update as updateMispResCSV
+from misp.web_api import get_IOCs_update
 
 # Tools import
 import argparse
@@ -101,23 +101,12 @@ def ioc_arg():
 		IOCs.append(ioc)
 
 def updateRes():
+	# date must be like 2015-02-15
 	# first get oldIOCs in clear
-	printv('Cache old iocs')
-	oldIOCs = ioc_csv('misp_events')
+	printv('Get new IOCs since')
+	updateFileName = get_IOCs_update()
 
-	# get new data from misp
-	printv('Update res')
-	updateMispResCSV()
-	UpdatedIOCs = ioc_csv('misp_events')
-
-	printv('Check new var')
-	bar = ProgressBar()
-	for ioc in bar(UpdatedIOCs):
-		if ioc not in oldIOCs:
-			IOCs.append(ioc)
-
-	printv('Save new IOCs')
-	saveIOCs()
+	return ioc_csv(updateFileName)
 
 def create_ioc_lines(rowNames, TypedIOCList):
 	lines = []
@@ -191,7 +180,7 @@ if __name__ == '__main__':
 
 	"""Let's go!"""
 	if args.updateRes:
-		updateRes()
+		IOCs = updateRes()
 	elif args.misp == 'args':
 		cont = True
 		while cont:
@@ -201,5 +190,5 @@ if __name__ == '__main__':
 		IOCs = ioc_csv(args.CSVname)
 	else:
 		print("Choose a correct argument for misp")
-	
+	print(len(IOCs))
 	saveIOCs()
