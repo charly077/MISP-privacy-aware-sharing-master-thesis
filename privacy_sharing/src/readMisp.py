@@ -100,7 +100,7 @@ def create_message(attr):
     message_attr = (conf['rules']['message']).split(" ")
     message = ""
     for mattr in message_attr:
-        message += ',' + attr[mattr]
+        message += ',' + str(attr[mattr])
     return message[1:]
 
 def parse_attribute(attr, crypto, bar, i):
