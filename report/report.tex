@@ -733,6 +733,13 @@ Inside src, there is also a crypto subdirectory in which are located all cryptog
 Instead of having a lot of configuration files as when I started, I've gathered them back in one general file where we only have to fill what will be used (Specified in function).\\
 The configuration file is divided into categories and is read thanks to the configparser python library.
 
+\subsection{The Encrypted Message}
+In the original paper, the authors where using the Course Of Action (COA) for the message. This is really useful to automatically react as soon as possible, in our case we are mostly interest in protect data as well as analysing the incident.\\
+Therefore, my choice was to use a message that allows to retrieve the attributes and events on MISP and fetch the needed information. This has two advantages, the first one is to only allows to know that an element is known by \textbf{someone} using MISP which is really important for the privacy. Then to get back information we need to connect to MISP where all authorisations are checked by the standard system.\\
+The second one to allow the analyst to make correlations and to improve the existing analyses.\\
+
+Another point is that the major interest of this system would be to mix rules from different MISP instances. But for that, we need to be able to identify the different instances thanks to a universal unique identifier for the instances. After discussing it with CIRCL, It will normaly be soon implemented.\improvement{Modifiy the message} 
+
 \section{Chosen Cryptographic System}
 The idea of the generalisation was to add modules for handling the way data are stored/encrypted, we can use completely different cryptographic systems later called schemes. In this section, I will discuss my implementation choices for each scheme implemented.
 
