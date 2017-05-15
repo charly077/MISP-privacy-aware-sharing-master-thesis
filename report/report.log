@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.29)  15 MAY 2017 11:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.29)  15 MAY 2017 11:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1327,14 +1327,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 737--740
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 741--742
+
+ []
+
 <res/seqDiagramRead.png, id=612, 880.28876pt x 657.45625pt>
 File: res/seqDiagramRead.png Graphic file (type png)
 
 <use res/seqDiagramRead.png>
-Package pdftex.def Info: res/seqDiagramRead.png used on input line 751.
+Package pdftex.def Info: res/seqDiagramRead.png used on input line 754.
 (pdftex.def)             Requested size: 220.07164pt x 164.36366pt.
 
-Overfull \hbox (10.6563pt too wide) in paragraph at lines 751--752
+Overfull \hbox (10.6563pt too wide) in paragraph at lines 754--755
 [][] 
  []
 
@@ -1342,60 +1347,58 @@ Overfull \hbox (10.6563pt too wide) in paragraph at lines 751--752
 File: res/seqDiagramMatch.png Graphic file (type png)
 
 <use res/seqDiagramMatch.png>
-Package pdftex.def Info: res/seqDiagramMatch.png used on input line 754.
+Package pdftex.def Info: res/seqDiagramMatch.png used on input line 757.
 (pdftex.def)             Requested size: 229.35631pt x 168.88052pt.
 
-Overfull \hbox (19.94096pt too wide) in paragraph at lines 754--755
+Overfull \hbox (19.94096pt too wide) in paragraph at lines 757--758
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 759--761
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
- []
 
-[34 <./res/seqDiagramRead.png> <./res/seqDiagramMatch.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 762--764
 
  []
 
 
-Overfull \hbox (39.54643pt too wide) in paragraph at lines 771--779
+Underfull \hbox (badness 10000) in paragraph at lines 765--767
+
+ []
+
+[34]
+Overfull \hbox (39.54643pt too wide) in paragraph at lines 774--782
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 782--784
+Underfull \hbox (badness 10000) in paragraph at lines 785--787
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 785--788
+Underfull \hbox (badness 10000) in paragraph at lines 788--791
 
  []
 
-[35]
-Underfull \hbox (badness 10000) in paragraph at lines 793--798
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 799--801
+[35 <./res/seqDiagramRead.png> <./res/seqDiagramMatch.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 796--801
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 807--808
+Underfull \hbox (badness 10000) in paragraph at lines 802--804
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 809--810
+Underfull \hbox (badness 10000) in paragraph at lines 810--811
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 811--813
+Underfull \hbox (badness 10000) in paragraph at lines 812--813
 
  []
 
@@ -1409,12 +1412,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 817--819
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 820--822
+
+ []
+
 [37] [38
 
 ]
 Chapter 6.
 
-Underfull \hbox (badness 10000) in paragraph at lines 839--844
+Underfull \hbox (badness 10000) in paragraph at lines 842--847
 
  []
 
@@ -1422,7 +1430,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 839--844
 File: res/flowReadMisp.png Graphic file (type png)
 
 <use res/flowReadMisp.png>
-Package pdftex.def Info: res/flowReadMisp.png used on input line 860.
+Package pdftex.def Info: res/flowReadMisp.png used on input line 863.
 (pdftex.def)             Requested size: 334.25133pt x 147.8535pt.
 
 
@@ -1432,24 +1440,24 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: res/flowMatchRules.png Graphic file (type png)
 
 <use res/flowMatchRules.png>
-Package pdftex.def Info: res/flowMatchRules.png used on input line 885.
+Package pdftex.def Info: res/flowMatchRules.png used on input line 888.
 (pdftex.def)             Requested size: 327.92766pt x 234.57819pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 891--893
+Underfull \hbox (badness 10000) in paragraph at lines 894--896
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 894--897
+Underfull \hbox (badness 10000) in paragraph at lines 897--900
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 898--900
+Underfull \hbox (badness 10000) in paragraph at lines 901--903
 
  []
 
@@ -1458,36 +1466,36 @@ Underfull \hbox (badness 10000) in paragraph at lines 898--900
 File: res/flowPBKDF2.png Graphic file (type png)
 
 <use res/flowPBKDF2.png>
-Package pdftex.def Info: res/flowPBKDF2.png used on input line 907.
+Package pdftex.def Info: res/flowPBKDF2.png used on input line 910.
 (pdftex.def)             Requested size: 299.32056pt x 131.59264pt.
 
 <res/flowBloomFilter.png, id=672, 1370.11874pt x 213.79875pt>
 File: res/flowBloomFilter.png Graphic file (type png)
 
 <use res/flowBloomFilter.png>
-Package pdftex.def Info: res/flowBloomFilter.png used on input line 915.
+Package pdftex.def Info: res/flowBloomFilter.png used on input line 918.
 (pdftex.def)             Requested size: 411.03879pt x 64.1401pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 921--923
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 924--926
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 927--929
+
+ []
+
 [41 <./res/flowMatchRules.png> <./res/flowPBKDF2.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 929--931
+Underfull \hbox (badness 10000) in paragraph at lines 932--934
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 932--935
+Underfull \hbox (badness 10000) in paragraph at lines 935--938
 
  []
 
@@ -1495,7 +1503,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 932--935
 File: res/profile-1iter.png Graphic file (type png)
 
 <use res/profile-1iter.png>
-Package pdftex.def Info: res/profile-1iter.png used on input line 938.
+Package pdftex.def Info: res/profile-1iter.png used on input line 941.
 (pdftex.def)             Requested size: 433.02109pt x 210.18686pt.
  [42 <./res/flowBloomFilter.png> <./res/profile-1iter.png>]
 <res/profile-mem-readMisp-1iter.png, id=691, 1017.8025pt x 671.50874pt>
@@ -1503,26 +1511,18 @@ File: res/profile-mem-readMisp-1iter.png Graphic file (type png)
 
 <use res/profile-mem-readMisp-1iter.png>
 Package pdftex.def Info: res/profile-mem-readMisp-1iter.png used on input line 
-951.
+954.
 (pdftex.def)             Requested size: 305.34311pt x 201.45418pt.
 
 <res/profile-1000iter.png, id=692, 1443.3925pt x 700.6175pt>
 File: res/profile-1000iter.png Graphic file (type png)
 
 <use res/profile-1000iter.png>
-Package pdftex.def Info: res/profile-1000iter.png used on input line 963.
+Package pdftex.def Info: res/profile-1000iter.png used on input line 966.
 (pdftex.def)             Requested size: 433.02109pt x 210.18686pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 969--970
-
- []
-
-
-LaTeX Warning: Reference `' on page 43 undefined on input line 972.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 972--973
@@ -1530,7 +1530,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 972--973
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 976--977
+LaTeX Warning: Reference `' on page 43 undefined on input line 975.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 975--976
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 979--980
 
  []
 
@@ -1538,7 +1546,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 976--977
 File: res/match-exist.png Graphic file (type png)
 
 <use res/match-exist.png>
-Package pdftex.def Info: res/match-exist.png used on input line 980.
+Package pdftex.def Info: res/match-exist.png used on input line 983.
 (pdftex.def)             Requested size: 432.71997pt x 208.98236pt.
 
 
@@ -1548,14 +1556,14 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: res/match-bloom-not.png Graphic file (type png)
 
 <use res/match-bloom-not.png>
-Package pdftex.def Info: res/match-bloom-not.png used on input line 988.
+Package pdftex.def Info: res/match-bloom-not.png used on input line 991.
 (pdftex.def)             Requested size: 432.71997pt x 209.28348pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [43 <./res/profile-mem-readMisp-1iter.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 997--999
+Underfull \hbox (badness 10000) in paragraph at lines 1000--1002
 
  []
 
@@ -1615,29 +1623,29 @@ File: uni-33.def 2013/05/13 UCS: Unicode data U+2100..U+21FF
 
 
 
-Package xcolor Warning: Incompatible color definition on input line 1020.
+Package xcolor Warning: Incompatible color definition on input line 1023.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1020.
+Package xcolor Warning: Incompatible color definition on input line 1023.
 
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <9> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 1020.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 1023.
 
-Package xcolor Warning: Incompatible color definition on input line 1020.
+Package xcolor Warning: Incompatible color definition on input line 1023.
 
 
-Overfull \hbox (1.90796pt too wide) in paragraph at lines 1020--1021
+Overfull \hbox (1.90796pt too wide) in paragraph at lines 1023--1024
  [][][] 
  []
 
 [50
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1025.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1025.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1028.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1028.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1025.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1025.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1028.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1028.
 
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: FF52D2DB1F319F0EE9406F55AD99AB21;4147.
@@ -1645,14 +1653,11 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
  20794 strings out of 493014
  380247 string characters out of 6133351
- 515150 words of memory out of 5000000
+ 514150 words of memory out of 5000000
  23563 multiletter control sequences out of 15000+600000
  100746 words of font info for 136 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1678,7 +1683,7 @@ lic/lm/lmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt
 10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></us
 r/local/texlive/2016/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local
 /texlive/2016/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on report.pdf (51 pages, 3304821 bytes).
+Output written on report.pdf (51 pages, 3305020 bytes).
 PDF statistics:
  865 PDF objects out of 1000 (max. 8388607)
  745 compressed objects within 8 object streams

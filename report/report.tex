@@ -738,7 +738,10 @@ In the original paper, the authors where using the Course Of Action (COA) for th
 Therefore, my choice was to use a message that allows to retrieve the attributes and events on MISP and fetch the needed information. This has two advantages, the first one is to only allows to know that an element is known by \textbf{someone} using MISP which is really important for the privacy. Then to get back information we need to connect to MISP where all authorisations are checked by the standard system.\\
 The second one to allow the analyst to make correlations and to improve the existing analyses.\\
 
-Another point is that the major interest of this system would be to mix rules from different MISP instances. But for that, we need to be able to identify the different instances thanks to a universal unique identifier for the instances. After discussing it with CIRCL, It will normaly be soon implemented.\improvement{Modifiy the message} 
+Another point is that the major interest of this system would be to mix rules from different MISP instances. But for that, we need to be able to identify the different instances thanks to a universal unique identifier for the instances. After discussing it with CIRCL, It will normaly be soon implemented.\improvement{Modifiy the message} \\
+
+Besides that, not every user need the same message, so the message can be modified with the top configuation file.\\
+The argument 'rules->message' can be associated with the attributes (separated by a space) contained by MISP attributes like : "uuid event\_id date".
 
 \section{Chosen Cryptographic System}
 The idea of the generalisation was to add modules for handling the way data are stored/encrypted, we can use completely different cryptographic systems later called schemes. In this section, I will discuss my implementation choices for each scheme implemented.
