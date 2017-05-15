@@ -35,27 +35,28 @@
 \contentsline {subsection}{\numberline {5.2.3}Multiprocessing}{31}{subsection.5.2.3}
 \contentsline {subsection}{\numberline {5.2.4}I/O and Rule Size Optimization}{31}{subsection.5.2.4}
 \contentsline {subsection}{\numberline {5.2.5}CSV or TSV?}{31}{subsection.5.2.5}
-\contentsline {subsection}{\numberline {5.2.6}On URL Normalization}{31}{subsection.5.2.6}
-\contentsline {subsection}{\numberline {5.2.7}Only PBKDF2}{32}{subsection.5.2.7}
-\contentsline {subsection}{\numberline {5.2.8}library: Pycrypto towards Cryptography}{32}{subsection.5.2.8}
-\contentsline {subsection}{\numberline {5.2.9}Structure Improvement}{32}{subsection.5.2.9}
-\contentsline {subsection}{\numberline {5.2.10}Top Configuration File}{33}{subsection.5.2.10}
-\contentsline {section}{\numberline {5.3}Chosen Cryptographic System}{33}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}PBKDF2}{33}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Bcrypt}{34}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.2.6}URL Normalisation}{31}{subsection.5.2.6}
+\contentsline {subsection}{\numberline {5.2.7}IP Normalisation}{32}{subsection.5.2.7}
+\contentsline {subsection}{\numberline {5.2.8}Only PBKDF2}{33}{subsection.5.2.8}
+\contentsline {subsection}{\numberline {5.2.9}library: Pycrypto towards Cryptography}{33}{subsection.5.2.9}
+\contentsline {subsection}{\numberline {5.2.10}Structure Improvement}{33}{subsection.5.2.10}
+\contentsline {subsection}{\numberline {5.2.11}Top Configuration File}{34}{subsection.5.2.11}
+\contentsline {section}{\numberline {5.3}Chosen Cryptographic System}{34}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}PBKDF2}{34}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Bcrypt}{35}{subsection.5.3.2}
 \contentsline {subsection}{\numberline {5.3.3}Bloom filter}{35}{subsection.5.3.3}
-\contentsline {subsection}{\numberline {5.3.4}Bloom filter used as to improve performance of Key Derivation Functions}{35}{subsection.5.3.4}
-\contentsline {section}{\numberline {5.4}An other KDF}{36}{section.5.4}
-\contentsline {chapter}{\numberline {6}Results}{37}{chapter.6}
-\contentsline {section}{\numberline {6.1}Dataset}{37}{section.6.1}
-\contentsline {section}{\numberline {6.2}Code Profiling}{37}{section.6.2}
-\contentsline {subsection}{\numberline {6.2.1}Code Flow}{37}{subsection.6.2.1}
-\contentsline {subsubsection}{ReadMisp}{37}{section*.8}
-\contentsline {subsubsection}{MatchRules}{38}{section*.10}
-\contentsline {subsubsection}{Crypto Module PBKDF2}{39}{section*.11}
-\contentsline {subsection}{\numberline {6.2.2}Profile of ReadMisp for 1 iteration}{40}{subsection.6.2.2}
-\contentsline {subsection}{\numberline {6.2.3}Profile of ReadMisp for 1000 iteration}{41}{subsection.6.2.3}
-\contentsline {subsection}{\numberline {6.2.4}Profile of the bloomy\_pbkdf2 module}{41}{subsection.6.2.4}
-\contentsline {section}{\numberline {6.3}Benchmarking}{42}{section.6.3}
-\contentsline {section}{\numberline {6.4}Security Discussion}{43}{section.6.4}
-\contentsline {section}{\numberline {6.5}Further Work}{43}{section.6.5}
+\contentsline {subsection}{\numberline {5.3.4}Bloom filter used as to improve performance of Key Derivation Functions}{36}{subsection.5.3.4}
+\contentsline {section}{\numberline {5.4}An other KDF}{37}{section.5.4}
+\contentsline {chapter}{\numberline {6}Results}{39}{chapter.6}
+\contentsline {section}{\numberline {6.1}Dataset}{39}{section.6.1}
+\contentsline {section}{\numberline {6.2}Code Profiling}{39}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Code Flow}{39}{subsection.6.2.1}
+\contentsline {subsubsection}{ReadMisp}{39}{section*.9}
+\contentsline {subsubsection}{MatchRules}{40}{section*.11}
+\contentsline {subsubsection}{Crypto Module PBKDF2}{41}{section*.12}
+\contentsline {subsection}{\numberline {6.2.2}Profile of ReadMisp for 1 iteration}{42}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}Profile of ReadMisp for 1000 iteration}{43}{subsection.6.2.3}
+\contentsline {subsection}{\numberline {6.2.4}Profile of the bloomy\_pbkdf2 module}{43}{subsection.6.2.4}
+\contentsline {section}{\numberline {6.3}Benchmarking}{44}{section.6.3}
+\contentsline {section}{\numberline {6.4}Security Discussion}{45}{section.6.4}
+\contentsline {section}{\numberline {6.5}Further Work}{45}{section.6.5}

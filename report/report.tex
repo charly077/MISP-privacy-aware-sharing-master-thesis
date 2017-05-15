@@ -647,7 +647,7 @@ These problems were easy to solve. Create a complete CSV file for all rules. But
 \subsection{CSV or TSV?}
 This is a really small modification but makes files more readable and avoid existing coma in the data to make the parsing not working.
 
-\subsection{On URL Normalization}
+\subsection{URL Normalisation}
 The goal of the system is looking for matches in MISP data. But off course, if an event has for Uniform Resource Locator (URL) www.ioc.com I would like http://www.ioc.com, http://www.ioc.com/, http://www.ioc.com:80/, ... To match as well.\\
 I first dug a little into URL normalization like the standards and techniques already used in practice. I've realised that normalization is difficult as, in the standards, they want URL to always work after, and really be the same. For example http://www.ioc.com is not https://www.ioc.com while in matching, I absolutely don't care and I would like to both trigger an alert.\\
 Besides that, there are standards on URL normalisation [RFC 3986] that contains either normalisations that preserve or usually preserve the semantic of the URL but none that does not preserve it.\\
@@ -676,6 +676,19 @@ I thus added some additional steps like:
 \item Removing  “www” as the first domain label.
 \item Removing the "?" when the query is empty.
 \end{itemize}
+
+\subsection{IP Normalisation}
+Like for the URL some IPs can be expressed differently due to shortcuts. For example, the IPv6 address 2001:0db8:0000:85a3:0000:0000:ac1f:8001 is equivalent to this IPv6 address 2001:db8:0:85a3:0:0:ac1f:8001 as well as 2001:db8:0:85a3::ac1f:8001.\\
+Moreover, some attributes specify an IPv4 range instead of an IPv4. This also need to be handled in a proper way.\\
+
+To solve these problems, I'm using a simple library called ipaddress with two specific functions, ip\_network for handling the ranges and ip\_address to handle standard IPs.\\
+The last function creates an object which is either an IPv4 or IPv6 instance. For the IPv6 address 2001:0db8:0000:85a3:0000:0000:ac1f:8001, it would return IPv6Address('2001:db8:0:85a3::ac1f:8001'). Then a simple str function allows to get back the normalised value.\\
+Also, this function raises  an error when there is a problem with one IP, in this case, I simply add them without any changes and print the problematic value.\\
+This is actually how I discovered the IP ranges and also that some IPs are not interesting as a rule as they have the host bit set to one.\\
+
+For the IP ranges, there are two possibilities to handle them, either we create ranges and it matches only if the user try the range (meaning that when trying to match an IP we also need to try to match the different possible ranges) or, we can accept only ranges '/x' where x >23 and for these cases, create the 256 (or less) possible rules.
+The second could be really inefficient due to the high number of generated rules. While the second one would approximately double the time for each match while only considering the range /24 and could not accept the ranges between 24 and 32.\improvement{CHOOSE ONE SOLUTION AND IMPLEMENT IT}
+
 
 \subsection{Only PBKDF2}
 While I was adding features, it becomes more and more difficult to allow all these possible choices, I've thus started by limiting the key derivation function (KDF) choice to PBKDF2 which is not the author advised one but allow to parametrize the difficulty for an attacker to brute force some small data.\\

@@ -20,6 +20,7 @@ dbname = misp
 [rules]
 location = ../rules
 cryptoModule = pbkdf2
+message = uuid event_id date
 
 [pbkdf2]
 iterations = 1000
