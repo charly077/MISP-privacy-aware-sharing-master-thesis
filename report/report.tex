@@ -639,11 +639,13 @@ Besides that, I'm storing the data inside a redis queue and polling on it in the
 \subsection{Multiprocessing}
 When there are a lot of logs, doing one by one take too much time, but we can test simultaneously more than one log line at the same time by creating processes.\\
 Also it is important to point out that I've started this by trying to use threads but, as I'm using the cpython interpreter, it is impossible to have two program running simultaneously due to the Global Interpreter Lock (GIL). That is why, I finally chose to create a pool of processes instead.
+
 \subsection{I/O and Rule Size Optimization}
 In the implementation of Tim van de Kamp et al., for each rule, they created a file to store the rule. \\
 I can understand it in the point of view of a proof of concept but it is a real bad idea as in UNIX systems, each file has a minimum size of 4k. Already with 6300 events each one possessing 153 attributes in average, it is easy to see the problem coming. Moreover, the I/O were really slowing down the system. \\
 These problems were easy to solve. Create a complete CSV file for all rules. But is still not a solution because it would mean that we should load everything in memory even if we don't use everything. That is why I finally chose to have one CSV file per type of IOCs.
 \improvement{Plus de détails}
+
 \subsection{CSV or TSV?}
 This is a really small modification but makes files more readable and avoid existing coma in the data to make the parsing not working.
 
@@ -743,6 +745,17 @@ Another point is that the major interest of this system would be to mix rules fr
 Besides that, not every user need the same message, so the message can be modified with the top configuation file.\\
 The argument 'rules->message' can be associated with the attributes (separated by a space) contained by MISP attributes like : "uuid event\_id date".
 
+\subsection{Add a rule}
+After having created the MISP rules, if we want to add new ones, we can do it thanks to the addIOC script.\\
+We then, can choose to specify the rule directly inside the terminal or via a CSV file located in the 'res' folder.\\
+This need to be used carefully as no verifications are made on the rule. Checking every new IOC if it already exists would have been really too time consuming.\improvement{Perhaps allow to do it in an argument}
+
+\subsection{Update Rules}
+After all that, if we want to make rules hard to bruteforce, it makes them long to generate as well. This is why we need the capability of updating the rules with the recent IOCs.\\
+This kind of implementation is only useful when the rules are generated via the MISP web API. Therefore, the update implementation works only in this case.\\
+First, a new metadata file is generated in the 'res' folder and keeps track of the last IOCs date. Then via the addIOC script with a --update argument, it gets the MISP attributes thanks to a specific web request. Saves it in an csv file called update<number of the update>.csv.
+The csv events are then transformed into rules and added to existing ones before finally updating the metadata file with the new last date.
+
 \section{Chosen Cryptographic System}
 The idea of the generalisation was to add modules for handling the way data are stored/encrypted, we can use completely different cryptographic systems later called schemes. In this section, I will discuss my implementation choices for each scheme implemented.
 
@@ -769,8 +782,8 @@ Some additional analyses can be made on the ability to sustain an attack, the ar
 They have analysed previous work and have done some estimation for 2015. Their approximation is more a guess than anything else and I wouldn't dare to try their approximation for 2017 but I will nevertheless show their results to get a rough idea of what could be the time to crack a password from a key generated with PBKDF2 (AES + SHA-1):\\
 \begin{table}[h!]
 \centering
-\caption{My caption}
-\label{my-label}
+\caption{Cryptosense table}
+\label{Cryptosense-table}
 \begin{tabular}{|c|c|c|c|}
 \hline
 Password Complexity & Estimated Entropy (bits) & 1 000 Iterations & 10 000 iterations \\ \hline
@@ -778,6 +791,24 @@ Comprehensive8 & 33 & 4h46 & 47h \\ \hline
 8 random lowercase letters & 37 & 12h & 5 days \\ \hline
 8 random letters & 45 & 123 days & 3 years 5 months \\ \hline
 \begin{tabular}[c]{@{}c@{}}8 letters + numbers + punctuation \\ OR \\ 4 random Diceware words\end{tabular} & 52 & 325 years & 3250 years \\ \hline
+\end{tabular}
+\end{table}
+
+Finally, here is a simple example of a rule generated with this system. This IOC is ioc.com of type test \ref{Example-rule-pbkdf2}:
+% Please add the following required packages to your document preamble:
+% \usepackage[normalem]{ulem}
+% \useunder{\uline}{\ul}{}
+\begin{table}[]
+\centering
+\caption{Example of a rule}
+\label{Example-rule-pbkdf2}
+\begin{tabular}{cc}
+{\textbf{}}  & {\textbf{rule}}                          \\
+salt             & jiGxB1CdO43YiPk5NUIbcQY0tYlQltKME1YVLgKKvRI= \\
+attributes       & test                                         \\
+nonce            & IzizTKP6fVsWnidzEx4Pkg==                     \\
+ciphertext-check & SxzWSDR3nA4h5HwdTg3WJA==                     \\
+ciphertext       & RQMQ0a7dxJuFxhZDdLuCp72CWaT0wzn4+w==        
 \end{tabular}
 \end{table}
 
