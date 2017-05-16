@@ -15,7 +15,7 @@ class Bloomy(Crypto):
         self.conf = conf
         self.Crypto = ChooseCrypto(cryptoName, conf, metadata)
         # Set up bloom
-        self.bloom = BF(conf, metadata=metadata, rate=0.3)
+        self.bloom = BF(conf, metadata=metadata, rate=conf['bloomy']['fp_rate'])
         # Make it faster without modifying 
         self.cacheVal = ""
         self.cacheBool = True

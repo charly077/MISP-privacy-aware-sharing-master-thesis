@@ -1026,6 +1026,8 @@ Then, when the code is running, there are three existing path for checking a val
 \end{center}
 \end{figure}
 
+On figure \ref{profile-bloomy-match} we can see that it takes more time than the simple PBKDF2 module as we have the overhead of the bloom filter. This is exactly the same behaviour when there is no match but a false positive bloom filter match.\\
+
 \begin{figure}[h!]
 \begin{center}
 	\includegraphics[scale=0.3]{res/match-bloom-not}
@@ -1034,7 +1036,12 @@ Then, when the code is running, there are three existing path for checking a val
 \end{center}
 \end{figure}
 
-In this case, we can realise that there is a problem with the implementation, as I tried to have a modular implementation and doing everything inside module, it does not always respect the system as here, for one attributes, whatever the result of the bloom filter for one rule it will test the bloom filter every time. This is really bad as the bloom filter is not related to the rule but only to the attribute tested. To solve this problem \improvement{A cache must be implemented !!!!} 
+While we can clearly see the advantage of the system in the figure \ref{profile-bloomy-no-match} as the bloom filter immediately realise this value does not belong to the set.\\
+
+In this case, we can realise that there is a problem with the implementation, as I tried to have a modular implementation and doing everything inside the modules, it does not always goes well with the system. Here, for one attribute, whatever the result of the bloom filter for one rule it will test the bloom filter for every different rules. This is really bad as the bloom filter is not related to the rule but only to the attribute tested. To solve this problem a cache must be implemented. The first cache implementation already improved the system but was really bad as I was a dictionnary of matched values.\\
+There are two problems with that, first, to put the orderedDictionary as a key, we need to transform that into a string. And then add it to the cache.\\
+But for a matching, we each time need to transform the value to a string and while checking the dictionary it actually hash the string attribute. All that was taking a way too much time and I finally opted for a simple but nevertheless efficient implementation with only a two cache variables, the last OrderedDIctionary representing the attribute to check with the last bloom filter result.\\
+This cache is so fast that the bloomy overhead does not appear any more on the profiles, the script complete run when bloom filter discover the attribute is not in the set is about 0.16s.\\
 
 \section{Benchmarking}
 The ideas have been explained, in the first few sections, then the implementation had been explained followed by profiles that help understand how the behavior of the system and how the computation power is used inside the system. Now it is time to see how it is working with real data, what would be the right parameters to use and why these choices. Moreover, this is in this section that we could analyse if the goal had been totally reached, reached for some part and decide if it can or cannot be used in real implementations.\\
