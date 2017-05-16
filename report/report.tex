@@ -1044,20 +1044,53 @@ But for a matching, we each time need to transform the value to a string and whi
 This cache is so fast that the bloomy overhead does not appear any more on the profiles, the script complete run when bloom filter discover the attribute is not in the set is about 0.16s.\\
 
 \section{Benchmarking}
-The ideas have been explained, in the first few sections, then the implementation had been explained followed by profiles that help understand how the behavior of the system and how the computation power is used inside the system. Now it is time to see how it is working with real data, what would be the right parameters to use and why these choices. Moreover, this is in this section that we could analyse if the goal had been totally reached, reached for some part and decide if it can or cannot be used in real implementations.\\
+The ideas have been explained, in the first few sections, then the implementation had been explained followed by profiles that help understand the behavior of the system and how the computation power is used inside the system. Now it is time to see how it is working with real data, what would be the right parameters to use and why these choices. Moreover, this is in this section that we could analyse if the goal had been totally reached, reached for some part and decide if it can or cannot be used in real implementations.\\
 This is important as we are aware of the benefits that it could have but we must stay aware of the risk of that exposure on which a system like this one could lead.\\
 
 \improvement{Do all needed analyzes; ajouter brute force de string avec bcrypt => explain expo and why not here}
 
+\subsection{General Discussion}
+The standard implementation had already been assessed in the paper  but there is something quite new which is the use of the bloom filters inside the implementation.\\
+The goal here is not to hide that we have the information, it is more to hide who have seen this particular IOC and what did they concluded on it.\\
+If someone want to test if a specific value is known by the system. First, he needs first to get the generated rules. Secondly, to be sure he is the only one to use these rules, its secret token is include in the rules creation what makes them unusable for someone that does not knows it. And also allows to trace back the origin of a data leak.\\
+Once they have these rules and the right token. They can ckeck the value. So if an attacker manage to get those, he can succeed in knowing if specific values are known and to get information allowing him to fetch the information on the MISP web interface. Which means that, at that moment, there is again a barrier as he needs to have the right credentials to get more informations.\\
+
+Therefore we know that we could possibly (but already difficulty) imagine that this system can leaks two important information to an attacker. The number of elements known by the system as well as the fact that someone belonging to an organisation linked to the instance or to some data feed used by the instance have knowledge of a value that the attacker has chosen.\\
+This brings a problem with IPv4 as the number of pissible IPV4 is limited but it seems unfeasible to test all longer data like URLs.\\
+
+On the other side, if someone wants to attack himself directly to get information from one rule. It is nearlly impossible. If the attacker want to bruteforce the ciphertext, he first needs to be able to break an AES encrytion scheme with a 128-bit key. And then he could get the message but still not the IOC related to the information.\\
+To get the IOC, he would still need to be able to reverse the hash function used.\\
+
+With a bloom filter we can therefore increase the match efficienty for a standard user while giving up an advantage to the attacker. But an advantage that gives him only information that he would have finally found.\\
+
+So in this case, what is important is to benchmark the time used to generate a rule in function of the iterations number or of the algorithm used. The space memory needed for the rule. The time used for testing an element against a rule.\\
+And this, with or without bloom filters. Then it is also important to assess the advantage of the bloomy implementation in function of the number of available rules, the number of iterations and especially the false positive rate used.
+
+\subsection{Time for creating a rule}
+
+\subsection{Space consumed by a rule}
+
+\subsection{Normal lookup}
+In function of the techno used
+
+\subsection{Bloomy efficiency}
+
+For testing the bloomy implementation I've not a lot of choice than doing some range bruteforcing on some data.
+As finding a range in data like IPs and generate data in that range is quite difficult, I've decided to focus on on IPs. This has for advantage to express the disadvantage as well as the advantage of the system at the same time.\\
+Another advantage of using the IPs it that their lengths does not varies a lot.\\
+
+For testing, I've thus chosen 192.168.0.0/16 network range in order to get 65 536 IPs. Than ...
+
+
 \section{Security Discussion}
-Must be dimensioned carefully !!! => puis expliquer pourquoi c'est trop cool et que l'idée fonctionne vraiment bein mm dans les domaines où on était pas sur
+Must be dimensioned carefully !!! 
 
 \section{Further Work}
 \begin{itemize}
 \item Sightings
 \item additional crypto systems
 \item additional benchmark
-\item ...
+\item hide the number of element by adding false unmatchable rules ?  = delay
 \end{itemize}
 
 
