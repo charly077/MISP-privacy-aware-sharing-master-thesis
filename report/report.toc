@@ -60,6 +60,6 @@
 \contentsline {subsection}{\numberline {6.2.2}Profile of ReadMisp for 1 iteration}{42}{subsection.6.2.2}
 \contentsline {subsection}{\numberline {6.2.3}Profile of ReadMisp for 1000 iteration}{43}{subsection.6.2.3}
 \contentsline {subsection}{\numberline {6.2.4}Profile of the bloomy\_pbkdf2 module}{43}{subsection.6.2.4}
-\contentsline {section}{\numberline {6.3}Benchmarking}{44}{section.6.3}
-\contentsline {section}{\numberline {6.4}Security Discussion}{45}{section.6.4}
-\contentsline {section}{\numberline {6.5}Further Work}{45}{section.6.5}
+\contentsline {section}{\numberline {6.3}Benchmarking}{45}{section.6.3}
+\contentsline {section}{\numberline {6.4}Security Discussion}{46}{section.6.4}
+\contentsline {section}{\numberline {6.5}Further Work}{46}{section.6.5}

@@ -970,7 +970,7 @@ I finally managed to use vprof with a little modification (to force it using pyt
 \begin{figure}[h!]
 \begin{center}
 	\includegraphics[scale=0.3]{res/profile-1iter}
-	\caption{Vprof - Flame Chart Profile of readMisp PBKDF2(1 iteration)}
+	\caption{Vprof - Flame Chart Profile of readMisp PBKDF2 - 1 iteration (--misp mysql)}
 	\label{profile-readMisp}
 \end{center}
 \end{figure}
@@ -983,7 +983,7 @@ We also see that in this particular case, the major part of the time is taken by
 \begin{figure}[h!]
 \begin{center}
 	\includegraphics[scale=0.3]{res/profile-mem-readMisp-1iter}
-	\caption{Vprof - Memory Chart Profile of readMisp PBKDF2(1 iteration)}
+	\caption{Vprof - Memory Chart Profile of readMisp PBKDF2 - 1 iteration (--misp mysql)}
 	\label{profile-mem-readMisp}
 \end{center}
 \end{figure}
@@ -995,7 +995,7 @@ The memory graph we can see that the highest level (on the right) is approximate
 \begin{figure}[h!]
 \begin{center}
 	\includegraphics[scale=0.3]{res/profile-1000iter}
-	\caption{Vprof - Flame Chart Profile of readMisp PBKDF2(1000 iteration)}
+	\caption{Vprof - Flame Chart Profile of readMisp PBKDF2 - 1000 iteration (--misp mysql)}
 	\label{profile-readMisp1000}
 \end{center}
 \end{figure}
@@ -1003,11 +1003,20 @@ The memory graph we can see that the highest level (on the right) is approximate
 The goal of this work is to slow down the system, which means that a lot of iteration will be used. This is the reason why this is closer to a real execution of the system. Of course we can see that the major part of the time is used by the key derivation function.\\
 
 \subsection{Profile of the bloomy\_pbkdf2 module}
-The first step is to look for the additional computing time for creating the rules and as we can see on figure \ref{}. The key derivation function is still more computationally intensive than the creation of the bloom filter.\\
+The first step is to analyse the computationnal overhead for creating the rules with the bloomy module. The figure \ref{profile-bloomy-readMisp-1iter} shows that the key derivation function is still more computationally intensive than the creation of the bloom filter, actually, we can even see that bloom filter generation takes only 1.9\% of the time.\\
 
-\improvement{Add picture her but I was not able to do so as my computer is not working anymore}
 
-Then it is interesting to compare the flow when there is a match and then when the Bloom filter can directly say that the element is not in the set of IOCs.\\
+\begin{figure}[h!]
+\begin{center}
+	\includegraphics[scale=0.3]{res/readMisp-bloomy-1iter-res}
+	\caption{Vprof - Flame Chart Profile of readMisp bloomy\_pbkdf2 -1 iteration (--misp res)}
+	\label{profile-bloomy-readMisp-1iter}
+\end{center}
+\end{figure}
+
+
+Then, when the code is running, there are three existing path for checking a value. Firstly, if there is a match, due to the 0 rate of false negative, we know that the bloom filter will match. Then All rules will be checked and the match(es) will be found. On the other side, if there is a match, there are still two possibilities. Either the bloom filter matches due to its false positive rate and therefore all rules will be checked as well or, the bloom filter will reject the membership and it is the special case that improves the overall performance of the matching system.\\
+
 
 \begin{figure}[h!]
 \begin{center}
