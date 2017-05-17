@@ -11,5 +11,3 @@ url_normalize
 bcrypt
 bitarray
 progressbar2
-cffi
-argon2_cffi
