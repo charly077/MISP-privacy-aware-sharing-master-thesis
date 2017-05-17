@@ -62,10 +62,13 @@ def createNRandomIP(N):
         ip = randIPv4192168()
         if ip not in IPs:
             IPs.append(ip)
+            i += 1
+        else:
+            print("Oups pas de bol %d" % N)
     return IPs
 
 def createNRandomIPRes(N):
-    if N > 256*256/2:
+    if N > 20*256/2:
         print("N exceeds the maximum value")
         sys.exit(1)
 
@@ -85,8 +88,11 @@ def createNRandomIPRes(N):
 def randStr():
     return str(round(random.uniform(0,255)))
 
+def randStr20():
+    return str(round(random.uniform(0,19)))
+
 def randIPv4():
     return randStr() + '.' + randStr() + '.' + randStr() + '.' + randStr()
 
 def randIPv4192168():
-    return '192.168.' + randStr() + '.' + randStr()
+    return '192.168.' + randStr20() + '.' + randStr()
