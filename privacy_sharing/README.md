@@ -63,7 +63,7 @@ src/ contains all the source files
 
 # Setup
 - Install python3 and pip3
-- apt-get install libmysqlclient-dev build-essential libssl-dev libffi-dev python-dev apt-get install libpng-dev libfreetype6-dev pkg-config
+- apt-get install libmysqlclient-dev build-essential libssl-dev libffi-dev python-dev libpng-dev libfreetype6-dev pkg-config
 - pip3 install -r requirements.txt
 
 # Setup Misp Virtual Machine (testing purpose)
