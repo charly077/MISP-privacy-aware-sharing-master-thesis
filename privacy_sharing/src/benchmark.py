@@ -4,6 +4,15 @@
 """
 Execute every benchmark
 """
+"""
+Bloomy: evolution of the matching time with 
+- nb of elements
+- FP rate
+- PBKDF2 iteration
+- Bcrypt as well ?
+"""
+import benchmark.bloomy as bloomy
+bloomy.start()
 
 # Simple execution like in the article
 
