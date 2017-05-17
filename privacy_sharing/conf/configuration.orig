@@ -32,8 +32,8 @@ hash_name = sha256
 dklen = 16
 
 [bcrypt]
-round = 1000
-ipround = 1000
+round = 20000
+ipround = 20000
 
 [bloom_filter]
 error_rate = 0.01
