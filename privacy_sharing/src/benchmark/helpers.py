@@ -7,6 +7,8 @@ read/write misp database for testing purpose
 from configuration import Configuration
 
 import random, os, sys
+import shlex
+import subprocess
 
 class DatabaseHelper:
     # mysql import
@@ -55,6 +57,10 @@ class DatabaseHelper:
                 self.addRandomIP()
 
 
+
+#################
+# IP Generation #
+#################
 def createNRandomIP(N):
     IPs = []
     i = 0
@@ -96,3 +102,16 @@ def randIPv4():
 
 def randIPv4192168():
     return '192.168.' + randStr20() + '.' + randStr()
+
+###############
+# Run helpers #
+###############
+def create_rules():
+    command = "./readMisp.py --misp res -v"
+    args = shlex.split(command)
+    subprocess.call(args)
+
+def bruteforceIP():
+    command = './matchRules.py --input rangeip'
+    args = shlex.split(command)
+    subprocess.call(args)

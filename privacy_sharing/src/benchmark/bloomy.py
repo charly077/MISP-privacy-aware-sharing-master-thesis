@@ -5,39 +5,25 @@ Evolution of the matching time for a complete /16 range
 in function of the iteration number, the FP rate and the number of element 
 inside the attribute compared to the standard PBKDF2 implementation
 """
-from benchmark.helpers import createNRandomIPRes
+from benchmark.helpers import createNRandomIPRes, create_rules, bruteforceIP
 from configuration import configSet, configurationSave, configurationReset
 import timeit
-import shlex
 import subprocess
 import configparser
 
-nIPs = 100
-nIterations = 1
-FP = .1
-stepIP = 100
-stepIterations = 100
-stepFP = .05
-maxIP = (20*256) // 3 
-maxIterations = 10000
-maxFP = .9
 
-rangeFP = [FP + stepFP*x for x in range(int((maxFP - FP)/stepFP))]
+def start(name='ip_iterations_bruteforce'):
+    nIPs = 100
+    nIterations = 1
+    FP = .1
+    stepIP = 100
+    stepIterations = 100
+    stepFP = .05
+    maxIP = (20*256) // 3 
+    maxIterations = 10000
+    maxFP = .9
 
-def create_rules():
-    command = "./readMisp.py --misp res -v"
-    args = shlex.split(command)
-    subprocess.call(args)
-
-def bruteforceIP():
-    # TODO
-    # pour avoir des mesures plus presices, il fautdrait trouver un moyen 
-    # lancer la fonction avec un timeit et de la remettre à 0 genre timeit("import .. ")
-    command = './matchRules.py --input rangeip'
-    args = shlex.split(command)
-    subprocess.call(args)
-
-def start(name='ip_iterations_bruteforce1'):
+    rangeFP = [FP + stepFP*x for x in range(int((maxFP - FP)/stepFP))]
     print('Start Bloomy benchmark')
     configurationSave()
     # Configuration:
@@ -60,12 +46,12 @@ def start(name='ip_iterations_bruteforce1'):
                     configSet('bloomy', 'fp_rate', rate)
                     create_rules()
 
-                    bloomyTime =  timeit.timeit("bruteforceIP()","from benchmark.bloomy import bruteforceIP", number = 2)
+                    bloomyTime =  timeit.timeit("bruteforceIP()","from benchmark.helpers import bruteforceIP", number = 2)
 
                     # modify meta in order to forget about the bloom filter without regenerating everything (only once)
                     if pbkdf2Time == -1:
                         configSet('crypto', 'name', 'pbkdf2', '../rules/metadata')
-                        pbkdf2Time =  timeit.timeit("bruteforceIP()","from benchmark.bloomy import bruteforceIP", number = 2)
+                        pbkdf2Time =  timeit.timeit("bruteforceIP()","from benchmark.helpers import bruteforceIP", number = 2)
 
                     # Add result
                     f.write(','.join([str(x) for x in [nIP, iterations, rate, pbkdf2Time, bloomyTime]]) + '\n')
