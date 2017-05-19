@@ -13,13 +13,13 @@ import subprocess
 import configparser
 
 nIPs = 100
-nIterations = 1
+nIterations = 100
 FP = .1
 stepIP = 100
 stepIterations = 100
-stepFP = .05
-maxIP = (20*256) // 3 
-maxIterations = 10000
+stepFP = .1
+maxIP = 1000
+maxIterations = 1000
 maxFP = .9
 
 rangeFP = [FP + stepFP*x for x in range(int((maxFP - FP)/stepFP))]

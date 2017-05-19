@@ -88,11 +88,11 @@ def createNRandomIPRes(N):
 def randStr():
     return str(round(random.uniform(0,255)))
 
-def randStr20():
-    return str(round(random.uniform(0,19)))
+def randStr10():
+    return str(round(random.uniform(0,9)))
 
 def randIPv4():
     return randStr() + '.' + randStr() + '.' + randStr() + '.' + randStr()
 
 def randIPv4192168():
-    return '192.168.' + randStr20() + '.' + randStr()
+    return '192.168.' + randStr10() + '.' + randStr()
