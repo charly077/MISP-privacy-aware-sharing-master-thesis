@@ -66,6 +66,10 @@ src/ contains all the source files
 - apt-get install libmysqlclient-dev build-essential libssl-dev libffi-dev python-dev libpng-dev libfreetype6-dev
 - pip3 install -r requirements.txt
 
+If there is a problem with matplotlib asking for freetype there are two possibilites (the first one should be prefered as the second can damage to the system!):
+- ln -s /usr/include/freetype2/ft2build.h /usr/include/
+- sudo apt-get install pkg-config
+
 # Setup Misp Virtual Machine (testing purpose)
 - Image available on : https://circl.lu/services/misp-training-materials/
 
