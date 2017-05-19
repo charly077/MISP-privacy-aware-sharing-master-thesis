@@ -8,7 +8,6 @@ inside the attribute compared to the standard PBKDF2 implementation
 from benchmark.helpers import createNRandomIPRes, create_rules, bruteforceIP
 from configuration import configSet, configurationSave, configurationReset
 import timeit
-import subprocess
 import configparser
 
 
@@ -46,12 +45,12 @@ def start(name='ip_iterations_bruteforce'):
                     configSet('bloomy', 'fp_rate', rate)
                     create_rules()
 
-                    bloomyTime =  timeit.timeit("bruteforceIP()","from benchmark.helpers import bruteforceIP", number = 2)
+                    bloomyTime =  timeit.timeit("bruteforceIP()","from benchmark.helpers import bruteforceIP", number = 2)/2
 
                     # modify meta in order to forget about the bloom filter without regenerating everything (only once)
                     if pbkdf2Time == -1:
                         configSet('crypto', 'name', 'pbkdf2', '../rules/metadata')
-                        pbkdf2Time =  timeit.timeit("bruteforceIP()","from benchmark.helpers import bruteforceIP", number = 2)
+                        pbkdf2Time =  timeit.timeit("bruteforceIP()","from benchmark.helpers import bruteforceIP", number = 2)/2
 
                     # Add result
                     f.write(','.join([str(x) for x in [nIP, iterations, rate, pbkdf2Time, bloomyTime]]) + '\n')

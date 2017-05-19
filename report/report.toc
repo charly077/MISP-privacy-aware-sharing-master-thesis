@@ -54,7 +54,7 @@
 \contentsline {section}{\numberline {6.1}Dataset}{39}{section.6.1}
 \contentsline {section}{\numberline {6.2}Code Profiling}{39}{section.6.2}
 \contentsline {subsection}{\numberline {6.2.1}Code Flow}{39}{subsection.6.2.1}
-\contentsline {subsubsection}{ReadMisp}{39}{section*.11}
+\contentsline {subsubsection}{ReadMisp}{40}{section*.11}
 \contentsline {subsubsection}{MatchRules}{40}{section*.13}
 \contentsline {subsubsection}{Crypto Module PBKDF2}{41}{section*.14}
 \contentsline {subsection}{\numberline {6.2.2}Profile of ReadMisp for 1 iteration}{42}{subsection.6.2.2}
@@ -62,9 +62,13 @@
 \contentsline {subsection}{\numberline {6.2.4}Profile of the bloomy\_pbkdf2 module}{43}{subsection.6.2.4}
 \contentsline {section}{\numberline {6.3}Benchmarking}{46}{section.6.3}
 \contentsline {subsection}{\numberline {6.3.1}General Discussion}{46}{subsection.6.3.1}
-\contentsline {subsection}{\numberline {6.3.2}Time for creating a rule}{47}{subsection.6.3.2}
-\contentsline {subsection}{\numberline {6.3.3}Space consumed by a rule}{47}{subsection.6.3.3}
-\contentsline {subsection}{\numberline {6.3.4}Normal lookup}{47}{subsection.6.3.4}
-\contentsline {subsection}{\numberline {6.3.5}Bloomy efficiency}{47}{subsection.6.3.5}
-\contentsline {section}{\numberline {6.4}Security Discussion}{47}{section.6.4}
-\contentsline {section}{\numberline {6.5}Further Work}{47}{section.6.5}
+\contentsline {subsection}{\numberline {6.3.2}Key Derivation Functions}{47}{subsection.6.3.2}
+\contentsline {subsubsection}{PBKDF2}{47}{section*.17}
+\contentsline {subsubsection}{Bcrypt}{47}{section*.19}
+\contentsline {subsection}{\numberline {6.3.3}Bloomy efficiency}{47}{subsection.6.3.3}
+\contentsline {section}{\numberline {6.4}Results}{47}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Time for creating a rule}{47}{subsection.6.4.1}
+\contentsline {subsection}{\numberline {6.4.2}Space consumed by a rule}{47}{subsection.6.4.2}
+\contentsline {subsection}{\numberline {6.4.3}Normal lookup}{47}{subsection.6.4.3}
+\contentsline {section}{\numberline {6.5}Security Discussion}{47}{section.6.5}
+\contentsline {section}{\numberline {6.6}Further Work}{48}{section.6.6}

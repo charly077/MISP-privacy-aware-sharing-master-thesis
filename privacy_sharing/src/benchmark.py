@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import argparse
 
 """
-Execute every benchmark
+Tool to execute Benchmarks
 """
-"""
-Bloomy: evolution of the matching time with 
-- nb of elements
-- FP rate
-- PBKDF2 iteration
-- Bcrypt as well ?
-"""
-import benchmark.bloomy as bloomy
-bloomy.start()
+
+def bloomy():
+    import benchmark.bloomy as bloomy
+    bloomy.start()
+
+def kdf():
+    import benchmark.kdf as kdf
+    kdf.start()
 
 # Simple execution like in the article
 
@@ -32,3 +32,20 @@ bloomy.start()
 
 ## Time to brute force increasing size elements
 """Should be exponential"""
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Run tests')
+    parser.add_argument('-a', '--all', dest='all', action='store_true', help='Runs all benchmarks')
+    parser.add_argument('--bloomy', action='store_true', help='Runs bloomy benchmarks')
+    parser.add_argument('--kdf', action='store_true', help='Runs key derivation function benchmarks')
+    args = parser.parse_args()
+
+    if args.all:
+        bloomy()
+        kdf()
+    elif args.bloomy:
+        bloomy()
+    elif args.kdf:
+        kdf()
+    else:
+        print("Chosse an argument (./benchmark.py -h)")

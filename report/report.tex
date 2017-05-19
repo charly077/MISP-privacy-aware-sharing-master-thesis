@@ -321,7 +321,7 @@ That's the goal of \cite{parekh2006privacy}. Today, it's not enough to analyse I
 They used PAYL and Anagram \cite{wang2006network} systems that they have created.\\
 
 Sanitization is used to protect information by keeping privacy, but, as \cite{mohaisen2017rethinking} is referencing, there are other ways for sanitising data. Some of them are k-anonymity \cite{sweeney2002k}, l-diversity \cite{machanavajjhala2007diversity} and the key privacy guarantee that has emerged is the differential privacy \cite{dwork2008differential}.\\
-First, k-anonymity is an attempt to solve the problem of anonymizing a person-specific field-structured data with formal guaranteed while still producing useful data. A dataset is said to have the k-anonymity property if the information for each person in the dataset cannot be distinguished from at least k-1 individuals. This is done by removing attributes or by generalisation as seen earlier. This technique was, unfortunately, performing poorly for certain applications. Therefore l-diversity was an extension to it in order to handle some of the weakness of k-anonymity. It increases groups diversity for sensitive attributes in the anonymization mechanism.\improvement{Read cited articles instead of simple the first article to be sure of my understanding}\\
+First, k-anonymity is an attempt to solve the problem of anonymizing a person-specific field-structured data with formal guaranteed while still producing useful data. A dataset is said to have the k-anonymity property if the information for each person in the dataset cannot be distinguished from at least k-1 individuals. This is done by removing attributes or by generalisation as seen earlier. This technique was, unfortunately, performing poorly for certain applications. Therefore l-diversity was an extension to it in order to handle some of the weakness of k-anonymity. It increases groups diversity for sensitive attributes in the anonymization mechanism\\.\todo[inline]{Read cited articles instead of simple the first article to be sure of my understanding}
 
 On the other side, we first focus on hiding data while sharing, another point of view would be to be ready for sharing only if a benefit is guaranteed. For that, we make the hypothesis that the benefits that can bring such operations are directly linked to the amount of similar IOCs on each database.\\
 Thus we need to find a way to get the intersection or the cardinality of the intersection of these two databases without leaking any other information. Fortunately for us, there exist algorithms for that called Secure two-party computation.\\
@@ -554,7 +554,7 @@ Hereandafter the values of the rules generated are considered as the concatenati
 	\label{IOC-To-Rule}
 \end{center}
 \end{figure}
-\improvement{Not Combined IOCs But RELATED}
+\improvement[inline]{Not Combined IOCs But RELATED}
 
 Rules, as created, can be directly checked on computers but they do not fit with our model yet as every value are still in clear. To solve this problem, they decided to hash the values concatenation while still keeping the structure (e.g. ip-dst||port) in clear.\\
 The structure is what makes it still usable as it says the user which are the values they need to try against the rule.\\
@@ -634,7 +634,7 @@ The idea was to test the system with log files as I did with the hashstore. Firs
 I thus changed my mind and used logstash and redis to store the parsed log. \\
 It also has the big advantage to be modular and only a new configuration file is needed to parse any other type of log files.\\
 Besides that, I'm storing the data inside a redis queue and polling on it in the script for trying to match a rule. \\
-\improvement{ Add details, schemas, Structure explanation, ...;}
+\improvement[inline]{ Add details, schemas, Structure explanation, ...;}
 
 \subsection{Multiprocessing}
 When there are a lot of logs, doing one by one take too much time, but we can test simultaneously more than one log line at the same time by creating processes.\\
@@ -644,7 +644,7 @@ Also it is important to point out that I've started this by trying to use thread
 In the implementation of Tim van de Kamp et al., for each rule, they created a file to store the rule. \\
 I can understand it in the point of view of a proof of concept but it is a real bad idea as in UNIX systems, each file has a minimum size of 4k. Already with 6300 events each one possessing 153 attributes in average, it is easy to see the problem coming. Moreover, the I/O were really slowing down the system. \\
 These problems were easy to solve. Create a complete CSV file for all rules. But is still not a solution because it would mean that we should load everything in memory even if we don't use everything. That is why I finally chose to have one CSV file per type of IOCs.
-\improvement{Plus de détails}
+\improvement[inline]{Plus de détails}
 
 \subsection{CSV or TSV?}
 This is a really small modification but makes files more readable and avoid existing coma in the data to make the parsing not working.
@@ -689,7 +689,7 @@ Also, this function raises  an error when there is a problem with one IP, in thi
 This is actually how I discovered the IP ranges and also that some IPs are not interesting as a rule as they have the host bit set to one.\\
 
 For the IP ranges, there are two possibilities to handle them, either we create ranges and it matches only if the user try the range (meaning that when trying to match an IP we also need to try to match the different possible ranges) or, we can accept only ranges '/x' where x >23 and for these cases, create the 256 (or less) possible rules.
-The second could be really inefficient due to the high number of generated rules. While the second one would approximately double the time for each match while only considering the range /24 and could not accept the ranges between 24 and 32.\improvement{CHOOSE ONE SOLUTION AND IMPLEMENT IT}
+The second could be really inefficient due to the high number of generated rules. While the second one would approximately double the time for each match while only considering the range /24 and could not accept the ranges between 24 and 32.\improvement[inline]{CHOOSE ONE SOLUTION AND IMPLEMENT IT}
 
 
 \subsection{Only PBKDF2}
@@ -740,7 +740,7 @@ In the original paper, the authors where using the Course Of Action (COA) for th
 Therefore, my choice was to use a message that allows to retrieve the attributes and events on MISP and fetch the needed information. This has two advantages, the first one is to only allows to know that an element is known by \textbf{someone} using MISP which is really important for the privacy. Then to get back information we need to connect to MISP where all authorisations are checked by the standard system.\\
 The second one to allow the analyst to make correlations and to improve the existing analyses.\\
 
-Another point is that the major interest of this system would be to mix rules from different MISP instances. But for that, we need to be able to identify the different instances thanks to a universal unique identifier for the instances. After discussing it with CIRCL, It will normaly be soon implemented.\improvement{Modifiy the message} \\
+Another point is that the major interest of this system would be to mix rules from different MISP instances. But for that, we need to be able to identify the different instances thanks to a universal unique identifier for the instances. After discussing it with CIRCL, It will normaly be soon implemented.\\\todo[inline]{Modifiy the message}
 
 Besides that, not every user need the same message, so the message can be modified with the top configuation file.\\
 The argument 'rules->message' can be associated with the attributes (separated by a space) contained by MISP attributes like : "uuid event\_id date".
@@ -748,7 +748,7 @@ The argument 'rules->message' can be associated with the attributes (separated b
 \subsection{Add a rule}
 After having created the MISP rules, if we want to add new ones, we can do it thanks to the addIOC script.\\
 We then, can choose to specify the rule directly inside the terminal or via a CSV file located in the 'res' folder.\\
-This need to be used carefully as no verifications are made on the rule. Checking every new IOC if it already exists would have been really too time consuming.\improvement{Perhaps allow to do it in an argument}
+This need to be used carefully as no verifications are made on the rule. Checking every new IOC if it already exists would have been really too time consuming.\improvement[inline]{Perhaps allow to do it in an argument}
 
 \subsection{Update Rules}
 After all that, if we want to make rules hard to bruteforce, it makes them long to generate as well. This is why we need the capability of updating the rules with the recent IOCs.\\
@@ -896,7 +896,7 @@ This explanation will be separated into the read, match and crypto part as crypt
 	\label{code2flow-readMisp}
 \end{center}
 \end{figure}
-\improvement{Regenerates for csv}
+
 ReadMisp (fig. \ref{code2flow-readMisp}) will first retrieve the data, either via the web API, the MySQL connection or directly from csv (located in the res folder). The advantage of the MySQL is the speed for two reasons, first, there is no data transformation as we request the data as it is stored and secondly, in general, the MySQL server is accessible only from the server which means that there is less network delay.\\
 On the flow chart, we can also see the function printv which is a call to print only if the program runs in verbose mode.\\
 Once the IOCs available, the attributes are parsed and the message is created. The message is the important information as it is that that actually identifies the threat and allows the user to connect himself to MISP and get back all information related to the event.\\
@@ -988,7 +988,7 @@ We also see that in this particular case, the major part of the time is taken by
 \end{center}
 \end{figure}
 
-The memory graph we can see that the highest level (on the right) is approximately at 200MB used for 27663 rules. This does not vary with the number of iterations.\\ \improvement{Analyze the increase of memory in function of the number of rules !}
+The memory graph we can see that the highest level (on the right) is approximately at 200MB used for 27663 rules. This does not vary with the number of iterations.\\ \improvement[inline]{Analyze the increase of memory in function of the number of rules !}
 
 \subsection{Profile of ReadMisp for 1000 iteration}
 
@@ -1047,7 +1047,7 @@ This cache is so fast that the bloomy overhead does not appear any more on the p
 The ideas have been explained, in the first few sections, then the implementation had been explained followed by profiles that help understand the behavior of the system and how the computation power is used inside the system. Now it is time to see how it is working with real data, what would be the right parameters to use and why these choices. Moreover, this is in this section that we could analyse if the goal had been totally reached, reached for some part and decide if it can or cannot be used in real implementations.\\
 This is important as we are aware of the benefits that it could have but we must stay aware of the risk of that exposure on which a system like this one could lead.\\
 
-\improvement{Do all needed analyzes; ajouter brute force de string avec bcrypt => explain expo and why not here}
+\improvement[inline]{Do all needed analyzes; ajouter brute force de string avec bcrypt => explain expo and why not here}
 
 \subsection{General Discussion}
 The standard implementation had already been assessed in the paper  but there is something quite new which is the use of the bloom filters inside the implementation.\\
@@ -1066,12 +1066,13 @@ With a bloom filter we can therefore increase the match efficienty for a standar
 So in this case, what is important is to benchmark the time used to generate a rule in function of the iterations number or of the algorithm used. The space memory needed for the rule. The time used for testing an element against a rule.\\
 And this, with or without bloom filters. Then it is also important to assess the advantage of the bloomy implementation in function of the number of available rules, the number of iterations and especially the false positive rate used.
 
-\subsection{Time for creating a rule}
+\subsection{Key Derivation Functions}
+In rules generation and matching algorithm, the KDF is the most costly function. For this raison, I've decided to analyse their behavior in function of the length of the initial value as well as the time complexity used (iterations or rounds).\\
+\subsubsection{PBKDF2}
+\todo[inline]{Add element}
+\subsubsection{Bcrypt}
+\todo[inline]{Add element}
 
-\subsection{Space consumed by a rule}
-
-\subsection{Normal lookup}
-In function of the techno used
 
 \subsection{Bloomy efficiency}
 
@@ -1080,6 +1081,20 @@ As finding a range in data like IPs and generate data in that range is quite dif
 Another advantage of using the IPs it that their lengths does not varies a lot.\\
 
 For testing, I've thus chosen 192.168.0.0/16 network range in order to get 65 536 IPs. Than ...
+\todo[inline]{Add Graphs: en fonction des iteration, en fonction du nb ip}
+\todo[inline]{Add Interpretation}
+
+\section{Results}
+\improvement[inline]{Explain the benchmark in for the results}
+\subsection{Time for creating a rule}
+Consider that we always add the token to the value
+UserWarning: Warning: bcrypt.kdf() called with only 1 round(s). This few is not secure: the parameter is linear, like PBKDF2.
+\subsection{Space consumed by a rule}
+
+\subsection{Normal lookup}
+In function of the techno used
+
+
 
 
 \section{Security Discussion}
@@ -1091,6 +1106,7 @@ Must be dimensioned carefully !!!
 \item additional crypto systems
 \item additional benchmark
 \item hide the number of element by adding false unmatchable rules ?  = delay
+\item Avoid parallelisation (regenerating for each new rules (makes all genereated key important)
 \end{itemize}
 
 
