@@ -18,9 +18,9 @@ def start(name='ip_iterations_bruteforce'):
     stepIP = 100
     stepIterations = 100
     stepFP = .1
-    maxIP = 1000
-    maxIterations = 1000
-    maxFP = .9
+    maxIP = 301
+    maxIterations = 301
+    maxFP = 1
 
     rangeFP = [FP + stepFP*x for x in range(int((maxFP - FP)/stepFP))]
     print('Start Bloomy benchmark')
@@ -33,8 +33,8 @@ def start(name='ip_iterations_bruteforce'):
         f.write("nIP,iterations,rate, pbkdf2, bloomy\n")
         for nIP in range(nIPs, maxIP, stepIP):
             # Generate IPs
-            print("Genereate IPs")
-            createNRandomIPRes(nIPs)
+            print("Generate IPs")
+            createNRandomIPRes(nIP)
             for iterations in range(nIterations, maxIterations, stepIterations):
                 # Set Config
                 configSet('pbkdf2', 'ipiterations', iterations)

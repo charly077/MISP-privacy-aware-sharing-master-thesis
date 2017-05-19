@@ -74,6 +74,7 @@ def createNRandomIP(N):
     return IPs
 
 def createNRandomIPRes(N):
+    print("AIOUIEGFUYFIEZVGDIOHVJGAEHIHVGCVHIHVCGVHIV" +str(N))
     if N > 20*256/2:
         print("N exceeds the maximum value")
         sys.exit(1)
