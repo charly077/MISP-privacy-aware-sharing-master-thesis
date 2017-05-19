@@ -14,15 +14,12 @@ import configparser
 def start(name='ip_iterations_bruteforce'):
     nIPs = 100
     nIterations = 100
-    FP = .1
     stepIP = 100
     stepIterations = 100
-    stepFP = .1
-    maxIP = 301
-    maxIterations = 301
-    maxFP = 1
+    maxIP = 1001
+    maxIterations = 1001
 
-    rangeFP = [FP + stepFP*x for x in range(int((maxFP - FP)/stepFP))]
+    rangeFP = [0.2, 0.4, 0.6]
     print('Start Bloomy benchmark')
     configurationSave()
     # Configuration:

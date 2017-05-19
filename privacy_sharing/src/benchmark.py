@@ -14,6 +14,7 @@ def kdf():
     import benchmark.kdf as kdf
     kdf.start()
 
+
 # Simple execution like in the article
 
 ## Lookup in function of the number of contained IP

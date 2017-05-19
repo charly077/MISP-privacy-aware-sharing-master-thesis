@@ -62,7 +62,10 @@ def values():
     val = 'a'
     yield val
     for i in range(70):
-        val += chr(ord(val)+1)
+        try:
+            val += chr(ord(val)+1)
+        except:
+            val = 'a'
         yield val
 
 def start(name='kdf'):
@@ -78,10 +81,10 @@ def start(name='kdf'):
             pbRes.write('Length,Iterations,Time')
             bcryptRes.write('Length,Rounds,Time')
             for val in values():
-                for i in range(1,200):
-                    time = timeit.timeit('kdf()', pbkdf2_setup(val, i), number=10)/10
+                for i in range(1,100):
+                    time = timeit.timeit('kdf()', pbkdf2_setup(val, i), number=5)/5
                     pbRes.write('\n'+ str(len(val)) + ',' + str(i) + ',' + str(time))
-                    time = timeit.timeit('kdf()', bcrypt_setup(val, i), number=10)/10
+                    time = timeit.timeit('kdf()', bcrypt_setup(val, i), number=5)/5
                     bcryptRes.write('\n'+ str(len(val)) + ',' + str(i) + ',' + str(time))
                     pbRes.flush()
                     bcryptRes.flush()
