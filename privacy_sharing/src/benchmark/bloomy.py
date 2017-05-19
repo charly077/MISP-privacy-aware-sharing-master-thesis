@@ -10,6 +10,18 @@ from configuration import configSet, configurationSave, configurationReset
 import timeit
 import configparser
 
+<<<<<<< HEAD
+nIPs = 100
+nIterations = 100
+FP = .1
+stepIP = 100
+stepIterations = 100
+stepFP = .1
+maxIP = 1000
+maxIterations = 1000
+maxFP = .9
+=======
+>>>>>>> ff2dc9034cf66a580131474d41e576feabf4f096
 
 def start(name='ip_iterations_bruteforce'):
     nIPs = 100
