@@ -63,7 +63,7 @@ src/ contains all the source files
 
 # Setup
 - Install python3 and pip3
-- apt-get install libmysqlclient-dev build-essential libssl-dev libffi-dev python-dev libpng-dev libfreetype6-dev
+- apt-get install libmysqlclient-dev build-essential libssl-dev libffi-dev python-dev libpng-dev
 - pip3 install -r requirements.txt
 
 If there is a problem with matplotlib asking for freetype there are two possibilites (the first one should be prefered as the second can damage to the system!):
