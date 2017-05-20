@@ -46,7 +46,7 @@ plt.plot(rateFP, values)
 
 plt.xlabel('Bloom Filter False Positive rate')
 plt.ylabel('Time (s)')
-plt.title('Impact of the Bloom Filter False {0-10}Positive rate (Bloomy_)PBKDF2 for 200 iterations with 200 rules')
+plt.title('Impact of the Bloom Filter False Positive rate (Bloomy_)PBKDF2 for 200 iterations with 200 rules')
 plt.grid(True)
 plt.savefig("(Bloomy)PBKDF2-FPrate(200-200).png")
 plt.show()
@@ -77,31 +77,31 @@ for row in results:
     # X axis
     n = int(row['nIP'])
     if n not in x:
-        x.appenfd(n)
+        x.append(n)
 
     # Y axis
     if int(row['iterations'])==200 :
-        rate = int(row['rate'])
-        if   rate == 0.1:
-            pbkdf2.append(int(row['pbkdf2']))
-        elif rate == 0.2:
-            bloomy02.append(int(row['bloomy']))
+        rate = float(row['rate'])
+        if rate == 0.2:
+            pbkdf2.append(float(row[' pbkdf2']))
+            bloomy02.append(float(row[' bloomy']))
         elif rate == 0.4:
-            bloomy04.append(int(row['bloomy']))
+            bloomy04.append(float(row[' bloomy']))
         elif rate == 0.6:
-            bloomy06.append(int(row['bloomy']))
+            bloomy06.append(float(row[' bloomy']))
 
 plt.figure(2)
-plt.plot(x, pbkdf2, label='pbkdf2')
-plt.plot(x, bloomy02, label='pbkdf2 - BF FP 0.2')
-plt.plot(x, bloomy04, label='pbkdf2 - BF FP 0.4')
-plt.plot(x, bloomy06, label='pbkdf2 - BF FP 0.6')
+nb, = plt.plot(x, pbkdf2, label='pbkdf2')
+b02, = plt.plot(x, bloomy02, label='pbkdf2 - BF FP 0.2')
+b04, = plt.plot(x, bloomy04, label='pbkdf2 - BF FP 0.4')
+b06, = plt.plot(x, bloomy06, label='pbkdf2 - BF FP 0.6')
 
 
 plt.xlabel('Number of ip-dst rules')
 plt.ylabel('Time (s)')
-plt.title('Impact of the number of IP rules on (Bloomy_)PBKDF2 for 200 iterations on 192.168.{0-10}.0/24')
+plt.title('Impact of the number of IP rules on (Bloomy_)PBKDF2 for 200 iterations (192.168.{0-10}.0/24)')
 plt.grid(True)
+plt.legend(handles=[nb, b06, b04, b02])
 plt.savefig("(Bloomy)PBKDF2-numberIP.png")
 plt.show()
 
@@ -119,31 +119,31 @@ for row in results:
     # X axis
     n = int(row['iterations'])
     if n not in x:
-        x.appenfd(n)
+        x.append(n)
 
     # Y axis
     if int(row['nIP'])==200 :
-        rate = int(row['rate'])
-        if   rate == 0.1:
-            pbkdf2.append(int(row['pbkdf2']))
-        elif rate == 0.2:
-            bloomy02.append(int(row['bloomy']))
+        rate = float(row['rate'])   
+        if rate == 0.2:
+            pbkdf2.append(float(row[' pbkdf2']))
+            bloomy02.append(float(row[' bloomy']))
         elif rate == 0.4:
-            bloomy04.append(int(row['bloomy']))
+            bloomy04.append(float(row[' bloomy']))
         elif rate == 0.6:
-            bloomy06.append(int(row['bloomy']))
+            bloomy06.append(float(row[' bloomy']))
 
 plt.figure(3)
-plt.plot(x, pbkdf2, label='pbkdf2')
-plt.plot(x, bloomy02, label='pbkdf2 - BF FP 0.2')
-plt.plot(x, bloomy04, label='pbkdf2 - BF FP 0.4')
-plt.plot(x, bloomy06, label='pbkdf2 - BF FP 0.6')
+nb, = plt.plot(x, pbkdf2, label='pbkdf2')
+b02, = plt.plot(x, bloomy02, label='pbkdf2 - BF FP 0.2')
+b04, = plt.plot(x, bloomy04, label='pbkdf2 - BF FP 0.4')
+b06, = plt.plot(x, bloomy06, label='pbkdf2 - BF FP 0.6')
 
 
-plt.xlabel('Number of iterations rules')
+plt.xlabel('Number of iterations')
 plt.ylabel('Time (s)')
-plt.title('Impact of the number of iterations on (Bloomy_)PBKDF2 for 200 IP rules on 192.168.{0-10}.0/24')
+plt.title('Impact of the number of iterations on (Bloomy_)PBKDF2 for 200 IP rules (192.168.{0-10}.0/24)')
 plt.grid(True)
+plt.legend(handles=[nb, b06, b04, b02])
 plt.savefig("(Bloomy)PBKDF2-numberiterations.png")
 plt.show()
 

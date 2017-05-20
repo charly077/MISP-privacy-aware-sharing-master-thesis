@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.29)  20 MAY 2017 12:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.29)  20 MAY 2017 15:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1621,31 +1621,36 @@ Underfull \hbox (badness 10000) in paragraph at lines 1074--1075
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1086
+Underfull \hbox (badness 10000) in paragraph at lines 1085--1087
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1099--1100
+Underfull \hbox (badness 10000) in paragraph at lines 1094--1097
 
  []
 
-[47] [48]
+[47]
+Underfull \hbox (badness 10000) in paragraph at lines 1110--1111
+
+ []
+
+[48]
 Chapter 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1116--1120
+Underfull \hbox (badness 10000) in paragraph at lines 1127--1131
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1121--1125
+Underfull \hbox (badness 10000) in paragraph at lines 1132--1136
 
  []
 
 [49
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 1133--1137
+Underfull \hbox (badness 10000) in paragraph at lines 1144--1148
 
  []
 
@@ -1704,38 +1709,38 @@ File: uni-33.def 2013/05/13 UCS: Unicode data U+2100..U+21FF
 
 
 
-Package xcolor Warning: Incompatible color definition on input line 1155.
+Package xcolor Warning: Incompatible color definition on input line 1166.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1155.
+Package xcolor Warning: Incompatible color definition on input line 1166.
 
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <9> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 1155.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 1166.
 
-Package xcolor Warning: Incompatible color definition on input line 1155.
+Package xcolor Warning: Incompatible color definition on input line 1166.
 
 
-Overfull \hbox (1.90796pt too wide) in paragraph at lines 1155--1156
+Overfull \hbox (1.90796pt too wide) in paragraph at lines 1166--1167
  [][][] 
  []
 
 [54
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1160.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1160.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1171.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1171.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1160.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1160.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1171.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1171.
 
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D7342B1E099E4BA0FFE10272F91769AA;4886.
  ) 
 Here is how much of TeX's memory you used:
- 20790 strings out of 493014
- 379869 string characters out of 6133351
- 489389 words of memory out of 5000000
- 23532 multiletter control sequences out of 15000+600000
+ 20808 strings out of 493014
+ 380193 string characters out of 6133351
+ 491985 words of memory out of 5000000
+ 23544 multiletter control sequences out of 15000+600000
  100746 words of font info for 136 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,15n,80p,824b,862s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1760,10 +1765,10 @@ lic/lm/lmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt
 10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></us
 r/local/texlive/2016/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local
 /texlive/2016/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on report.pdf (55 pages, 3431275 bytes).
+Output written on report.pdf (55 pages, 3433561 bytes).
 PDF statistics:
- 966 PDF objects out of 1000 (max. 8388607)
- 839 compressed objects within 9 object streams
- 226 named destinations out of 1000 (max. 500000)
+ 973 PDF objects out of 1000 (max. 8388607)
+ 846 compressed objects within 9 object streams
+ 232 named destinations out of 1000 (max. 500000)
  28341 words of extra memory for PDF output out of 29859 (max. 10000000)
 

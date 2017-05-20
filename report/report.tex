@@ -1044,7 +1044,7 @@ While we can clearly see the advantage of the system in the figure \ref{profile-
 
 In this case, we can realise that there is a problem with the implementation, as I tried to have a modular implementation and doing everything inside the modules, it does not always goes well with the system. Here, for one attribute, whatever the result of the bloom filter for one rule it will test the bloom filter for every different rules. This is really bad as the bloom filter is not related to the rule but only to the attribute tested. To solve this problem a cache must be implemented. The first cache implementation already improved the system but was really bad as I was a dictionnary of matched values.\\
 There are two problems with that, first, to put the orderedDictionary as a key, we need to transform that into a string. And then add it to the cache.\\
-But for a matching, we each time need to transform the value to a string and while checking the dictionary it actually hash the string attribute. All that was taking a way too much time and I finally opted for a simple but nevertheless efficient implementation with only a two cache variables, the last OrderedDIctionary representing the attribute to check with the last bloom filter result.\\
+But for a matching, we each time need to transform the value to a string and while checking the dictionary it actually hash the string attribute. All that was taking a way too much time and I finally opted for a simple but nevertheless efficient implementation with only a two cache variables, the last OrderedDictionary representing the attribute to check with the last bloom filter result.\\
 This cache is so fast that the bloomy overhead does not appear any more on the profiles, the script complete run when bloom filter discover the attribute is not in the set is about 0.16s.\\
 
 \section{Benchmarking}
@@ -1071,7 +1071,9 @@ So in this case, what is important is to benchmark the time used to generate a r
 And this, with or without bloom filters. Then it is also important to assess the advantage of the bloomy implementation in function of the number of available rules, the number of iterations and especially the false positive rate used.
 
 \subsection{Key Derivation Functions}
-In rules generation and matching algorithm, the KDF is the most costly function. For this raison, I've decided to analyse their behavior in function of the length of the initial value as well as the time complexity used (iterations or rounds).\\
+In rules generation and matching algorithm, the KDF is the most costly function. For this raison, I've decided to analyse their behaviour in function of the length of the initial value as well as the time complexity used (iterations or rounds).\\
+
+\todo[inline]{Explain that the size has no impact}
 \subsubsection{PBKDF2}
 \todo[inline]{Add element}
 \subsubsection{Bcrypt}
@@ -1079,6 +1081,15 @@ In rules generation and matching algorithm, the KDF is the most costly function.
 
 
 \subsection{Bloomy efficiency}
+
+Bloom filters are really efficient and used in this context, they allow to make the matching system a way faster. To characterise this improvement, I need to find comparable data.\\
+Comparable mean data that are approximately of the same size as well as easily generalisable. It could have been strings of a fixed size n with a smaller alphabet like \{a,b,c\}. But I have chosen IPv4 to use this benchmark as well to analyse the feasibility of  bruteforcing them.\\
+
+The written benchmark was orignaly created and launched on a virtual private server hosted in France where I ran during a few days before I realise there were an error in the code and that I needed to start over. Then after that I ran into trouble with the instance and reinstalling didn't worked correctly.\\
+The final benchmark were than ran on an old computer with 4GB of RAM and and intel i7 processor.\\
+I've tested with it the PKBDF2 module and its bloomy mode for different False Positive (FP) Rate with increasing number of ip-dst (destination IP) rules and and increasing number of iterations.
+\todo[inline]{Continue HERE}
+
 
 For testing the bloomy implementation I've not a lot of choice than doing some range bruteforcing on some data.
 As finding a range in data like IPs and generate data in that range is quite difficult, I've decided to focus on on IPs. This has for advantage to express the disadvantage as well as the advantage of the system at the same time.\\
@@ -1094,18 +1105,18 @@ For testing, I've thus chosen 192.168.0.0/16 network range in order to get 65 53
 \subsection{Time for creating a rule}
 Consider that we always add the token to the value
 UserWarning: Warning: bcrypt.kdf() called with only 1 round(s). This few is not secure: the parameter is linear, like PBKDF2.
-
+\todo[inline]{Faire cette partie}
 \subsection{Space memory of a rule rule}
 Bloom filter are used to decrease the space memory consumption while memorising the membership of big dataset. Here instead of focusing on that, the goal was to keep every element and transform them in an other format that needs information and cryptographic computations to read them.\\
 
 This lead me to add salts, nonces (IV) and message on top of that. This has a big impact on memory as the elements are not remembered anymore, but the value is only used to encrypt the message.\\
 \improvement[inline]{Do the article use both as well ?}
-
+\todo[inline]{Continue this part}
 With that, the size of a rule is nearly a constant as it only depends on the size of the message.
 
 
 \subsection{Lookup and Bruteforce}
-
+\todo[inline]{Analyse benchmark and make the comparison}
 
 
 \chapter{Conclusion}
@@ -1144,7 +1155,7 @@ One other major advantage of this implementation is also this relaxation in the 
 
 
 \section{Acknowledgements}
-
+\todo[inline]{TODO}
 
 \newpage
 \bibliographystyle{acm-doi}

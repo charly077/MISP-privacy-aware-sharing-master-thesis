@@ -63,12 +63,12 @@
 \contentsline {section}{\numberline {6.3}Benchmarking}{46}{section.6.3}
 \contentsline {subsection}{\numberline {6.3.1}General Discussion}{46}{subsection.6.3.1}
 \contentsline {subsection}{\numberline {6.3.2}Key Derivation Functions}{47}{subsection.6.3.2}
-\contentsline {subsubsection}{PBKDF2}{47}{section*.16}
-\contentsline {subsubsection}{Bcrypt}{47}{section*.18}
+\contentsline {subsubsection}{PBKDF2}{47}{section*.17}
+\contentsline {subsubsection}{Bcrypt}{47}{section*.19}
 \contentsline {subsection}{\numberline {6.3.3}Bloomy efficiency}{47}{subsection.6.3.3}
-\contentsline {section}{\numberline {6.4}Rules}{47}{section.6.4}
-\contentsline {subsection}{\numberline {6.4.1}Time for creating a rule}{47}{subsection.6.4.1}
-\contentsline {subsection}{\numberline {6.4.2}Space memory of a rule rule}{47}{subsection.6.4.2}
+\contentsline {section}{\numberline {6.4}Rules}{48}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Time for creating a rule}{48}{subsection.6.4.1}
+\contentsline {subsection}{\numberline {6.4.2}Space memory of a rule rule}{48}{subsection.6.4.2}
 \contentsline {subsection}{\numberline {6.4.3}Lookup and Bruteforce}{48}{subsection.6.4.3}
 \contentsline {chapter}{\numberline {7}Conclusion}{49}{chapter.7}
 \contentsline {section}{\numberline {7.1}Further Work}{49}{section.7.1}
