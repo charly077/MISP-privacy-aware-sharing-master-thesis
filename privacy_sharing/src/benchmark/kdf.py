@@ -37,15 +37,13 @@ def pbkdf2_setup(val, it):
 # Setup for Bcrypt #
 ####################
 setupStartBcrypt = '''
-from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives import hashes
 import hashlib, os, bcrypt
-digest = hashes.Hash(hashes.SHA256(), backend=default_backend())
 bsalt = os.urandom(hashlib.new('sha256').digest_size)
-digest.update('''
-#bpassword
-afterValueBcrypt = ''')
-token_pass = digest.finalize()
+token_pass = '''
+
+
+afterValueBcrypt = '''
+
 def kdf():
     key =  bcrypt.kdf(password = token_pass, 
                 salt = bsalt,
@@ -61,11 +59,11 @@ def bcrypt_setup(val, round):
 def values():
     val = 'a'
     yield val
-    for i in range(70):
+    for i in range(10000):
         try:
-            val += chr(ord(val)+1)
+            val += chr(ord(val[-1])+1)
         except:
-            val = 'a'
+            val += 'a'
         yield val
 
 def start(name='kdf'):
@@ -81,10 +79,11 @@ def start(name='kdf'):
             pbRes.write('Length,Iterations,Time')
             bcryptRes.write('Length,Rounds,Time')
             for val in values():
-                for i in range(1,100):
-                    time = timeit.timeit('kdf()', pbkdf2_setup(val, i), number=5)/5
-                    pbRes.write('\n'+ str(len(val)) + ',' + str(i) + ',' + str(time))
+                for i in range(1,101):
+                    time = timeit.timeit('kdf()', pbkdf2_setup(val, 10*i), number=5)/5
+                    pbRes.write('\n'+ str(len(val)) + ',' + str(10*i) + ',' + str(time))
                     time = timeit.timeit('kdf()', bcrypt_setup(val, i), number=5)/5
+                    print(bcrypt_setup(val, i))
                     bcryptRes.write('\n'+ str(len(val)) + ',' + str(i) + ',' + str(time))
                     pbRes.flush()
                     bcryptRes.flush()

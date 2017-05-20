@@ -341,9 +341,13 @@ This kind of secure two-party computations are used a lot and is also used in so
 Now that we see more concretely what is information sharing, a good question is to understand how it is used in nowadays system. In MISP, it has mainly two utilities. The first one is to be able to gather the information of more team that could work on similar incidents and make them collaborate on their searches.\\
 The second one is about directly protecting computer systems by using the information the user has access to create rules for an Intrusion Detection System (IDS) like Snort, Suricata or Bro. These IDS rules can be directly generated inside MISP. The contribution of this master thesis would be to be able to create rules for events that the user could not have direct access as he could not directly get back information from the rule.\\
 These rules also work in Intrusion Prevention System (IPS) but it is still important to consider the IDS version with the analyse of network logs in the system. This is useful as sometimes the information of an attack is known after the attack and if it went undetected perhaps the attacker is still on the system and we need to know it as soon as possible.\\
-Today the estimation is that the mean time an attacker stay on a system before being detected is of about 200 days which can have dramatic financial consequences but also mostly on the clients' trust (Considered as the biggest cost by the Ponemon Institute).
+Today the estimation is that the mean time an attacker stay on a system before being detected is of about 200 days which can have dramatic financial consequences but also mostly on the clients' trust (Considered as the biggest cost by the Ponemon Institute).\\
 
-
+After all these techniques, Privacy-Preserving Record Linkage (PPRL) gather a set of techniques ( including all previously explained techniques ) that are even closer to this work goal. As defined by \cite{vatsalanprivacy}, a recent state of the art, Privacy-preserving record linkage (PPRL) aims to address this problem [ concerning impede sharing or exchanging data for linkage across different organizations ] by identifying and linking records that correspond to the same real-world entity across several data sources held by different parties without revealing any sensitive information about these entities.\\
+Even if it is more used in public health surveillance, it is also used for crime and fraud detection.\\
+The article is a long survey of 36 pages that first explain the background knowledges required to understand the applications, process, and challenges of PPRL before presenting all existing PPRL approaches and researchs.\\
+This article present nearly all what would be needed to achieve this work goal in different manners and could bring a lot of different ideas to implement MISP sharing in other privacy aware manners.\\
+On the other hand, this master thesis focused on sharing directly the information to gather a protected dataset while PPRL more focus on direct record linkage by linking databases of different organisations. This approach is really important as well and should be considered as a further work.
 
 \section{Standards}
 As we want organisations to share threat information, we need them to "speak the same language" or more formally, to use the same standards.\\
@@ -729,7 +733,7 @@ The used structure is as following:
 \item rules: Rules generated.
 \end{itemize}
 
-Inside src, there is also a crypto subdirectory in which are located all cryptographic functions in the different possible schemes implemented.
+Inside src, there is also a crypto subdirectory in which are located all cryptographic functions in the different possible modules implemented.
 
 \subsection{Top Configuration File}
 Instead of having a lot of configuration files as when I started, I've gathered them back in one general file where we only have to fill what will be used (Specified in function).\\
@@ -757,7 +761,7 @@ First, a new metadata file is generated in the 'res' folder and keeps track of t
 The csv events are then transformed into rules and added to existing ones before finally updating the metadata file with the new last date.
 
 \section{Chosen Cryptographic System}
-The idea of the generalisation was to add modules for handling the way data are stored/encrypted, we can use completely different cryptographic systems later called schemes. In this section, I will discuss my implementation choices for each scheme implemented.
+The idea of the generalisation was to add modules for handling the way data are stored/encrypted, we can use completely different cryptographic systems later called modules. In this section, I will discuss my implementation choices for each implemented scheme.
 
 \subsection{PBKDF2}
 This is the basic system for which all the structure had been optimised and had been thought for. In this section, I will thus briefly introduce these two sequence diagrams to help the understanding the system:
@@ -1083,31 +1087,63 @@ Another advantage of using the IPs it that their lengths does not varies a lot.\
 For testing, I've thus chosen 192.168.0.0/16 network range in order to get 65 536 IPs. Than ...
 \todo[inline]{Add Graphs: en fonction des iteration, en fonction du nb ip}
 \todo[inline]{Add Interpretation}
-
-\section{Results}
 \improvement[inline]{Explain the benchmark in for the results}
+
+\section{Rules}
+
 \subsection{Time for creating a rule}
 Consider that we always add the token to the value
 UserWarning: Warning: bcrypt.kdf() called with only 1 round(s). This few is not secure: the parameter is linear, like PBKDF2.
-\subsection{Space consumed by a rule}
 
-\subsection{Normal lookup}
-In function of the techno used
+\subsection{Space memory of a rule rule}
+Bloom filter are used to decrease the space memory consumption while memorising the membership of big dataset. Here instead of focusing on that, the goal was to keep every element and transform them in an other format that needs information and cryptographic computations to read them.\\
+
+This lead me to add salts, nonces (IV) and message on top of that. This has a big impact on memory as the elements are not remembered anymore, but the value is only used to encrypt the message.\\
+\improvement[inline]{Do the article use both as well ?}
+
+With that, the size of a rule is nearly a constant as it only depends on the size of the message.
+
+
+\subsection{Lookup and Bruteforce}
 
 
 
+\chapter{Conclusion}
 
-\section{Security Discussion}
-Must be dimensioned carefully !!! 
+This small chapter is aimed to go through what have been done and what still need to be done.
 
 \section{Further Work}
-\begin{itemize}
-\item Sightings
-\item additional crypto systems
-\item additional benchmark
-\item hide the number of element by adding false unmatchable rules ?  = delay
-\item Avoid parallelisation (regenerating for each new rules (makes all genereated key important)
-\end{itemize}
+This section is aimed to give ideas to continue this work. To be honest, I believe this domain so big and interesting that there will always exist possible improvements and new techniques to test. Although, new papers are flowing as well as current researches.\\
+On this implementation, the major improvement would be to consider the sightings reporting. This would not be too complicated as information needed to report that an element had be seen already exists in the MISP API but it brings some additional challenges as, how could we insure not reporting twice the same sighting while still being anonymous in reporting?\\
+An idea could be to report the sightings by sending the rule seen. By doing that, the MISP instance could check the identity thanks to the token in the request, then he could check that the rule correspond to the IOC and then only saving the timestamp and the ciphertext as the identifier.\\
+With that, while adding a new rule MISP, can avoid adding twice the same, checking that the user is authorized to report a sighting while still preserving its identity from being revealed to other organizations.\\
+
+With the actual implementation additional modules can be easily created to test other techniques of rules generation. The technique that could be the most interesting to implement and to analyse would be a way to avoid parallelisation in matching process. \\
+Now, in the current implementation, if we would like to divide the number of rules in two sets and then to use two matching process on these separate process, we would get the same result in a faster way. To avoid that, and idea could be to make the rules generation dependant on the previously generated rules. This could be easily done like by simply using the decryption of the previous rule in the generation of a new rule.\\
+This could make bruteforce even less efficient but it would make really difficult to create the rules as well as for each new rule, we would need to go through all previously generated ones.\\
+But in this case, the bloomy implementation could be even more efficient.\\
+
+Besides that, this implementation leaks the number of IOCs contained in the system. It is even worst than with bloom filter as in that case, statistic analyses could be done to approximate the number of elements but this leaked information could be minimized with addition of 'false' rules.  These false rules could be generated for example by choosing a random element and creating the rule each time with new salts but instead of encrypting 16 zero bytes before the message, we could use 16 one bytes.\\
+Doing that for padding with rules to always have a multiple of a certain number of rules. Unfortunately, this does not totally hide this information as it would still leaks a range on the number of possible elements.
+
+\improvement[inline]{TODO range IP if no time to implement it}
+
+
+\section{Conclusion}
+This master thesis was working on creating a shareable dataset of threat information while keeping a special focus on need of the combination of trust, privacy and confidentiality.\\
+Unfortunately, I had a lot of difficulties starting this project as I had neither the knowledge nor a concrete goal. But now, I can say that it is really amazing to look at all existing ideas and implementations but also that I badly oriented my search at the beginning and even if I found articles, they were not linked to the right subject but just to subject related on what I was looking for. By luck, putting all them together bring me to succeed in doing what I wanted to do but now that I know better the subject, that I understand the challenges, If I had to start over, I would completely reorient the research thanks to the findings of these the last few months.\\
+For searching information on information sharing, the starting point must be to look at existing tools as it shows exactly the challenges as well as how implementations and researches are directed. This is why this awesome list \cite{AwesomeTreat} could be a really nice starting point.\\
+While on the other side, for the privacy and confidentiality concerns, all needed information and researchs are directly linked to PPRL and the previously cited state of the art \cite{vatsalanprivacy} gives all needed information.\\
+
+This master thesis is thus related to those two broad domains by taking a different approach lead by the paper \cite{van2016private}. I brought with this work an improvement of the of this proof of concept technique as well as a real implementation on a flourishing open source project called Malware Information Sharing Platform and Threat Sharing (MISP).\\
+This implementation succeeded in creating dataset of Indicator Of Compromise (IOC) that can be generated on demand for a specific user. it respects most privacy and confidentiality concerns by obfuscating the data while still allowing it to be decrypted only if the targeted user has the need of the information or information that could enrich analyses.\\
+Matching a specific IOC then gives the user the identifier of the information and, if could then ask permission to access the instance as well as perhaps the permission to get to know the organisation that had seen the indicator.
+One other major advantage of this implementation is also this relaxation in the needed trust for sharing due to the idea of Kim van de Kamp et al. to add an identifier of the user inside the key generation. Thanks to that, the risk of leakage is decreased as the source of the leakage could be identified.\\
+\todo[inline]{Add a small summary on the benchmarking results}
+
+
+
+\section{Acknowledgements}
 
 
 \newpage

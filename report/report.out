@@ -60,9 +60,11 @@
 \BOOKMARK [2][-]{subsection.6.3.1}{General Discussion}{section.6.3}% 60
 \BOOKMARK [2][-]{subsection.6.3.2}{Key Derivation Functions}{section.6.3}% 61
 \BOOKMARK [2][-]{subsection.6.3.3}{Bloomy efficiency}{section.6.3}% 62
-\BOOKMARK [1][-]{section.6.4}{Results}{chapter.6}% 63
+\BOOKMARK [1][-]{section.6.4}{Rules}{chapter.6}% 63
 \BOOKMARK [2][-]{subsection.6.4.1}{Time for creating a rule}{section.6.4}% 64
-\BOOKMARK [2][-]{subsection.6.4.2}{Space consumed by a rule}{section.6.4}% 65
-\BOOKMARK [2][-]{subsection.6.4.3}{Normal lookup}{section.6.4}% 66
-\BOOKMARK [1][-]{section.6.5}{Security Discussion}{chapter.6}% 67
-\BOOKMARK [1][-]{section.6.6}{Further Work}{chapter.6}% 68
+\BOOKMARK [2][-]{subsection.6.4.2}{Space memory of a rule rule}{section.6.4}% 65
+\BOOKMARK [2][-]{subsection.6.4.3}{Lookup and Bruteforce}{section.6.4}% 66
+\BOOKMARK [0][-]{chapter.7}{Conclusion}{}% 67
+\BOOKMARK [1][-]{section.7.1}{Further Work}{chapter.7}% 68
+\BOOKMARK [1][-]{section.7.2}{Conclusion}{chapter.7}% 69
+\BOOKMARK [1][-]{section.7.3}{Acknowledgements}{chapter.7}% 70

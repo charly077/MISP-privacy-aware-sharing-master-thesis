@@ -188,6 +188,11 @@ Url normalization.
 \newblock In {\em Proceedings of the 2016 ACM on Workshop on Information
   Sharing and Collaborative Security\/} (2016), ACM, pp.~35--38.
 
+\bibitem{vatsalanprivacy}
+{\sc Vatsalan, D., Sehili, Z., Christen, P., and Rahm, E.}
+\newblock Privacy-preserving record linkage for big data: Current approaches
+  and research challenges.
+
 \bibitem{wagner2016misp}
 {\sc Wagner, C., Dulaunoy, A., Wagener, G., and Iklody, A.}
 \newblock Misp: The design and implementation of a collaborative threat
