@@ -1084,11 +1084,22 @@ In rules generation and matching algorithm, the KDF is the most costly function.
 
 Bloom filters are really efficient and used in this context, they allow to make the matching system a way faster. To characterise this improvement, I need to find comparable data.\\
 Comparable mean data that are approximately of the same size as well as easily generalisable. It could have been strings of a fixed size n with a smaller alphabet like \{a,b,c\}. But I have chosen IPv4 to use this benchmark as well to analyse the feasibility of  bruteforcing them.\\
+After that, I needed to decide a number of IPs to go through at each step. It needs to be not to small to have precise results but not too much as well to avoid waiting to long for the results. Therefore I have decided to take 10 "/24" ranges which means 2560 IPs. I have chosen to use 192.168.0.0/24 up to 192.168.9.0/24.\\
+Thus for each configuration, the matchRules script ran though all these IPs like a bruteforcing algorithm would have done it.\\
 
-The written benchmark was orignaly created and launched on a virtual private server hosted in France where I ran during a few days before I realise there were an error in the code and that I needed to start over. Then after that I ran into trouble with the instance and reinstalling didn't worked correctly.\\
+The written benchmark was originally created and launched on a virtual private server hosted in France where I ran during a few days before I realise there were an error in the code and that I needed to start over. Then after that I ran into trouble with the instance and reinstalling didn't worked correctly.\\
 The final benchmark were than ran on an old computer with 4GB of RAM and and intel i7 processor.\\
-I've tested with it the PKBDF2 module and its bloomy mode for different False Positive (FP) Rate with increasing number of ip-dst (destination IP) rules and and increasing number of iterations.
-\todo[inline]{Continue HERE}
+I've tested with it the PBKDF2 module and its bloomy mode for different False Positive (FP) Rate with increasing number of ip-dst (destination IP) rules and and increasing number of iterations.\\
+
+As we need to try to decrypt the the whole set of rules in the PBKDF2 module, it is normal that the time increases linearly with the number of IPs in the system. But it is interesting to understand and see the behaviour of the time in function of the number of IPs in the system for the bloomy implementation (fig. \ref{benchmarking:timeips}):
+
+\begin{figure}[h!]
+\begin{center}
+	\includegraphics[scale=0.3]{res/TimeIPs}
+	\label{benchmarking:timeips}
+\end{center}
+\end{figure}
+
 
 
 For testing the bloomy implementation I've not a lot of choice than doing some range bruteforcing on some data.
