@@ -34,10 +34,10 @@
 \contentsline {subsection}{\numberline {5.2.2}Parsing logs}{30}{subsection.5.2.2}
 \contentsline {subsection}{\numberline {5.2.3}Multiprocessing}{31}{subsection.5.2.3}
 \contentsline {subsection}{\numberline {5.2.4}I/O and Rule Size Optimization}{31}{subsection.5.2.4}
-\contentsline {subsection}{\numberline {5.2.5}CSV or TSV?}{31}{subsection.5.2.5}
-\contentsline {subsection}{\numberline {5.2.6}URL Normalisation}{31}{subsection.5.2.6}
+\contentsline {subsection}{\numberline {5.2.5}\gls {csv} or \gls {tsv}?}{31}{subsection.5.2.5}
+\contentsline {subsection}{\numberline {5.2.6}\gls {url} Normalisation}{31}{subsection.5.2.6}
 \contentsline {subsection}{\numberline {5.2.7}IP Normalisation}{32}{subsection.5.2.7}
-\contentsline {subsection}{\numberline {5.2.8}Only PBKDF2}{33}{subsection.5.2.8}
+\contentsline {subsection}{\numberline {5.2.8}Only \gls {pbkdf2}}{33}{subsection.5.2.8}
 \contentsline {subsection}{\numberline {5.2.9}library: Pycrypto towards Cryptography}{33}{subsection.5.2.9}
 \contentsline {subsection}{\numberline {5.2.10}Structure Improvement}{33}{subsection.5.2.10}
 \contentsline {subsection}{\numberline {5.2.11}Top Configuration File}{34}{subsection.5.2.11}
@@ -45,32 +45,31 @@
 \contentsline {subsection}{\numberline {5.2.13}Add a rule}{34}{subsection.5.2.13}
 \contentsline {subsection}{\numberline {5.2.14}Update Rules}{34}{subsection.5.2.14}
 \contentsline {section}{\numberline {5.3}Chosen Cryptographic System}{35}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}PBKDF2}{35}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.1}\gls {pbkdf2}}{35}{subsection.5.3.1}
 \contentsline {subsection}{\numberline {5.3.2}Bcrypt}{36}{subsection.5.3.2}
 \contentsline {subsection}{\numberline {5.3.3}Bloom filter}{36}{subsection.5.3.3}
 \contentsline {subsection}{\numberline {5.3.4}Bloom filter used as to improve performance of Key Derivation Functions}{37}{subsection.5.3.4}
-\contentsline {section}{\numberline {5.4}An other KDF}{38}{section.5.4}
+\contentsline {section}{\numberline {5.4}An other \gls {kdf}}{38}{section.5.4}
 \contentsline {chapter}{\numberline {6}Results}{39}{chapter.6}
 \contentsline {section}{\numberline {6.1}Dataset}{39}{section.6.1}
 \contentsline {section}{\numberline {6.2}Code Profiling}{39}{section.6.2}
 \contentsline {subsection}{\numberline {6.2.1}Code Flow}{39}{subsection.6.2.1}
-\contentsline {subsubsection}{ReadMisp}{40}{section*.11}
-\contentsline {subsubsection}{MatchRules}{40}{section*.12}
-\contentsline {subsubsection}{Crypto Module PBKDF2}{41}{section*.13}
+\contentsline {subsubsection}{ReadMisp}{40}{section*.10}
+\contentsline {subsubsection}{MatchRules}{40}{section*.11}
+\contentsline {subsubsection}{Crypto Module \gls {pbkdf2}}{41}{section*.12}
 \contentsline {subsection}{\numberline {6.2.2}Profile of ReadMisp for 1 iteration}{42}{subsection.6.2.2}
 \contentsline {subsection}{\numberline {6.2.3}Profile of ReadMisp for 1000 iteration}{43}{subsection.6.2.3}
 \contentsline {subsection}{\numberline {6.2.4}Profile of the bloomy\_pbkdf2 module}{43}{subsection.6.2.4}
 \contentsline {section}{\numberline {6.3}Benchmarking}{46}{section.6.3}
 \contentsline {subsection}{\numberline {6.3.1}General Discussion}{46}{subsection.6.3.1}
 \contentsline {subsection}{\numberline {6.3.2}Key Derivation Functions}{47}{subsection.6.3.2}
-\contentsline {subsubsection}{PBKDF2}{47}{section*.17}
-\contentsline {subsubsection}{Bcrypt}{47}{section*.19}
-\contentsline {subsection}{\numberline {6.3.3}Bloomy efficiency}{47}{subsection.6.3.3}
-\contentsline {section}{\numberline {6.4}Rules}{48}{section.6.4}
-\contentsline {subsection}{\numberline {6.4.1}Time for creating a rule}{48}{subsection.6.4.1}
-\contentsline {subsection}{\numberline {6.4.2}Space memory of a rule rule}{48}{subsection.6.4.2}
-\contentsline {subsection}{\numberline {6.4.3}Lookup and Bruteforce}{48}{subsection.6.4.3}
-\contentsline {chapter}{\numberline {7}Conclusion}{49}{chapter.7}
-\contentsline {section}{\numberline {7.1}Further Work}{49}{section.7.1}
-\contentsline {section}{\numberline {7.2}Conclusion}{50}{section.7.2}
-\contentsline {section}{\numberline {7.3}Acknowledgements}{50}{section.7.3}
+\contentsline {subsubsection}{\gls {pbkdf2}}{47}{section*.15}
+\contentsline {subsubsection}{Bcrypt}{47}{section*.16}
+\contentsline {subsection}{\numberline {6.3.3}Bloomy efficiency}{48}{subsection.6.3.3}
+\contentsline {section}{\numberline {6.4}Rules}{49}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Time for creating a rule}{50}{subsection.6.4.1}
+\contentsline {subsection}{\numberline {6.4.2}Space memory of a rule rule}{50}{subsection.6.4.2}
+\contentsline {subsection}{\numberline {6.4.3}Lookup and Bruteforce}{51}{subsection.6.4.3}
+\contentsline {chapter}{\numberline {7}Conclusion}{53}{chapter.7}
+\contentsline {section}{\numberline {7.1}Further Work}{53}{section.7.1}
+\contentsline {section}{\numberline {7.2}Conclusion}{54}{section.7.2}
