@@ -48,7 +48,7 @@ plt.xlabel('Bloom Filter False Positive rate')
 plt.ylabel('Time (s)')
 plt.title('Impact of the Bloom Filter False Positive rate (Bloomy_)PBKDF2 for 200 iterations with 200 rules')
 plt.grid(True)
-plt.savefig("(Bloomy)PBKDF2-FPrate(200-200).png")
+#plt.savefig("(Bloomy)PBKDF2-FPrate(200-200).png")
 plt.show()
 
 
@@ -102,7 +102,7 @@ plt.ylabel('Time (s)')
 plt.title('Impact of the number of IP rules on (Bloomy_)PBKDF2 for 200 iterations (192.168.{0-10}.0/24)')
 plt.grid(True)
 plt.legend(handles=[nb, b06, b04, b02])
-plt.savefig("(Bloomy)PBKDF2-numberIP.png")
+#plt.savefig("(Bloomy)PBKDF2-numberIP.png")
 plt.show()
 
 ################
@@ -144,7 +144,7 @@ plt.ylabel('Time (s)')
 plt.title('Impact of the number of iterations on (Bloomy_)PBKDF2 for 200 IP rules (192.168.{0-10}.0/24)')
 plt.grid(True)
 plt.legend(handles=[nb, b06, b04, b02])
-plt.savefig("(Bloomy)PBKDF2-numberiterations.png")
+#plt.savefig("(Bloomy)PBKDF2-numberiterations.png")
 plt.show()
 
 
