@@ -7,15 +7,15 @@
 \BOOKMARK [2][-]{subsection.2.3.1}{History}{section.2.3}% 7
 \BOOKMARK [2][-]{subsection.2.3.2}{Basics of MISP}{section.2.3}% 8
 \BOOKMARK [2][-]{subsection.2.3.3}{My Settings}{section.2.3}% 9
-\BOOKMARK [2][-]{subsection.2.3.4}{MISP in a few Pictures and Traffic Light Protocol}{section.2.3}% 10
-\BOOKMARK [0][-]{chapter.3}{Information Sharing State of the Art}{}% 11
-\BOOKMARK [1][-]{section.3.1}{Information Sharing}{chapter.3}% 12
-\BOOKMARK [1][-]{section.3.2}{Existing Techniques}{chapter.3}% 13
-\BOOKMARK [1][-]{section.3.3}{Standards}{chapter.3}% 14
-\BOOKMARK [1][-]{section.3.4}{Contextualization}{chapter.3}% 15
-\BOOKMARK [1][-]{section.3.5}{Misp-Worbench - hashstore}{chapter.3}% 16
-\BOOKMARK [1][-]{section.3.6}{Limitation: What could be expected}{chapter.3}% 17
-\BOOKMARK [0][-]{chapter.4}{Standards Ideas}{}% 18
+\BOOKMARK [2][-]{subsection.2.3.4}{MISP in a few Pictures and the Traffic Light Protocol}{section.2.3}% 10
+\BOOKMARK [2][-]{subsection.2.3.5}{Misp-Worbench - hashstore}{section.2.3}% 11
+\BOOKMARK [0][-]{chapter.3}{Information Sharing State of the Art}{}% 12
+\BOOKMARK [1][-]{section.3.1}{Information Sharing}{chapter.3}% 13
+\BOOKMARK [1][-]{section.3.2}{Existing Techniques}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.3}{Standards}{chapter.3}% 15
+\BOOKMARK [1][-]{section.3.4}{Contextualisation}{chapter.3}% 16
+\BOOKMARK [1][-]{section.3.5}{Limitation: What could be expected from this work}{chapter.3}% 17
+\BOOKMARK [0][-]{chapter.4}{Implementation Concepts}{}% 18
 \BOOKMARK [1][-]{section.4.1}{Bloom Filters}{chapter.4}% 19
 \BOOKMARK [2][-]{subsection.4.1.1}{Data Structure}{section.4.1}% 20
 \BOOKMARK [2][-]{subsection.4.1.2}{False Positive Rate}{section.4.1}% 21
