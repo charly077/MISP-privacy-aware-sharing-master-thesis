@@ -35,7 +35,7 @@
 \BOOKMARK [2][-]{subsection.5.2.4}{I/O and Rule Size Optimization}{section.5.2}% 35
 \BOOKMARK [2][-]{subsection.5.2.5}{csv or tsv?}{section.5.2}% 36
 \BOOKMARK [2][-]{subsection.5.2.6}{url Normalisation}{section.5.2}% 37
-\BOOKMARK [2][-]{subsection.5.2.7}{IP Normalisation}{section.5.2}% 38
+\BOOKMARK [2][-]{subsection.5.2.7}{ip Normalisation}{section.5.2}% 38
 \BOOKMARK [2][-]{subsection.5.2.8}{Only pbkdf2}{section.5.2}% 39
 \BOOKMARK [2][-]{subsection.5.2.9}{library: Pycrypto towards Cryptography}{section.5.2}% 40
 \BOOKMARK [2][-]{subsection.5.2.10}{Structure Improvement}{section.5.2}% 41
@@ -63,7 +63,8 @@
 \BOOKMARK [1][-]{section.6.4}{Rules}{chapter.6}% 63
 \BOOKMARK [2][-]{subsection.6.4.1}{Time for creating a rule}{section.6.4}% 64
 \BOOKMARK [2][-]{subsection.6.4.2}{Space memory of a rule rule}{section.6.4}% 65
-\BOOKMARK [2][-]{subsection.6.4.3}{Lookup and Bruteforce}{section.6.4}% 66
-\BOOKMARK [0][-]{chapter.7}{Conclusion}{}% 67
-\BOOKMARK [1][-]{section.7.1}{Further Work}{chapter.7}% 68
-\BOOKMARK [1][-]{section.7.2}{Conclusion}{chapter.7}% 69
+\BOOKMARK [2][-]{subsection.6.4.3}{Lookup}{section.6.4}% 66
+\BOOKMARK [2][-]{subsection.6.4.4}{Bruteforce}{section.6.4}% 67
+\BOOKMARK [0][-]{chapter.7}{Conclusion}{}% 68
+\BOOKMARK [1][-]{section.7.1}{Further Work}{chapter.7}% 69
+\BOOKMARK [1][-]{section.7.2}{Conclusion}{chapter.7}% 70

@@ -49,11 +49,16 @@
 \newacronym{csv}{CSV}{Comma-separated values}
 \newacronym{tsv}{TSV}{Tabulation-separated values}
 \newacronym{url}{URL}{Uniform Resource Locator}
-\newacronym{ipv4}{IPv4}{Internet Address version 4}
-\newacronym{ipv6}{IPv6}{Internet Address version 6}
+\newacronym{ipv4}{IPv4}{Internet Protocol version 4}
+\newacronym{ipv6}{IPv6}{Internet Protocol version 6}
 \newacronym{uuid}{UUID}{Unique Universal Indentifier}
 \newacronym{fp}{FP}{False Positive}
 \newacronym{pprl}{PPRL}{Privacy-Preserving Record Linkage}
+\newacronym{ip}{IP}{Internet Protocol}
+\newacronym{osint}{OSINT}{Open Source Intelligence}
+
+
+
 
 \makeglossaries
 \begin{document}
@@ -67,6 +72,12 @@ Malwares are plaguing this computer age. An actual solution to protect computer 
 For that, an interesting open source platform called MISP allows companies to share these IOCs but also malware analyses and attack correlations in an online fashion.\\
 On the other hand, offline lookup would also be an important feature but is stopped by the need of data privacy and confidentiality. This master thesis looks for sharing the dataset of IOCs while still protecting privacy and confidentiality by not directly disclosing the information. \\
 After a state of the art, a possible found solution had been implemented with  some improvements before being finally analysed.
+\end{abstract}
+
+
+\renewcommand{\abstractname}{Acknowledgements}
+\begin{abstract}
+\todo[inline]{TODO}
 \end{abstract}
 
 \tableofcontents
@@ -122,7 +133,7 @@ This small chapter is intended to give a quick overview of the tools on which th
 
 \section{Indicator of Compromise (IOC)}
 When there is a crime, detectives come and look for clues. They do that to answer important questions as what made it happened, why it happened and also how it happened. This is really important, not only for solving a specific crime but also for gathering information that could allow solving other correlated crimes and why perhaps avoid other similar ones as well.\\
-This is exactly the same idea here, even if the attacker try to minimise its traces, there are always some. It can be email addresses, Internet Protocol(IP) addresses, malware, \gls{url} and so on.\\
+This is exactly the same idea here, even if the attacker try to minimise its traces, there are always some. It can be email addresses, \gls{ip} addresses, malware, \gls{url} and so on.\\
 The idea is then to use these traces to trigger alarms on other computer systems as soon as they are seen to protect them as well as gathering new information. This is the reason why we call these type of clues Indicator Of Compromise.
 
 \section{Confidentiality and Privacy}
@@ -159,7 +170,7 @@ This representation is quite efficient to analyse as it can immediately correlat
 For clarity concerns, attributes are divided into 13 categories again divided into types. As \gls{misp} is not anymore limited to malware, it is interesting to notice that we can also see categories like Financial Fraud. More standard ones are Network Activities, Antivirus detection, Artifacts dropped, and so on.\\
 All the category and types can be found on their web pages\footnote {\url{https://www.circl.lu/doc/MISP/categories-and-types/index.html}}
 
-One other really interesting feature is sightings. When an \gls{ioc} is referenced, we know that it has been seen by someone, but it does not confirm that the \gls{ioc} is really related to that particular event and is not an error. Moreover, what says that if an IP address is an \gls{ioc} today that it is going to be the case in 3 months? \\
+One other really interesting feature is sightings. When an \gls{ioc} is referenced, we know that it has been seen by someone, but it does not confirm that the \gls{ioc} is really related to that particular event and is not an error. Moreover, what says that if an \gls{ip} address is an \gls{ioc} today that it is going to be the case in 3 months? \\
 Sightings is thus the solution to this problem as we can monitor an \gls{ioc}, knowing if it has been seen at other places and if they are still relevant.
 
 
@@ -175,10 +186,10 @@ They have also added a lot of plugins to the web interface like the ability to e
 \gls{misp} is really easy to use, but if we want to go deeper in it, there are a lot of things to understand. That's why they give training and make available a \gls{misp} training virtual machine in order to train ourselves and test new developments.\\
 At the beginning, I've started to work on a private instance of \gls{misp} hosted by CIRCL but, every time that I was working, I needed to have a really good web connection to download all the data. That's why I finally downloaded the virtual machine. 
 The MySQL database was not accessible from outside the virtual machine but, as I was going to work on my computer and I didn't want to be stuck programming inside the virtual machine, I've done some modifications to make available the database to my local network.\\
-The first step was to check that my virtual machine runs using the virtual vboxnet0 interface (Standard interface used for a network only between hosts and the hypervisor) and was using the \gls{ipv4} address 192.168.56.50. Normally it works without problems but it didn't work on my computer, I thus added an IP in the right range by using the command:
+The first step was to check that my virtual machine runs using the virtual vboxnet0 interface (Standard interface used for a network only between hosts and the hypervisor) and was using the \gls{ipv4} address 192.168.56.50. Normally it works without problems but it didn't work on my computer, I thus added an \gls{ip} in the right range by using the command:
 \textbf{ip add add 192.169.56.2/24 dev vboxnet0} .\\
 I'm also sometimes using a second virtual machine to work with and on this virtual machine, I've configured two network interfaces, the first one was to have an internet connection while the second one was the vboxnet0 interface.\\
-For simplifying the use of the vbox interface, I've configured my network to automatically add an ip in the right range (/etc/network/interfaces). This is the addition to the basic configuration:
+For simplifying the use of the vbox interface, I've configured my network to automatically add an \gls{ip} in the right range (/etc/network/interfaces). This is the addition to the basic configuration:
 \begin{verbatim}
 auto eth1
 iface eth1 inet static
@@ -203,7 +214,7 @@ For example, Am I allowed to show screenshots of data from \gls{misp} without an
 For answering that question, I need to introduce the Traffic Light Protocol (TLP) that was created in order to facilitate information sharing by defining the authorised level of disclosure. And thus, it can be used to know what can be shared with a specific audience.\\
 This protocol is defined by FIRST in \cite{FirstTLP} but also explained in this NIST cyber threat information sharing guide \cite{johnson2016guide}.\\
 
-Knowing that I know that I can share the data from the virtual machine that I have explained in the previous section as the default OSINT feed is TLP:WHITE. Which means, according to FIRST, that the disclosure is not limited: \\
+Knowing that I know that I can share the data from the virtual machine that I have explained in the previous section as the default \gls{osint} feed is TLP:WHITE. Which means, according to FIRST, that the disclosure is not limited: \\
 
 \begin{boxedverbatim}
 	Sources may use TLP:WHITE when information carries minimal or no foreseeable 
@@ -308,23 +319,23 @@ The second one is the correlation/aggregation work were alerts are linked togeth
 \end{itemize}
 
 After removing all useless information, we can hash all confidential data. As the companies want to be ensured of the confidentiality, they assume this job of directly hashing the data before sending them to the server.
-This technique is quite well working if, the data has a certain size. But, on the other hand, it is not useful for IP addresses, if an attacker is targeting a company, it has to precompute only 256 or perhaps 65536 IP address hashes. Thus this is not brute force resistant.\\
-For each alert, we have two different IPs, the source IP (ip\_src) and the destination IP (ip\_dest). We can classify all these IPs in two categories:
+This technique is quite well working if, the data has a certain size. But, on the other hand, it is not useful for \gls{ip} addresses, if an attacker is targeting a company, it has to precompute only 256 or perhaps 65536 \gls{ip} address hashes. Thus this is not brute force resistant.\\
+For each alert, we have two different \gls{ip}s, the source \gls{ip} (ip\_src) and the destination \gls{ip} (ip\_dest). We can classify all these \gls{ip}s in two categories:
 \begin{itemize}
-	\item Internal IPs : IPs that belong to the company
-	\item External IPs : IPs external to the company
+	\item Internal \gls{ip}s : \gls{ip}s that belong to the company
+	\item External \gls{ip}s : \gls{ip}s external to the company
 \end{itemize}
 
-The first category is, of course, the one that we need to protect and in order to do so, these IPs are hashed with a keyed hash function like \gls{hmac}. While the second type is only hashed by a simple hash algorithm like SHA-1.\\
-The result is that we can compare all SHA-1 hashed IPs together while only companies can decrypt their own internal IP addresses.\\
-An attacker cannot make the difference between an IP hashed by \gls{hmac}  or SHA-1. Thus, for attacking the dataset, he would need to try to crack all IPs as if they were SHA-1 fingerprints (For example with a TMTO attack). This, without forgetting that they receive millions of IPs, makes it unfeasible for an attacker to brute-force the whole dataset.\\
+The first category is, of course, the one that we need to protect and in order to do so, these \gls{ip}s are hashed with a keyed hash function like \gls{hmac}. While the second type is only hashed by a simple hash algorithm like SHA-1.\\
+The result is that we can compare all SHA-1 hashed \gls{ip}s together while only companies can decrypt their own internal \gls{ip} addresses.\\
+An attacker cannot make the difference between an \gls{ip} hashed by \gls{hmac}  or SHA-1. Thus, for attacking the dataset, he would need to try to crack all \gls{ip}s as if they were SHA-1 fingerprints (For example with a TMTO attack). This, without forgetting that they receive millions of \gls{ip}s, makes it unfeasible for an attacker to brute-force the whole dataset.\\
 They are also using another set of protections like the randomised threshold for publication of an alert but it goes out of the scope of this work.\\ 
 In sanitization, they also round all timestamps to the nearest minute in order to add some uncertainty.\\
 The second step is the correlation, they spoke about historical trend analyses, source/target-based analyses and event-driven analyses. These analyses worth spending time on them but are not related to the specific subject of this work.\\
 
 Then, \cite{xu2005privacy} was also working on confidential data sharing starting from the first article, but they came up with a new interesting idea, instead of hashing confidential data, why not generalising it and doing probabilistic correlations.\\
 \textbf{Guided alert sanitization with concept hierarchies:}\\
-For example, if we have an IP 192.168.1.123/32, we can generalise it to 192.168.0.0/16.\\
+For example, if we have an \gls{ip} 192.168.1.123/32, we can generalise it to 192.168.0.0/16.\\
 The depth of the generalisation is chosen thanks to the entropy or by the differential entropy technique explained in \cite{cover1991elements}.
 \\
 \textbf{Alert Correlation:}\\
@@ -334,8 +345,8 @@ They also used a technique to create probabilistic attack scenario which is a se
 These articles were looking at data obfuscation while still being able to create correlation analyses but, it is difficult to apply it in order to create a database of still usable data for prevention or detection as it looses information.
 \\
 
-I've explained some solutions that can be applied to IP addresses or file (like hashing them). But, what if we could do the same with all network packets and still getting some privacy!\\
-That's the goal of \cite{parekh2006privacy}. Today, it's not enough to analyse IPs, \gls{url}s and so on. We need to go deeper in it, that's why they propose a technique based on the byte distribution of the packets.\\
+I've explained some solutions that can be applied to \gls{ip} addresses or file (like hashing them). But, what if we could do the same with all network packets and still getting some privacy!\\
+That's the goal of \cite{parekh2006privacy}. Today, it's not enough to analyse \gls{ip}s, \gls{url}s and so on. We need to go deeper in it, that's why they propose a technique based on the byte distribution of the packets.\\
 They used PAYL and Anagram \cite{wang2006network} systems that they have created.\\
 
 Sanitization is used to protect information by keeping privacy, but, as \cite{mohaisen2017rethinking} is referencing, there are other ways for sanitising data. Some of them are k-anonymity \cite{sweeney2002k}, l-diversity \cite{machanavajjhala2007diversity} and the key privacy guarantee that has emerged is the differential privacy \cite{dwork2008differential}.\\
@@ -440,12 +451,12 @@ MISP workbench\footnote{https://github.com/MISP/misp-workbench} is a set of tool
 
 CIRCL has already implemented a privacy aware tool called hashstore and implemented in redis\footnote{http://redis.io}. This is working by creating a dataset of all hashed \gls{ioc}s. And then by the use of the redis server, we can use a redis client to request data.\\
 Like that, if you want an information on a particular \gls{ioc}, you need to already know it to be able to take its value's fingerprint and make the request.\\
-On the other hand, coming back on the small data problem, if we consider an attacker that want to try every possible IPs, for \gls{ipv4} it represents 4.228.250.625 different IPs that needs to be tested. Even if it is a lot it is still feasible as redis is really fast. Moreover, not all \gls{ipv4} need to be tested, for an example we can avoid private subnet like 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 which already represent 17.891.328 addresses.
+On the other hand, coming back on the small data problem, if we consider an attacker that want to try every possible \gls{ip}s, for \gls{ipv4} it represents 4.228.250.625 different \gls{ip}s that needs to be tested. Even if it is a lot it is still feasible as redis is really fast. Moreover, not all \gls{ipv4} need to be tested, for an example we can avoid private subnet like 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 which already represent 17.891.328 addresses.
 
 
 \section{Limitation: What could be expected}
 
-As discussed with the risk, there are a lot of privacy concerns about sharing data. And therefore, a lot of separate techniques. But there is an additional important problem that needs to be taken care of. For example, one of the solutions for preserving privacy is simply hashing the data. For big sised data, it's not feasible to brute force it but, for IP addresses, since in general, there are only 256 or 65536 different IP addresses in the range of IPs of a specific company, we could create a table with all possible hashes and test them all!\\
+As discussed with the risk, there are a lot of privacy concerns about sharing data. And therefore, a lot of separate techniques. But there is an additional important problem that needs to be taken care of. For example, one of the solutions for preserving privacy is simply hashing the data. For big sised data, it's not feasible to brute force it but, for \gls{ip} addresses, since in general, there are only 256 or 65536 different \gls{ip} addresses in the range of \gls{ip}s of a specific company, we could create a table with all possible hashes and test them all!\\
 
 But still, the idea that a common user has access to data while an attacker, which is a specialist, cannot seems infeasible in a lot of cases. The attacker always ends with the data but, if he takes 1 second, 1 day, 1 week, 3 months or years is different because we can then think about how long a data is valid? \\
 
@@ -540,7 +551,7 @@ We just need to add a new wall of time-consuming computation between the user an
 A possible implementation could be with a random key chosen by the database server. This key could be regenerated with a small period and also every thousand requests.\\
 On the other hand, the client should brute force this small key each time it has changed. This slows down brute force attacks while still be useful for a user that is doing less than 1000 requests to test its system.
 
-For example, a possible request message for an ip could be : hash(IP)||hash(IP||key)\\
+For example, a possible request message for an \gls{ip} could be : hash(IP)||hash(IP||key)\\
 
 The idea is interesting even if it is still not bullet proof against brute force attack. It also need a server to respond at each request.
 
@@ -566,7 +577,7 @@ But still, It could be the most important and really useful further work to do.\
 
 They also started by warning the reader that using these cryptographic function is better than not using them at all but it is not a miracle technique as it is theoretically impossible to hide the \gls{ioc}’s content in the used context (Subscribers receive the data to check on its system).\\
 Additionally, it has a performance cost but in my beliefs, it is well worth it.\\ Their implementation is in the source-subscriber TAXII sharing model but it can nevertheless fit with our model.\\
-First, they define an \gls{ioc} as propositional formula where the propositional variables are defined over features or observables like Internet Protocol (IP) or fingerprints of malicious programs (but it could be any categories of \gls{misp}). They also claim that every \gls{ioc} can be expressed in the Disjunction Normal Form (DNF) without any negation (e.g. destIP= 198.51.100.43 $\land$ destPort = 80).\\
+First, they define an \gls{ioc} as propositional formula where the propositional variables are defined over features or observables like Internet Protocol (\gls{ip}) or fingerprints of malicious programs (but it could be any categories of \gls{misp}). They also claim that every \gls{ioc} can be expressed in the Disjunction Normal Form (DNF) without any negation (e.g. destIP= 198.51.100.43 $\land$ destPort = 80).\\
 Hereandafter the values of the rules generated are considered as the concatenation of all values of the \gls{ioc}s contained in a rule: \gls{ipv4}$||$port\_number. It has two advantages, the first is to represent all linked values directly together and then increasing the size and the number of element hashed increases the difficulty for an attacker to perform a bruteforce attack or to precompute all possible hashes.\\
 
 \begin{figure}[h!]
@@ -701,16 +712,16 @@ I thus added some additional steps like:
 \item Removing the "?" when the query is empty.
 \end{itemize}
 
-\subsection{IP Normalisation}
-Like for the \gls{url} some IPs can be expressed differently due to shortcuts. For example, the \gls{ipv6} address 2001:0db8:0000:85a3:0000:0000:ac1f:8001 is equivalent to this \gls{ipv6} address 2001:db8:0:85a3:0:0:ac1f:8001 as well as 2001:db8:0:85a3::ac1f:8001.\\
+\subsection{\gls{ip} Normalisation}
+Like for the \gls{url} some \gls{ip}s can be expressed differently due to shortcuts. For example, the \gls{ipv6} address 2001:0db8:0000:85a3:0000:0000:ac1f:8001 is equivalent to this \gls{ipv6} address 2001:db8:0:85a3:0:0:ac1f:8001 as well as 2001:db8:0:85a3::ac1f:8001.\\
 Moreover, some attributes specify an \gls{ipv4} range instead of an \gls{ipv4}. This also need to be handled in a proper way.\\
 
-To solve these problems, I'm using a simple library called ipaddress with two specific functions, ip\_network for handling the ranges and ip\_address to handle standard IPs.\\
+To solve these problems, I'm using a simple library called ipaddress with two specific functions, ip\_network for handling the ranges and ip\_address to handle standard \gls{ip}s.\\
 The last function creates an object which is either an \gls{ipv4} or \gls{ipv6} instance. For the \gls{ipv6} address 2001:0db8:0000:85a3:0000:0000:ac1f:8001, it would return IPv6Address('2001:db8:0:85a3::ac1f:8001'). Then a simple str function allows to get back the normalised value.\\
-Also, this function raises  an error when there is a problem with one IP, in this case, I simply add them without any changes and print the problematic value.\\
-This is actually how I discovered the IP ranges and also that some IPs are not interesting as a rule as they have the host bit set to one.\\
+Also, this function raises  an error when there is a problem with one \gls{ip}, in this case, I simply add them without any changes and print the problematic value.\\
+This is actually how I discovered the \gls{ip} ranges and also that some \gls{ip}s are not interesting as a rule as they have the host bit set to one.\\
 
-For the IP ranges, there are two possibilities to handle them, either we create ranges and it matches only if the user try the range (meaning that when trying to match an IP we also need to try to match the different possible ranges) or, we can accept only ranges '/x' where x >23 and for these cases, create the 256 (or less) possible rules.
+For the \gls{ip} ranges, there are two possibilities to handle them, either we create ranges and it matches only if the user try the range (meaning that when trying to match an \gls{ip} we also need to try to match the different possible ranges) or, we can accept only ranges '/x' where x >23 and for these cases, create the 256 (or less) possible rules.
 The second could be really inefficient due to the high number of generated rules. While the second one would approximately double the time for each match while only considering the range /24 and could not accept the ranges between 24 and 32.\improvement[inline]{CHOOSE ONE SOLUTION AND IMPLEMENT IT}
 
 
@@ -762,7 +773,7 @@ In the original paper, the authors where using the Course Of Action (COA) for th
 Therefore, my choice was to use a message that allows to retrieve the attributes and events on \gls{misp} and fetch the needed information. This has two advantages, the first one is to only allows to know that an element is known by \textbf{someone} using \gls{misp} which is really important for the privacy. Then to get back information we need to connect to \gls{misp} where all authorisations are checked by the standard system.\\
 The second one to allow the analyst to make correlations and to improve the existing analyses.\\
 
-Another point is that the major interest of this system would be to mix rules from different \gls{misp} instances. But for that, we need to be able to identify the different instances thanks to a universal unique identifier for the instances. After discussing it with CIRCL, It will normaly be soon implemented.\\\todo[inline]{Modifiy the message}
+Another point is that the major interest of this system would be to mix rules from different \gls{misp} instances. But for that, we need to be able to identify the different instances thanks to a universal unique identifier for the instances. After discussing it with CIRCL, It will normally be soon implemented.\\
 
 Besides that, not every user need the same message, so the message can be modified with the top configuation file but we need at minimum the \gls{uuid} to referenced the element uniquely.\\
 The argument 'rules->message' can be associated with the attributes (separated by a space) contained by \gls{misp} attributes like : "uuid event\_id date".
@@ -770,7 +781,7 @@ The argument 'rules->message' can be associated with the attributes (separated b
 \subsection{Add a rule}
 After having created the \gls{misp} rules, if we want to add new ones, we can do it thanks to the addIOC script.\\
 We then, can choose to specify the rule directly inside the terminal or via a \gls{csv} file located in the 'res' folder.\\
-This need to be used carefully as no verifications are made on the rule. Checking every new \gls{ioc} if it already exists would have been really too time consuming.\improvement[inline]{Perhaps allow to do it in an argument}
+This need to be used carefully as no verifications are made on the rule. Checking every new \gls{ioc} if it already exists would have been really too time consuming.
 
 \subsection{Update Rules}
 After all that, if we want to make rules hard to bruteforce, it makes them long to generate as well. This is why we need the capability of updating the rules with the recent \gls{ioc}s.\\
@@ -842,7 +853,7 @@ On the other hand, the time complexity of the implementation is not the same as 
 The problem with this algorithm is that they only consider the 72 firsts characters of the password for the key generation. It can seem a lot but even this \gls{url} \url{https://translate.google.com/#fr/en/72\%20caract\%C3\%A8re\%2C\%20ce\%20n'est\%20pas\%20beaucoup} is 88 characters long. This means that if we add the token at the end (like in PKKDF2) it will not be included. On the other side, if we first put the token before the data, an attacker would know that the 40 firsts characters will always be the same and moreover, there are only 32 characters left for the data which is not enough even for an \gls{ipv6}.\\
 As the goal was that the whole string has an impact to the key generated as well as the token to have an impact on all bits. The solution was thus obviously to hash the concatenation of the value with the token and then seed this fingerprint to the key generation function.\\
 
-We also know that such key derivation functions are aimed to have a time complexity that growth exponentially with the number of characters. Here every element can be considered as a 72 characters element (has the hash is longer) which means that with this technique, it can take really longer to check IPs in the system and so for bruteforcing as well. It thus needs to be taken into consideration before choosing the number of iterations for small data.
+We also know that such key derivation functions are aimed to have a time complexity that growth exponentially with the number of characters. Here every element can be considered as a 72 characters element (has the hash is longer) which means that with this technique, it can take really longer to check \gls{ip}s in the system and so for bruteforcing as well. It thus needs to be taken into consideration before choosing the number of iterations for small data.
 
 
 \subsection{Bloom filter}
@@ -1010,7 +1021,7 @@ We also see that in this particular case, the major part of the time is taken by
 \end{center}
 \end{figure}
 
-The memory graph we can see that the highest level (on the right) is approximately at 200MB used for 27663 rules. This does not vary with the number of iterations.\\ \improvement[inline]{Analyze the increase of memory in function of the number of rules !}
+The memory graph we can see that the highest level (on the right) is approximately at 200MB used for 27663 rules. This does not vary with the number of iterations.\\ 
 
 \subsection{Profile of ReadMisp for 1000 iteration}
 
@@ -1069,8 +1080,6 @@ This cache is so fast that the bloomy overhead does not appear any more on the p
 The ideas have been explained, in the first few sections, then the implementation had been explained followed by profiles that help understand the behaviour of the system and how the computation power is used inside the system. Now it is time to see how it is working with real data, what would be the right parameters to use and why these choices. Moreover, this is in this section that we could analyse if the goal had been totally reached, reached for some part and decide if it can or cannot be used in real implementations.\\
 This is important as we are aware of the benefits that it could have but we must stay aware of the risk of that exposure on which a system like this one could lead.\\
 
-\improvement[inline]{Do all needed analyzes; ajouter brute force de string avec bcrypt => explain expo and why not here}
-
 \subsection{General Discussion}
 The standard implementation had already been assessed in the paper  but there is something quite new which is the use of the bloom filters inside the implementation.\\
 The goal here is not to hide that we have the information, it is more to hide who have seen this particular \gls{ioc} and what did they concluded on it.\\
@@ -1089,6 +1098,7 @@ So in this case, what is important is to benchmark the time used to generate a r
 And this, with or without bloom filters. Then it is also important to assess the advantage of the bloomy implementation in function of the number of available rules, the number of iterations and especially the false positive rate used.
 
 \subsection{Key Derivation Functions}
+\label{sec:KeyDerivationFunction}
 In rules generation and matching algorithm, the \gls{kdf} is the most costly function. For this raison, I've decided to analyse their behaviour in function of the length of the initial value as well as the time complexity used (iterations or rounds).\\
 
 I was first very surprised, as I could see that the length of the key has no impact on the time used to generate the values and that for the two algorithms. Thus, in this section, I will only present the graphs about the impact of the number of iterations and rounds.\\
@@ -1103,35 +1113,36 @@ As we can see on figure \ref{benchmarking:timePBKDF2} the time increase linearly
 	\label{benchmarking:timePBKDF2}
 \end{center}
 \end{figure}
-
+As it is linear, it means that each iterations takes the same amount of time to be computed and therefore, we can approximate that the time needed for generating a password with one iteration is about $10^{-6}$s
 
 \subsubsection{Bcrypt}
-As we can see on figure \ref{benchmarking:timeBcrypt} the time also increases linearly in function of the number of rounds.
+As we can see on figure \ref{benchmarking:TimeBcrypt} the time also increases linearly in function of the number of rounds.
 \begin{figure}[h!]
 \begin{center}
 	\includegraphics[scale=0.6]{res/TimeBcrypt}
 	\caption{Benchmarking: Impact of the number of rounds on the key derivation algorithm Bcrypt}
-	\label{benchmarking:Bcrypt}
+	\label{benchmarking:TimeBcrypt}
 \end{center}
 \end{figure}
-
+The same kind of approximation can be done and we get a 0.005s by iteration.
 \subsubsection*{Conclusion on \gls{kdf}}
 Both algorithm used behaves similarly, the key derivation cost do not varies with the length as well as it varies linearly with the cost parameter.\\
 The only observed difference in these graphs are that for the same cost parameter, Bcrypt takes much more time which is better to slow down a bruteforce attack.\\
 As the behaviour is similar, the conclusion would be similar as well for both \gls{kdf}. Therefore the following benchmarks will be done with PBKF2.
 
 \subsection{Bloomy efficiency}
+\label{sec:BloomyEfficiency}
 
 Bloom filters are really efficient and used in this context, they allow to make the matching system a way faster. To characterise this improvement, I need to find comparable data.\\
 Comparable mean data that are approximately of the same size as well as easily generalisable. It could have been strings of a fixed size n with a smaller alphabet like \{a,b,c\}. But I have chosen \gls{ipv4} to use this benchmark as well to analyse the feasibility of  bruteforcing them.\\
-After that, I needed to decide a number of IPs to go through at each step. It needs to be not to small to have precise results but not too much as well to avoid waiting to long for the results. Therefore I have decided to take 10 "/24" ranges which means 2560 IPs. I have chosen to use 192.168.0.0/24 up to 192.168.9.0/24.\\
-Thus for each configuration, the matchRules script ran though all these IPs like a bruteforcing algorithm would have done it.\\
+After that, I needed to decide a number of \gls{ip}s to go through at each step. It needs to be not to small to have precise results but not too much as well to avoid waiting to long for the results. Therefore I have decided to take 10 "/24" ranges which means 2560 \gls{ip}s. I have chosen to use 192.168.0.0/24 up to 192.168.9.0/24.\\
+Thus for each configuration, the matchRules script ran though all these \gls{ip}s like a bruteforcing algorithm would have done it.\\
 
 The written benchmark was originally created and launched on a virtual private server hosted in France where I ran during a few days before I realise there were an error in the code and that I needed to start over. Then after that I ran into trouble with the instance and reinstalling didn't worked correctly.\\
 The final benchmark were than ran on an old computer with 4GB of RAM and and intel i7 processor.\\
-I've tested with it the \gls{pbkdf2} module and its bloomy mode for different \gls{fp} Rate with increasing number of ip-dst (destination IP) rules and and increasing number of iterations.\\
+I've tested with it the \gls{pbkdf2} module and its bloomy mode for different \gls{fp} Rate with increasing number of ip-dst (destination \gls{ip}) rules and and increasing number of iterations.\\
 
-As we need to try to decrypt the the whole set of rules in the \gls{pbkdf2} module, it is normal that the time increases linearly with the number of IPs in the system. But it is interesting to understand and see the behaviour of the time in function of the number of IPs in the system for the bloomy implementation (fig. \ref{benchmarking:timeips}):
+As we need to try to decrypt the the whole set of rules in the \gls{pbkdf2} module, it is normal that the time increases linearly with the number of \gls{ip}s in the system. But it is interesting to understand and see the behaviour of the time in function of the number of \gls{ip}s in the system for the bloomy implementation (fig. \ref{benchmarking:timeips}):
 
 \begin{figure}[h!]
 \begin{center}
@@ -1146,10 +1157,10 @@ We can see as well as for example the version without bloom filter is approximat
 
 This resulted benchmark seems corresponding to what should be expected as, knowing that for the simple \gls{pbkdf2} it took 847.42s for 200 ip-dst rules (nIP), 700 iterations (nIt) and that we test 2560 IPs (nIPTested):
 \begin{itemize}
-\item[•] Time needed for testing a an IP on a rule is $\frac{Time}{nIPtested * nIP * nIt}=\frac{847.42}{2560*200*700} = Time1IP1It$
-\item[•] The number of IP to test is $nIP + (nIPTested - nIP)*FPrate$
+\item[•] Time needed for testing a an \gls{ip} on a rule is $\frac{Time}{nIPtested * nIP * nIt}=\frac{847.42}{2560*200*700} = Time1IP1It$
+\item[•] The number of \gls{ip} to test is $nIP + (nIPTested - nIP)*FPrate$
 \end{itemize}
-With this, we can estimate the other points, for example, for 100 IPs and a \gls{fp} rate of 0.2, we should have $Time1IP1It$ *  [$400 + (2650 - 400)*0.2$] * 400 (nb of rules). which is equal to 79s while the real result is about 93s. We can notice a slight difference but it is due to the fact that the approximation consider the number of iteration in the same way as the number of rules, but it tend to follow the same behaviour.\\
+With this, we can estimate the other points, for example, for 100 \gls{ip}s and a \gls{fp} rate of 0.2, we should have $Time1IP1It$ *  [$400 + (2650 - 400)*0.2$] * 400 (nb of rules). which is equal to 79s while the real result is about 93s. We can notice a slight difference but it is due to the fact that the approximation consider the number of iteration in the same way as the number of rules, but it tend to follow the same behaviour.\\
 After that, we need to check that the system behaves the same way in function of the number of iterations as we took the hypothesis in the formula derived (fig. \ref{benchmarking:timeiterations}). 
 
 \begin{figure}[h!]
@@ -1168,7 +1179,7 @@ $$time(nIP, FPrate, nIt, nIPTested)=\left[nIP+(nIPTested-nIP)*FPrate\right]*nIP*
 The section is intended to give some more technical information about the generated rules.
 
 \subsection{Time for creating a rule}
-The major part for generating the rule is the time used by the key derivation function (cfr fig.[\ref{benchmarking:timePBKDF2}, \ref{benchmarking:Bcrypt}]). After that, there is a little overhead due to the normalisation and the encryption of the message but they are quickly negligible.\\
+The major part for generating the rule is the time used by the key derivation function (cfr fig.[\ref{benchmarking:timePBKDF2}, \ref{benchmarking:TimeBcrypt}]). After that, there is a little overhead due to the normalisation and the encryption of the message but they are quickly negligible.\\
 
 \subsection{Space memory of a rule rule}
 Bloom filter are used to decrease the space memory consumption while memorising the membership of big dataset. Here instead of focusing on that, the goal was to keep every element and transform them in an other format that needs information and cryptographic computations to read them.\\
@@ -1185,8 +1196,35 @@ With that, the size of a rule is nearly a constant as it only depends on the siz
 \end{itemize}
 This means that we are around 122 bytes by elements. This is huge compared to the size of an \gls{ipv4} address but is still less than some \gls{url}s.
 
-\subsection{Lookup and Bruteforce}
-\todo[inline]{Analyse benchmark and make the comparison}
+\subsection{Lookup}
+The major part of the lookup time is related to the number of rules of the type searched as well as the algorithm used with its cost. And the final cost is trying to decipher the ciphertext check element.\\
+Then a simple approximation could be made with the section \ref{sec:KeyDerivationFunction}:
+\begin{itemize}
+\item[\gls{pbkdf2}] $$Nb\ rules * Nb\ Iterations * 10^{-6}s + Nb\ rules * Time\ AES$$
+\item[Bcrypt]  $$Nb\ rules * Nb\ Iterations * 5 * 10^{-3}s + Nb\ rules * Time\ AES$$
+\end{itemize}
+
+\subsection{Bruteforce}
+Bruteforcing is the original problem that this work is trying to face. For \gls{ipv4} the bruteforce is feasible as the number of different IPs is limited. Therefore we can only use this system to make it harder for an attacker to bruteforce the whole dataset.\\
+The following approximation should be taken with care as it follows from a lot of different really strong hypotheses:
+\begin{itemize}
+\item[•] The attacker tests all non reserved addresses incrementally.
+\item[•] The number of \gls{ipv4} in MISP is about 50 000 (not the real number).
+\item[•] The number of non reserved \gls{ipv4} addresses is about 592 708 864 ($\approx$13.8\% of the 4 billions possible \gls{ipv4}).
+\item[•] Every non reserved \gls{ipv4} has the same probability to be in a rule.
+\item[•] An \gls{ip} has a validity of 3 months
+\end{itemize}
+The last hypothesis is just to get a, idea of the time the database needs to resists to a bruteforce attack and needs to be modified as all other hypotheses in function of what is needed.\\
+The fact that an \gls{ip} could have a time limitation is due to the fact that most of the attacker are using dynamic \gls{ip}s. Thus after a file, even if the attacker does not disappear, the information could not be right anymore.\\
+
+Now, the goal is to get an estimation of the cost to use for the algorithm if we want the user having a probability of 80\% to have fully discovered the complete set of \gls{ipv4} in the database after 3 months by applying a bruteforce attack.\\
+First, I need to find a number of \gls{ip} that the attacker needs to test to have a probability of 0.8 of having discovered the whole set.\\
+
+\todo[inline]{A faire}
+
+Then, I want this number of \gls{ip} x, to take 3 months to be checked. We thus need to find the cost c for PBKDF2 so that c*x *Time1IP1It $\geq$3*31*24*60*60. Where Time1IP1It was found in section \ref{sec:BloomyEfficiency}.\\
+
+\todo[inline]{Get this number}
 
 
 \chapter{Conclusion}
@@ -1220,12 +1258,7 @@ This master thesis is thus related to those two broad domains by taking a differ
 This implementation succeeded in creating dataset of Indicator Of Compromise (\gls{ioc}) that can be generated on demand for a specific user. it respects most privacy and confidentiality concerns by obfuscating the data while still allowing it to be decrypted only if the targeted user has the need of the information or information that could enrich analyses.\\
 Matching a specific \gls{ioc} then gives the user the identifier of the information and, if could then ask permission to access the instance as well as perhaps the permission to get to know the organisation that had seen the indicator.
 One other major advantage of this implementation is also this relaxation in the needed trust for sharing due to the idea of Kim van de Kamp et al. to add an identifier of the user inside the key generation. Thanks to that, the risk of leakage is decreased as the source of the leakage could be identified.\\
-\todo[inline]{Add a small summary on the benchmarking results}
 
-
-
-\section*{Acknowledgements}
-\todo[inline]{TODO}
 
 \printglossary
 
