@@ -67,7 +67,7 @@
 \newacronym{ips}{IPS}{Intrusion Prevention System}
 \newacronym{api}{API}{Application Programming Interface}
 \newacronym{rfc}{RFC}{Request For Comments}
-
+\newacronym{ietf}{IETF}{Internet Engineering Task Force}
 
 \makeglossaries
 \begin{document}
@@ -78,7 +78,7 @@
 
 \begin{abstract} 
 Malwares are plaguing this computer age. An actual solution to protect computer systems against them is threat information sharing: Organisations share lists of Indicators Of Compromise with each other.\\
-For that, an interesting open source platform called MISP allows companies to share these IOCs but also malware analyses and attack correlations in an online fashion.\\
+For that, an interesting open source platform called MISP allows organisations to share these IOCs but also malware analyses and attack correlations in an online fashion.\\
 On the other hand, offline lookup would also be an important feature but is stopped by the need of data privacy and confidentiality. This master thesis looks for sharing the dataset of IOCs while still protecting privacy and confidentiality by not directly disclosing the information. \\
 After a state of the art, a possible found solution had been implemented with  some improvements before finally being analysed.
 \end{abstract}
@@ -103,7 +103,7 @@ After a state of the art, a possible found solution had been implemented with  s
 
 %Ponemon Institute conducts independent research on privacy, data protection and information security policy
 In the last reports of the Ponemon institute\cite{ponemon2016cost, ponemon2016costFr}, the estimated cost of the annual data breaches for 384 companies in 12 countries\footnote{United States, United Kingdom, Germany, Australia, France, Brazil, Japan, Italy, India, the Arabian region (United Arab Emirates and Saudi Arabia), Canada and, South Africa} is about \$4 million each in 2016.\\
-A data breach means that records containing private data linked to a name had been leaked. This originates from system glitches, human errors but  mostly from malicious and criminal attacks. In France, the percentages are respectively 23\%, 27\% and 50\% which gives an average cost of \$1.85 million a year only for criminal attack.\\
+A data breach means that records containing private data linked to a name has been leaked. This originates from system glitches, human errors but  mostly from malicious and criminal attacks. In France, the percentages are respectively 23\%, 27\% and 50\% which gives an average cost of \$1.85 million a year only for criminal attack.\\
 This cost mostly comes from business losses due to the lack of confidence resulting from a data breach. Unfortunately, it is growing from year to year and it will probably continue to increase as the global annual cybercrime costs predicted by Cybersecurity Ventures will grow from  \$3 trillion in 2015 to \$6 trillion by 2021.
 
 Companies thus need to protect themselves against business losses and thus against cybersecurity threats by increasing their computer system defences. By that, it also means being able to improve the reactivity to new threats as they appear faster and faster which results in a delay for standards malware detection systems. Another important characteristic to notice is that analyses showed that the same attack vectors are used against the same type of organisations as they generally use the same kind of systems. From that, the idea of making correlations between trusted organisation arose and gave birth to threat sharing.  As soon as an organisation discovers a threat, they can prevent others to be compromised just by informing them about it.\\
@@ -129,7 +129,7 @@ They weren't short of ideas. Later on, William Robinet (from Conostix) contacted
 As I had zero knowledge in this domain, I've chosen to make an internship of four weeks in the company (not credited) where I've learned the basics of \gls{misp}. I've also worked on network log parsing. But what I mostly learned was that four weeks for trying to specialise myself in a completely new domain was only enough to give me a rough idea of what it is.\\
 During these four weeks, I mostly worked on logs. I've created nothing new, actually, it was quite the opposite but it was still interesting to understand how things were working and why they could be useful. \\
 In short, I have started to understand how the proxy squid3 was working and have installed it on my computer in order to get logs to work on.\\
-Once done, I tried to get information from them by manually parsed the logs (which was a mistake). For that purpose, I've started to implement a parser that was using regular expressions to transform each log lines into a set of objects. But even if it was funny to implement, I spent a lot of time on it and each time I finished, I found it to be not good enough, not modular enough, losing locality and ordering information, and so on. I have thus realised that I was loosing my time as of course, they are plenty of tools for this kind of job like the later used Logstash.\\
+Once done, I tried to get information from them by manually parsing the logs (which was a mistake). For that purpose, I've started to implement a parser that was using regular expressions to transform each log lines into a set of objects. But even if it was funny to implement, I spent a lot of time on it and each time I finished, I found it to be not good enough, not modular enough, losing locality and ordering information, and so on. I have thus realised that I was loosing my time as of course, they are plenty of tools for this kind of job like the later used Logstash.\\
 Then I've started to work with \gls{misp} to see how it was working. I've reimplemented a similar hash store like the misp-workbench project.\\
 I've then used it with my log system by parsing the data from \gls{misp} before adding them to the hash database on Redis.\\
 I've then created a way to feed the parsed logs in my system and briefly analyse them.\\
@@ -156,7 +156,7 @@ Privacy, on the other hand, is that we don't want to be investigated more on wha
 I've introduced the idea of malware sharing to defend computer systems against digital threats and attacks. But \gls{misp} is not the only platform to do so, current ones are DShield, Critical Stack’s Intel, Microsoft’s Interflow, AlienVault’s Open Threat Exchange, ThreatExchange (Facebook).\\
 But here I focused only on the \gls{misp} project which is, as said on their website, an open source software solution for collecting, storing, distributing and sharing cybersecurity indicators and threat about cybersecurity incidents analysis and malware analysis. \gls{misp} is designed by and for incident analysts, security and IT professionals or malware reverser to support their day-to-day operations to share structured information efficiently.\\
 \gls{misp} rely on an hub and spoke sharing model (\gls{taxii} \cite{taxiiWebsite}). There is a central point called the hub which is the server responsible for a \gls{misp} instance, where all data are kept, and the spokes are the organisations that interact with the hub.\\
-A recent paper on \gls{misp} \cite{wagner2016misp} had been published this year and could be interesting to get a better understanding of the underlying system. Additionally, there is also a recent ietf draft on the \gls{misp} core format\cite{MispDraft}.\\
+A recent paper on \gls{misp} \cite{wagner2016misp} had been published this year and could be interesting to get a better understanding of the underlying system. Additionally, there is also a recent \gls{ietf} draft on the \gls{misp} core format\cite{MispDraft}.\\
 I want also to point out that \gls{misp} is spreading, and I've the feeling that communities will continue to grow. I've discussed in Belgium with companies like banks, insurances, consultancy companies that are using it, I've even met people knowing it when I was in Singapore for the Black Hat Asia conference (2017). All this is, at least to my point of view, a good sign on the utilisation of the system.
 
 \subsection{History}
@@ -172,7 +172,7 @@ Meanwhile other organisations started to adopt the software and promoted it arou
 Nowadays, Andras Iklody is the lead developer of the \gls{misp} project and works for CIRCL.\\
 
 \subsection{Basics of MISP}
-The idea of \gls{misp} was first to create an \gls{ioc} database. That is, if there is an attack where \gls{ioc}s had been seen: "IOC@malware.mail" and "192.168.16.2". We need to keep two types of information, the two \gls{ioc}s by themselves but also the relation between them. For expressing the later one, \gls{ioc}s are grouped by event, a more general term than "attack" previously used in this work.  Then, the \gls{ioc}s, are considered as the attributes of the specific event representing that particular attack.\\
+The idea of \gls{misp} was first to create an \gls{ioc} database. That is, if there is an attack where \gls{ioc}s have been seen: "IOC@malware.mail" and "192.168.16.2". We need to keep two types of information, the two \gls{ioc}s by themselves but also the relation between them. For expressing the later one, \gls{ioc}s are grouped by event, a more general term than "attack" previously used in this work.  Then, the \gls{ioc}s, are considered as the attributes of the specific event representing that particular attack.\\
 This representation is quite efficient to analyse as it can immediately correlate events thanks to their attributes.\\
 
 For clarity concerns, attributes are divided into 13 categories again divided into types. As \gls{misp} is not anymore limited to malware, it is interesting to notice that we can also see categories like Financial Fraud but more standard ones are Network Activities, Antivirus detection, Artifacts dropped, and so on.\\
@@ -186,8 +186,8 @@ There are also two important things on the sharing strategy that I want to point
 
 \gls{misp} became a really good \gls{ioc} database with automated correlation system. These correlations can be represented under the form of a graph that helps the analyst to visually see connections.\\
 
-Besides all that, a lot of different tools had been implemented like a python client library and are available on their repository: \url{https://github.com/MISP/}.\\
-They have also added a lot of plugins to the web interface like the ability to export the attributes in different formats, standard ones and some other for specific \gls{ids}.\\
+Besides all that, a lot of different tools have been implemented like a python client library and are available on their repository: \url{https://github.com/MISP/}.\\
+They have also added a lot of plugins to the web interface like the ability to export the attributes in different formats, standard ones and some others for specific \gls{ids}.\\
 
 \subsection{My Settings}
 
@@ -551,7 +551,7 @@ The idea is interesting even if it is still not bullet proof against brute force
 
 \section{Conclusion}
 I've explained some basic ideas that could lead to different implementations, a lot of work are done especially on private multi-party matching that could lead to the best option if requests are rare or, for example, if it is used to periodically compare and synchronise data related to the same events between \gls{misp} instances.\\
-Nearly every solution still needs a server that we would like to get rid of (After the data had been generated) and for that, a machine learning model or bloom filters are the right track but there is still a lack as we do not get back information. That is why the final implemented solution will find something similar to proof of work  to slow down the attack and the bloom filter to increase the system speed.
+Nearly every solution still needs a server that we would like to get rid of (After the data have been generated) and for that, a machine learning model or bloom filters are the right track but there is still a lack as we do not get back information. That is why the final implemented solution will find something similar to proof of work to slow down the attack and the bloom filter to increase the system speed.
 
 
 
@@ -649,7 +649,7 @@ Then I've improved the code with different new functionalities and realised that
 \subsection{Get data from MISP}
 To create the rules with the encrypted messages, we first need to get a subset of \gls{ioc}s contained in \gls{misp} that are destined to \gls{ids}. \\
 For doing so, there are tree possibilities, the first one is working with the \gls{misp} web\gls{api} while the second one is directly connected to the MySQL database. \\
-The third one that directly reads from a \gls{csv} file had been added to be able to select what should be shared and for a testing purpose.\\
+The third one that directly reads from a \gls{csv} file has been added to be able to select what should be shared and for a testing purpose.\\
 The recommended mode will be with the web \gls{api}, but as rules will be generated directly on the server, it could be more efficient to use directly the MySQL connection.\\
 
 For making automated request on \gls{misp}, they have implemented a python library called PyMISP. The first idea was to use it but it was finally not interesting to import the whole library only to make one request. That is why, I've changed the system by making myself the requests to the automation \gls{api} by using the requests python library and the \gls{misp} token referenced in the configuration file.\\
@@ -787,7 +787,7 @@ The \gls{csv} events are then transformed into rules and added to existing ones 
 The idea of the generalisation was to add modules for handling the way data are stored/encrypted, we can use completely different cryptographic systems later called modules. In this section, I will discuss my implementation choices for each implemented schemes.
 
 \subsection{\gls{pbkdf2}}
-This is the basic system for which all the structure had been optimised and had been thought for. In this section, I will thus briefly introduce these two sequence diagrams to help the understanding of the system:
+This is the basic system for which all the structure have been optimised and had been thought for. In this section, I will thus briefly introduce these two sequence diagrams to help the understanding of the system:
 \begin{figure}[h!]
 \begin{center}
    \begin{minipage}[c]{.46\linewidth}
@@ -1064,7 +1064,7 @@ But for a matching, we each time need to transform the value to a string and whi
 This cache is so fast that the bloomy overhead does not appear any more on the profiles, the script complete run when bloom filter discover the attribute is not in the set is about 0.16s.\\
 
 \section{Benchmarking}
-The ideas have been explained, in the first few sections, then the implementation had been explained followed by profiles that help to understand the behaviour of the system and how the computation power is used inside the system. Now it is time to see how it is working with real data, what would be the right parameters to use and why these choices. Moreover, this is in this section that we could analyse if the goal had been totally reached, reached for some part and decide if it can or cannot be used in real implementations.\\
+The ideas have been explained, in the first few sections, then the implementation has been explained followed by profiles that help to understand the behaviour of the system and how the computation power is used inside the system. Now it is time to see how it is working with real data, what would be the right parameters to use and why these choices. Moreover, this is in this section that we could analyse if the goal had been totally reached, reached for some part and decide if it can or cannot be used in real implementations.\\
 This is important as we are aware of the benefits that it could have but we must stay aware of the risk of that exposure on which a system like this one could lead.\\
 
 \subsection{General Security Discussion}

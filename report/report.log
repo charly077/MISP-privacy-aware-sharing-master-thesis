@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.29)  23 MAY 2017 09:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.29)  23 MAY 2017 09:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1240,7 +1240,7 @@ Overfull \hbox (11.20836pt too wide) in paragraph at lines 232--233
 [][] 
  []
 
-<res/webEvents.png, id=520, 1423.3175pt x 666.49pt>
+<res/webEvents.png, id=523, 1423.3175pt x 666.49pt>
 File: res/webEvents.png Graphic file (type png)
  <use res/webEvents.png>
 Package pdftex.def Info: res/webEvents.png used on input line 238.
@@ -1249,7 +1249,7 @@ Package pdftex.def Info: res/webEvents.png used on input line 238.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<res/webEvent.png, id=523, 823.075pt x 437.635pt>
+<res/webEvent.png, id=526, 823.075pt x 437.635pt>
 File: res/webEvent.png Graphic file (type png)
  <use res/webEvent.png>
 Package pdftex.def Info: res/webEvent.png used on input line 250.
@@ -1258,7 +1258,7 @@ Package pdftex.def Info: res/webEvent.png used on input line 250.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<res/webAttributes.png, id=525, 1263.72125pt x 265.99374pt>
+<res/webAttributes.png, id=528, 1263.72125pt x 265.99374pt>
 File: res/webAttributes.png Graphic file (type png)
 
 <use res/webAttributes.png>
@@ -1268,7 +1268,7 @@ Package pdftex.def Info: res/webAttributes.png used on input line 260.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<res/webCorrelationGraph.png, id=527, 572.1375pt x 445.665pt>
+<res/webCorrelationGraph.png, id=530, 572.1375pt x 445.665pt>
 File: res/webCorrelationGraph.png Graphic file (type png)
 
 <use res/webCorrelationGraph.png>
@@ -1346,21 +1346,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 387--391
 
  []
 
-[17] [18] <res/hub-and-spoke.png, id=715, 405.76593pt x 171.64125pt>
+[17] [18] <res/hub-and-spoke.png, id=718, 405.76593pt x 171.64125pt>
 File: res/hub-and-spoke.png Graphic file (type png)
 
 <use res/hub-and-spoke.png>
 Package pdftex.def Info: res/hub-and-spoke.png used on input line 424.
 (pdftex.def)             Requested size: 202.88246pt x 85.8204pt.
 
-<res/source-subscriber.png, id=716, 353.82187pt x 164.11313pt>
+<res/source-subscriber.png, id=719, 353.82187pt x 164.11313pt>
 File: res/source-subscriber.png Graphic file (type png)
 
 <use res/source-subscriber.png>
 Package pdftex.def Info: res/source-subscriber.png used on input line 427.
 (pdftex.def)             Requested size: 176.91049pt x 82.05635pt.
 
-<res/peer-to-peer.png, id=717, 331.2375pt x 169.38281pt>
+<res/peer-to-peer.png, id=720, 331.2375pt x 169.38281pt>
 File: res/peer-to-peer.png Graphic file (type png)
 
 <use res/peer-to-peer.png>
@@ -1389,7 +1389,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 467--470
 
  []
 
-<res/bloom-1.png, id=743, 953.5625pt x 555.07375pt>
+<res/bloom-1.png, id=746, 953.5625pt x 555.07375pt>
 File: res/bloom-1.png Graphic file (type png)
  <use res/bloom-1.png>
 Package pdftex.def Info: res/bloom-1.png used on input line 476.
@@ -1398,7 +1398,7 @@ Package pdftex.def Info: res/bloom-1.png used on input line 476.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<res/bloom-2.png, id=746, 960.58875pt x 557.08125pt>
+<res/bloom-2.png, id=749, 960.58875pt x 557.08125pt>
 File: res/bloom-2.png Graphic file (type png)
  <use res/bloom-2.png>
 Package pdftex.def Info: res/bloom-2.png used on input line 492.
@@ -1477,7 +1477,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 572--576
 
 [25
 
-] <res/ioc-rules.png, id=814, 607.26875pt x 334.24875pt>
+] <res/ioc-rules.png, id=817, 607.26875pt x 334.24875pt>
 File: res/ioc-rules.png Graphic file (type png)
 
 <use res/ioc-rules.png>
@@ -1493,7 +1493,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 592--594
 
  []
 
-<res/obfuscation-rule.png, id=818, 841.1425pt x 388.45125pt>
+<res/obfuscation-rule.png, id=821, 841.1425pt x 388.45125pt>
 File: res/obfuscation-rule.png Graphic file (type png)
 
 <use res/obfuscation-rule.png>
@@ -1589,7 +1589,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 769--770
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\gls' on input line 789.
 
-<res/seqDiagramRead.png, id=953, 1138.2525pt x 870.25125pt>
+<res/seqDiagramRead.png, id=956, 1138.2525pt x 870.25125pt>
 File: res/seqDiagramRead.png Graphic file (type png)
 
 <use res/seqDiagramRead.png>
@@ -1600,7 +1600,7 @@ Overfull \hbox (75.14708pt too wide) in paragraph at lines 794--795
 [][] 
  []
 
-<res/seqDiagramMatch.png, id=954, 1153.30875pt x 888.31876pt>
+<res/seqDiagramMatch.png, id=957, 1153.30875pt x 888.31876pt>
 File: res/seqDiagramMatch.png Graphic file (type png)
 
 <use res/seqDiagramMatch.png>
@@ -1697,7 +1697,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 893--898
 
  []
 
-<res/flowReadMisp.png, id=1008, 1114.1625pt x 492.84125pt>
+<res/flowReadMisp.png, id=1011, 1114.1625pt x 492.84125pt>
 File: res/flowReadMisp.png Graphic file (type png)
 
 <use res/flowReadMisp.png>
@@ -1709,7 +1709,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [37
 
-] <res/flowMatchRules.png, id=1020, 1093.08376pt x 781.92125pt>
+] <res/flowMatchRules.png, id=1023, 1093.08376pt x 781.92125pt>
 File: res/flowMatchRules.png Graphic file (type png)
 
 <use res/flowMatchRules.png>
@@ -1730,14 +1730,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 948--951
  []
 
 [38 <./res/flowReadMisp.png>]
-<res/flowPBKDF2.png, id=1035, 997.7275pt x 438.63875pt>
+<res/flowPBKDF2.png, id=1038, 997.7275pt x 438.63875pt>
 File: res/flowPBKDF2.png Graphic file (type png)
 
 <use res/flowPBKDF2.png>
 Package pdftex.def Info: res/flowPBKDF2.png used on input line 961.
 (pdftex.def)             Requested size: 299.32056pt x 131.59264pt.
 
-<res/flowBloomFilter.png, id=1036, 1370.11874pt x 213.79875pt>
+<res/flowBloomFilter.png, id=1039, 1370.11874pt x 213.79875pt>
 File: res/flowBloomFilter.png Graphic file (type png)
 
 <use res/flowBloomFilter.png>
@@ -1767,7 +1767,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 986--989
 
  []
 
-<res/profile-1iter.png, id=1046, 1443.3925pt x 700.6175pt>
+<res/profile-1iter.png, id=1049, 1443.3925pt x 700.6175pt>
 File: res/profile-1iter.png Graphic file (type png)
 
 <use res/profile-1iter.png>
@@ -1777,7 +1777,7 @@ Package pdftex.def Info: res/profile-1iter.png used on input line 992.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<res/profile-mem-readMisp-1iter.png, id=1050, 1017.8025pt x 671.50874pt>
+<res/profile-mem-readMisp-1iter.png, id=1053, 1017.8025pt x 671.50874pt>
 File: res/profile-mem-readMisp-1iter.png Graphic file (type png)
 
 <use res/profile-mem-readMisp-1iter.png>
@@ -1793,7 +1793,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1011--1012
 
  []
 
-<res/profile-1000iter.png, id=1051, 1443.3925pt x 700.6175pt>
+<res/profile-1000iter.png, id=1054, 1443.3925pt x 700.6175pt>
 File: res/profile-1000iter.png Graphic file (type png)
 
 <use res/profile-1000iter.png>
@@ -1816,7 +1816,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1026--1027
 
  []
 
-<res/readMisp-bloomy-1iter-res.png, id=1061, 1442.38875pt x 701.62125pt>
+<res/readMisp-bloomy-1iter-res.png, id=1064, 1442.38875pt x 701.62125pt>
 File: res/readMisp-bloomy-1iter-res.png Graphic file (type png)
 
 <use res/readMisp-bloomy-1iter-res.png>
@@ -1833,7 +1833,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1038--1039
  []
 
 [41 <./res/profile-1iter.png> <./res/profile-mem-readMisp-1iter.png>]
-<res/match-exist.png, id=1073, 1442.38875pt x 696.6025pt>
+<res/match-exist.png, id=1076, 1442.38875pt x 696.6025pt>
 File: res/match-exist.png Graphic file (type png)
 
 <use res/match-exist.png>
@@ -1848,7 +1848,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1049--1050
 
  []
 
-<res/match-bloom-not.png, id=1076, 1442.38875pt x 697.60625pt>
+<res/match-bloom-not.png, id=1079, 1442.38875pt x 697.60625pt>
 File: res/match-bloom-not.png Graphic file (type png)
 
 <use res/match-bloom-not.png>
@@ -1908,13 +1908,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 1093--1094
 
  []
 
-<res/TimePBKDF2.png, id=1107, 462.528pt x 346.896pt>
+<res/TimePBKDF2.png, id=1110, 462.528pt x 346.896pt>
 File: res/TimePBKDF2.png Graphic file (type png)
  <use res/TimePBKDF2.png>
 Package pdftex.def Info: res/TimePBKDF2.png used on input line 1099.
 (pdftex.def)             Requested size: 277.51894pt x 208.13919pt.
 
-<res/TimeBcrypt.png, id=1109, 462.528pt x 346.896pt>
+<res/TimeBcrypt.png, id=1112, 462.528pt x 346.896pt>
 File: res/TimeBcrypt.png Graphic file (type png)
  <use res/TimeBcrypt.png>
 Package pdftex.def Info: res/TimeBcrypt.png used on input line 1110.
@@ -1932,7 +1932,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1129--1132
 
  []
 
-[46 <./res/TimeBcrypt.png>] <res/TimeIPs.png, id=1140, 757.3896pt x 346.896pt>
+[46 <./res/TimeBcrypt.png>] <res/TimeIPs.png, id=1143, 757.3896pt x 346.896pt>
 File: res/TimeIPs.png Graphic file (type png)
 
 <use res/TimeIPs.png>
@@ -1943,7 +1943,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1143--1145
 
  []
 
-<res/TimeIterations.png, id=1149, 758.835pt x 346.896pt>
+<res/TimeIterations.png, id=1152, 758.835pt x 346.896pt>
 File: res/TimeIterations.png Graphic file (type png)
 
 <use res/TimeIterations.png>
@@ -2107,10 +2107,10 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D2411FDDC2F1E4D416B9C3A9BB5A82E1;4916.
  ) 
 Here is how much of TeX's memory you used:
- 25988 strings out of 493014
- 460152 string characters out of 6133351
- 626811 words of memory out of 5000000
- 28568 multiletter control sequences out of 15000+600000
+ 26019 strings out of 493014
+ 460618 string characters out of 6133351
+ 627268 words of memory out of 5000000
+ 28598 multiletter control sequences out of 15000+600000
  100829 words of font info for 137 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,15n,80p,1990b,883s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2136,10 +2136,10 @@ lic/lm/lmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmsy
 r/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></usr/local/tex
 live/2016/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/20
 16/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on report.pdf (60 pages, 4069418 bytes).
+Output written on report.pdf (60 pages, 4069312 bytes).
 PDF statistics:
- 1528 PDF objects out of 1728 (max. 8388607)
- 1382 compressed objects within 14 object streams
- 252 named destinations out of 1000 (max. 500000)
+ 1534 PDF objects out of 1728 (max. 8388607)
+ 1388 compressed objects within 14 object streams
+ 253 named destinations out of 1000 (max. 500000)
  28361 words of extra memory for PDF output out of 29859 (max. 10000000)
 
