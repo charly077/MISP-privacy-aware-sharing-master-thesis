@@ -562,6 +562,7 @@ By modularity, I mean that I want to be able to add "cryptographic modules" in o
 In this chapter, I will first explain their article, then the modifications and improvements I've made.\\
 
 \section{Private Sharing of IOCs and Sightings \cite{van2016private}}
+\label{sec:articlePrivate}
 This paper considers a cryptographic approach to hide the details of an indicator of compromise. They consider two different phases, sharing these \gls{ioc}s and privately reporting the sightings of \gls{ioc}s.\\
 
 Reporting the sightings is important for monitoring the events and attributes in \gls{misp}.\\ 
@@ -717,11 +718,12 @@ For the \gls{ip} ranges, there are two possibilities to handle them, either we c
 The second could be really inefficient due to the high number of generated rules. While the second one would approximately double the time for each match while only considering the range /24 and could not accept the ranges between 24 and 32.\improvement[inline]{CHOOSE ONE SOLUTION AND IMPLEMENT IT}
 
 
-\subsection{Only \gls{pbkdf2}}
-While I was adding features, it becomes more and more difficult to allow all these possible choices, I've thus started by limiting the key derivation function (\gls{kdf}) choice to \gls{pbkdf2} which is not the author advised one but allow to parametrize the difficulty for an attacker to brute force some small data.\\
-But in the opposite we cannot have a small number iteration if we want the key to look random. Which is finally the intended use as we want to slow down bruteforce attacks.
+\subsection{\gls{pbkdf2}}
+While I was adding features, it becomes more and more difficult to allow all these possible choices, I've thus started by limiting the key derivation function (\gls{kdf}) choice to \gls{pbkdf2} which is not the author advised one but allow to parametrise the difficulty for an attacker to brute force some small data.\\
+But in the opposite we cannot have a small number iteration if we want the key to look random. Which is finally the intended behaviour as we want to slow down bruteforce attacks.\\
+Then, I've implemented an other \gls{kdf} following the same scheme as with \gls{pbkdf2} called Bcrypt which is explained in \ref{sec:BcryptExp}
 
-\subsection{library: Pycrypto towards Cryptography}
+\subsection{Library: Pycrypto towards Cryptography}
 While discussing with Tim van de Kamp by email, he said that if he had to start over, he would choose the cryptography library \footnote{https://cryptography.io/en/latest/} instead of pycrypto because it seems to be a more professional implementation.\\
 I thus have made some research on it. There are some discussion about it but \url{libhunt.com} gives this table \ref{cryptoLibraries} where we can see that even if pycrypto seems better written, the cryptography library is more up to date and still with a lot of activities.\\
 Besides that, I found the library well defined and really easy to use that is why, I've chosen to refactor the code with this particular library instead.
@@ -746,7 +748,7 @@ Last Commit                                                       & about 3 year
 
 \subsection{Structure Improvement}
 The code was becoming less and less clear to understand and as I wanted it to be modular for the cryptographic system used. I've decided to completely re factor the code.\\
-The used structure is as following:
+The used structure is now as following:
 \begin{itemize}
 \item src: Source code.
 \item conf: Configuration files.
@@ -757,35 +759,35 @@ The used structure is as following:
 Inside src, there is also a crypto subdirectory in which are located all cryptographic functions in the different possible modules implemented.
 
 \subsection{Top Configuration File}
-Instead of having a lot of configuration files as when I started, I've gathered them back in one general file where we only have to fill what will be used (Specified in function).\\
+Instead of having a lot of configuration files as when I started, I've gathered them back in one general file where we only have to fill in what will be used.\\
 The configuration file is divided into categories and is read thanks to the configparser python library.
 
 \subsection{The Encrypted Message}
-In the original paper, the authors where using the Course Of Action (\gls{coa}) for the message. This is really useful to automatically react as soon as possible, in our case we are mostly interest in protect data as well as analysing the incident.\\
-Therefore, my choice was to use a message that allows to retrieve the attributes and events on \gls{misp} and fetch the needed information. This has two advantages, the first one is to only allows to know that an element is known by \textbf{someone} using \gls{misp} which is really important for the privacy. Then to get back information we need to connect to \gls{misp} where all authorisations are checked by the standard system.\\
-The second one to allow the analyst to make correlations and to improve the existing analyses.\\
+In the original paper, the authors where using the Course Of Action (\gls{coa}) for the message. This is really useful to automatically react as soon as possible, but in our case we are mostly interest in protecting data as well as analysing the incident.\\
+Therefore, my choice was to use a message to allow the user to retrieve the attributes and events on \gls{misp} and fetch the needed information. This has two advantages, the first one is to only allows to know that an element is known by \textbf{someone} using \gls{misp} and nothing more. This is really important for the privacy. Then, in order to get back information the user needs to connect to \gls{misp} where all authorisations are checked by the standard system.\\
 
-Another point is that the major interest of this system would be to mix rules from different \gls{misp} instances. But for that, we need to be able to identify the different instances thanks to a universal unique identifier for the instances. After discussing it with CIRCL, It will normally be soon implemented.\\
+Another point is that another advantage of this system is to be able to mix rules from different \gls{misp} instances. But for that, we need to be able to identify the different instances thanks to a universal unique identifier. After discussing it with CIRCL, It will normally be soon implemented.\\
 
-Besides that, not every user need the same message, so the message can be modified with the top configuation file but we need at minimum the \gls{uuid} to referenced the element uniquely.\\
-The argument 'rules->message' can be associated with the attributes (separated by a space) contained by \gls{misp} attributes like : "uuid event\_id date".
+Besides that, not every user needs the same message, so the message content can be modified with the top configuration file but in general at least the \gls{uuid} is needed to referenced uniquely the element.\\
+The argument 'rules->message' is therefore associated with the attributes (separated by a space) contained by \gls{misp} attributes like : "uuid event\_id date".
 
 \subsection{Add a rule}
 After having created the \gls{misp} rules, if we want to add new ones, we can do it thanks to the addIOC script.\\
-We then, can choose to specify the rule directly inside the terminal or via a \gls{csv} file located in the 'res' folder.\\
-This need to be used carefully as no verifications are made on the rule. Checking every new \gls{ioc} if it already exists would have been really too time consuming.
+Then we can choose to specify the rule directly inside the terminal or via a \gls{csv} file located in the 'res' folder.\\
+This needs to be used carefully as no verifications are made on the added rules. Checking every new \gls{ioc} if it already exists would have been really too time consuming.\\
+On the other hand, unfortunately, bloom filters need to be completely regenerated for adding new rules.
 
 \subsection{Update Rules}
-After all that, if we want to make rules hard to bruteforce, it makes them long to generate as well. This is why we need the capability of updating the rules with the recent \gls{ioc}s.\\
+After all that, making rules hard to bruteforce, makes it harder to generate as well. This is why we need the capability of updating the rules with the recent \gls{ioc}s.\\
 This kind of implementation is only useful when the rules are generated via the \gls{misp} web \gls{api}. Therefore, the update implementation works only in this case.\\
-First, a new metadata file is generated in the 'res' folder and keeps track of the last \gls{ioc}s date. Then via the addIOC script with a --update argument, it gets the \gls{misp} attributes thanks to a specific web request. Saves it in an \gls{csv} file called update<number of the update>.csv.
-The \gls{csv} events are then transformed into rules and added to existing ones before finally updating the metadata file with the new last date.
+First, a new metadata file is generated in the 'res' folder and keeps track of the last \gls{ioc}s date. Then via the addIOC script with a '--update' argument, it gets the new \gls{misp} attributes thanks to a specific web request, saves it in an \gls{csv} file called update<number of the update>.csv.
+The \gls{csv} events are then transformed into rules and added to existing ones before finally updating the metadata file with the new latest date.
 
-\section{Chosen Cryptographic System}
-The idea of the generalisation was to add modules for handling the way data are stored/encrypted, we can use completely different cryptographic systems later called modules. In this section, I will discuss my implementation choices for each implemented scheme.
+\section{Chosen Cryptographic Systems}
+The idea of the generalisation was to add modules for handling the way data are stored/encrypted, we can use completely different cryptographic systems later called modules. In this section, I will discuss my implementation choices for each implemented schemes.
 
 \subsection{\gls{pbkdf2}}
-This is the basic system for which all the structure had been optimised and had been thought for. In this section, I will thus briefly introduce these two sequence diagrams to help the understanding the system:
+This is the basic system for which all the structure had been optimised and had been thought for. In this section, I will thus briefly introduce these two sequence diagrams to help the understanding of the system:
 \begin{figure}[h!]
 \begin{center}
    \begin{minipage}[c]{.46\linewidth}
@@ -798,10 +800,10 @@ This is the basic system for which all the structure had been optimised and had 
 \end{figure}
 
 For the cryptographic system, there is also a small difference in the rules that allow a really faster matching.\\
-Instead of directly encrypt the whole message, I've decided to divide it into two parts (easy to do with the cryptography library). The first is the ciphertext-check and the other one is the ciphertext. The ciphertext-check is simply the first block of the encrypted message. It is used only for matching, decrypt it must result in only zeros if there is a match.\\
+Instead of directly encrypting the whole message, I've decided to divide it into two parts (easy to do with the cryptography library). The first is the ciphertext-check and the other one is the ciphertext. The ciphertext-check is simply the first block of the encrypted message. It is used only for matching, decrypt it must result in only zeros if there is a match. (cfr. \ref{sec:articlePrivate})\\
 
 For this algorithm, the user must choose an important meta parameter that will determine the "security level". This meta parameter is the number of iterations for the key derivation functions.\\
-In 2000, the \gls{rfc} advised 1000 iterations for password storing. In 2015, OWASP password storage cheat sheet \cite{van2015password} advised about 10 000 iterations while \gls{nist} recommends on its appendix A.2.2 of its guide \cite{turan2010nist} to use as many iterations as it is possible with the needed performances.\\
+In 2000, the [\gls{rfc}2898] advised 1000 iterations for password storing. In 2015, OWASP password storage cheat sheet \cite{van2015password} advised about 10 000 iterations while \gls{nist} recommends in the appendix A.2.2 of its guide \cite{turan2010nist} to use as many iterations as it is possible with the needed performances.\\
 
 Some additional analyses can be made on the ability to sustain an attack, the article made by the CryptoSense\footnote{\url{https://cryptosense.com/parameter-choice-for-pbkdf2/}} website is really well documented.\\
 They have analysed previous work and have done some estimation for 2015. Their approximation is more a guess than anything else and I wouldn't dare to try their approximation for 2017 but I will nevertheless show their results to get a rough idea of what could be the time to crack a password from a key generated with \gls{pbkdf2} (\gls{aes} + SHA-1):\\
@@ -838,45 +840,40 @@ ciphertext       & RQMQ0a7dxJuFxhZDdLuCp72CWaT0wzn4+w==
 \end{table}
 
 \subsection{Bcrypt}
-The implementation with Bcrypt is similar as my implementation with \gls{pbkdf2}. It is a password hash function based on the Blowfish cipher. It also incorporates salts to be protected against rainbow table attacks (TMTO).\\
-It has also advantages as being more configurable and is more efficient against GPU attacks. It also seems better to use but the \gls{nist} recommendations are still about \gls{pbkdf2}.\\
+\label{sec:BcryptExp}
+This implementation is similar as my implementation with \gls{pbkdf2}. Bcrypt is a password hash function based on the Blowfish cipher, as \gls{pbkdf2}, It also incorporates salts to be protected against rainbow table attacks (TMTO).\\
+It has also the advantage of being more configurable and is more efficient against GPU attacks. It also seems better to use but the \gls{nist} recommendations are still about \gls{pbkdf2}.\\
 
-On the other hand, the time complexity of the implementation is not the same as for \gls{pbkdf2}.\\
-The problem with this algorithm is that they only consider the 72 firsts characters of the password for the key generation. It can seem a lot but even this \gls{url} \url{https://translate.google.com/#fr/en/72\%20caract\%C3\%A8re\%2C\%20ce\%20n'est\%20pas\%20beaucoup} is 88 characters long. This means that if we add the token at the end (like in PKKDF2) it will not be included. On the other side, if we first put the token before the data, an attacker would know that the 40 firsts characters will always be the same and moreover, there are only 32 characters left for the data which is not enough even for an \gls{ipv6}.\\
-As the goal was that the whole string has an impact to the key generated as well as the token to have an impact on all bits. The solution was thus obviously to hash the concatenation of the value with the token and then seed this fingerprint to the key generation function.\\
-
-We also know that such key derivation functions are aimed to have a time complexity that growth exponentially with the number of characters. Here every element can be considered as a 72 characters element (has the hash is longer) which means that with this technique, it can take really longer to check \gls{ip}s in the system and so for bruteforcing as well. It thus needs to be taken into consideration before choosing the number of iterations for small data.
+The problem with this algorithm is that it only considers the 72 firsts characters of the password for the key generation. It can seem a lot but even this \gls{url} \url{https://translate.google.com/#fr/en/72\%20caract\%C3\%A8re\%2C\%20ce\%20n'est\%20pas\%20beaucoup} is 88 characters long. This means that if we add the token at the end (like in \gls{pbkdf2}) it will not be included. On the other side, if we first put the token before the data, an attacker would know that the 40 firsts characters will always be the same and moreover, there would be only 32 characters left for the data which is not enough.\\
+As the goal was that the whole string has an impact to the key generated as well as the token to have an impact on all bits. The solution found was thus  to hash the concatenation of the value with the token and then feed this fingerprint to the key generation function.\\
 
 
-\subsection{Bloom filter}
-In this section, I will argue the choice for python-bloom library. This choice was actually a way more complicated than it could be as, I think it is not the fastest implementation.\\
-But first, to understand my choice, we need to know what I really was searching for. I needed to find a way for avoiding brute forcing the database, but, on the other hand, I want it to be really fast for a common user. Thus Bloom filters already take care of the first part so, I only needed to find a fast implementation.\\
-I also wanted the system to be storable in files without any additional information.\\
-So the first I've found was to use bloomd server with a python client. But, it would mean that we would have to install all these things which seems not really interesting. But why not using redis to store data ? It is fast and there was a really fast implementation of bloom filters in python for redis (actually in c interfaced with python) called pyrebloom. But the code was really complicated and not easy to read. Moreover, I discovered that they are keeping additional information on keys to be able to remove elements. That, without forgetting the fact that it doesn't seem savable in a file make me drop this implementation.\\
+\subsection{Bloom Filter}
+In this section, I will argue the choice for the python-bloom library. I needed to find a fast implementation where I was also able to store the Bloom Filter structure in a file without any additional information.\\
+So the first I've found was to use bloomd server with a python client. But, it would mean that we would have to install all these things which seems not really interesting. But why not using redis to store data ? It is fast and there was a really fast implementation of bloom filters in python for redis (actually in c interfaced with python) called pyrebloom. But the code was really complicated and not easy to read. Moreover, I discovered that they were keeping additional information on keys to be able to remove elements. That, without forgetting the fact that it doesn't seem savable in a file make me drop this implementation.\\
 I've finally found the python-bloom library, It seems less efficient but well implemented, without any additional state and there is a way to save the bloom filter.\\
 
-For the bloom filter, I've got different ideas, first, I need to implement the bloom filter as a \gls{tsv} file. But, I also need it to be loaded each time. For this, I've added a special joker rule that is always loaded if it exists.\\
-On this first implementation, I would like to have only one bloom filter for the whole data set. I could have implemented a bloom filter for attributes but as it is fast enough, it would use less memory and will be more efficient to use only one bloom filter.\\
+This was then difficult to implement it in the system as I needed the bloom filter to behave as a rule in a file while being loaded every time it exists. Therefore, I created a 'joker' file that is loaded every time and that could contain the bloom filter.\\
+In contrary of standards rules, I'm using only one bloom filter for the whole set of rules.\\
 
-For this library, I could not install it in the standard way as I did a small modification on the code to make it works with python3 correctly. This is why the code of the library is directly included.
+For this library, I could not install it in the standard way as I did a small modification on the code to make it works with python3 correctly. This is why the code of the library is directly included in the repository.
 
 
+\subsection{Bloom filter used to improve the performance of Key Derivation Functions}
+Key derivation functions are working to slow down a brute force attack. This is working really well as the complexity of a brute force attack time complexity increases exponentially with the length of the string to "crack". On the other hand, if we know exactly the data we are looking for and if there is a small set of different values. We cannot do anything against it. \\
 
-\subsection{Bloom filter used as to improve performance of Key Derivation Functions}
-Key derivation functions are working to slow down a brute force attack. This is working really well as the complexity of a brute force attack time complexity increases exponentially with the length of the string to "crack". On the other hand, if we know exactly the data we are looking for and that there is a small set of different values. We cannot do anything against it. \\
+So if we came back on a longer sized data like \gls{url}s, brute forcing them (if we are not looking especially for a value) is close to impossible and even if making the task easier for a user makes the task easier as well for the attacker, it can still be nearly infeasible for an attacker to brute force the whole dataset while making the system a way faster for the user.\\
 
-So if we came back on a longer sized data like \gls{url}s, brute forcing them (if we are not looking especially for a value) is close to impossible and even if making the task easier for a user makes the task easier as well for the attacker, but it can still be nearly infeasible for an attacker to brute force the whole dataset while making the system a way faster for the user.\\
-
-With this idea in mind, I've used both types of implementations to create key derivation function improved with a bloom filter. The bloom filter avoids decrypting each rule if no rules contain the data we are looking for. \\
+With this idea in mind, I've used both types of implementations to create key derivation function improved with a bloom filter. The bloom filter avoids decrypting rule where the Bloom Filter refute the membership of the data we are looking for. \\
 And, on the other side, when there is a match, rules can be used to get back the information needed to retrieve the event information from \gls{misp}.\\
 
-This is a serious advantage for matching. In function of the bloom filter false positive rate the system could be made a lot faster. So much faster that we could use it directly as an \gls{ids} that could be updated time to time and that could work on computer logs and that could work standalone to generate reports on events that could affect a system.\\
-The previous system was first aimed to be used like that but we a recommended number of iterations, the system was too slow to use in that way as data to check accumulates at a much bigger rate than the system need to look through all rules.\\
+This is a serious advantage for matching. In function of the bloom filter \gls{fp} rate the system could be made a lot faster. So much faster that we could use it directly as an \gls{ids} that could be updated time to time and that could work on computer logs and  stand-alone to generate reports on events that could affect a system. Then, the analyst would just have to go on \gls{misp} to get more specific information.\\
+The previous system was first aimed to be used like that but with a recommended number of iterations, the system was too slow to use in that way as data to check accumulates at a much bigger rate than the system need to look through all rules.\\
 
 Thus increasing the speed can be done by decreasing the rate of false positive of the bloom filter but what if an attacker is only interesting in knowing the element belonging to the data set?\\
 The bloom filter could give him all the information he needs. This is the reason why we can not take a too small rate for the bloom filter.\\
 
-A complete analyse of this solution will follow in the results chapter.
+A complete analyse of this solution will follow in the chapter about the results.
 
 
 \section{An other \gls{kdf}}
@@ -890,24 +887,22 @@ Argon2 was designed at the University of Luxembourg and there are three versions
 \end{itemize}
 
 There are two available libraries that implement Argon2 which are passlib and argon2\_cffi.\\
-This could be interesting to use it instead of bcrypt or \gls{pbkdf2} but unfortunately, the two existing libraries have directly integrated the salt generation. \\
-The only way of using it, for now ,would have been to take a salt of length zero and to generate the salt by myself. \\
-But I'm not sure that it would keep its security value doing so.
+This could be interesting to use it instead of bcrypt or \gls{pbkdf2} but unfortunately, the two existing libraries have directly integrated the salt generation which makes it impossible to use with the current implementation. \\
 
 \chapter{Results}
-Finally, the most interesting part is coming, is it really working? Is the additional computation worth it? Can we trust this system with our data? Could with improve the code for the computation time?\\
+Finally, is it really working? Is the additional computation worth it? Can we trust this system with our data? Could with improve the code for the computation time?\\
 This final chapter will try to answer those questions. With the code reorganisation, I think I have succeeded in making the code easy to understand.\\
 This first part will be on understanding the used dataset, then I will focus on the code profiling to understand which parts could be improved.\\
 Then I will explain a set of benchmark to try to show the interest of this system.\\
 Discussion on the security of the techniques and their usability will serve as a nice conclusion.\\
 
 \section{Dataset}
-The objective was to make all data available if additional analyses are done or if this work is continued. For that, following the same reflection as with the starting screen-shots, the data directly inside the virtual machine are TLP white and are available for everyone as we can directly download them on the CIRCL website: \url{https://circl.lu/services/misp-training-materials/}.\\
+The objective was to make all data available if additional analyses are done. For that, following the same reflection as with the starting screen-shots, the data directly inside the virtual machine are TLP white and are available for everyone as we can directly download them on the CIRCL website: \url{https://circl.lu/services/misp-training-materials/}.\\
 Thus I've used these data instead of the one directly from an instance. Even if there are a lot less data here, the computations and analyses give the necessary idea.
 
 \section{Code Profiling}
-This section is divided into three parts, a deeper understanding of the code workflow is needed to understand where the time is lost during the execution. Then, the code will be profiled for two different executions in the \gls{pbkdf2} mode, the first is aimed to compare the time of the key generation with only one iteration. That gives a right comparison point between the different functions and the second that will be with 1000 iterations to see how it occupies the time. \\
-And finally, I will focus on the bloomy implementation.
+This section is divided into three parts, a deeper understanding of the code workflow is needed to understand where the time is lost during the execution. Then, the code will be profiled for two different executions in the \gls{pbkdf2} mode, the first is aimed to compare the time of the key generation with only one iteration. That gives a right comparison point between the different functions and the second will be with 1000 iterations to look at the behaviour of the system in a possible configuration. \\
+Finally, I will focus on the bloomy implementation.
 
 \subsection{Code Flow}
 As previously explained, a deeper understanding of the different workflows of the code are important to understand the later profile.\\
@@ -922,21 +917,21 @@ This explanation will be separated into the read, match and crypto part as crypt
 \end{center}
 \end{figure}
 
-ReadMisp (fig. \ref{code2flow-readMisp}) will first retrieve the data, either via the web \gls{api}, the MySQL connection or directly from \gls{csv} (located in the res folder). The advantage of the MySQL is the speed for two reasons, first, there is no data transformation as we request the data as it is stored and secondly, in general, the MySQL server is accessible only from the server which means that there is less network delay.\\
+ReadMisp (fig. \ref{code2flow-readMisp}) will first retrieve the data, either via the web \gls{api}, the MySQL connection or directly from \gls{csv} (located in the res folder). The advantage of the MySQL is the speed for two reasons, first, there is no data transformation as we request the data as it is stored and secondly, in general, the MySQL server is accessible directly from the server that generates the rules which means that there is less network delay.\\
 On the flow chart, we can also see the function printv which is a call to print only if the program runs in verbose mode.\\
-Once the IOCs available, the attributes are parsed and the message is created. The message is the important information as it is that that actually identifies the threat and allows the user to connect himself to \gls{misp} and get back all information related to the event.\\
+Once the IOCs are available, the attributes are parsed and the message is created. The message is the important information as it is that that actually identifies the threat and allows the user to connect himself to \gls{misp} and get back all information related to the event.\\
 For the parsing is the real creation of the rule, which is done in several steps:
 
 \begin{enumerate}
 \item Values from \gls{misp} are split and associated with their type in a dictionary.
 \item \gls{url} are normalised.
 \item The message is created.
-\item The Crypto package is called to create the rule.
+\item The Crypto package is called to create the rules.
 \end{enumerate}
 
 In order to be modular, all the code for rule creation is separated. Each time that the program is started, it goes to the configuration file to see which Crypto module to load from the crypto package.\\
-All modules need to implement the interface (interface.py) and then must be add in the choose\_crypto.py.\\
-For an example, the workflow for the PKKDF module is available in figure \ref{code2flow-pbkdf2}.
+All modules need to implement the interface (interface.py) and then must be added in the choose\_crypto.py.\\
+For an example, the workflow for the PKKDF module is available in figure \ref{code2flow-pbkdf2} and will be explained afterwards.
 
 \subsubsection{MatchRules}
 \begin{figure}[h!]
@@ -947,17 +942,17 @@ For an example, the workflow for the PKKDF module is available in figure \ref{co
 \end{center}
 \end{figure}
 
-Match rules has two really different ways of working, try to match an element from the arguments (argument matching) or from redis if the pipeline system with logs is used.\\
+Match rules has two really different ways of working, try to match an element from the arguments (argument matching) or from redis if the system with the logs is used.\\
 The additional rangeip test is just for testing purpose and will be further explained in the benchmark sections.\\
 
 For redis matching, the only difference is that a pool of processes running a redis matching process is used.\\
 Each process is actually polling the redis queue for new logs and is then feeding them to the matching system.\\
-In the other system, the arguments are directly seeded to the matching system.\\
+In the other system, the arguments are directly fed to the matching system.\\
 
 The matching system is working in different steps, first, in function of the argument types, it will load and cache the needed rules (get\_rules).\\
-There are two types of rules, the standards one are divided into files but, as I've added systems like bloom filters where it was easier to have a special file always loaded that I called Joker.\\
+There are two types of rules, the standards one are divided into files as well as the 'joker' file for the bloom filter if it exists.
 
-Once the rules loaded, for each attributes to check, the crypto module will try to decrypt each rule up to find or not a match.
+Once the rules are loaded, for each attributes to check, the crypto module will try to decrypt each rule up to find or not a match.
 
 \subsubsection{Crypto Module \gls{pbkdf2}}
 
@@ -981,16 +976,16 @@ The crypto modules are responsible for creating and matching rules. In the parti
 I've additionally added the bloom filter chart as well to see that the difference is small as they inherit the same interface.\\
 
 As the types of file can differ from modules to modules, this is also the crypto module wich is responsible for saving data and metadata files.\\
-This part can take a lot of time as for saving the elements (as well as getting them) we cannot afford problems inside the files with special characters. So for that the idea is to use base64 encoding for the encrypted message, the salt (or nonce) and also the cipher-check argument (used for faster match checking).\\
+This part can take a lot of time as for saving the elements (as well as getting them) we cannot afford problems inside the files with special characters. So for that the idea is to use base64 encoding for the encrypted message, the salt/nonce and also the cipher-check argument (used for faster match checking).\\
 
 
 \subsection{Profile of ReadMisp for 1 iteration}
 We thus need to verify that generating the keys and encrypting/decrypting data is much more time consuming than everything else even with one iteration.\\
-We should also do especially close attention to the normalisation of \gls{url}s. Normalisations could be inefficient as I don't know how the library is implemented and moreover, I'm additionally iterating for searching regex after that.\\
+We should also do especially close attention to the normalisation of \gls{url}s. Normalisations could be inefficient as I don't know how the library is implemented and moreover, I'm additionally iterating for searching regex after that which can be inefficient.\\
 
 For profiling the code, I've had some difficulties, first, I tried to use the vprof profiler as it seems to be the best and it was said that it supports python3.\\
 But there were a lot of errors and I first didn't succeed in using it. I've thus tried to use a line\_profiler (only working with python2) then profiling which was really complicated to used. \\
-I finally managed to use vprof with a little modification (to force it using python3) and I was really impressed by this tool that analyses everything. We can have graphs of the function utilizations, a line by line profile as well as a memory analyse which can be really useful.\\
+I finally managed to use vprof with a little modification (to force it using python3) and I was really impressed by this tool that analyses everything. We can have graphs of the function utilisations, a line by line profile as well as a memory analyse which can be really useful.\\
 
 \begin{figure}[h!]
 \begin{center}
@@ -1025,10 +1020,10 @@ The memory graph we can see that the highest level (on the right) is approximate
 \end{center}
 \end{figure}
 
-The goal of this work is to slow down the system, which means that a lot of iteration will be used. This is the reason why this is closer to a real execution of the system. Of course we can see that the major part of the time is used by the key derivation function.\\
+The goal of this work is to slow down the system, which means that a lot of iterations will be used. This is the reason why this is closer to a real execution of the system. Of course we can see that the major part of the time is used by the key derivation function (fig. \ref{profile-readMisp1000}).\\
 
 \subsection{Profile of the bloomy\_pbkdf2 module}
-The first step is to analyse the computationnal overhead for creating the rules with the bloomy module. The figure \ref{profile-bloomy-readMisp-1iter} shows that the key derivation function is still more computationally intensive than the creation of the bloom filter, actually, we can even see that bloom filter generation takes only 1.9\% of the time.\\
+The first step is to analyse the computationnal overhead for creating the rules with the bloomy module. The figure \ref{profile-bloomy-readMisp-1iter} shows that the key derivation function is still more computationally intensive than the creation of the bloom filter, to be more precise, we can even see that bloom filter generation takes only 1.9\% of the time.\\
 
 
 \begin{figure}[h!]
@@ -1040,7 +1035,7 @@ The first step is to analyse the computationnal overhead for creating the rules 
 \end{figure}
 
 
-Then, when the code is running, there are three existing path for checking a value. Firstly, if there is a match, due to the 0 rate of false negative, we know that the bloom filter will match. Then All rules will be checked and the match(es) will be found. On the other side, if there is a match, there are still two possibilities. Either the bloom filter matches due to its false positive rate and therefore all rules will be checked as well or, the bloom filter will reject the membership and it is the special case that improves the overall performance of the matching system.\\
+Then, when the code is running, there are three existing paths for checking a value. Firstly, if there is a match, due to the 0 rate of false negative, we know that the bloom filter will match. Then All rules will be checked and the match(es) will be found. On the other side, if there is a match, there are still two possibilities. Either the bloom filter matches due to its false positive rate and therefore all rules will be checked as well or, the bloom filter will reject the membership and it is the special case that improves the overall performance of the matching system.\\
 
 
 \begin{figure}[h!]
@@ -1063,41 +1058,42 @@ On figure \ref{profile-bloomy-match} we can see that it takes more time than the
 
 While we can clearly see the advantage of the system in the figure \ref{profile-bloomy-no-match} as the bloom filter immediately realise this value does not belong to the set.\\
 
-In this case, we can realise that there is a problem with the implementation, as I tried to have a modular implementation and doing everything inside the modules, it does not always goes well with the system. Here, for one attribute, whatever the result of the bloom filter for one rule it will test the bloom filter for every different rules. This is really bad as the bloom filter is not related to the rule but only to the attribute tested. To solve this problem a cache must be implemented. The first cache implementation already improved the system but was really bad as I was a dictionnary of matched values.\\
-There are two problems with that, first, to put the orderedDictionary as a key, we need to transform that into a string. And then add it to the cache.\\
-But for a matching, we each time need to transform the value to a string and while checking the dictionary it actually hash the string attribute. All that was taking a way too much time and I finally opted for a simple but nevertheless efficient implementation with only a two cache variables, the last OrderedDictionary representing the attribute to check with the last bloom filter result.\\
+In this case, we can realise that there is a problem with the implementation, as I tried to have a modular implementation and doing everything inside the modules, it does not always goes well with the system. Here, for one attribute, whatever the result of the bloom filter for one rule it will test the bloom filter for every different rules. This is really bad as the bloom filter is not related to the rule but only to the attribute tested. To solve this problem a cache must be implemented. The first cache implementation already improved the system but was really bad as I was using a dictionary of matched values.\\
+There are two problems with that, first, to put the orderedDictionary used for representing an attribute as a key, we need to transform that into a string. And then add it to the cache.\\
+But for a matching, we each time need to transform the value to a string and while checking the dictionary it actually hashing the string attribute. All that was taking a way too much time and I finally opted for a simple but nevertheless efficient implementation with only two cache variables, the last OrderedDictionary representing the attribute to check with the last bloom filter result.\\
 This cache is so fast that the bloomy overhead does not appear any more on the profiles, the script complete run when bloom filter discover the attribute is not in the set is about 0.16s.\\
 
 \section{Benchmarking}
-The ideas have been explained, in the first few sections, then the implementation had been explained followed by profiles that help understand the behaviour of the system and how the computation power is used inside the system. Now it is time to see how it is working with real data, what would be the right parameters to use and why these choices. Moreover, this is in this section that we could analyse if the goal had been totally reached, reached for some part and decide if it can or cannot be used in real implementations.\\
+The ideas have been explained, in the first few sections, then the implementation had been explained followed by profiles that help to understand the behaviour of the system and how the computation power is used inside the system. Now it is time to see how it is working with real data, what would be the right parameters to use and why these choices. Moreover, this is in this section that we could analyse if the goal had been totally reached, reached for some part and decide if it can or cannot be used in real implementations.\\
 This is important as we are aware of the benefits that it could have but we must stay aware of the risk of that exposure on which a system like this one could lead.\\
 
-\subsection{General Discussion}
+\subsection{General Security Discussion}
 The standard implementation had already been assessed in the paper  but there is something quite new which is the use of the bloom filters inside the implementation.\\
-The goal here is not to hide that we have the information, it is more to hide who have seen this particular \gls{ioc} and what did they concluded on it.\\
-If someone want to test if a specific value is known by the system. First, he needs first to get the generated rules. Secondly, to be sure he is the only one to use these rules, its secret token is include in the rules creation what makes them unusable for someone that does not knows it. And also allows to trace back the origin of a data leak.\\
+The goal here is to hide that we have the information, but it is even more to hide who have seen this particular \gls{ioc} and what did they concluded on it.\\
+If someone want to test if a specific value is known by the system. First, he needs to get the generated rules. Secondly, to be sure he is the only one to use these rules, its secret token is include in the rules creation what makes them unusable for someone that does not knows it. it also allows to trace back the origin of a data leak.\\
 Once they have these rules and the right token. They can ckeck the value. So if an attacker manage to get those, he can succeed in knowing if specific values are known and to get information allowing him to fetch the information on the \gls{misp} web interface. Which means that, at that moment, there is again a barrier as he needs to have the right credentials to get more informations.\\
 
 Therefore we know that we could possibly (but already difficulty) imagine that this system can leaks two important information to an attacker. The number of elements known by the system as well as the fact that someone belonging to an organisation linked to the instance or to some data feed used by the instance have knowledge of a value that the attacker has chosen.\\
-This brings a problem with \gls{ipv4} as the number of possible \gls{ipv4} is limited but it seems unfeasible to test all longer data like \gls{url}s.\\
+This brings a problem with \gls{ipv4} as the number of possible \gls{ipv4} is limited but it seems unfeasible to bruteforce longer data like \gls{url}s.\\
 
-On the other side, if someone wants to attack himself directly to get information from one rule. It is nearlly impossible. If the attacker want to bruteforce the ciphertext, he first needs to be able to break an \gls{aes} encryption scheme with a 128-bit key. And then he could get the message but still not the \gls{ioc} related to the information.\\
+On the other side, if someone wants to attack himself directly to get information from one rule. It is nearly impossible. If the attacker want to bruteforce the ciphertext, he first needs to be able to break an \gls{aes} encryption scheme with a 128-bit key. And then it could get the message but still not the \gls{ioc} related to the information.\\
 To get the \gls{ioc}, he would still need to be able to reverse the hash function used.\\
 
-With a bloom filter we can therefore increase the match efficienty for a standard user while giving up an advantage to the attacker. But an advantage that gives him only information that he would have finally found.\\
+With a bloom filter we can therefore increase the matching efficiency for a standard user while giving up an advantage to the attacker. But an advantage that gives him only information that he would have finally found.\\
 
-So in this case, what is important is to benchmark the time used to generate a rule in function of the iterations number or of the algorithm used. The space memory needed for the rule. The time used for testing an element against a rule.\\
+So in this case, what is important is to benchmark the time used to generate a rule in function of the number of iterations or of the algorithm used. The space memory needed for the rule. The time used for testing an element against a rule.\\
 And this, with or without bloom filters. Then it is also important to assess the advantage of the bloomy implementation in function of the number of available rules, the number of iterations and especially the false positive rate used.
 
 \subsection{Key Derivation Functions}
 \label{sec:KeyDerivationFunction}
-In rules generation and matching algorithm, the \gls{kdf} is the most costly function. For this raison, I've decided to analyse their behaviour in function of the length of the initial value as well as the time complexity used (iterations or rounds).\\
+In rules generation and matching algorithm, the \gls{kdf} is the most costly function. For this reason, I've decided to analyse their behaviour in function of the length of the initial value as well as the time complexity used (iterations or rounds).\\
 
 I was first very surprised, as I could see that the length of the key has no impact on the time used to generate the values and that for the two algorithms. Thus, in this section, I will only present the graphs about the impact of the number of iterations and rounds.\\
 
+Also, for both implementations, there are glitters. Even each point is the result of a mean on 100 points, they are probably due to system interrupts.\\
 
 \subsubsection{\gls{pbkdf2}}
-As we can see on figure \ref{benchmarking:timePBKDF2} the time increase linearly in function of the number of iterations.
+As we can see on figure \ref{benchmarking:timePBKDF2} the time increases linearly in function of the number of iterations.
 \begin{figure}[h!]
 \begin{center}
 	\includegraphics[scale=0.6]{res/TimePBKDF2}
@@ -1105,7 +1101,7 @@ As we can see on figure \ref{benchmarking:timePBKDF2} the time increase linearly
 	\label{benchmarking:timePBKDF2}
 \end{center}
 \end{figure}
-As it is linear, it means that each iterations takes the same amount of time to be computed and therefore, we can approximate that the time needed for generating a password with one iteration is about $10^{-6}$s
+As it is linear, it means that each iterations takes the same amount of time to be computed and therefore, we can approximate that the time needed for generating a password with one iteration is about $10^{-6}$s.
 
 \subsubsection{Bcrypt}
 As we can see on figure \ref{benchmarking:TimeBcrypt} the time also increases linearly in function of the number of rounds.
@@ -1120,19 +1116,19 @@ The same kind of approximation can be done and we get a 0.005s by iteration.
 \subsubsection*{Conclusion on \gls{kdf}}
 Both algorithm used behaves similarly, the key derivation cost do not varies with the length as well as it varies linearly with the cost parameter.\\
 The only observed difference in these graphs are that for the same cost parameter, Bcrypt takes much more time which is better to slow down a bruteforce attack.\\
-As the behaviour is similar, the conclusion would be similar as well for both \gls{kdf}. Therefore the following benchmarks will be done with PBKF2.
+As the behaviour is similar, the conclusion would be similar as well for both \gls{kdf}. Therefore the following benchmarks will be done only with \gls{pbkdf2}.
 
 \subsection{Bloomy efficiency}
 \label{sec:BloomyEfficiency}
 
 Bloom filters are really efficient and used in this context, they allow to make the matching system a way faster. To characterise this improvement, I need to find comparable data.\\
-Comparable mean data that are approximately of the same size as well as easily generalisable. It could have been strings of a fixed size n with a smaller alphabet like \{a,b,c\}. But I have chosen \gls{ipv4} to use this benchmark as well to analyse the feasibility of  bruteforcing them.\\
-After that, I needed to decide a number of \gls{ip}s to go through at each step. It needs to be not to small to have precise results but not too much as well to avoid waiting to long for the results. Therefore I have decided to take 10 "/24" ranges which means 2560 \gls{ip}s. I have chosen to use 192.168.0.0/24 up to 192.168.9.0/24.\\
+Comparable mean data that are similar in the type of content and on the size as well as easily generalisable. It could have been strings of a fixed size n with a smaller alphabet like \{a,b,c\}. But I have chosen \gls{ipv4} to use this benchmark as well to analyse the feasibility of  bruteforcing them.\\
+After that, I needed to decide a number of \gls{ip}s to go through at each step. It needs to be not to small to have precise results but not too much as well to avoid waiting to long for the results. Therefore I have decided to take ten "/24" ranges which means 2560 \gls{ip}s. I have chosen to use 192.168.0.0/24 up to 192.168.9.0/24.\\
 Thus for each configuration, the matchRules script ran though all these \gls{ip}s like a bruteforcing algorithm would have done it.\\
 
 The written benchmark was originally created and launched on a virtual private server hosted in France where I ran during a few days before I realise there were an error in the code and that I needed to start over. Then after that I ran into trouble with the instance and reinstalling didn't worked correctly.\\
-The final benchmark were than ran on an old computer with 4GB of RAM and and intel i7 processor.\\
-I've tested with it the \gls{pbkdf2} module and its bloomy mode for different \gls{fp} Rate with increasing number of ip-dst (destination \gls{ip}) rules and and increasing number of iterations.\\
+The final benchmark were than ran on an old computer with 4GB of RAM and an intel i7 processor.\\
+I've tested with it the \gls{pbkdf2} module and its bloomy mode for different \gls{fp} Rate with an increasing number of ip-dst (destination \gls{ip}) rules and and increasing number of iterations.\\
 
 As we need to try to decrypt the the whole set of rules in the \gls{pbkdf2} module, it is normal that the time increases linearly with the number of \gls{ip}s in the system. But it is interesting to understand and see the behaviour of the time in function of the number of \gls{ip}s in the system for the bloomy implementation (fig. \ref{benchmarking:timeips}):
 
@@ -1144,15 +1140,15 @@ As we need to try to decrypt the the whole set of rules in the \gls{pbkdf2} modu
 \end{center}
 \end{figure}
 
-The figure shows clearly a linear behaviour for the four \gls{fp} rates (\gls{pbkdf2} without bloom filter can be considered as a False Positive rate of 1). The only difference is the slope. We can notice that less is the false positive rate less is the slope is.\\
-We can see as well as for example the version without bloom filter is approximately twice smaller than the version including a bloom filter with a 0.4 false positive rate.\\
+The figure shows clearly a linear behaviour for the four \gls{fp} rates (\gls{pbkdf2} without bloom filter can be considered as a False Positive rate of 1). The only difference is the slope. We can notice that less is the False Positive rate less is the slope is.\\
+We can see as well as for example the version without bloom filter is approximately twice longer than the version including a bloom filter with a 0.4 false positive rate.\\
 
 This resulted benchmark seems corresponding to what should be expected as, knowing that for the simple \gls{pbkdf2} it took 847.42s for 200 ip-dst rules (nIP), 700 iterations (nIt) and that we test 2560 IPs (nIPTested):
 \begin{itemize}
 \item[•] Time needed for testing a an \gls{ip} on a rule is $\frac{Time}{nIPtested * nIP * nIt}=\frac{847.42}{2560*200*700} = Time1IP1It$
 \item[•] The number of \gls{ip} to test is $nIP + (nIPTested - nIP)*FPrate$
 \end{itemize}
-With this, we can estimate the other points, for example, for 100 \gls{ip}s and a \gls{fp} rate of 0.2, we should have $Time1IP1It$ *  [$400 + (2650 - 400)*0.2$] * 400 (nb of rules). which is equal to 79s while the real result is about 93s. We can notice a slight difference but it is due to the fact that the approximation consider the number of iteration in the same way as the number of rules, but it tend to follow the same behaviour.\\
+With this, we can estimate the other points, for example, for 100 \gls{ip}s and a \gls{fp} rate of 0.2, we should have $Time1IP1It$ *  [$400 + (2650 - 400)*0.2$] * 400 (nb of rules). which is equal to 79s while the real result is about 93s. We can notice a slight difference but it is due to the fact that the approximation consider the number of iterations in the same way as the number of rules, but it tend to follow the same behaviour.\\
 After that, we need to check that the system behaves the same way in function of the number of iterations as we took the hypothesis in the formula derived (fig. \ref{benchmarking:timeiterations}). 
 
 \begin{figure}[h!]
@@ -1173,8 +1169,8 @@ The section is intended to give some more technical information about the genera
 \subsection{Time for creating a rule}
 The major part for generating the rule is the time used by the key derivation function (cfr fig.[\ref{benchmarking:timePBKDF2}, \ref{benchmarking:TimeBcrypt}]). After that, there is a little overhead due to the normalisation and the encryption of the message but they are quickly negligible.\\
 
-\subsection{Space memory of a rule rule}
-Bloom filter are used to decrease the space memory consumption while memorising the membership of big dataset. Here instead of focusing on that, the goal was to keep every element and transform them in an other format that needs information and cryptographic computations to read them.\\
+\subsection{Space memory consumed by a rule}
+Bloom Filters are used to decrease the space memory consumption while memorising the membership of big dataset. Here instead of focusing on that, the goal was to keep every element and transform them in an other format that needs information and cryptographic computations to read them.\\
 
 This lead me to add salts, nonces (IV) and a message on top of that. This has a big impact on memory as the elements are not remembered anymore, but the value is only used to encrypt the message.\\
 
@@ -1186,7 +1182,7 @@ With that, the size of a rule is nearly a constant as it only depends on the siz
 \item[•] Ciphertext Check (base64): 24 bytes
 \item[•] Ciphertext (base64 with message uuid event\_id date): varies with the id size but around 24 bytes
 \end{itemize}
-This means that we are around 122 bytes by elements. This is huge compared to the size of an \gls{ipv4} address but is still less than some \gls{url}s.
+This means that we are around 122 bytes by elements plus the size consumed by the Bloom Filter which depends on the \gls{fp}rate used as well as the number of elements. This is huge compared to the size of an \gls{ipv4} address but is still less than some \gls{url}s.
 
 \subsection{Lookup}
 The major part of the lookup time is related to the number of rules of the type searched as well as the algorithm used with its cost. And the final cost is trying to decipher the ciphertext check element.\\
@@ -1206,8 +1202,8 @@ The following approximation should be taken with care as it follows from a lot o
 \item[•] Every non reserved \gls{ipv4} has the same probability to be in a rule.
 \item[•] An \gls{ip} has a validity of 3 months
 \end{itemize}
-The last hypothesis is just to get a, idea of the time the database needs to resists to a bruteforce attack and needs to be modified as all other hypotheses in function of what is needed.\\
-The fact that an \gls{ip} could have a time limitation is due to the fact that most of the attacker are using dynamic \gls{ip}s. Thus after a file, even if the attacker does not disappear, the information could not be right anymore.\\
+The last hypothesis is just to get an idea of the time the database needs to resists to a bruteforce attack and needs to be modified as all other hypotheses in function of what is needed.\\
+The fact that an \gls{ip} could have a time limitation is due to the fact that most of the attacker are using dynamic \gls{ip}s. Thus after a while, even if the attacker does not disappear, the information of its \gls{ip}s could not be right anymore.\\
 
 Now, the goal is to get an estimation of the cost to use for the algorithm if we want the user having a probability of 80\% to have fully discovered the complete set of \gls{ipv4} in the database after 3 months by applying a bruteforce attack.\\
 First, I need to find a number of \gls{ip} that the attacker needs to test to have a probability of 0.8 of having discovered the whole set.\\
@@ -1218,6 +1214,9 @@ Then, I want this number of \gls{ip} x, to take 3 months to be checked. We thus 
 
 \todo[inline]{Get this number}
 
+Finally, we know that we don't have to worried about other kind of data as the complexity of bruteforcing is exponential.\\
+Therefore nearly unfeasible to bruteforce. For example, if we take a seven-character alphanumeric password, for each character, there are 26 (alphabet)+26 (ALPHABET) + 10 (0-9) possibilities that gives approximately $(62^7)*Time1IP1It/(60*60*24*31*12)$ years which means that it is already $547.8$ years for Bcrypt.\\
+This gives an idea why bruteforce is very difficult against IOCs like \gls{url}s.\\ 
 
 \chapter{Conclusion}
 
@@ -1225,30 +1224,30 @@ This small chapter is aimed to go through what have been done and what still nee
 
 \section{Further Work}
 This section is aimed to give ideas to continue this work. To be honest, I believe this domain so big and interesting that there will always exist possible improvements and new techniques to test. Although, new papers are flowing as well as current researches.\\
-On this implementation, the major improvement would be to consider the sightings reporting. This would not be too complicated as information needed to report that an element had be seen already exists in the \gls{misp} \gls{api} but it brings some additional challenges as, how could we insure not reporting twice the same sighting while still being anonymous in reporting?\\
-An idea could be to report the sightings by sending the rule seen. By doing that, the \gls{misp} instance could check the identity thanks to the token in the request, then he could check that the rule correspond to the \gls{ioc} and then only saving the timestamp and the ciphertext as the identifier.\\
-With that, while adding a new rule \gls{misp}, can avoid adding twice the same, checking that the user is authorized to report a sighting while still preserving its identity from being revealed to other organizations.\\
+On this implementation, the major improvement would be to consider the sightings reporting. This would not be too complicated as information needed to report that an element had be seen already exists in the \gls{misp} \gls{api} but it brings some additional challenges as, how could we ensure not reporting twice the same sighting while still being anonymous in reporting?\\
+An idea could be to report the sightings by sending the rule seen. By doing that, the \gls{misp} instance could check the identity thanks to the token in the request, then he could check that the rule correspond to the \gls{ioc} and finally only saving the timestamp and the ciphertext as the identifier.\\
+With that, while adding a new sighting, \gls{misp} can avoid adding twice the same, checking that the user is authorized to report a sighting while still preserving its identity from being revealed to other organisations.\\
 
-With the actual implementation additional modules can be easily created to test other techniques of rules generation. The technique that could be the most interesting to implement and to analyse would be a way to avoid parallelisation in matching process. \\
-Now, in the current implementation, if we would like to divide the number of rules in two sets and then to use two matching process on these separate process, we would get the same result in a faster way. To avoid that, and idea could be to make the rules generation dependant on the previously generated rules. This could be easily done like by simply using the decryption of the previous rule in the generation of a new rule.\\
+With the actual implementation additional modules can be easily created to test other techniques of rules generation. The technique that could be the most interesting to implement and to analyse would be a way to avoid parallelisation in the matching process. \\
+Now, in the current implementation, if we would like to divide the number of rules in two sets and then to use two "matching process" function on these separate processes, we would get the same result in a nearly twice faster way. To avoid that, and idea could be to make the rules generation dependant on the previously generated rules. This could be easily done like by simply using the decryption of the previous rule in the generation of a new rule.\\
 This could make bruteforce even less efficient but it would make really difficult to create the rules as well as for each new rule, we would need to go through all previously generated ones.\\
 But in this case, the bloomy implementation could be even more efficient.\\
 
-Besides that, this implementation leaks the number of \gls{ioc}s contained in the system. It is even worst than with bloom filter as in that case, statistic analyses could be done to approximate the number of elements but this leaked information could be minimized with addition of 'false' rules.  These false rules could be generated for example by choosing a random element and creating the rule each time with new salts but instead of encrypting 16 zero bytes before the message, we could use 16 one bytes.\\
-Doing that for padding with rules to always have a multiple of a certain number of rules. Unfortunately, this does not totally hide this information as it would still leaks a range on the number of possible elements.
+Besides that, this implementation leaks the number of \gls{ioc}s contained in the system. It is even worst than with bloom filter as in that case, statistic analyses could be done to approximate the number of elements but here we only need to count the number of rules. This leaked information could be minimized with addition of 'false' rules.  These false rules could be generated for example by choosing a random element and creating the rule each time with new salts but instead of encrypting 16 zero bytes before the message, we could use 16 one bytes.\\
+Doing that for padding files with rules to always have a multiple of a certain number of rules. Unfortunately, this does not totally hide this information as it would still leaks a range on the number of possible elements.
 
-\improvement[inline]{TODO range IP if no time to implement it}
+A last implementation could be to create a plug-in using this system directly inside an existing \gls{ids}.
 
 
 \section{Conclusion}
 This master thesis was working on creating a shareable dataset of threat information while keeping a special focus on need of the combination of trust, privacy and confidentiality.\\
-Unfortunately, I had a lot of difficulties starting this project as I had neither the knowledge nor a concrete goal. But now, I can say that it is really amazing to look at all existing ideas and implementations but also that I badly oriented my search at the beginning and even if I found articles, they were not linked to the right subject but just to subject related on what I was looking for. By luck, putting all them together bring me to succeed in doing what I wanted to do but now that I know better the subject, that I understand the challenges, If I had to start over, I would completely reorient the research thanks to the findings of these the last few months.\\
+Unfortunately, I had a lot of difficulties starting this project as I had neither the knowledge nor a concrete goal. But now, I can say that it is really amazing to look at all existing ideas and implementations but also that I badly oriented my search at the beginning and even if I found articles, they were not linked to the right subject but just to subject related to it. By luck, putting all them together bring me to succeed in doing what I wanted to do but now that I know better the subject, that I understand the challenges, If I had to start over, I would completely reorient the research thanks to the findings of these the last few months.\\
 For searching information on information sharing, the starting point must be to look at existing tools as it shows exactly the challenges as well as how implementations and researches are directed. This is why this awesome list \cite{AwesomeTreat} could be a really nice starting point.\\
 While on the other side, for the privacy and confidentiality concerns, all needed information and researchs are directly linked to \gls{pprl} and the previously cited state of the art \cite{vatsalanprivacy} gives all needed information.\\
 
-This master thesis is thus related to those two broad domains by taking a different approach lead by the paper \cite{van2016private}. I brought with this work an improvement of the of this proof of concept technique as well as a real implementation on a flourishing open source project called Malware Information Sharing Platform and Threat Sharing (\gls{misp}).\\
+This master thesis is thus related to those two broad domains by taking a different approach lead by the paper \cite{van2016private}. I brought with this work an improvement of this proof of concept technique as well as a real implementation on a flourishing open source project called Malware Information Sharing Platform and Threat Sharing (\gls{misp}).\\
 This implementation succeeded in creating dataset of Indicator Of Compromise (\gls{ioc}) that can be generated on demand for a specific user. it respects most privacy and confidentiality concerns by obfuscating the data while still allowing it to be decrypted only if the targeted user has the need of the information or information that could enrich analyses.\\
-Matching a specific \gls{ioc} then gives the user the identifier of the information and, if could then ask permission to access the instance as well as perhaps the permission to get to know the organisation that had seen the indicator.
+Matching a specific \gls{ioc} then gives the user the identifier of the information in \gls{misp} and, he could then ask permission to access the instance (If the information belongs to another instance) as well as perhaps the permission to get to know the organisation that had seen the indicator.
 One other major advantage of this implementation is also this relaxation in the needed trust for sharing due to the idea of Kim van de Kamp et al. to add an identifier of the user inside the key generation. Thanks to that, the risk of leakage is decreased as the source of the leakage could be identified.\\
 
 
