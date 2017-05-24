@@ -75,14 +75,15 @@ def start(name='kdf'):
             # Write header
             pbRes.write('Length,Iterations,Time')
             bcryptRes.write('Length,Rounds,Time')
-            for val in values():
-                for i in range(1,51):
-                    time = timeit.timeit('kdf()', pbkdf2_setup(val, 10*i), number=5)/5
-                    pbRes.write('\n'+ str(len(val)) + ',' + str(10*i) + ',' + str(time))
-                    time = timeit.timeit('kdf()', bcrypt_setup(val, 2*i), number=5)/5
-                    bcryptRes.write('\n'+ str(len(val)) + ',' + str(2*i) + ',' + str(time))
-                    pbRes.flush()
-                    bcryptRes.flush()
+            val = 'aaaaaaaaaaaaaa'
+            for i in range(1,51):
+                print(i)
+                time = timeit.timeit('kdf()', pbkdf2_setup(val, 10*i), number=2000)/2000
+                pbRes.write('\n'+ str(len(val)) + ',' + str(10*i) + ',' + str(time))
+                time = timeit.timeit('kdf()', bcrypt_setup(val, 2*i), number=100)/100
+                bcryptRes.write('\n'+ str(len(val)) + ',' + str(2*i) + ',' + str(time))
+                pbRes.flush()
+                bcryptRes.flush()
 
 ########
 # Main #
