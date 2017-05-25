@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.29)  25 MAY 2017 16:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.29)  25 MAY 2017 21:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -881,25 +881,25 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \glo@main@file=\write5
 \openout5 = `report.glo'.
 
-Package glossaries Info: Writing glossary file report.glo on input line 75.
+Package glossaries Info: Writing glossary file report.glo on input line 76.
  (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 76.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 77.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -907,7 +907,7 @@ File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 (/usr/local/texlive/2016/texmf-dist/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
-LaTeX Info: Redefining \microtypecontext on input line 76.
+LaTeX Info: Redefining \microtypecontext on input line 77.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -985,7 +985,7 @@ e
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box45
-Package hyperref Info: Link coloring OFF on input line 76.
+Package hyperref Info: Link coloring OFF on input line 77.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -994,9 +994,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count179
 )
-LaTeX Info: Redefining \ref on input line 76.
-LaTeX Info: Redefining \pageref on input line 76.
-LaTeX Info: Redefining \nameref on input line 76.
+LaTeX Info: Redefining \ref on input line 77.
+LaTeX Info: Redefining \pageref on input line 77.
+LaTeX Info: Redefining \nameref on input line 77.
 
 (./report.out) (./report.out)
 \@outlinefile=\write6
@@ -1036,16 +1036,16 @@ LaTeX Info: Redefining \nameref on input line 76.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-<EPL_TFEbanner.jpg, id=288, 526.3665pt x 256.0767pt>
+<EPL_TFEbanner.jpg, id=316, 526.3665pt x 256.0767pt>
 File: EPL_TFEbanner.jpg Graphic file (type jpg)
  <use EPL_TFEbanner.jpg>
-Package pdftex.def Info: EPL_TFEbanner.jpg used on input line 79.
+Package pdftex.def Info: EPL_TFEbanner.jpg used on input line 80.
 (pdftex.def)             Requested size: 526.36522pt x 256.07608pt.
 
 
-Package xcolor Warning: Incompatible color definition on input line 79.
+Package xcolor Warning: Incompatible color definition on input line 80.
 
-LaTeX Font Info:    Try loading font information for T1+phv on input line 79.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 80.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
@@ -1053,46 +1053,46 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             `phv' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 79.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 80.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 79.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 80.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 79.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 80.
 
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 79.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 80.
 
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 79.
+(Font)              <10.95> on input line 80.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 79.
+(Font)              <8> on input line 80.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 79.
+(Font)              <6> on input line 80.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 79.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 80.
 LaTeX Font Info:    Font shape `T1/phv/bx/sc' in size <12> not available
-(Font)              Font shape `T1/phv/b/sc' tried instead on input line 79.
+(Font)              Font shape `T1/phv/b/sc' tried instead on input line 80.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 79.
+(Font)              <12> on input line 80.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/ucs/data/uni-0.def
 File: uni-0.def 2013/05/13 UCS: Unicode data U+0000..U+00FF
 )
 
-Package xcolor Warning: Incompatible color definition on input line 79.
+Package xcolor Warning: Incompatible color definition on input line 80.
 
 [1
 
@@ -1104,15 +1104,15 @@ FEbanner.jpg>]pdfTeX warning (ext4): destination with the same identifier (name
 {page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.87 \end{abstract}
+l.88 \end{abstract}
                     [1]
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 92.
+ine 93.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.93 \end{abstract}
+l.94 \end{abstract}
                     [1] [2
 
 ] (./report.toc [3])
@@ -1122,84 +1122,84 @@ l.93 \end{abstract}
  [4]
 Chapter 1.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 108.
+(Font)              <9> on input line 109.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 108.
+(Font)              <5> on input line 109.
 
-Underfull \hbox (badness 10000) in paragraph at lines 108--109
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 110--111
+Underfull \hbox (badness 10000) in paragraph at lines 109--110
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 112--117
+Underfull \hbox (badness 10000) in paragraph at lines 111--112
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--118
 
  []
 
 [5
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 121--125
+Underfull \hbox (badness 10000) in paragraph at lines 122--126
 
  []
 
 [6]
 Chapter 2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 136--137
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--143
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--145
+Underfull \hbox (badness 10000) in paragraph at lines 145--146
 
  []
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/ucs/data/uni-32.def
 File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
 )
-Underfull \hbox (badness 10000) in paragraph at lines 150--153
+Underfull \hbox (badness 10000) in paragraph at lines 151--154
 
  []
 
 [7
 
-] <res/misp-organisations.png, id=459, 894.34125pt x 715.67375pt>
+] <res/misp-organisations.png, id=498, 894.34125pt x 715.67375pt>
 File: res/misp-organisations.png Graphic file (type png)
 
 <use res/misp-organisations.png>
-Package pdftex.def Info: res/misp-organisations.png used on input line 156.
+Package pdftex.def Info: res/misp-organisations.png used on input line 157.
 (pdftex.def)             Requested size: 357.73016pt x 286.26442pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 165--166
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 167--172
-
- []
-
-[8 <./res/misp-organisations.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 173--174
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 176--178
+[8 <./res/misp-organisations.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 175--180
 
  []
 
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 180.
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--182
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--186
+
+ []
+
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 188.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1209,176 +1209,175 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \hbox (badness 10000) in paragraph at lines 182--184
+Underfull \hbox (badness 10000) in paragraph at lines 190--192
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 186--187
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 189--190
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 191--193
+Underfull \hbox (badness 10000) in paragraph at lines 194--195
 
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 196--200
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 201--202
+Underfull \hbox (badness 10000) in paragraph at lines 199--201
 
  []
 
 
-Overfull \hbox (11.20836pt too wide) in paragraph at lines 208--209
+Underfull \hbox (badness 10000) in paragraph at lines 204--208
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--210
+
+ []
+
+
+Overfull \hbox (11.20836pt too wide) in paragraph at lines 216--217
 [][] 
  []
 
-<res/webEvents.png, id=531, 1423.3175pt x 666.49pt>
+<res/webEvents.png, id=571, 1423.3175pt x 666.49pt>
 File: res/webEvents.png Graphic file (type png)
  <use res/webEvents.png>
-Package pdftex.def Info: res/webEvents.png used on input line 214.
+Package pdftex.def Info: res/webEvents.png used on input line 222.
 (pdftex.def)             Requested size: 455.47092pt x 213.28116pt.
 
-<res/webEvent.png, id=533, 823.075pt x 437.635pt>
+<res/webEvent.png, id=573, 823.075pt x 437.635pt>
 File: res/webEvent.png Graphic file (type png)
  <use res/webEvent.png>
-Package pdftex.def Info: res/webEvent.png used on input line 226.
+Package pdftex.def Info: res/webEvent.png used on input line 234.
 (pdftex.def)             Requested size: 288.08057pt x 153.17455pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<res/webAttributes.png, id=535, 1263.72125pt x 265.99374pt>
+<res/webAttributes.png, id=575, 1263.72125pt x 265.99374pt>
 File: res/webAttributes.png Graphic file (type png)
 
 <use res/webAttributes.png>
-Package pdftex.def Info: res/webAttributes.png used on input line 236.
+Package pdftex.def Info: res/webAttributes.png used on input line 244.
 (pdftex.def)             Requested size: 442.30907pt x 93.0992pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<res/webCorrelationGraph.png, id=537, 572.1375pt x 445.665pt>
+ [10 <./res/webEvents.png>]
+<res/webCorrelationGraph.png, id=589, 572.1375pt x 445.665pt>
 File: res/webCorrelationGraph.png Graphic file (type png)
 
 <use res/webCorrelationGraph.png>
-Package pdftex.def Info: res/webCorrelationGraph.png used on input line 245.
+Package pdftex.def Info: res/webCorrelationGraph.png used on input line 253.
 (pdftex.def)             Requested size: 200.25111pt x 155.98508pt.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 253--254
+Underfull \hbox (badness 10000) in paragraph at lines 261--262
 
  []
 
+[11 <./res/webEvent.png> <./res/webAttributes.png> <./res/webCorrelationGraph.p
+ng>]
+Underfull \hbox (badness 10000) in paragraph at lines 263--265
 
-Underfull \vbox (badness 7168) has occurred while \output is active []
+ []
 
- [10 <./res/webEvents.png>] [11 <./res/webEvent.png> <./res/webAttributes.png> 
-<./res/webCorrelationGraph.png>] [12]
+[12]
 Chapter 3.
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--263
+Underfull \hbox (badness 10000) in paragraph at lines 271--272
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 274--278
+Underfull \hbox (badness 10000) in paragraph at lines 286--289
 
  []
 
 [13
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 279--281
+Underfull \hbox (badness 10000) in paragraph at lines 291--293
 
  []
 
+[14]
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 317.
 
-Underfull \hbox (badness 10000) in paragraph at lines 282--288
-
- []
-
-
-Underfull \vbox (badness 6047) has occurred while \output is active []
-
- [14]
-Underfull \hbox (badness 10000) in paragraph at lines 296--297
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 298--299
-
- []
-
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 306.
-
-(/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omslmr.fd
+ (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 306.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 317.
 
-Underfull \hbox (badness 10000) in paragraph at lines 319--325
+<res/hub-and-spoke.png, id=668, 405.76593pt x 171.64125pt>
+File: res/hub-and-spoke.png Graphic file (type png)
+
+<use res/hub-and-spoke.png>
+Package pdftex.def Info: res/hub-and-spoke.png used on input line 319.
+(pdftex.def)             Requested size: 202.88246pt x 85.8204pt.
+
+<res/source-subscriber.png, id=669, 353.82187pt x 164.11313pt>
+File: res/source-subscriber.png Graphic file (type png)
+
+<use res/source-subscriber.png>
+Package pdftex.def Info: res/source-subscriber.png used on input line 322.
+(pdftex.def)             Requested size: 176.91049pt x 82.05635pt.
+
+<res/peer-to-peer.png, id=670, 331.2375pt x 169.38281pt>
+File: res/peer-to-peer.png Graphic file (type png)
+
+<use res/peer-to-peer.png>
+Package pdftex.def Info: res/peer-to-peer.png used on input line 325.
+(pdftex.def)             Requested size: 165.61833pt x 84.6912pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 332--333
 
  []
 
-[15]
-Underfull \hbox (badness 10000) in paragraph at lines 326--332
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 333--335
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 336--339
+[15 <./res/hub-and-spoke.png> <./res/source-subscriber.png> <./res/peer-to-peer
+.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 334--339
 
  []
 
 [16]
-Underfull \hbox (badness 10000) in paragraph at lines 363--367
+Underfull \hbox (badness 10000) in paragraph at lines 348--349
 
  []
 
-[17] [18] <res/hub-and-spoke.png, id=731, 405.76593pt x 171.64125pt>
-File: res/hub-and-spoke.png Graphic file (type png)
 
-<use res/hub-and-spoke.png>
-Package pdftex.def Info: res/hub-and-spoke.png used on input line 400.
-(pdftex.def)             Requested size: 202.88246pt x 85.8204pt.
+Underfull \hbox (badness 10000) in paragraph at lines 350--351
 
-<res/source-subscriber.png, id=732, 353.82187pt x 164.11313pt>
-File: res/source-subscriber.png Graphic file (type png)
+ []
 
-<use res/source-subscriber.png>
-Package pdftex.def Info: res/source-subscriber.png used on input line 403.
-(pdftex.def)             Requested size: 176.91049pt x 82.05635pt.
 
-<res/peer-to-peer.png, id=733, 331.2375pt x 169.38281pt>
-File: res/peer-to-peer.png Graphic file (type png)
+Underfull \hbox (badness 10000) in paragraph at lines 372--378
 
-<use res/peer-to-peer.png>
-Package pdftex.def Info: res/peer-to-peer.png used on input line 406.
-(pdftex.def)             Requested size: 165.61833pt x 84.6912pt.
- [19 <./res/hub-and-spoke.png> <./res/source-subscriber.png> <./res/peer-to-pee
-r.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 422--423
+ []
+
+[17]
+Underfull \hbox (badness 10000) in paragraph at lines 379--385
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 386--388
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 405--406
+
+ []
+
+[18]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\gls' on input line 409.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 417--421
 
  []
 
@@ -1388,126 +1387,131 @@ Underfull \hbox (badness 10000) in paragraph at lines 424--426
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 428--431
+Underfull \hbox (badness 10000) in paragraph at lines 427--429
+
+ []
+
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 430--433
 
  []
 
 [20]
 Chapter 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 443--446
+Underfull \hbox (badness 10000) in paragraph at lines 440--443
 
  []
 
-<res/bloom-1.png, id=759, 953.5625pt x 555.07375pt>
+<res/bloom-1.png, id=783, 953.5625pt x 555.07375pt>
 File: res/bloom-1.png Graphic file (type png)
  <use res/bloom-1.png>
-Package pdftex.def Info: res/bloom-1.png used on input line 452.
+Package pdftex.def Info: res/bloom-1.png used on input line 449.
 (pdftex.def)             Requested size: 286.07095pt x 166.52339pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<res/bloom-2.png, id=762, 960.58875pt x 557.08125pt>
+<res/bloom-2.png, id=786, 960.58875pt x 557.08125pt>
 File: res/bloom-2.png Graphic file (type png)
  <use res/bloom-2.png>
-Package pdftex.def Info: res/bloom-2.png used on input line 468.
+Package pdftex.def Info: res/bloom-2.png used on input line 465.
 (pdftex.def)             Requested size: 288.17885pt x 167.12566pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 475--477
+Underfull \hbox (badness 10000) in paragraph at lines 472--474
 
  []
 
 [21
 
 ] [22 <./res/bloom-1.png> <./res/bloom-2.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 495--498
+Underfull \hbox (badness 10000) in paragraph at lines 492--495
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 499--502
+Underfull \hbox (badness 10000) in paragraph at lines 496--499
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 503--506
+Underfull \hbox (badness 10000) in paragraph at lines 500--503
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 510--512
+Underfull \hbox (badness 10000) in paragraph at lines 507--509
 
  []
 
 [23]
-Underfull \hbox (badness 10000) in paragraph at lines 516--517
+Underfull \hbox (badness 10000) in paragraph at lines 513--514
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 518--520
+Underfull \hbox (badness 10000) in paragraph at lines 515--517
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 524--525
+Underfull \hbox (badness 10000) in paragraph at lines 521--522
 
  []
 
 [24]
 Chapter 5.
 
-Underfull \hbox (badness 10000) in paragraph at lines 536--540
+Underfull \hbox (badness 10000) in paragraph at lines 533--537
 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 541.
+(hyperref)                removing `\@ifnextchar' on input line 538.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 543--544
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 545--548
+Underfull \hbox (badness 10000) in paragraph at lines 540--541
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 549--553
+Underfull \hbox (badness 10000) in paragraph at lines 542--545
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 546--550
 
  []
 
 [25
 
-] <res/ioc-rules.png, id=830, 607.26875pt x 334.24875pt>
+] <res/ioc-rules.png, id=854, 607.26875pt x 334.24875pt>
 File: res/ioc-rules.png Graphic file (type png)
 
 <use res/ioc-rules.png>
-Package pdftex.def Info: res/ioc-rules.png used on input line 556.
+Package pdftex.def Info: res/ioc-rules.png used on input line 553.
 (pdftex.def)             Requested size: 303.63364pt x 167.12396pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 563--568
+Underfull \hbox (badness 10000) in paragraph at lines 560--565
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 569--571
+Underfull \hbox (badness 10000) in paragraph at lines 566--568
 
  []
 
-<res/obfuscation-rule.png, id=834, 841.1425pt x 388.45125pt>
+<res/obfuscation-rule.png, id=858, 841.1425pt x 388.45125pt>
 File: res/obfuscation-rule.png Graphic file (type png)
 
 <use res/obfuscation-rule.png>
-Package pdftex.def Info: res/obfuscation-rule.png used on input line 575.
+Package pdftex.def Info: res/obfuscation-rule.png used on input line 572.
 (pdftex.def)             Requested size: 420.57022pt x 194.22514pt.
 
 
@@ -1517,108 +1521,113 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 Underfull \vbox (badness 6204) has occurred while \output is active []
 
  [26 <./res/ioc-rules.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 609--611
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 612--614
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 615--617
-
- []
-
 [27 <./res/obfuscation-rule.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 622--625
+Underfull \hbox (badness 10000) in paragraph at lines 619--622
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 627--631
+Underfull \hbox (badness 10000) in paragraph at lines 624--628
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 632--633
+Underfull \hbox (badness 10000) in paragraph at lines 629--630
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 637--641
+Underfull \hbox (badness 10000) in paragraph at lines 634--638
 
  []
 
 [28]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\gls' on input line 651.
+(hyperref)                removing `\gls' on input line 648.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\gls' on input line 651.
+(hyperref)                removing `\gls' on input line 648.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\gls' on input line 655.
+(hyperref)                removing `\gls' on input line 652.
 
 [29]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\gls' on input line 685.
+(hyperref)                removing `\gls' on input line 682.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 686--688
+Underfull \hbox (badness 10000) in paragraph at lines 683--685
 
  []
 
 
-Overfull \hbox (10.83298pt too wide) in paragraph at lines 689--693
+Overfull \hbox (10.83298pt too wide) in paragraph at lines 686--690
 \T1/lmr/m/n/10.95 (-20) 2001:0db8:0000:85a3:0000:0000:ac1f:8001, it would re-tu
 rn IPv6Address('2001:db8:0:85a3::ac1f:8001').
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 689--693
+Underfull \hbox (badness 10000) in paragraph at lines 686--690
 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\gls' on input line 698.
+(hyperref)                removing `\gls' on input line 695.
 
 [30] [31]
-Underfull \hbox (badness 10000) in paragraph at lines 743--745
+Underfull \hbox (badness 10000) in paragraph at lines 740--742
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 746--747
+Underfull \hbox (badness 10000) in paragraph at lines 743--744
 
  []
 
 [32]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\gls' on input line 766.
+(hyperref)                removing `\gls' on input line 763.
 
-<res/seqDiagramRead.png, id=969, 1138.2525pt x 870.25125pt>
+<res/seqDiagramRead.png, id=993, 1138.2525pt x 870.25125pt>
 File: res/seqDiagramRead.png Graphic file (type png)
 
 <use res/seqDiagramRead.png>
-Package pdftex.def Info: res/seqDiagramRead.png used on input line 771.
+Package pdftex.def Info: res/seqDiagramRead.png used on input line 768.
 (pdftex.def)             Requested size: 284.56242pt x 217.56227pt.
 
-Overfull \hbox (75.14708pt too wide) in paragraph at lines 771--772
+Overfull \hbox (75.14708pt too wide) in paragraph at lines 768--769
 [][] 
  []
 
-<res/seqDiagramMatch.png, id=970, 1153.30875pt x 888.31876pt>
+<res/seqDiagramMatch.png, id=994, 1153.30875pt x 888.31876pt>
 File: res/seqDiagramMatch.png Graphic file (type png)
 
 <use res/seqDiagramMatch.png>
-Package pdftex.def Info: res/seqDiagramMatch.png used on input line 774.
+Package pdftex.def Info: res/seqDiagramMatch.png used on input line 771.
 (pdftex.def)             Requested size: 288.32648pt x 222.07915pt.
 
-Overfull \hbox (78.91113pt too wide) in paragraph at lines 774--775
+Overfull \hbox (78.91113pt too wide) in paragraph at lines 771--772
 [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 776--778
+
  []
 
 
@@ -1627,12 +1636,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 779--781
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 782--784
-
- []
-
-
-Overfull \hbox (39.54643pt too wide) in paragraph at lines 791--799
+Overfull \hbox (39.54643pt too wide) in paragraph at lines 788--796
  [][] 
  []
 
@@ -1641,35 +1645,40 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 805.
+               Default added (so using `tbp') on input line 802.
 
 [33 <./res/seqDiagramRead.png> <./res/seqDiagramMatch.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 818--820
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 821--823
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 824--826
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 829--832
+Underfull \hbox (badness 10000) in paragraph at lines 826--829
 
  []
 
 [34]
-Underfull \hbox (badness 10000) in paragraph at lines 833--835
+Underfull \hbox (badness 10000) in paragraph at lines 830--832
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 840--841
+Underfull \hbox (badness 10000) in paragraph at lines 837--838
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 842--843
+Underfull \hbox (badness 10000) in paragraph at lines 839--840
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 841--843
 
  []
 
@@ -1684,222 +1693,217 @@ Underfull \hbox (badness 10000) in paragraph at lines 847--849
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 850--852
-
- []
-
-
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\gls' on input line 856.
+(hyperref)                removing `\gls' on input line 853.
 
 
 Underfull \vbox (badness 5741) has occurred while \output is active []
 
  [35]
-Underfull \hbox (badness 10000) in paragraph at lines 866--868
+Underfull \hbox (badness 10000) in paragraph at lines 863--865
 
  []
 
 [36]
 Chapter 6.
 
-Underfull \hbox (badness 10000) in paragraph at lines 870--875
+Underfull \hbox (badness 10000) in paragraph at lines 867--872
 
  []
 
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 877.
+(hyperref)                than one, level fixed on input line 874.
 
 
-Overfull \hbox (17.76962pt too wide) in paragraph at lines 893--896
-\T1/lmr/m/n/10.95 (-20) Therefore, I mod-i-fied the con-fig-u-ra-tion file (/et
-c/mysql/my.conf or /etc/mysql/mysql.conf.d/mysql.cnf
+Underfull \hbox (badness 10000) in paragraph at lines 876--877
+
  []
 
 [37
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 902--903
+Underfull \hbox (badness 10000) in paragraph at lines 900--901
 
  []
 
-<res/flowReadMisp.png, id=1035, 1114.1625pt x 492.84125pt>
+<res/flowReadMisp.png, id=1059, 1114.1625pt x 492.84125pt>
 File: res/flowReadMisp.png Graphic file (type png)
 
 <use res/flowReadMisp.png>
-Package pdftex.def Info: res/flowReadMisp.png used on input line 920.
+Package pdftex.def Info: res/flowReadMisp.png used on input line 918.
 (pdftex.def)             Requested size: 334.25133pt x 147.8535pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[38] <res/flowMatchRules.png, id=1049, 1093.08376pt x 781.92125pt>
+[38] <res/flowMatchRules.png, id=1075, 1093.08376pt x 781.92125pt>
 File: res/flowMatchRules.png Graphic file (type png)
 
 <use res/flowMatchRules.png>
-Package pdftex.def Info: res/flowMatchRules.png used on input line 945.
+Package pdftex.def Info: res/flowMatchRules.png used on input line 943.
 (pdftex.def)             Requested size: 327.92766pt x 234.57819pt.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 951--953
+Underfull \hbox (badness 10000) in paragraph at lines 949--951
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 954--957
+[39 <./res/flowReadMisp.png> <./res/flowMatchRules.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 952--955
 
  []
 
-<res/flowPBKDF2.png, id=1051, 997.7275pt x 438.63875pt>
+<res/flowPBKDF2.png, id=1089, 997.7275pt x 438.63875pt>
 File: res/flowPBKDF2.png Graphic file (type png)
 
 <use res/flowPBKDF2.png>
-Package pdftex.def Info: res/flowPBKDF2.png used on input line 967.
+Package pdftex.def Info: res/flowPBKDF2.png used on input line 965.
 (pdftex.def)             Requested size: 299.32056pt x 131.59264pt.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<res/flowBloomFilter.png, id=1052, 1370.11874pt x 213.79875pt>
+<res/flowBloomFilter.png, id=1090, 1370.11874pt x 213.79875pt>
 File: res/flowBloomFilter.png Graphic file (type png)
 
 <use res/flowBloomFilter.png>
-Package pdftex.def Info: res/flowBloomFilter.png used on input line 975.
+Package pdftex.def Info: res/flowBloomFilter.png used on input line 973.
 (pdftex.def)             Requested size: 411.03879pt x 64.1401pt.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 981--983
-
- []
-
-[39 <./res/flowReadMisp.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 984--986
-
- []
-
-[40 <./res/flowMatchRules.png> <./res/flowPBKDF2.png> <./res/flowBloomFilter.pn
-g>]
-Underfull \hbox (badness 10000) in paragraph at lines 989--991
+Underfull \hbox (badness 10000) in paragraph at lines 979--981
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 992--995
+Underfull \hbox (badness 10000) in paragraph at lines 982--984
 
  []
 
-<res/profile-1iter.png, id=1076, 1443.3925pt x 700.6175pt>
+[40 <./res/flowPBKDF2.png> <./res/flowBloomFilter.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 987--989
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 990--993
+
+ []
+
+<res/profile-1iter.png, id=1100, 1443.3925pt x 700.6175pt>
 File: res/profile-1iter.png Graphic file (type png)
 
 <use res/profile-1iter.png>
-Package pdftex.def Info: res/profile-1iter.png used on input line 998.
+Package pdftex.def Info: res/profile-1iter.png used on input line 996.
 (pdftex.def)             Requested size: 433.02109pt x 210.18686pt.
 
-<res/profile-mem-readMisp-1iter.png, id=1080, 1017.8025pt x 671.50874pt>
+<res/profile-mem-readMisp-1iter.png, id=1104, 1017.8025pt x 671.50874pt>
 File: res/profile-mem-readMisp-1iter.png Graphic file (type png)
 
 <use res/profile-mem-readMisp-1iter.png>
 Package pdftex.def Info: res/profile-mem-readMisp-1iter.png used on input line 
-1011.
+1009.
 (pdftex.def)             Requested size: 305.34311pt x 201.45418pt.
- [41 <./res/profile-1iter.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1017--1018
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1015--1016
 
  []
 
-<res/profile-1000iter.png, id=1088, 1443.3925pt x 700.6175pt>
+[41 <./res/profile-1iter.png>]
+<res/profile-1000iter.png, id=1112, 1443.3925pt x 700.6175pt>
 File: res/profile-1000iter.png Graphic file (type png)
 
 <use res/profile-1000iter.png>
-Package pdftex.def Info: res/profile-1000iter.png used on input line 1023.
+Package pdftex.def Info: res/profile-1000iter.png used on input line 1021.
 (pdftex.def)             Requested size: 433.02109pt x 210.18686pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1029--1030
+Underfull \hbox (badness 10000) in paragraph at lines 1027--1028
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1032--1033
+Underfull \hbox (badness 10000) in paragraph at lines 1030--1031
 
  []
 
-[42 <./res/profile-mem-readMisp-1iter.png> <./res/profile-1000iter.png>]
-<res/readMisp-bloomy-1iter-res.png, id=1099, 1442.38875pt x 701.62125pt>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [42 <./res/profile-mem-readMisp-1iter.png> <./res/profile-1000iter.png>]
+<res/readMisp-bloomy-1iter-res.png, id=1123, 1442.38875pt x 701.62125pt>
 File: res/readMisp-bloomy-1iter-res.png Graphic file (type png)
 
 <use res/readMisp-bloomy-1iter-res.png>
 Package pdftex.def Info: res/readMisp-bloomy-1iter-res.png used on input line 1
-037.
+035.
 (pdftex.def)             Requested size: 432.71997pt x 210.48799pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1044--1045
+Underfull \hbox (badness 10000) in paragraph at lines 1042--1043
 
  []
 
-<res/match-exist.png, id=1100, 1442.38875pt x 696.6025pt>
+<res/match-exist.png, id=1124, 1442.38875pt x 696.6025pt>
 File: res/match-exist.png Graphic file (type png)
 
 <use res/match-exist.png>
-Package pdftex.def Info: res/match-exist.png used on input line 1049.
+Package pdftex.def Info: res/match-exist.png used on input line 1047.
 (pdftex.def)             Requested size: 432.71997pt x 208.98236pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1055--1056
+Underfull \hbox (badness 10000) in paragraph at lines 1053--1054
 
  []
 
-<res/match-bloom-not.png, id=1103, 1442.38875pt x 697.60625pt>
+<res/match-bloom-not.png, id=1127, 1442.38875pt x 697.60625pt>
 File: res/match-bloom-not.png Graphic file (type png)
 
 <use res/match-bloom-not.png>
-Package pdftex.def Info: res/match-bloom-not.png used on input line 1059.
+Package pdftex.def Info: res/match-bloom-not.png used on input line 1057.
 (pdftex.def)             Requested size: 432.71997pt x 209.28348pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1065--1066
+Underfull \hbox (badness 10000) in paragraph at lines 1063--1064
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1067--1071
+Underfull \hbox (badness 10000) in paragraph at lines 1065--1069
 
  []
 
 [43 <./res/readMisp-bloomy-1iter-res.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1073--1075
+Underfull \hbox (badness 10000) in paragraph at lines 1071--1073
 
  []
 
 [44 <./res/match-exist.png> <./res/match-bloom-not.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1077--1081
+Underfull \hbox (badness 10000) in paragraph at lines 1075--1079
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1082--1084
+Underfull \hbox (badness 10000) in paragraph at lines 1080--1082
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1085--1087
+Underfull \hbox (badness 10000) in paragraph at lines 1083--1085
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1088--1089
+Underfull \hbox (badness 10000) in paragraph at lines 1086--1087
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1093--1094
 
  []
 
@@ -1908,64 +1912,59 @@ Underfull \hbox (badness 10000) in paragraph at lines 1095--1096
 
  []
 
-
+[45]
 Underfull \hbox (badness 10000) in paragraph at lines 1097--1098
 
  []
 
-[45]
-Underfull \hbox (badness 10000) in paragraph at lines 1099--1100
-
- []
-
-<res/TimePBKDF2.png, id=1134, 462.528pt x 346.896pt>
+<res/TimePBKDF2.png, id=1158, 462.528pt x 346.896pt>
 File: res/TimePBKDF2.png Graphic file (type png)
  <use res/TimePBKDF2.png>
-Package pdftex.def Info: res/TimePBKDF2.png used on input line 1105.
+Package pdftex.def Info: res/TimePBKDF2.png used on input line 1103.
 (pdftex.def)             Requested size: 277.51894pt x 208.13919pt.
 
-<res/TimeBcrypt.png, id=1136, 462.528pt x 346.896pt>
+<res/TimeBcrypt.png, id=1160, 462.528pt x 346.896pt>
 File: res/TimeBcrypt.png Graphic file (type png)
  <use res/TimeBcrypt.png>
-Package pdftex.def Info: res/TimeBcrypt.png used on input line 1116.
+Package pdftex.def Info: res/TimeBcrypt.png used on input line 1114.
 (pdftex.def)             Requested size: 277.51894pt x 208.13919pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1130--1134
+Underfull \hbox (badness 10000) in paragraph at lines 1128--1132
 
  []
 
 [46 <./res/TimePBKDF2.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1135--1138
+Underfull \hbox (badness 10000) in paragraph at lines 1133--1136
 
  []
 
-<res/TimeIPs.png, id=1162, 757.3896pt x 346.896pt>
+<res/TimeIPs.png, id=1186, 757.3896pt x 346.896pt>
 File: res/TimeIPs.png Graphic file (type png)
  <use res/TimeIPs.png>
-Package pdftex.def Info: res/TimeIPs.png used on input line 1143.
+Package pdftex.def Info: res/TimeIPs.png used on input line 1141.
 (pdftex.def)             Requested size: 454.43727pt x 208.13919pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1149--1151
+Underfull \hbox (badness 10000) in paragraph at lines 1147--1149
 
  []
 
 [47 <./res/TimeBcrypt.png>]
-<res/TimeIterations.png, id=1178, 758.835pt x 346.896pt>
+<res/TimeIterations.png, id=1203, 758.835pt x 346.896pt>
 File: res/TimeIterations.png Graphic file (type png)
 
 <use res/TimeIterations.png>
-Package pdftex.def Info: res/TimeIterations.png used on input line 1162.
+Package pdftex.def Info: res/TimeIterations.png used on input line 1160.
 (pdftex.def)             Requested size: 455.30452pt x 208.13919pt.
 
-Overfull \hbox (38.98535pt too wide) detected at line 1169
+Overfull \hbox (38.98535pt too wide) detected at line 1167
 \OML/lmm/m/it/10.95 time\OT1/lmr/m/n/10.95 (\OML/lmm/m/it/10.95 nIP; FPrate; nI
 t; nIPTested\OT1/lmr/m/n/10.95 ) = [] \OMS/lmsy/m/n/10.95 ^^C \OML/lmm/m/it/10.
 95 nIP \OMS/lmsy/m/n/10.95 ^^C \OML/lmm/m/it/10.95 nIt \OMS/lmsy/m/n/10.95 ^^C 
@@ -1974,7 +1973,12 @@ t; nIPTested\OT1/lmr/m/n/10.95 ) = [] \OMS/lmsy/m/n/10.95 ^^C \OML/lmm/m/it/10.
  []
 
 [48 <./res/TimeIPs.png> <./res/TimeIterations.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1176--1177
+Underfull \hbox (badness 10000) in paragraph at lines 1174--1175
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1177--1178
 
  []
 
@@ -1983,52 +1987,47 @@ Underfull \hbox (badness 10000) in paragraph at lines 1179--1180
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 1181--1182
-
- []
-
 [49]
-Underfull \hbox (badness 10000) in paragraph at lines 1211--1213
+Underfull \hbox (badness 10000) in paragraph at lines 1209--1211
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1214--1216
+Underfull \hbox (badness 10000) in paragraph at lines 1212--1214
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1219--1220
+Underfull \hbox (badness 10000) in paragraph at lines 1217--1218
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1223--1226
+Underfull \hbox (badness 10000) in paragraph at lines 1221--1224
 
  []
 
 [50]
 Chapter 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1232--1236
+Underfull \hbox (badness 10000) in paragraph at lines 1230--1234
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1237--1241
+Underfull \hbox (badness 10000) in paragraph at lines 1235--1239
 
  []
 
 [51
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 1249--1253
+Underfull \hbox (badness 10000) in paragraph at lines 1247--1251
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1254--1258
+Underfull \hbox (badness 10000) in paragraph at lines 1252--1256
 
  []
 
@@ -2090,67 +2089,70 @@ File: uni-33.def 2013/05/13 UCS: Unicode data U+2100..U+21FF
 
 
 
-Package xcolor Warning: Incompatible color definition on input line 1267.
+Package xcolor Warning: Incompatible color definition on input line 1265.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1267.
+Package xcolor Warning: Incompatible color definition on input line 1265.
 
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <9> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 1267.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 1265.
 
-Package xcolor Warning: Incompatible color definition on input line 1267.
+Package xcolor Warning: Incompatible color definition on input line 1265.
 
 
-Overfull \hbox (1.90796pt too wide) in paragraph at lines 1267--1268
+Overfull \hbox (1.90796pt too wide) in paragraph at lines 1265--1266
  [][][] 
  []
 
 [58
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1272.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1272.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1270.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1270.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1272.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1272.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1270.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1270.
 
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 8B9ECF693801ABCBB78533562B3A6BD6;4933.
+(rerunfilecheck)             Checksum: 5C0B21DA26B0E64625105ECB48EE5DD0;5395.
  ) 
 Here is how much of TeX's memory you used:
- 26120 strings out of 493014
- 462212 string characters out of 6133351
- 628374 words of memory out of 5000000
- 28694 multiletter control sequences out of 15000+600000
- 100829 words of font info for 137 fonts, out of 8000000 for 9000
+ 26119 strings out of 493014
+ 462125 string characters out of 6133351
+ 628952 words of memory out of 5000000
+ 28693 multiletter control sequences out of 15000+600000
+ 100699 words of font info for 136 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,15n,80p,1990b,883s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/
-texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/20
-16/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2016/texmf-d
-ist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/
-dvips/lm/lm-mathit.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base
-/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></
-usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/
-texlive/2016/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2
-016/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2016/texmf-
-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts
-/type1/public/lm/lmmi6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/publ
-ic/lm/lmmi8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmr10
-.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/l
-ocal/texlive/2016/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive
-/2016/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2016/texmf-
-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2016/texmf-dist/fonts
-/type1/public/lm/lmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/pub
-lic/lm/lmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmsy
-8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></us
-r/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></usr/local/tex
-live/2016/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/20
-16/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on report.pdf (60 pages, 4930184 bytes).
+ 62i,15n,80p,1990b,748s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{glo:eisas} has been referenced but does not exist
+, replaced by a fixed one
+
+{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/te
+xlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2016
+/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2016/texmf-dis
+t/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dv
+ips/lm/lm-mathit.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8
+r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></us
+r/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/te
+xlive/2016/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/201
+6/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2016/texmf-di
+st/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/t
+ype1/public/lm/lmmi6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public
+/lm/lmmi8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmr10.p
+fb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/loc
+al/texlive/2016/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2
+016/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2016/texmf-di
+st/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2016/texmf-dist/fonts/t
+ype1/public/lm/lmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/publi
+c/lm/lmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmsy8.
+pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/
+local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></usr/local/texli
+ve/2016/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2016
+/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
+Output written on report.pdf (60 pages, 4929218 bytes).
 PDF statistics:
- 1562 PDF objects out of 1728 (max. 8388607)
- 1413 compressed objects within 15 object streams
- 257 named destinations out of 1000 (max. 500000)
- 28366 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 1584 PDF objects out of 1728 (max. 8388607)
+ 1435 compressed objects within 15 object streams
+ 259 named destinations out of 1000 (max. 500000)
+ 28422 words of extra memory for PDF output out of 29859 (max. 10000000)
 

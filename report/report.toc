@@ -11,10 +11,17 @@
 \contentsline {subsection}{\numberline {2.3.4}Misp-Worbench - hashstore}{11}{subsection.2.3.4}
 \contentsline {chapter}{\numberline {3}Information Sharing State of the Art}{13}{chapter.3}
 \contentsline {section}{\numberline {3.1}Information Sharing}{13}{section.3.1}
-\contentsline {section}{\numberline {3.2}Existing Techniques}{15}{section.3.2}
-\contentsline {section}{\numberline {3.3}Standards}{18}{section.3.3}
-\contentsline {section}{\numberline {3.4}Contextualisation}{19}{section.3.4}
-\contentsline {section}{\numberline {3.5}Limitation: What could be expected from this work}{20}{section.3.5}
+\contentsline {subsection}{\numberline {3.1.1}Beginning of Information Sharing}{13}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Vendors}{14}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Standards}{14}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}Guidelines}{15}{subsection.3.1.4}
+\contentsline {subsection}{\numberline {3.1.5}Risk of Sharing}{16}{subsection.3.1.5}
+\contentsline {section}{\numberline {3.2}Existing Techniques}{17}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Sanitisation}{17}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Secure Two-Party Computation (S2PC)}{18}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}\gls {pprl}}{19}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Use cases}{19}{subsection.3.2.4}
+\contentsline {section}{\numberline {3.3}Discussion}{19}{section.3.3}
 \contentsline {chapter}{\numberline {4}Implementation Concepts}{21}{chapter.4}
 \contentsline {section}{\numberline {4.1}Bloom Filters}{21}{section.4.1}
 \contentsline {subsection}{\numberline {4.1.1}Data Structure}{21}{subsection.4.1.1}

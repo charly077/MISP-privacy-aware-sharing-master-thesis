@@ -132,13 +132,6 @@ Url normalization.
 \newblock Rethinking information sharing for actionable threat intelligence.
 \newblock {\em arXiv preprint arXiv:1702.00548\/} (2017).
 
-\bibitem{parekh2006privacy}
-{\sc Parekh, J.~J., Wang, K., and Stolfo, S.~J.}
-\newblock Privacy-preserving payload-based correlation for accurate malicious
-  traffic detection.
-\newblock In {\em Proceedings of the 2006 SIGCOMM workshop on Large-scale
-  attack defense\/} (2006), ACM, pp.~99--106.
-
 \bibitem{ponemon2016costFr}
 {\sc Ponemon, L.}
 \newblock Cost of data breach study: France.
@@ -199,12 +192,6 @@ Url normalization.
   intelligence sharing platform.
 \newblock In {\em Proceedings of the 2016 ACM on Workshop on Information
   Sharing and Collaborative Security\/} (2016), ACM, pp.~49--56.
-
-\bibitem{wang2006network}
-{\sc Wang, K.}
-\newblock {\em Network payload-based anomaly detection and content-based alert
-  correlation}.
-\newblock PhD thesis, Columbia University, 2006.
 
 \bibitem{white2017state}
 {\sc White, G., and Harrison, K.}
