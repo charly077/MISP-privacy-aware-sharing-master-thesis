@@ -72,7 +72,7 @@
 \newacronym{nato}{NATO}{North Atlantic Treaty Organization}
 \newacronym{gpl}{GPL}{General Public License}
 \newacronym{eisas}{EISAS}{European Information Sharing and Alerting System}
-
+\newacronym{bcr}{BCR}{Balanced Classification Rate}
 \makeglossaries
 \begin{document}
 
@@ -344,7 +344,7 @@ One of the commonly proposed solutions to that is to have a very limited sharing
 But, if we have less trusted participants, we also need to understand the risk of leakage that could lead to both monetary and reputation loss. Taking all that into account, they propose a new way of thinking for threat intelligence by defining models, communities and adversaries with their threat model.
 They finally propose an architectural solution as a way of assessing the quality of sharing.
 
-\section{Existing Techniques}
+\section{Privacy-Preserving Techniques}
 Then, It is interesting to see existing techniques used in information sharing to ensure privacy and confidentiality in a case where we do not want to rely on trust. These following paragraphs are used to discover what is used and what was used before in order to get ideas on what could be implemented.\\
 
 The first idea is the simplest one and is about removing and hiding parts of the data. This technique is called data sanitization. Then there will be articles on secure two-parties (S2P) Computations and finally on \gls{pprl}.\\
@@ -441,7 +441,7 @@ It has an enormous advantage which is to be able to test very quickly for member
 This small example of a small dataset of small data already shows the memory advantage: the data set of all the students' name and surname at Harvard. Taking the hypothesis that each name and surname has approximately 6 characters and that there are about 20 000 students. The dataset should use 20 000 * 6 * 2 * 8 (=1920 000) bits while a 1\% false positive bloom filter could be only around 20 000 * 10 bits which is already about 9 times smaller.\\
 
 \subsection{Data Structure}
-A bloom filter is a m bits array (fig. \ref{bloom-1}) with bits all set to 0 at the starting point. Besides that, there are also k independent hash functions. 
+A bloom filter is a m bits array (fig. \ref{bloom-1}) with all bits set to 0 at the starting point. Besides that, there are also k independent hash functions. 
 
 \begin{figure}[h!]
 	\begin{center}
@@ -455,8 +455,8 @@ To add the value v1, each hash function gives a fingerprint of the value which i
 
 \subsection{False Positive Rate}
 
-Bloom filter is a probabilistic data structure as when we are checking for a value, either the value is \textbf{not} in the set or is \textbf{perhaps} in the set. \\
-In the latest case, this is due to false positive where all the k hash functions give indexes already set to 1 while the element should not be in the set.\\
+Bloom filter is a probabilistic data structure as when we are checking for a value, either the value is \textbf{not} in the set or is \textbf{perhaps} in the set. 
+In the latest case, this is due to false positive where all the k hash functions give indexes already set to 1 while the element should not be in the set.
 An example can be seen on figure \ref{bloom-2} where v3 do not belong to the set.
 
 \begin{figure}[h!]
@@ -468,37 +468,33 @@ An example can be seen on figure \ref{bloom-2} where v3 do not belong to the set
 \end{figure}
 
 \subsection{Control the False Positive Rate}
-If we check for a value in a bloom filter, at the end, we only know if it is not in the set or a probability to be in the set. Playing with this probability could be interesting for hiding some information and can be a really important feature for privacy and confidentiality.\\
+If we check for a value in a bloom filter, at the end, we only know if it is not in the set or a probability to be in the set. Playing with this probability could be interesting for hiding some information and can be a really important feature for privacy and confidentiality.
 This is why it could be useful to get more information on the false positive rate and how we could use it.\\
 
-If n is the number of elements inside the data structure we can approximate\footnote{https://en.wikipedia.org/wiki/Bloom\_filter} the false positive rate by $(1-e^{\frac{-kn}{m}})^k$ but a more useful way is to define k in function of the willing rate for the false positive. In this case, we can notice that k is independent of the number of elements inside the set while on the opposite, it is m who needs to be changed in function of the number of values n:
+If n is the number of elements inside the data structure, m the number of bits in the array and k, the number of hash functions, we can approximate\footnote{https://en.wikipedia.org/wiki/Bloom\_filter} the false positive rate (p) by $(1-e^{\frac{-kn}{m}})^k$ but a more useful way is to define k in function of the willing rate for the false positive. In this case, we can notice that k is not dependent on the number of elements inside the set while it is m who needs to be changed in function of the number of values n:
 $$m = - \frac{m\ \ln(p)}{\ln(2)^2}$$
 $$k = - \frac{\ln(p)}{\ln(2)}$$
 (These are approximations)
 
 \subsection{Information Leaked by Bloom Filters}
-It could seem useless but nevertheless, it could have huge impacts. If we create bloom filter and we ensure a false positive rate, with the size of the array (m), the number of hash functions (k) and the number of bits set to 1(X). An attacker could approximate the number of values in a bloom filter like shown by Swamidass et al. \cite{swamidass2007mathematical}:
+It may seem useless but nevertheless, it can have huge impacts. If we create bloom filter and we ensure a false positive rate, with the size of the array (m), the number of hash functions (k) and the number of bits set to 1 (X). An attacker can approximate the number of values in a bloom filter with the formula shown by Swamidass et al. \cite{swamidass2007mathematical}:
 $$n* = - \frac{m}{k} \ln\left[1 - \frac{X}{m}\right] $$
 
 This does not bring a lot of information and the number of elements in the set is leaked as well in the final solution but it is important to have a knowledge of that while implementing a system based on those solutions.
 
-\subsection{Is this a complete solution to the problem?}
-It is not enough alone as we not only need to test element for membership but we also need to get back information on it.\\
-But it is still an interesting solution and could have great benefits once twinned with a later explained implementation.
-
 \section{Machine Learning}
 
-Machine learning is \textbf{the} actual technology for security. A system that could evolve and learn by itself. No need for updates! \\
-Early in April, "Beyond the blacklists: Detecting malicious \gls{url} through machine learning" showed at the Black Hat Asia conferences that it can work.\\
+Machine learning is \textbf{the} actual technology for security. A system that could evolve and learn by itself. No need for updates! 
+Early in April, "Beyond the blacklists: Detecting malicious \gls{url} through machine learning" showed at the Black Hat Asia conferences that it can work.
 They focused on \gls{url} lexical features like the \gls{url} length, vocabulary, path, hostname, parameters, HTTP headers (in average, there are fewer fields with malicious connections) and they manage to get an 84\% detection rate on about 750K malicious \gls{url}s which is really promising.\\
 
-Machine learning is thus a really promising tool in this domain but, the idea here would be to use it completely differently. We don't want it to continuously learn but we want an algorithm to learn a specific data set.\\
-Then the control of false negative and positive would be done via overfitting.\\
+Machine learning is thus a really promising tool in this domain but, the idea here would be to use it completely differently. We don't want it to continuously learn but we want an algorithm to learn a specific data set.
+Then the control of the false negative and positive rate would be done via overfitting on the dataset.
 In this particular case, overfitting is what is needed as we are not interested in inference but just in recognising the elements' membership.\\
 
-This technique could be interesting to keep more control on the privacy and confidentiality, an attacker would learn even fewer things than with a bloom filter.\\
-For the size, a model can also fit with less memory than remembering the whole set but will differ in each algorithm.\\
-So the Base Concept Representation (BCR) of this technique on different example could bring a lot of information on the usability of this technique. But it could be difficult to tune and would have the same disadvantage as the bloom filter which is that it only decides membership and cannot give useful data back to the user. One last important thing to be aware is that some kind of models could leak information inside them for someone really understanding the system. (Ex clear decisions for a decision tree)\\
+This technique could be interesting to keep more control on the privacy and confidentiality, an attacker would learn even fewer things than with a bloom filter.
+For the size, a model can also fit with less memory than remembering the whole set but will differ in each algorithm.
+Therefore the \gls{bcr} of this technique on different example could bring a lot of information on the usability of this technique. But it could be difficult to tune and would have the same disadvantage as the bloom filter which is that it only decides membership and cannot give useful data back to the user. One last important thing to be aware is that some kind of models could leak information inside them for someone really understanding the system. (Ex clear decisions for a decision tree)\\
 
 This technique has the advantage of bringing more data protection due to the false negative rate but it also looses an important characteristic as it could be bad to know an attack \gls{ioc}s but does not detect it because of that rate.
 
@@ -521,18 +517,12 @@ For example, a possible request message for an \gls{ip} could be : hash(IP)||has
 
 The idea is interesting even if it is still not bullet proof against brute force attack. It also need a server to respond at each request.
 
-\section{Conclusion}
-I have explained some basic ideas that could lead to different implementations, a lot of work are done especially on private multi-party matching that could lead to the best option if requests are rare or, for example, if it is used to periodically compare and synchronise data related to the same events between \gls{misp} instances.\\
+\section{Discussion}
+I have explained some basic ideas that could lead to different implementations, a lot of work are done especially on private multi-party matching that could lead to the best option if requests are rare or, for example, if it is used to periodically compare and synchronise data related to the same events between \gls{misp} instances.
 Nearly every solution still needs a server that we would like to get rid of (After the data have been generated) and for that, a machine learning model or bloom filters are the right track but there is still a lack as we do not get back information. That is why the final implemented solution will find something similar to proof of work to slow down the attack and the bloom filter to increase the system speed.
 
-
-
-\chapter{Implementation}
-\label{chap:Implementation}
-I have explained ideas in the previous chapter, some of these could be implemented. But a nice article \cite{van2016private} was published in the few first months of my work and they had found a technique that could also work here as their goal was a similar one: allow parties to share information without the need to immediately reveal private information.
+For that, a nice article \cite{van2016private} was published in October 2016 and they had found a technique that could also work here as their goal was a similar one: allow parties to share information without the need to immediately reveal private information.
 Their implementation was for bro, here I will make an implementation working with \gls{misp} and improve its matching properties and the modularity of the code. 
-By modularity, I mean that I want to be able to add "cryptographic modules" in order to test different techniques with the same code.
-In this chapter, I will first explain their article, then the modifications and improvements I have made.\\
 
 \section{Private Sharing of IOCs and Sightings \cite{van2016private}}
 \label{sec:articlePrivate}
@@ -554,7 +544,6 @@ Hereandafter the values of the rules generated are considered as the concatenati
 	\label{IOC-To-Rule}
 \end{center}
 \end{figure}
-\improvement[inline]{Not Combined IOCs But RELATED}
 
 Rules, as created, can be directly checked on computers but they do not fit with our model yet as every value are still in clear. To solve this problem, they decided to hash the values concatenation while still keeping the structure (e.g. ip-dst||port) in clear.
 The structure is what makes it still usable as it says the user which are the type of values they need to try against the rule.
@@ -614,7 +603,11 @@ They also used an \gls{aes} encryption scheme to encrypt the CAO message.\\
 Their proof of concept code is available on their repository, \url{https://github.com/CRIPTIM/private-IOC-sharing}. 
 
 
-\section{My Implementation}
+
+
+\chapter{Implementation}
+\label{chap:Implementation}
+
 The article of Tim van de Kamp et al. gave me the starting point I needed as the code was available and under the MIT license. I have thus created two basic scripts starting from theirs where I have written it back to fit with \gls{misp}. At first, I have kept exactly the same scheme as they are.\\
 The first step was to retrieve data from \gls{misp}, either from the web \gls{api}, by a direct connection towards the MySQL database or directly via \gls{csv} files.\\
 Then I have improved the code with different new functionalities and realised that, on the contrary of all university projects we had, the project needed to often be completely refactored to allow additional features and to keep it simple for an external user to understand how it works. I will thus go through theses different implementation parts in the next few sections.\\
@@ -628,7 +621,7 @@ To help the understanding of this chapter, figure \ref{interactions} shows the d
 \label{interactions}
 \end{figure}
 
-And then figure \ref{general-flow} shows the general way of using the system. First, the rules are generated, then they are used by a user that has data to check against them. The output of the system is the data that have matched with their corresponding message. This message allows then the user to access all data from the \gls{misp} instance\\
+And then, the figure \ref{general-flow} shows the general way of using the system. First, the rules are generated, then they are used by a user that has data to check against them. The output of the system is the data that have matched with their corresponding message. This message allows then the user to access all data from the \gls{misp} instance\\
 
 \begin{figure}
 \centering
@@ -888,7 +881,7 @@ Then I will explain a set of benchmark to try to show the interest of this syste
 Discussion on the security of the techniques and their usability will serve as a nice conclusion.\\
 
 
-\subsection{My Settings}
+\section{My Settings}
 
 \gls{misp} is really easy to use, but if we want to go deeper in it, there are a lot of things to understand. That's why they give training and make available a \gls{misp} training virtual machine in order to train ourselves and test new developments.\\
 
