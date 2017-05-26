@@ -42,17 +42,17 @@
 \BOOKMARK [2][-]{subsection.5.0.7}{ip Normalisation}{subsection.5.0.1}% 42
 \BOOKMARK [2][-]{subsection.5.0.8}{pbkdf2}{subsection.5.0.1}% 43
 \BOOKMARK [2][-]{subsection.5.0.9}{Library: Pycrypto towards Cryptography}{subsection.5.0.1}% 44
-\BOOKMARK [2][-]{subsection.5.0.10}{Structure Improvement}{subsection.5.0.1}% 45
+\BOOKMARK [2][-]{subsection.5.0.10}{Structure improvement}{subsection.5.0.1}% 45
 \BOOKMARK [2][-]{subsection.5.0.11}{Top Configuration File}{subsection.5.0.1}% 46
 \BOOKMARK [2][-]{subsection.5.0.12}{The Encrypted Message}{subsection.5.0.1}% 47
-\BOOKMARK [2][-]{subsection.5.0.13}{Add a rule}{subsection.5.0.1}% 48
+\BOOKMARK [2][-]{subsection.5.0.13}{Add a Rule}{subsection.5.0.1}% 48
 \BOOKMARK [2][-]{subsection.5.0.14}{Update Rules}{subsection.5.0.1}% 49
 \BOOKMARK [1][-]{section.5.1}{Chosen Cryptographic Systems}{chapter.5}% 50
 \BOOKMARK [2][-]{subsection.5.1.1}{pbkdf2}{section.5.1}% 51
 \BOOKMARK [2][-]{subsection.5.1.2}{Bcrypt}{section.5.1}% 52
 \BOOKMARK [2][-]{subsection.5.1.3}{Bloom Filter}{section.5.1}% 53
 \BOOKMARK [2][-]{subsection.5.1.4}{Bloom filter used to improve the performance of Key Derivation Functions}{section.5.1}% 54
-\BOOKMARK [1][-]{section.5.2}{An other kdf}{chapter.5}% 55
+\BOOKMARK [2][-]{subsection.5.1.5}{An other kdf}{section.5.1}% 55
 \BOOKMARK [0][-]{chapter.6}{Results}{}% 56
 \BOOKMARK [1][-]{section.6.1}{My Settings}{chapter.6}% 57
 \BOOKMARK [1][-]{section.6.2}{Dataset}{chapter.6}% 58
@@ -62,14 +62,14 @@
 \BOOKMARK [2][-]{subsection.6.3.3}{Profile of ReadMisp for 1000 iteration}{section.6.3}% 62
 \BOOKMARK [2][-]{subsection.6.3.4}{Profile of the bloomy\137pbkdf2 module}{section.6.3}% 63
 \BOOKMARK [1][-]{section.6.4}{Benchmarking}{chapter.6}% 64
-\BOOKMARK [2][-]{subsection.6.4.1}{General Security Discussion}{section.6.4}% 65
-\BOOKMARK [2][-]{subsection.6.4.2}{Key Derivation Functions}{section.6.4}% 66
-\BOOKMARK [2][-]{subsection.6.4.3}{Bloomy efficiency}{section.6.4}% 67
-\BOOKMARK [1][-]{section.6.5}{Rules}{chapter.6}% 68
-\BOOKMARK [2][-]{subsection.6.5.1}{Time for creating a rule}{section.6.5}% 69
-\BOOKMARK [2][-]{subsection.6.5.2}{Space memory consumed by a rule}{section.6.5}% 70
-\BOOKMARK [2][-]{subsection.6.5.3}{Lookup}{section.6.5}% 71
-\BOOKMARK [2][-]{subsection.6.5.4}{Bruteforce}{section.6.5}% 72
-\BOOKMARK [0][-]{chapter.7}{Conclusion}{}% 73
-\BOOKMARK [1][-]{section.7.1}{Further Work}{chapter.7}% 74
-\BOOKMARK [1][-]{section.7.2}{Conclusion}{chapter.7}% 75
+\BOOKMARK [2][-]{subsection.6.4.1}{Key Derivation Functions}{section.6.4}% 65
+\BOOKMARK [2][-]{subsection.6.4.2}{Bloomy efficiency}{section.6.4}% 66
+\BOOKMARK [1][-]{section.6.5}{Rules}{chapter.6}% 67
+\BOOKMARK [2][-]{subsection.6.5.1}{Time for creating a rule}{section.6.5}% 68
+\BOOKMARK [2][-]{subsection.6.5.2}{Space memory consumed by a rule}{section.6.5}% 69
+\BOOKMARK [2][-]{subsection.6.5.3}{Lookup}{section.6.5}% 70
+\BOOKMARK [2][-]{subsection.6.5.4}{Bruteforce}{section.6.5}% 71
+\BOOKMARK [0][-]{chapter.7}{Conclusion}{}% 72
+\BOOKMARK [1][-]{section.7.1}{Further Work}{chapter.7}% 73
+\BOOKMARK [1][-]{section.7.2}{General Security Discussion}{chapter.7}% 74
+\BOOKMARK [1][-]{section.7.3}{Conclusion}{chapter.7}% 75
