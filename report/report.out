@@ -33,26 +33,26 @@
 \BOOKMARK [1][-]{section.4.5}{Discussion}{chapter.4}% 33
 \BOOKMARK [1][-]{section.4.6}{Private Sharing of IOCs and Sightings van2016private}{chapter.4}% 34
 \BOOKMARK [0][-]{chapter.5}{Implementation}{}% 35
-\BOOKMARK [1][-]{subsection.5.0.1}{Get data from MISP}{chapter.5}% 36
-\BOOKMARK [2][-]{subsection.5.0.2}{Parsing logs}{subsection.5.0.1}% 37
-\BOOKMARK [2][-]{subsection.5.0.3}{Multiprocessing}{subsection.5.0.1}% 38
-\BOOKMARK [2][-]{subsection.5.0.4}{I/O and Rule Size Optimization}{subsection.5.0.1}% 39
-\BOOKMARK [2][-]{subsection.5.0.5}{csv or tsv?}{subsection.5.0.1}% 40
-\BOOKMARK [2][-]{subsection.5.0.6}{url Normalisation}{subsection.5.0.1}% 41
-\BOOKMARK [2][-]{subsection.5.0.7}{ip Normalisation}{subsection.5.0.1}% 42
-\BOOKMARK [2][-]{subsection.5.0.8}{pbkdf2}{subsection.5.0.1}% 43
-\BOOKMARK [2][-]{subsection.5.0.9}{Library: Pycrypto towards Cryptography}{subsection.5.0.1}% 44
-\BOOKMARK [2][-]{subsection.5.0.10}{Structure improvement}{subsection.5.0.1}% 45
-\BOOKMARK [2][-]{subsection.5.0.11}{Top Configuration File}{subsection.5.0.1}% 46
-\BOOKMARK [2][-]{subsection.5.0.12}{The Encrypted Message}{subsection.5.0.1}% 47
-\BOOKMARK [2][-]{subsection.5.0.13}{Add a Rule}{subsection.5.0.1}% 48
-\BOOKMARK [2][-]{subsection.5.0.14}{Update Rules}{subsection.5.0.1}% 49
-\BOOKMARK [1][-]{section.5.1}{Chosen Cryptographic Systems}{chapter.5}% 50
-\BOOKMARK [2][-]{subsection.5.1.1}{pbkdf2}{section.5.1}% 51
-\BOOKMARK [2][-]{subsection.5.1.2}{Bcrypt}{section.5.1}% 52
-\BOOKMARK [2][-]{subsection.5.1.3}{Bloom Filter}{section.5.1}% 53
-\BOOKMARK [2][-]{subsection.5.1.4}{Bloom filter used to improve the performance of Key Derivation Functions}{section.5.1}% 54
-\BOOKMARK [2][-]{subsection.5.1.5}{An other kdf}{section.5.1}% 55
+\BOOKMARK [1][-]{section.5.1}{Get data from MISP}{chapter.5}% 36
+\BOOKMARK [1][-]{section.5.2}{Parsing logs}{chapter.5}% 37
+\BOOKMARK [1][-]{section.5.3}{Multiprocessing}{chapter.5}% 38
+\BOOKMARK [1][-]{section.5.4}{I/O and Rule Size Optimization}{chapter.5}% 39
+\BOOKMARK [1][-]{section.5.5}{csv or tsv?}{chapter.5}% 40
+\BOOKMARK [1][-]{section.5.6}{url Normalisation}{chapter.5}% 41
+\BOOKMARK [1][-]{section.5.7}{ip Normalisation}{chapter.5}% 42
+\BOOKMARK [1][-]{section.5.8}{pbkdf2}{chapter.5}% 43
+\BOOKMARK [1][-]{section.5.9}{Library: Pycrypto towards Cryptography}{chapter.5}% 44
+\BOOKMARK [1][-]{section.5.10}{Structure improvement}{chapter.5}% 45
+\BOOKMARK [1][-]{section.5.11}{Top Configuration File}{chapter.5}% 46
+\BOOKMARK [1][-]{section.5.12}{The Encrypted Message}{chapter.5}% 47
+\BOOKMARK [1][-]{section.5.13}{Add a Rule}{chapter.5}% 48
+\BOOKMARK [1][-]{section.5.14}{Update Rules}{chapter.5}% 49
+\BOOKMARK [1][-]{section.5.15}{Chosen Cryptographic Systems}{chapter.5}% 50
+\BOOKMARK [2][-]{subsection.5.15.1}{pbkdf2}{section.5.15}% 51
+\BOOKMARK [2][-]{subsection.5.15.2}{Bcrypt}{section.5.15}% 52
+\BOOKMARK [2][-]{subsection.5.15.3}{Bloom Filter}{section.5.15}% 53
+\BOOKMARK [2][-]{subsection.5.15.4}{Bloom filter used to improve the performance of Key Derivation Functions}{section.5.15}% 54
+\BOOKMARK [2][-]{subsection.5.15.5}{An other kdf}{section.5.15}% 55
 \BOOKMARK [0][-]{chapter.6}{Results}{}% 56
 \BOOKMARK [1][-]{section.6.1}{My Settings}{chapter.6}% 57
 \BOOKMARK [1][-]{section.6.2}{Dataset}{chapter.6}% 58

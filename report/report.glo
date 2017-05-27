@@ -29,7 +29,6 @@
 \glossaryentry{TAXII?\glossentry{taxii}|setentrycounter[]{page}\glsnumberformat}{8}
 \glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{8}
 \glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{8}
-\glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{8}
 \glossaryentry{IETF?\glossentry{ietf}|setentrycounter[]{page}\glsnumberformat}{8}
 \glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{8}
 \glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{8}
@@ -172,12 +171,12 @@
 \glossaryentry{IOC?\glossentry{ioc}|setentrycounter[]{page}\glsnumberformat}{25}
 \glossaryentry{COA?\glossentry{coa}|setentrycounter[]{page}\glsnumberformat}{25}
 \glossaryentry{COA?\glossentry{coa}|setentrycounter[]{page}\glsnumberformat}{25}
-\glossaryentry{KDF?\glossentry{kdf}|setentrycounter[]{page}\glsnumberformat}{26}
+\glossaryentry{KDF?\glossentry{kdf}|setentrycounter[]{page}\glsnumberformat}{25}
 \glossaryentry{KDF?\glossentry{kdf}|setentrycounter[]{page}\glsnumberformat}{26}
 \glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{26}
 \glossaryentry{IOC?\glossentry{ioc}|setentrycounter[]{page}\glsnumberformat}{26}
-\glossaryentry{HMAC?\glossentry{hmac}|setentrycounter[]{page}\glsnumberformat}{27}
-\glossaryentry{PBKDF2?\glossentry{pbkdf2}|setentrycounter[]{page}\glsnumberformat}{27}
+\glossaryentry{HMAC?\glossentry{hmac}|setentrycounter[]{page}\glsnumberformat}{26}
+\glossaryentry{PBKDF2?\glossentry{pbkdf2}|setentrycounter[]{page}\glsnumberformat}{26}
 \glossaryentry{HMAC?\glossentry{hmac}|setentrycounter[]{page}\glsnumberformat}{27}
 \glossaryentry{PBKDF2?\glossentry{pbkdf2}|setentrycounter[]{page}\glsnumberformat}{27}
 \glossaryentry{NIST?\glossentry{nist}|setentrycounter[]{page}\glsnumberformat}{27}
@@ -235,8 +234,8 @@
 \glossaryentry{PBKDF2?\glossentry{pbkdf2}|setentrycounter[]{page}\glsnumberformat}{33}
 \glossaryentry{KDF?\glossentry{kdf}|setentrycounter[]{page}\glsnumberformat}{33}
 \glossaryentry{PBKDF2?\glossentry{pbkdf2}|setentrycounter[]{page}\glsnumberformat}{33}
-\glossaryentry{CSV?\glossentry{csv}|setentrycounter[]{page}\glsnumberformat}{33}
-\glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{33}
+\glossaryentry{CSV?\glossentry{csv}|setentrycounter[]{page}\glsnumberformat}{34}
+\glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{34}
 \glossaryentry{COA?\glossentry{coa}|setentrycounter[]{page}\glsnumberformat}{34}
 \glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{34}
 \glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{34}
@@ -253,7 +252,7 @@
 \glossaryentry{IOC?\glossentry{ioc}|setentrycounter[]{page}\glsnumberformat}{34}
 \glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{34}
 \glossaryentry{CSV?\glossentry{csv}|setentrycounter[]{page}\glsnumberformat}{34}
-\glossaryentry{CSV?\glossentry{csv}|setentrycounter[]{page}\glsnumberformat}{34}
+\glossaryentry{CSV?\glossentry{csv}|setentrycounter[]{page}\glsnumberformat}{35}
 \glossaryentry{PBKDF2?\glossentry{pbkdf2}|setentrycounter[]{page}\glsnumberformat}{35}
 \glossaryentry{RFC?\glossentry{rfc}|setentrycounter[]{page}\glsnumberformat}{35}
 \glossaryentry{NIST?\glossentry{nist}|setentrycounter[]{page}\glsnumberformat}{35}
