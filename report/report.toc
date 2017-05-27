@@ -70,8 +70,8 @@
 \contentsline {subsubsection}{\gls {pbkdf2}}{47}{section*.6}
 \contentsline {subsubsection}{Bcrypt}{47}{section*.7}
 \contentsline {subsection}{\numberline {6.4.2}Bloomy efficiency}{48}{subsection.6.4.2}
-\contentsline {section}{\numberline {6.5}Rules}{49}{section.6.5}
-\contentsline {subsection}{\numberline {6.5.1}Time for creating a rule}{49}{subsection.6.5.1}
+\contentsline {section}{\numberline {6.5}Rules}{50}{section.6.5}
+\contentsline {subsection}{\numberline {6.5.1}Time for creating a rule}{50}{subsection.6.5.1}
 \contentsline {subsection}{\numberline {6.5.2}Space memory consumed by a rule}{50}{subsection.6.5.2}
 \contentsline {subsection}{\numberline {6.5.3}Lookup}{51}{subsection.6.5.3}
 \contentsline {subsection}{\numberline {6.5.4}Bruteforce}{51}{subsection.6.5.4}

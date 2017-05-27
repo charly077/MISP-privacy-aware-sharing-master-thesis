@@ -1120,12 +1120,11 @@ As the behaviour is similar, the conclusion would be similar as well for both \g
 \subsection{Bloomy efficiency}
 \label{sec:BloomyEfficiency}
 
-Bloom filters are really efficient and used in this context, they allow to make the matching system a way faster. To characterise this improvement, I need to find comparable data.
-Comparable mean data that are similar in the type of content and on the size as well as easily generalisable. It could have been strings of a fixed size n with a smaller alphabet like \{a,b,c\}. But I have chosen \gls{ipv4} to use this benchmark as well to analyse the feasibility of  bruteforcing them.
-After that, I needed to decide a number of \gls{ip}s to go through at each step. It needs to be not to small to have precise results but not too much as well to avoid waiting to long for the results. Therefore I have decided to take ten "/24" ranges which means 2560 \gls{ip}s. I have chosen to use 192.168.0.0/24 up to 192.168.9.0/24.
+Bloom filters are really efficient and used in this context, they allow to make the matching system a way faster. To characterise this improvement, I need to find data similar in the type of content and on the size as well as easily generable. It could have been strings of a fixed size n with a smaller alphabet like \{a,b,c\}. But I have chosen \gls{ipv4} to use this benchmark as well to analyse the feasibility of  bruteforcing them.
+After that, I needed to decide a number of \gls{ip}s to test at each step. It needs to be not too small to have precise results but not too much as well to avoid waiting to long for the results. Therefore I have decided to take ten "/24" network ranges which means 2560 \gls{ip}s. I have chosen to use 192.168.0.0/24 up to 192.168.9.0/24.
 Thus for each configuration, the matchRules script ran though all these \gls{ip}s like a bruteforcing algorithm would have done it.\\
 
-The written benchmark was originally created and launched on a virtual private server hosted in France where I ran during a few days before I realise there were an error in the code and that I needed to start over. Then after that I ran into trouble with the instance and reinstalling didn't worked correctly.
+The written benchmark was originally created and launched on a virtual private server hosted in France where it ran during a few days before I realise there were an error in the code and that I needed to start over. Then, I ran into trouble with the instance and reinstalling didn't worked correctly.
 The final complete benchmark were than ran on an old computer with 4GB of RAM and an intel i7 processor for a complete week.
 I have tested with it the \gls{pbkdf2} module and its bloomy mode for different \gls{fp} Rate with an increasing number of ip-dst (destination \gls{ip}) rules and and increasing number of iterations.\\
 
@@ -1139,15 +1138,18 @@ As we need to try to decrypt the the whole set of rules in the \gls{pbkdf2} modu
 \end{center}
 \end{figure}
 
-The figure shows clearly a linear behaviour for the four \gls{fp} rates (\gls{pbkdf2} without bloom filter can be considered as a False Positive rate of 1). The only difference is the slope. We can notice that less is the False Positive rate less is the slope is.
+The figure shows clearly a linear behaviour for \gls{pbkdf2} without bloom filter (which one can be considered as a False Positive rate of 1). Then, the behaviour is approximately linear with the different rates even if they are less straight. This behaviour is due to the false positive rate which is just a probability and not the exact proportion. We can notice that less is the False Positive rate less is the slope is.
 We can see as well as for example the version without bloom filter is approximately twice longer than the version including a bloom filter with a 0.4 false positive rate.\\
 
-This resulted benchmark seems corresponding to what should be expected as, knowing that for the simple \gls{pbkdf2} it took 847.42s for 200 ip-dst rules (nIP), 700 iterations (nIt) and that we test 2560 IPs (nIPTested):
+This resulted benchmark seems corresponding to what should be expected as, knowing that for the simple \gls{pbkdf2} it took 702.89s for 1000 ip-dst rules (nIP), 200 iterations (nIt) and that we test 2560 IPs (nIPTested):
 \begin{itemize}
-\item[•] Time needed for testing a an \gls{ip} on a rule is $\frac{Time}{nIPtested * nIP * nIt}=\frac{847.42}{2560*200*700} = Time1IP1It$
-\item[•] The number of \gls{ip} to test is $nIP + (nIPTested - nIP)*FPrate$
+\item[•] Time needed for testing a an \gls{ip} on a rule is $\frac{Time}{nIPtested * nIP * nIt}=\frac{702.89}{2560*1000*200} = Time1IP1It = 1.37283203125^{-6}s$
+\item[•] The number of \gls{ip} to test when a bloom filter is used can be approximate with $nIP + (nIPTested - nIP)*FPrate$
 \end{itemize}
-With this, we can estimate the other points, for example, for 100 \gls{ip}s and a \gls{fp} rate of 0.2, we should have $Time1IP1It$ *  [$400 + (2650 - 400)*0.2$] * 400 (nb of rules). which is equal to 79s while the real result is about 93s. We can notice a slight difference but the approximation tends to follow the same behaviour.
+This is really interesting to see that Time1IP1It is really close to the time needed for one iteration with \gls{pbkdf2}.\\
+
+With that, we can estimate other points, for example, for 200 \gls{ip}s, 200 iterations and a \gls{fp} rate of 0.2, we should have $Time1IP1It$ *  [$200 + (2650 - 200)*0.2$] * 200 (nb of rules) * 200 (nb of iterations) which is equal to 36.9s while the real result is about 40s. We can notice a slight difference but the approximation tends to follow the right behaviour.\\
+
 After that, we need to check that the system behaves the same way in function of the number of iterations as we took the hypothesis in the formula derived (fig. \ref{benchmarking:timeiterations}). 
 
 \begin{figure}[h!]
@@ -1160,6 +1162,8 @@ After that, we need to check that the system behaves the same way in function of
 
 As we can see, the behaviour is effectively similar and the formula could be generalise like:
 $$time(nIP, FPrate, nIt, nIPTested)=\left[nIP+(nIPTested-nIP)*FPrate\right]*nIP*nIt*(Time1IP1It)$$
+
+Finally, the attentive reader would notice that there is a difference between the slope in figure \ref{benchmarking:timeips} and \ref{benchmarking:timeiterations}. This difference is only due to the additional time needed to decrypt the entire rule when there is a match.
 
 \section{Rules}
 
@@ -1184,7 +1188,7 @@ With that, the size of a rule is nearly a constant as it only depends on the siz
 This means that we are around 122 bytes by elements plus the size consumed by the Bloom Filter which depends on the \gls{fp}rate used as well as the number of elements. This is huge compared to the size of an \gls{ipv4} address but is already less than some \gls{url}s.
 
 \subsection{Lookup}
-The major part of the lookup time is related to the number of rules of the type searched as well as the algorithm used with its cost. And the final cost is trying to decipher the ciphertext check element.\\
+The major part of the lookup time is related to the number of rules related to the attribute type searched as well as the algorithm and cost used. And the final cost is trying to decipher the ciphertext check element.\\
 
 Then a simple approximation could be made with the section \ref{sec:KeyDerivationFunction}:
 \begin{itemize}
@@ -1199,26 +1203,30 @@ The following approximation should be taken with care as it follows from a lot o
 \begin{itemize}
 \item[•] The attacker tests all non reserved addresses incrementally.
 \item[•] The number of \gls{ipv4} in MISP is about 50 000 (not the real number).
-\item[•] The number of non reserved \gls{ipv4} addresses is about 592 708 864 ($\approx$13.8\% of the 4 billions possible \gls{ipv4}s) which gives 3 702 258 432\gls{ipv4}s to test.
+\item[•] The number of non reserved \gls{ipv4} addresses is about 592 708 864 ($\approx$13.8\% of the 4 billions possible \gls{ipv4}s) which gives 3 702 258 432 \gls{ipv4}s to test.
 \item[•] Every non reserved \gls{ipv4} has the same probability to be in a rule.
-\item[•] An \gls{ip} has a validity of 3 months
+\item[•] The attacker stops searching when he found the whole set of values related to the rules.
+\item[•] We want the database to sustain an attack for at least 10 years.
 \end{itemize}
-The last hypothesis is just to get an idea of the time the database needs to resists to a bruteforce attack and needs to be modified as all other hypotheses in function of what is needed.
-The fact that an \gls{ip} could have a time limitation is due to the fact that most of the attacker are using dynamic \gls{ip}s. Thus after a while, even if the attacker does not disappear, the information of its \gls{ip}s could not be right anymore.\\
+The last hypothesis is just to get an idea of the time the database needs to resists to a bruteforce attack and can be modified as all other hypotheses in function of what is needed.
+Moreover an \gls{ip} could have a time limitation due to the fact that most of the attacker are using dynamic \gls{ip}s. Thus after a while, even if the attacker does not disappear, the information of its \gls{ip}s could not be right anymore.\\
 
-Now, the goal is to get an estimation of the cost to use for the algorithm if we want the user having a probability of 80\% to have fully discovered the complete set of \gls{ipv4} in the database after 3 months by applying a bruteforce attack.
+Now, the goal is to get an estimation of the cost to use for the algorithm if we want the user having a probability of 80\% to have fully discovered the complete set of \gls{ipv4} in the database after 10 years by applying a bruteforce attack.
 First, I need to find a number of \gls{ip} that the attacker needs to test to have a probability of 0.8 of having discovered the whole set.\\
 
-We therefore need to find x so that $\left[ P(malicious IP > x)\right[^50000$ = 0.8 and thus :
+We therefore need to find x so that $\left[ P(malicious IP > x)\right]^50000$ = 0.8 and thus :
 $$x = e^{\frac{\ln(0.8)}{50000} + \ln(3 702 258 432)} = 3702241909$$
+This result means that the attacker needs to go nearly over the whole possibilities even with that 0.8 probability.
+Then, I want this number of \gls{ip} x, to take 10 years to be checked. We thus need to find the cost c for PBKDF2 so that c*x *Time1IP1It $\geq$10*12*31*24*60*60. Where Time1IP1It was found in section \ref{sec:BloomyEfficiency}. This means that only approximately 0.04 iterations are needed for \gls{pbkdf2} with these hypotheses.\\
+Considering 1 iteration, it means that on the other side, a user looking for a specific element would takes only 0.0686s. But with \gls{pbkdf2}, the number of iterations needs to be greater to generate keys that look random.\\
 
-Then, I want this number of \gls{ip} x, to take 3 months to be checked. We thus need to find the cost c for PBKDF2 so that c*x *Time1IP1It $\geq$3*31*24*60*60. Where Time1IP1It was found in section \ref{sec:BloomyEfficiency}. This means that only approximately 917 iterations are needed for \gls{pbkdf2} with these hypotheses.\\
+In order to get a rough idea, if we would have used a simple redis implementation. The official benchmarks\footnote{\url{https://redis.io/topics/benchmarks}} claims being able to do 508388 get requests by second. This would mean that a similar bruteforce attack would have taken only 2 hours.\\
 
 Finally, we know that we don't have to worried about other kind of data as the complexity of bruteforcing is exponential.
 Therefore nearly unfeasible to bruteforce. For example, if we take a seven-character alphanumeric password, for each character, there are 26 (alphabet)+26 (ALPHABET) + 10 (0-9) possibilities that gives approximately $(62^7)*Time1IP1It/(60*60*24*31*12)$ years which means that it is already $547.8$ years for Bcrypt.
 This gives an idea why bruteforce is very difficult against IOCs like \gls{url}s.\\ 
 
-\todo[inline]{Refaire ces deux approximations!!! elles sont pas correct !}
+
 \chapter{Conclusion}
 
 This small chapter is aimed to go through what have been done and what still need to be done.
