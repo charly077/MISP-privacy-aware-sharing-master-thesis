@@ -25,7 +25,11 @@ def normalize(ioc):
             attr_type == 'link':
                 # just solve one specific case:
                 if not '..org' in ioc[attr_type]:
-                    ioc[attr_type] = urlNorm(ioc[attr_type])
+                    try:
+                        ioc[attr_type] = urlNorm(ioc[attr_type])
+                    except:
+                        print('\n Url normalisation error with: ' + ioc[attr_type])
+                        ioc[attr_type] = ioc[attr_type]
         elif attr_type == 'hostname':
                 ioc[attr_type] = ioc[attr_type].lower()
         elif 'ip-' in attr_type:
