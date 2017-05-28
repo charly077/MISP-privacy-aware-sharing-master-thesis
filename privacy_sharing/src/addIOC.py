@@ -16,7 +16,7 @@ import os
 # MISP import
 from configuration import Configuration
 from readMisp import create_message, parse_attribute, get_iocDic, parsing as readMisp_parsing, store_rules
-from misp.web_api import get_IOCs_update
+from misp.web_api import get_IOCs_update, get_IOCs
 
 # Tools import
 import argparse
@@ -105,8 +105,18 @@ def updateRes():
 	# first get oldIOCs in clear
 	printv('Get new IOCs since')
 	updateFileName = get_IOCs_update()
-
 	return ioc_csv(updateFileName)
+
+def recreate_bloom_filter():
+	get_IOCs()
+	iocs = ioc_csv('misp_events')
+	crypto = Crypto('bloom_filter', conf, metadata)
+
+	# Create a dico of rules
+	iocDic = readMisp_parsing(iocs, crypto)
+
+	# Save bloom filter
+	crypto.write_bloom()
 
 def create_ioc_lines(rowNames, TypedIOCList):
 	lines = []
@@ -115,8 +125,6 @@ def create_ioc_lines(rowNames, TypedIOCList):
 	return '\n' + '\n'.join(lines)
 
 def saveIOCs():
-	#TODO !!!!!! remove rules and meta beforehand 
-	#TODO implement a check if the values already in (argument pour désactiver)
 	metaParser = configparser.ConfigParser()
 	try:
 		metaParser.read(conf['rules']['location'] + '/metadata')
@@ -132,23 +140,27 @@ def saveIOCs():
 	for name in os.listdir(conf['rules']['location']):
 		ruleFiles[(name.split('.')[0]).split('_')[0]] = name
 
-	# create a dico of rules
+	# Create a dico of rules
 	iocDic = readMisp_parsing(IOCs, crypto)
 
 	# For each type add to file if exist
 	iocNewType = {}
 	bar = ProgressBar()
 	for iocType in bar(iocDic.keys()):
-		# exist rules of the same type
+		# Exist rules of the same type
 		try:
 			filename = ruleFiles[iocType]
-			with open(filename, 'r') as f:
-				rowsNames = f.readline().split('\t')
+			with open(conf['rules']['location']+ '/' +filename, 'r') as f:
+				txt = f.read()
+				header = txt.splitlines()[0]
+				rowsNames = header.split('\t')
 
 			iocLines = create_ioc_lines(rowsNames, iocDic[iocType])
-			with open(filename, 'a') as f:
-				f.write(ioLines)
+			with open(conf['rules']['location']+ '/' +filename, 'w') as f:
+				f.write(txt)
+				f.write(iocLines)
 		except:
+			print(iocType)
 			iocNewType[iocType] = iocDic[iocType]
 	
 	if len(iocNewType) > 0:
@@ -181,14 +193,23 @@ if __name__ == '__main__':
 	"""Let's go!"""
 	if args.updateRes:
 		IOCs = updateRes()
+		saveIOCs()
+		# This system, does not work with bloom fiter
+		# They need to be completely regenerated!
+		metaParser = configparser.ConfigParser()
+		metaParser.read(conf['rules']['location'] + '/metadata')
+		metadata = metaParser._sections
+		if 'bloom' in metadata['crypto']['name']:
+			print('Update res and regenerate the bloom filter')
+			recreate_bloom_filter()
 	elif args.misp == 'args':
 		cont = True
 		while cont:
 			ioc_arg()
 			cont = askContinue()
+		saveIOCs()
 	elif args.misp == 'res':
 		IOCs = ioc_csv(args.CSVname)
+		saveIOCs()
 	else:
 		print("Choose a correct argument for misp")
-	print(len(IOCs))
-	saveIOCs()
