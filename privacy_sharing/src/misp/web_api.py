@@ -25,6 +25,22 @@ def save_json(url, name, remove_point=False, add_www=False):
     with open('res/{}.json'.format(name), 'w+') as f:
         json.dump(json_list, f)
 
+def get_last_date(txt):
+    # Get last date
+    lastDate = None
+    lastDateVal = 0
+    for line in txt.splitlines():
+        if line != '\n':
+            date = line[-8:]
+            try:
+                int(date)
+                dateVal = int(date[6:]) + 31*int(date[4:6]) + 12*31*int(date[0:4])
+                if dateVal > lastDateVal and int(date[6:])<32 and int(date[4:6])<13:
+                    lastDate = date[0:4]+ '-' + date[4:6]+ '-' + date[6:]
+                    lastDateVal = dateVal
+            except:
+                pass
+    return lastDate
     
 def get_IOCs():
     # first let clean the ressources
@@ -46,10 +62,10 @@ def get_IOCs():
 
     with open('../res/misp_events.csv', 'w') as f:
         f.write(events.text)
-    lastDate = events.text[-9:-1]
-    lastDate = lastDate[0:4]+ '-' + lastDate[4:6]+ '-' + lastDate[6:]
 
-    # TODO create a metafile with the data of the last event
+    # Get last date
+    lastDate = get_last_date(events.text)
+    
     if os.path.exists('../res/metadata'):
         os.remove('../res/metadata')
 
@@ -91,18 +107,13 @@ def get_IOCs_update():
         i = int(lastDate) # must be int
         with open('../res/' + filename + '.csv', 'w') as f:
             f.write(events.text)
-        lastDate = lastDate[0:4]+ '-' + lastDate[4:6]+ '-' + lastDate[6:]
+        lastDate = get_last_date(events.text)
         with open('../res/metadata', 'a') as f:
             f.write('\n' + lastDate)
     except:
         pass
     return filename
 
-def get_new_IOCs():
-    # TODO implement
-    # get last date in metafile
-    # get last :)
-    pass
 
 if __name__ == "__main__":
     update()
