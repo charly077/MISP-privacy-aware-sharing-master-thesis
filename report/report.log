@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.29)  27 MAY 2017 21:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.29)  29 MAY 2017 10:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2052,11 +2052,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 1215--1217
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 1219--1223
-
- []
-
 [51]
 Underfull \hbox (badness 10000) in paragraph at lines 1224--1225
 
@@ -2203,10 +2198,10 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D373AF0613B6CE2CF0E8401D20C88AA8;5152.
  ) 
 Here is how much of TeX's memory you used:
- 26150 strings out of 493014
- 462423 string characters out of 6133351
- 629036 words of memory out of 5000000
- 28723 multiletter control sequences out of 15000+600000
+ 26153 strings out of 493014
+ 462475 string characters out of 6133351
+ 629085 words of memory out of 5000000
+ 28725 multiletter control sequences out of 15000+600000
  100616 words of font info for 135 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,15n,80p,1990b,748s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2232,10 +2227,10 @@ lic/lm/lmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmsy
 r/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></usr/local/tex
 live/2016/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/20
 16/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on report.pdf (64 pages, 5563059 bytes).
+Output written on report.pdf (64 pages, 5565998 bytes).
 PDF statistics:
- 1617 PDF objects out of 1728 (max. 8388607)
- 1460 compressed objects within 15 object streams
- 260 named destinations out of 1000 (max. 500000)
+ 1618 PDF objects out of 1728 (max. 8388607)
+ 1461 compressed objects within 15 object streams
+ 261 named destinations out of 1000 (max. 500000)
  28416 words of extra memory for PDF output out of 29859 (max. 10000000)
 

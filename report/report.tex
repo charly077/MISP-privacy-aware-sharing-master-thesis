@@ -1220,7 +1220,7 @@ $$x = e^{\frac{\ln(0.8)}{50000} + \ln(3 702 258 432)} = 3702241909$$
 This result means that the attacker needs to go nearly over the whole possibilities even with that 0.8 probability.
 Then, I want this number of \gls{ip} x, to take 10 years to be checked. We thus need to find the cost c for PBKDF2 so that c*x *Time1IP1It $\geq$10*12*31*24*60*60. Where Time1IP1It was found in section \ref{sec:BloomyEfficiency}. This means that only approximately 0.04 iterations are needed for \gls{pbkdf2} with these hypotheses.\\
 Considering 1 iteration, it means that on the other side, a user looking for a specific element would take only 0.0686s. But with \gls{pbkdf2}, the number of iterations needs to be greater to generate keys that look random.\\
-
+\todo[inline]{There is an error! It is not possible !}
 In order to get a rough idea, if we would have used a simple Redis implementation. The official benchmarks\footnote{\url{https://redis.io/topics/benchmarks}} claims being able to do 508388 get requests by second. This would mean that a similar bruteforce attack would have taken only 2 hours.\\
 
 Finally, we know that we don't have to worried about other kinds of data as the complexity of bruteforcing is exponential.
