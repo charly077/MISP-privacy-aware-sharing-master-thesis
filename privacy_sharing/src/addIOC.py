@@ -151,20 +151,17 @@ def saveIOCs():
 		try:
 			filename = ruleFiles[iocType]
 			with open(conf['rules']['location']+ '/' +filename, 'r') as f:
-				txt = f.read()
-				header = txt.splitlines()[0]
+				header = f.readline()[:-1]
 				rowsNames = header.split('\t')
-
 			iocLines = create_ioc_lines(rowsNames, iocDic[iocType])
-			with open(conf['rules']['location']+ '/' +filename, 'w') as f:
-				f.write(txt)
+
+			with open(conf['rules']['location']+ '/' +filename, 'a') as f:
 				f.write(iocLines)
-		except:
-			print(iocType)
+		except Exception:
 			iocNewType[iocType] = iocDic[iocType]
 	
 	if len(iocNewType) > 0:
-		store_rules(iocDic, conf)
+		store_rules(iocNewType, conf)
 
 	# ReSave metaparameter important for bloom filters
 	printv("Rewrite metadata")
