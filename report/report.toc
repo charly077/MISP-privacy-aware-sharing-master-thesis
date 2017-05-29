@@ -1,38 +1,38 @@
 \select@language {english}
 \contentsline {chapter}{\numberline {1}Introduction}{5}{chapter.1}
 \contentsline {section}{\numberline {1.1}Organisation of the development}{6}{section.1.1}
-\contentsline {chapter}{\numberline {2}Background}{7}{chapter.2}
-\contentsline {section}{\numberline {2.1}Indicator of Compromise (IOC)}{7}{section.2.1}
-\contentsline {section}{\numberline {2.2}Confidentiality and Privacy}{7}{section.2.2}
-\contentsline {section}{\numberline {2.3}MISP and Threat Sharing}{7}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}History}{8}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}Basics of MISP}{9}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}MISP in a few Pictures and the Traffic Light Protocol}{10}{subsection.2.3.3}
-\contentsline {subsection}{\numberline {2.3.4}Misp-Worbench - hashstore}{11}{subsection.2.3.4}
-\contentsline {chapter}{\numberline {3}Information Sharing State of the Art}{13}{chapter.3}
-\contentsline {section}{\numberline {3.1}Information Sharing}{13}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Beginning of Information Sharing}{13}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Vendors}{14}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}Standards}{14}{subsection.3.1.3}
-\contentsline {subsection}{\numberline {3.1.4}Guidelines}{15}{subsection.3.1.4}
-\contentsline {subsection}{\numberline {3.1.5}Risk of Sharing}{16}{subsection.3.1.5}
-\contentsline {section}{\numberline {3.2}Privacy-Preserving Techniques}{17}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Sanitisation}{17}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Secure Two-Party Computation (S2PC)}{18}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}\gls {pprl}}{19}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}Use cases}{19}{subsection.3.2.4}
-\contentsline {section}{\numberline {3.3}Discussion}{19}{section.3.3}
-\contentsline {chapter}{\numberline {4}Implementation Concepts}{21}{chapter.4}
-\contentsline {section}{\numberline {4.1}Bloom Filters}{21}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Data Structure}{21}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}False Positive Rate}{21}{subsection.4.1.2}
-\contentsline {subsection}{\numberline {4.1.3}Control the False Positive Rate}{22}{subsection.4.1.3}
-\contentsline {subsection}{\numberline {4.1.4}Information Leaked by Bloom Filters}{23}{subsection.4.1.4}
-\contentsline {section}{\numberline {4.2}Machine Learning}{23}{section.4.2}
-\contentsline {section}{\numberline {4.3}Secure Multi-Party Computation}{23}{section.4.3}
-\contentsline {section}{\numberline {4.4}Proof of Work Database}{24}{section.4.4}
-\contentsline {section}{\numberline {4.5}Discussion}{24}{section.4.5}
-\contentsline {section}{\numberline {4.6}Private Sharing of IOCs and Sightings \cite {van2016private}}{24}{section.4.6}
+\contentsline {chapter}{\numberline {2}Background}{9}{chapter.2}
+\contentsline {section}{\numberline {2.1}Indicator of Compromise (IOC)}{9}{section.2.1}
+\contentsline {section}{\numberline {2.2}Confidentiality and Privacy}{9}{section.2.2}
+\contentsline {section}{\numberline {2.3}MISP and Threat Sharing}{9}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}History}{11}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Basics of MISP}{11}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}MISP in a few Pictures and the Traffic Light Protocol}{12}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}Misp-Worbench - hashstore}{12}{subsection.2.3.4}
+\contentsline {chapter}{\numberline {3}Information Sharing State of the Art}{15}{chapter.3}
+\contentsline {section}{\numberline {3.1}Information Sharing}{15}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Beginning of Information Sharing}{15}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Vendors}{16}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Standards}{16}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}Guidelines}{17}{subsection.3.1.4}
+\contentsline {subsection}{\numberline {3.1.5}Risk of Sharing}{18}{subsection.3.1.5}
+\contentsline {section}{\numberline {3.2}Privacy-Preserving Techniques}{19}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Sanitisation}{19}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Secure Two-Party Computation (S2PC)}{20}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}\gls {pprl}}{21}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Use cases}{21}{subsection.3.2.4}
+\contentsline {section}{\numberline {3.3}Discussion}{21}{section.3.3}
+\contentsline {chapter}{\numberline {4}Implementation Concepts}{23}{chapter.4}
+\contentsline {section}{\numberline {4.1}Bloom Filters}{23}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Data Structure}{23}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}False Positive Rate}{23}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Control the False Positive Rate}{24}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}Information Leaked by Bloom Filters}{25}{subsection.4.1.4}
+\contentsline {subsection}{\numberline {4.1.5}Bloom Filter alternatives}{25}{subsection.4.1.5}
+\contentsline {section}{\numberline {4.2}Secure Multi-Party Computation}{25}{section.4.2}
+\contentsline {section}{\numberline {4.3}Proof of Work Database}{25}{section.4.3}
+\contentsline {section}{\numberline {4.4}Discussion}{26}{section.4.4}
+\contentsline {section}{\numberline {4.5}Private Sharing of IOCs and Sightings \cite {van2016private}}{26}{section.4.5}
 \contentsline {chapter}{\numberline {5}Implementation}{29}{chapter.5}
 \contentsline {section}{\numberline {5.1}Get data from MISP}{29}{section.5.1}
 \contentsline {section}{\numberline {5.2}Parsing logs}{31}{section.5.2}
@@ -59,16 +59,16 @@
 \contentsline {section}{\numberline {6.2}Dataset}{40}{section.6.2}
 \contentsline {section}{\numberline {6.3}Code Profiling}{40}{section.6.3}
 \contentsline {subsection}{\numberline {6.3.1}Code Flow}{40}{subsection.6.3.1}
-\contentsline {subsubsection}{ReadMisp}{40}{section*.3}
-\contentsline {subsubsection}{MatchRules}{41}{section*.4}
-\contentsline {subsubsection}{Crypto Module \gls {pbkdf2}}{42}{section*.5}
+\contentsline {subsubsection}{ReadMisp}{40}{section*.4}
+\contentsline {subsubsection}{MatchRules}{41}{section*.5}
+\contentsline {subsubsection}{Crypto Module \gls {pbkdf2}}{42}{section*.6}
 \contentsline {subsection}{\numberline {6.3.2}Profile of ReadMisp for 1 iteration}{43}{subsection.6.3.2}
 \contentsline {subsection}{\numberline {6.3.3}Profile of ReadMisp for 1000 iteration}{44}{subsection.6.3.3}
 \contentsline {subsection}{\numberline {6.3.4}Profile of the bloomy\_pbkdf2 module}{44}{subsection.6.3.4}
 \contentsline {section}{\numberline {6.4}Benchmarking}{46}{section.6.4}
 \contentsline {subsection}{\numberline {6.4.1}Key Derivation Functions}{47}{subsection.6.4.1}
-\contentsline {subsubsection}{\gls {pbkdf2}}{47}{section*.6}
-\contentsline {subsubsection}{Bcrypt}{47}{section*.7}
+\contentsline {subsubsection}{\gls {pbkdf2}}{47}{section*.7}
+\contentsline {subsubsection}{Bcrypt}{47}{section*.8}
 \contentsline {subsection}{\numberline {6.4.2}Bloomy efficiency}{48}{subsection.6.4.2}
 \contentsline {section}{\numberline {6.5}Rules}{50}{section.6.5}
 \contentsline {subsection}{\numberline {6.5.1}Time for creating a rule}{50}{subsection.6.5.1}

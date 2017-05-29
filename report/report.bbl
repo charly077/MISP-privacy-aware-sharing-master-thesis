@@ -40,6 +40,16 @@ Url normalization.
 \newblock The cybox language specification.
 \newblock {\em draft, The MITRE Corporation\/} (2012).
 
+\bibitem{bloom1970space}
+{\sc Bloom, B.~H.}
+\newblock Space/time trade-offs in hash coding with allowable errors.
+\newblock {\em Communications of the ACM 13}, 7 (1970), 422--426.
+
+\bibitem{chambi2015better}
+{\sc Chambi, S., Lemire, D., Kaser, O., and Godin, R.}
+\newblock Better bitmap performance with roaring bitmaps.
+\newblock {\em Software: practice and experience\/} (2015).
+
 \bibitem{connolly2014trusted}
 {\sc Connolly, J., Davidson, M., and Schmidt, C.}
 \newblock The trusted automated exchange of indicator information (taxii).
@@ -63,6 +73,12 @@ Url normalization.
 {\sc ENISA}.
 \newblock Eisas – european information sharing and alert system for citizens
   and smes.
+
+\bibitem{fan2014cuckoo}
+{\sc Fan, B., Andersen, D.~G., Kaminsky, M., and Mitzenmacher, M.~D.}
+\newblock Cuckoo filter: Practically better than bloom.
+\newblock In {\em Proceedings of the 10th ACM International on Conference on
+  emerging Networking Experiments and Technologies\/} (2014), ACM, pp.~75--88.
 
 \bibitem{FirstTLP}
 {\sc FIRST}.
@@ -132,6 +148,12 @@ Url normalization.
 \newblock Rethinking information sharing for actionable threat intelligence.
 \newblock {\em arXiv preprint arXiv:1702.00548\/} (2017).
 
+\bibitem{pagh2001cuckoo}
+{\sc Pagh, R., and Rodler, F.~F.}
+\newblock Cuckoo hashing.
+\newblock In {\em European Symposium on Algorithms\/} (2001), Springer,
+  pp.~121--133.
+
 \bibitem{ponemon2016costFr}
 {\sc Ponemon, L.}
 \newblock Cost of data breach study: France.
@@ -141,6 +163,12 @@ Url normalization.
 {\sc Ponemon, L.}
 \newblock Cost of data breach study: Global analysis.
 \newblock {\em Poneomon Institute sponsored by IBM\/} (2016).
+
+\bibitem{putze2007cache}
+{\sc Putze, F., Sanders, P., and Singler, J.}
+\newblock Cache-, hash-and space-efficient bloom filters.
+\newblock In {\em International Workshop on Experimental and Efficient
+  Algorithms\/} (2007), Springer, pp.~108--121.
 
 \bibitem{sauerwein2017threat}
 {\sc Sauerwein, C., Sillaber, C., Mussmann, A., and Breu, R.}
