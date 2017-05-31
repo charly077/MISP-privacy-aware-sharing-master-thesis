@@ -3,7 +3,7 @@ Cryptographic functions used for matching or creating rules are implemented as m
 
 
 # Improve the matching performance with bloom filters
-In order to improve the performance of the key derivation function,
+In order to improve the performance of the matching script,
 the idea was to add a bloom filter with a chosen false positive rate (Configuration file).
 
 For that, only need to add 'bloomy\_' before the name of the crypto module to use in the configuration file.
