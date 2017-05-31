@@ -14,6 +14,7 @@ ex: [rules][cryptomodule] pbkdf2 => bloomy\_pbkdf2
 
 - pbkdf2
 - bcrypt
+- SHA256, SHA384, SHA512
 - bloom\_filter
 
 
