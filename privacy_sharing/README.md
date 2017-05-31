@@ -5,7 +5,7 @@ New security threats suddenly appear and we have to react as soon as possible.
 This is why a new kind of security levels appeared and is called threat sharing.
 
 The idea behind is to share a threat when we discover one, we allow then,
-every other member of the sharing organization to defend themselves against it 
+every other members of the sharing organization to defend themselves against it 
 but also to put in common all information they have. This results in fast recoveries 
 and protections.
 
@@ -15,12 +15,12 @@ One of its specificities is of being an open source project [1].
 We can also find a set of tools on the same repository [2].
 
 This platform is maintained by the Computer Incident Response Center Luxembourg (CIRCL [3])
-which is one of the companies helping me in my work. The second one is Conostix [4] 
+which is one of the companies helping me in my work. The second one where I have done an internship is Conostix [4] 
 which provides security and system services in Luxembourg.
 
 IOCs are commonly considered as sensitive data. This induces companies with confidential data to be
-unwilling to share IOCs. Especially when in some case, a user needs to have these IOCs on a file that
-he can bring with him to check a computer.
+unwilling to share them. Especially when in some case, a user needs to have these IOCs on a file that
+he can bring with him to check a possibly infected computer systems.
 
 Nevertheless, they have no problems to share data if, the user already knows it. 
 Which means that a user that has seen the IOC on his computer could be able to discover 
@@ -54,7 +54,7 @@ for each rule:
         return the value
 ```
 
-Then, I've tried to make a code modular to be able to add new crypto systems on it.
+Then, I've tried to make a code modular to be able to add new crypto systems on it like the ability to use bloom filters.
 
 # Structure
 conf/ contains all configurations in the configuration file (= configuration.orig)
@@ -66,7 +66,7 @@ src/ contains all the source files
 - apt-get install libmysqlclient-dev build-essential libssl-dev libffi-dev python-dev libpng-dev
 - pip3 install -r requirements.txt
 
-If there is a problem with matplotlib asking for freetype there are two possibilites (the first one should be prefered as the second can damage to the system!):
+If there is a problem with matplotlib asking for freetype there are two possibilites (the first one should be prefered):
 - ln -s /usr/include/freetype2/ft2build.h /usr/include/
 - sudo apt-get install pkg-config
 
@@ -100,4 +100,3 @@ if we need to access the database from an other host, add remove sql access: (on
 [3] https://www.circl.lu/
 
 [4] http://conostix.lu/
-
