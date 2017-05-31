@@ -1,15 +1,15 @@
 # src files
 
-- crypto/         : Crypto systems packages
+- crypto/         : Crypto systems
 - benchmark/      : Benchmarking files 
-- misp/           : Helpers
+- misp/           : Helpers to download events from MISP
 - benchmark.py    : Execute benchmarks
 - configuration.py: Used in match\_rules and readMisp for handling configuration file 
 - matchRules.py  : Check if an attribute matches a rule
 - readMisp.py    : Transform misp attributes into rules (containing encrypted data)
 - addIOC.py      : Add new rules from new IOCs (from csv, console or automatic res update)
 
-# readMisp.py : Create rules
+# readMisp.py: Create rules
 - help : 
 	- ./readMisp.py -h
 ```
@@ -25,18 +25,22 @@ optional arguments:
   -v, --verbose      Explain what is being done
 
 ```
-- Read from mysql : 
+- Read from mysql: 
 	- copy configuration.orig to configuration in the conf directory (../conf)
 	- fill in the misp, misp mysql, pbkdf2 and rules sections
 	- ./readmisp --misp mysql 
-- Read from misp web api :
+- Read from misp web api:
 	- copy configuration.orig to configuration in the conf directory (../conf)
 	- fill the misp, misp web api and rules sections
 	- ./readmisp --misp web
+- Read from misp csv:
+	- copy configuration.orig to configuration in the conf directory (../conf)
+	- fill the misp and rules sections
+	- ./readmisp --misp csv --csvname filename.csv
 
-# addIOC.py :
+# addIOC.py:
 Finally, instead of regenerating all rules, this script allows to add new rules either one by one directly on the terminal, or by using a csv or also, if using readMisp with '--misp web' then, it can be used to automatically get new IOCs in a csv format and then creating the rules.
-- help : 
+- help: 
 	- ./addIOC.py -h
 ```
 usage: addIOC.py [-h] [--misp MISP] [--CSVname CSVNAME] [-v] [-u]
@@ -53,7 +57,7 @@ optional arguments:
                      with old res to create the new rules
 ```
  
-# matchRules.py : check for a match
+# matchRules.py: check for a match
 - help :
 	- ./matchRules.py -h
   ```
