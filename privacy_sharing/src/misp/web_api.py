@@ -41,7 +41,14 @@ def get_last_date(txt):
             except:
                 pass
     return lastDate
-    
+
+"""
+Get IOCs from MISP using the token and the URL specified in the configuration
+file.
+It writes the result into the res folders in a file named misp_events.csv,
+This file is therefore needed for creating the rules but it will contain 
+data in CLEARTEXT.
+"""
 def get_IOCs():
     # first let clean the ressources
     if os.path.exists("../res"):
@@ -73,9 +80,13 @@ def get_IOCs():
         f.write(lastDate)
 
 
+"""
+As get_IOCs except that it only gets IOCs until the last update
+and save the result in the res folder as update<n° of the update>.csv
+"""
 def get_IOCs_update():
-    # date must be formated like 2015-02-15
-    # get last date:
+    # Date must be formated like 2015-02-15
+    # Get last date:
     with open('../res/metadata', 'r') as f:
         lastDate = f.read()[-11:]
     if (lastDate[-1] == '\n'):
@@ -83,7 +94,7 @@ def get_IOCs_update():
     else:
         lastDate = lastDate[-10:]
 
-    # get misp data in csv
+    # Get misp data in csv
     session = requests.Session()
     session.verify = True
     session.proxies = None
