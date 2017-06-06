@@ -8,7 +8,8 @@
 \contentsline {subsection}{\numberline {2.3.1}History}{11}{subsection.2.3.1}
 \contentsline {subsection}{\numberline {2.3.2}Basics of MISP}{11}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}MISP in a few Pictures and the Traffic Light Protocol}{12}{subsection.2.3.3}
-\contentsline {subsection}{\numberline {2.3.4}Misp-Worbench - hashstore}{12}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.4}Redis}{12}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}Misp-Worbench - hashstore}{13}{subsection.2.3.5}
 \contentsline {chapter}{\numberline {3}Information Sharing State of the Art}{15}{chapter.3}
 \contentsline {section}{\numberline {3.1}Information Sharing}{15}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Beginning of Information Sharing}{15}{subsection.3.1.1}
@@ -59,16 +60,16 @@
 \contentsline {section}{\numberline {6.2}Dataset}{40}{section.6.2}
 \contentsline {section}{\numberline {6.3}Code Profiling}{40}{section.6.3}
 \contentsline {subsection}{\numberline {6.3.1}Code Flow}{40}{subsection.6.3.1}
-\contentsline {subsubsection}{ReadMisp}{40}{section*.4}
-\contentsline {subsubsection}{MatchRules}{41}{section*.5}
-\contentsline {subsubsection}{Crypto Module \gls {pbkdf2}}{42}{section*.6}
+\contentsline {subsubsection}{ReadMisp}{40}{section*.2}
+\contentsline {subsubsection}{MatchRules}{41}{section*.3}
+\contentsline {subsubsection}{Crypto Module \gls {pbkdf2}}{42}{section*.4}
 \contentsline {subsection}{\numberline {6.3.2}Profile of ReadMisp for 1 iteration}{43}{subsection.6.3.2}
 \contentsline {subsection}{\numberline {6.3.3}Profile of ReadMisp for 1000 iteration}{44}{subsection.6.3.3}
 \contentsline {subsection}{\numberline {6.3.4}Profile of the bloomy\_pbkdf2 module}{44}{subsection.6.3.4}
 \contentsline {section}{\numberline {6.4}Benchmarking}{46}{section.6.4}
 \contentsline {subsection}{\numberline {6.4.1}Key Derivation Functions}{47}{subsection.6.4.1}
-\contentsline {subsubsection}{\gls {pbkdf2}}{47}{section*.7}
-\contentsline {subsubsection}{Bcrypt}{47}{section*.8}
+\contentsline {subsubsection}{\gls {pbkdf2}}{47}{section*.5}
+\contentsline {subsubsection}{Bcrypt}{47}{section*.6}
 \contentsline {subsection}{\numberline {6.4.2}Bloomy efficiency}{48}{subsection.6.4.2}
 \contentsline {section}{\numberline {6.5}Rules}{50}{section.6.5}
 \contentsline {subsection}{\numberline {6.5.1}Time for creating a rule}{50}{subsection.6.5.1}

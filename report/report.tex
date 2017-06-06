@@ -86,14 +86,15 @@
 \begin{abstract} 
 Malwares are plaguing this computer age. An actual solution to protect computer systems against them is threat information sharing: Organisations share lists of Indicators Of Compromise with each other.
 For that, an interesting open source platform called MISP allows organisations to share these IOCs but also malware analyses and attack correlations in an online fashion.
-On the other hand, offline lookup would also be an important feature but is stopped by the need of data privacy and confidentiality. This master thesis looks for sharing the dataset of IOCs while still protecting privacy and confidentiality by not directly disclosing the information. 
-After a state of the art, a possible found solution had been implemented with  some improvements before finally being analysed.
+On the other hand, offline lookups would also be an important feature but is stopped by the need of data privacy and confidentiality. This master thesis looks for sharing the dataset of IOCs allowing later offline lookups while still protecting privacy and confidentiality by not directly disclosing the information. 
+After a review of the state of the art, a possible found solution had been implemented with  some improvements before finally being analysed.
 \end{abstract}
 
 
 \renewcommand{\abstractname}{Acknowledgements}
 \begin{abstract}
-\todo[inline]{TODO}
+First of all, I would like to really thank my master thesis promoter, Professor Ramin SADRE for his advice, his follow-up during the year as well as for his final read.
+Secondly, I want to thank CONOSTIX which welcomed me during the last great holidays and followed my work all this year long. I have learned a lot via the master thesis but mostly thanks to the people I have met. I would like also to thank especially William and Xavier from CONOSTIX who have followed my work closely and gave me advice as well as ideas. I would also like to thank CIRCL and especially Alexandre who followed closely the development of the project. Finally, of course, a big thank to my family for all their support and help they gave me throughout my studies.
 \end{abstract}
 
 \tableofcontents
@@ -111,25 +112,25 @@ After a state of the art, a possible found solution had been implemented with  s
 %Ponemon Institute conducts independent research on privacy, data protection and information security policy
 In their last reports \cite{ponemon2016cost, ponemon2016costFr}, the Ponemon Institute conducted analyses over 385 companies in 12 countries\footnote{United States, United Kingdom, Germany, Australia, France, Brazil, Japan, Italy, India, the Arabian region (United Arab Emirates and Saudi Arabia), Canada and, South Africa}. They have estimated the average total cost of a data breach to be around \$4 millions in 2016. A data breach meaning that records containing private data linked to a name have been leaked, they also have been more precise by saying that the average cost is about \$158 by leaked record. This originates from system glitches, human errors but mostly from malicious and criminal attacks. In France, the percentages are respectively 23\%, 27\% and 50\%. Besides that, they have estimated the likelihood for a company to have a data breach involving 10000 records in the next 24 months to be around 26\%, it means that French companies have a 13\% chance of loosing \$1 580 000 in the next two years due to a malicious attack. It is also important to know that the cost mostly comes from business  losses due to the lack of confidence resulting from a data breach. Unfortunately, the cost of malicious breaches is still growing from year to year and it will probably continue to increase as the global annual cybercrime costs predicted by Cybersecurity Ventures will grow from  \$3 trillion in 2015 to \$6 trillion by 2021.\\
 
-Companies therefore need to protect themselves against business losses and so against cybersecurity threats by increasing their computer system defences and being able to react quicker to new attack vectors. An important characteristic about attack vectors to notice is that analyses showed that the same ones are generally used against the same type of organisations as they generally use the same kind of systems containing similar vulnerabilities. From that, the idea of making correlations between trusted organisations arose and gave birth to threat sharing.  As soon as an organisation discovers a threat, they can prevent others to be compromised just by informing them about it.\\
+Companies therefore need to protect themselves against business losses and so against cybersecurity threats by increasing their computer system defences and being able to react quicker to new attack vectors. An important characteristic about attack vectors to notice is that analyses showed that the same ones are generally used against the same type of organisations as they generally use the same kind of systems containing similar vulnerabilities. From that, the idea of making correlations between trusted organisations arose and gave birth to threat sharing:  as soon as an organisation discovers a threat, they can prevent others to be compromised just by informing them about it.\\
 
 For helping information sharing, a lot of tools appeared like standards (\gls{nist}, \gls{enisa}, ...), guidelines to involve an organisation in information sharing group but also platforms. One of them is called \gls{misp}. It allows organisations to share information like \gls{ioc}, analyses of the compromises and correlations between events.
 This platform is mostly used in an online fashion with a direct access to the web interface or available \glspl{api}.
-But on the other side, this work tries to go one step further and to allow directly sharing the dataset using privacy-aware data-structures. It could have a lot of uses like for sharing information between \gls{misp} instances, for incident response team, in forensics, to allow later offline lookups and so on. A real impact could be seen with the hunt for traces in an already or potentially compromised system. In that case, computer analysts do not want to connect directly their \gls{misp} instance to the system while using privacy-aware data-structure allows to get all indicators from a \gls{misp} instance to an incident response places. Besides that, with some privacy-aware structure, we can have other properties like fast lookup useful for \gls{dfir} teams or like been a compact data-structure which could be useful as some \gls{dfir} tools are embedded systems.
+But on the other side, this work tries to go one step further to allow directly sharing the dataset using privacy-aware data-structures. It could have a lot of uses like for sharing information between \gls{misp} instances (comparable to a \glspl{ioc} database), for incident response team, in forensics, to allow later offline lookups and so on. A real impact could be seen with the hunt for traces in an already or potentially compromised system. In that case, computer analysts do not want to connect directly their \gls{misp} instance to the system while using privacy-aware data-structure allows to get all indicators from a \gls{misp} instance to an incident response places. Besides that, with some privacy-aware structure, we can have other properties like fast lookup useful for \gls{dfir} teams or like been a compact data-structure which could be useful as some \gls{dfir} tools are integrated into embedded systems.
 Unfortunately, a large wall stands between the idea and its realisation: the combination of privacy and confidentiality needs.
 A technique is therefore required for \textbf{sharing} information without \textbf{disclosing} damageable information to other parties. This master thesis works on finding a way of sharing an encrypted database of these \glspl{ioc} contained in \gls{misp} to allow offline lookup while protecting the data by slowing down brute force attack in respect to the user specification while still making this database useful for the targeted users. The user specification will thus be a trade off choice between data protection and lookup time.\\
 
-The organisation of this work is done in two phases, the first one is composed of the four first chapters and is the theoretical part. It starts with a background explanation, a state of the art and ends with an explanation of the concepts used in the implementation. Then chapter \ref{chap:Implementation} will be on going through the different step realised during the implementation. The following chapter will be on the results to analyse the system in depth before concluding on all this work in the last chapter. The whole project is available on two repository, my personal repository\footnote{\url{https://github.com/charly077/MISP-privacy-aware-sharing-master-thesis}} contains the code, the benchmarks and the report while the \gls{misp} repository\footnote{\url{https://github.com/MISP/misp-privacy-aware-exchange}} contains only the code.
+The organisation of this work is done in two phases, the first one is composed of the four first chapters and is the theoretical part. It starts with a background explanation, a review of the state of the art and ends with an explanation of the concepts used in the implementation. Then chapter \ref{chap:Implementation} will be on going through the different steps realised during the implementation. The following chapter will be on the results to analyse the system in depth before concluding on all this work in the last chapter. The whole project is available on two repositories, my personal repository\footnote{\url{https://github.com/charly077/MISP-privacy-aware-sharing-master-thesis}} contains the code, the benchmarks and the report while the \gls{misp} repository\footnote{\url{https://github.com/MISP/misp-privacy-aware-exchange}} contains only the code.
 
 \section{Organisation of the development}
 Before going deep into the subject, I want to point out some aspects of this project development.
 Firstly, last year, I was searching for a security subject but I was not really excited about the proposed ones. On the other side, I had no idea either on what I could work in cybersecurity. Therefore, I have looked for ideas where there are plenty of them, directly in security companies.
 I have found a company called Conostix which provides security and system services in Luxembourg.
-They weren't short of ideas. Later on, William Robinet (from Conostix) contacted me again to propose a better idea and it was to work on \gls{misp}. I have thus met Alexandre Dulaunoy from CIRCL with William and they gave me the starting point of the project which was malware sharing in \gls{misp}.\\
+They weren't short of ideas. Later on, William Robinet (from Conostix) contacted me again to propose another idea and it was to work on \gls{misp}. I have thus met Alexandre Dulaunoy from CIRCL with William and they gave me the starting point of the project which was malware sharing in \gls{misp}.\\
 
 As I had zero knowledge in this domain, I have done an internship of four weeks in Conostix (not credited) where I have learned the basics of \gls{misp}. I have also worked on network log parsing. But what I mostly learned was that four weeks for trying to specialise myself in a completely new domain was just enough to give me a rough idea of what it is.
 During these four weeks, I mostly worked on logs. I have created nothing new, actually, it was quite the opposite but it was still interesting to understand how things were working and why they could be useful. 
-In short, I have started to understand how the proxy squid3 was working and have installed it on my computer in order to get logs to work on. Once done, I tried to get information from them by manually parsing the logs (which was a mistake). For that purpose, I have started to implement a parser that was using regular expressions to transform each log lines into a set of objects. But even if it was funny to implement, I spent a lot of time on it and each time I finished, I found it to be not good enough, not modular enough, losing locality and ordering information, and so on. I have thus realised that I was loosing my time as of course, they are plenty of tools for this kind of job like the later used Logstash. Then I have started to work with \gls{misp} to see how it was working. I have reimplemented a similar hash store like the misp-workbench project. I have then used it with my log system by parsing the data from \gls{misp} before adding them to the hash database on Redis. I have then also created a way to feed the parsed logs in my system and briefly analyse them.
+In short, I have started to understand how the proxy squid3 was working and I have installed it on my computer in order to get logs to work on. Once done, I tried to get information from them by manually parsing the logs (which was a mistake). For that purpose, I have started to implement a parser that was using regular expressions to transform each log lines into a set of objects. But even if it was funny to implement, I spent a lot of time on it and each time I finished, I found it to be not good enough, not modular enough, losing locality and ordering information, and so on. I have thus realised that I was loosing my time as of course, they are plenty of tools for this kind of job like the later used Logstash. Then I have started to work with \gls{misp} to see how it was working. I have reimplemented a similar hash store like the misp-workbench project. I have then used it with my log system by parsing the data from \gls{misp} before adding them to the hash database on Redis. I have then also created a way to feed the parsed logs in my system and briefly analysed them.
 Besides that, I also had the opportunity to benefit from a one-day \gls{misp} training organised by CIRCL.
 I have then continued to work on my master thesis the whole year long while keeping in touch with William and Xavier from Conostix and Alexandre from CIRCL.
 
@@ -139,7 +140,7 @@ This small chapter is intended to give a quick overview of the tools and concept
 \section{Indicator of Compromise (IOC)}
 When there is a crime, detectives come and look for clues. They do that to answer important questions as why and how it happened. This is really important, not only for solving a specific crime but also for gathering information that could help solving other correlated crimes and perhaps even to avoid other similar ones.\\
 
-This is exactly the same idea here, even if the attacker tries to minimise its traces, there are always some. It can be email addresses, \gls{ip} addresses, malwares, \glspl{url} and so on.
+This is exactly the same idea here: even if the attacker tries to minimise its traces, there are always some. It can be email addresses, \gls{ip} addresses, malwares, \glspl{url} and so on.
 The idea is then to use these traces to trigger alarms on other computer systems as soon as they are seen to protect them as well as gathering new information. This is the reason why we call these type of clues Indicator Of Compromise.
 
 \section{Confidentiality and Privacy}
@@ -167,10 +168,10 @@ The main advantages compared to the proprietary solutions are:
 \item[$\bullet$] Transparency in term of code and of the contributor.
 \item[$\bullet$] Quantity and diversity of connected entities.
 \item[$\bullet$] The price and the non-existence of entrance barriers.
-\item[$\bullet$] The opportunity to extend the \gls{misp} core format (e.g. financial indicators, mobile phone) with an open source solution where a standardisation will take too much time to be integrated
+\item[$\bullet$] The opportunity to extend the \gls{misp} core format (e.g. financial indicators, mobile phone are example of already implemented extensions) with an open source solution where a standardisation will take too much time to be integrated
 \end{itemize}
 
-A recent paper on \gls{misp} \cite{wagner2016misp} had been published this year and could be interesting to get a better understanding of the underlying system. Additionally, there is also a recent \gls{ietf} draft on the \gls{misp} core format\cite{MispDraft}.
+A recent paper on \gls{misp} \cite{wagner2016misp} had been published this year and could be interesting if a better understanding of the underlying system is needed. Additionally, there is also a recent \gls{ietf} draft on the \gls{misp} core format\cite{MispDraft}.
 I want also to point out that \gls{misp} is spreading, and I have the feeling that communities will continue to grow. I have discussed in Belgium with companies like banks, insurances, consultancy companies that are using it, I have even met people knowing it when I was in Singapore for the Black Hat Asia conference (2017). All this is, at least to my point of view, a good sign on the utilisation of the system.
 
 \subsection{History}
@@ -185,34 +186,32 @@ In January 2013 Andras Iklody (initially hired by  \gls{nato}) became the main f
 Meanwhile other organisations started to adopt the software and promoted it around the CERT world (CERT-EU, CIRCL, and many others …). Nowadays, Andras Iklody is the lead developer of the \gls{misp} project and works for CIRCL.\\
 
 \subsection{Basics of MISP}
-The idea of \gls{misp} was first to create an \gls{ioc} database. That is, if there is an attack where \glspl{ioc} have been seen: "IOC@malware.mail" and "192.168.16.2". We need to keep two types of information, the two \glspl{ioc} by themselves but also the relation between them. For expressing the later one, \glspl{ioc} are grouped by event, a more general term than "attack" previously used in this work.  Then, the \glspl{ioc}, are considered as the attributes of the specific event representing that particular attack.
+The idea of \gls{misp} was first to create an \gls{ioc} database. That is, if there is an attack where \glspl{ioc} have been seen: "IOC@malware.mail" and "192.168.16.2", we need to keep two types of information, the two \glspl{ioc} by themselves but also the relation between them. For expressing the later one, \glspl{ioc} are grouped by event, a more general term than "attack" previously used in this work.  Then, the \glspl{ioc}, are considered as the attributes of the specific event representing that particular attack.
 That representation is quite efficient to analyse as it can immediately correlate events thanks to their attributes.\\
 
 For clarity concerns, attributes are divided into 13 categories again divided into types. As \gls{misp} is not anymore limited to standard \glspl{ioc}, it is interesting to notice that we can also see categories like Financial Fraud but more standard ones are Network Activities, Antivirus detection, Artifacts dropped, and so on.
 All the categories and types can be found on their web pages\footnote {\url{https://www.circl.lu/doc/MISP/categories-and-types/index.html}}.
 
 One other really interesting feature is sightings. When an \gls{ioc} is referenced, we know that it has been seen by someone, but it does not confirm that the \gls{ioc} is really related to that particular event and is not an error. Moreover, what says that if a dynamic \gls{ip} address that is an \gls{ioc} today is still going to be one in 3 months? 
-Sightings are thus the solution to this problem as we can monitor an \gls{ioc}, knowing if it has been seen at other places and if they are still relevant.\\
+Sightings, which is the number of times that the \gls{ioc} sighting have been reported, is thus the solution to this problem as we can monitor an \gls{ioc}, knowing if it has been seen at other places and if they are still relevant.\\
 
 
-There are also two important things on the sharing strategy that I want to point out: \gls{misp} instances and communities. The first one is easy to understand, \gls{misp} is an open source project which means that everybody can decide to run a completely isolated \gls{misp} instance for its own needs. For example, a company that want to store its own confidential data. But that does not mean that the instance must be isolated, they have implemented a way to share information between these instances. While the second one is a good property of each instance, when connected to \gls{misp}, a user is connected thanks to the organisation he belongs to (fig. \ref{misp-organisations}). Then, the organisation can choose to share or not to share their events/attributes with other communities or even with other instances. \\ 
+There are also two important things on the sharing strategy that I want to point out: \gls{misp} instances and communities. The first one is easy to understand, \gls{misp} is an open source project which means that everybody can decide to run a completely isolated \gls{misp} instance for its own needs. For example, a company that want to store its own confidential data. But that does not mean that the instance must be isolated, they have implemented a way to share information between these instances. While the second one is a characteristic of each instance, when connected to \gls{misp}, a user is connected thanks to the organisation he belongs to (fig. \ref{misp-organisations}). Then, the organisation can choose to share or not to share their events/attributes with other communities or even with other instances. \\ 
 
 
-\gls{misp} became a really good \gls{ioc} database with automated correlation system. These correlations can be represented under the form of a graph that helps the analyst to visually see connections between events.\\
+\gls{misp} became a really good \gls{ioc} database that additionally automatically looks for correlations between events. These correlations can be represented under the form of a graph that helps the analyst to visually see connections between events.\\
 
 Besides all that, a lot of different tools have been implemented like a python client library and are available in their repository: \url{https://github.com/MISP/}.
 They have also added a lot of plugins to the web interface like the ability to export the attributes in different formats, standard ones and some others for specific \gls{ids}.\\
-
-\todo[inline]{Now, the goal of this work is to look for adding privacy-aware data structure. This main goal is off course to protect privacy and confidentiality while sharing but there are also other important advantages to help the}
 
 
 \subsection{MISP in a few Pictures and the Traffic Light Protocol}
 There is nothing better to explain all that than real screenshots of the web application. But, it raised one really important question: what can be shared from \gls{misp} and with whom?
 For example, am I allowed to show screenshots of data from \gls{misp} without any risk?
 For answering that question, I need to introduce the Traffic Light Protocol (TLP) that was created in order to facilitate information sharing by defining the authorised level of disclosure. And therefore, it can be used to know what can be shared with a specific audience.
-This protocol is defined by FIRST in \cite{FirstTLP} but also explained in this \gls{nist} cyber threat information sharing guide \cite{johnson2016guide}.\\
+This protocol is defined by FIRST \cite{FirstTLP} but also explained in this \gls{nist} cyber threat information sharing guide \cite{johnson2016guide}.\\
 
-With that in mind I know that I can share the data from the \gls{misp} virtual machine as the default \gls{osint} feed is TLP:WHITE. Which means, according to FIRST, that the disclosure is not limited: \\
+With that in mind I know that I can share the data from the \gls{misp} virtual machine as the default \gls{osint} data feed used by this virtual instance is tagged as TLP:WHITE. Which means, according to FIRST, that the disclosure is not limited: \\
 
 \begin{boxedverbatim}
 	Sources may use TLP:WHITE when information carries minimal or no foreseeable 
@@ -262,11 +261,18 @@ And the last thing that I want to show is one of the ways of showing the correla
 	\end{center}
 \end{figure}
 
+
+\subsection{Redis}
+Redis\footnote{\url{https://redis.io}} is an open source in memory key-value store that can be used as a database, a cache or even as a message broker.\\
+
+Redis is highly performant and allows persistence and replication of data. It handles strings, lists of strings, sorted sets of strings, hash tables, hyperLogLogs and geospatial data. This system works in a client-server model which is a real advantage as it allows to start one server and to request data from any applications or any process of the same application. Moreover, no needs worrying of complex data synchronisation as transactions are directly implemented.
+
+
 \subsection{Misp-Worbench - hashstore}
 
 MISP workbench\footnote{https://github.com/MISP/misp-workbench} is a set of tools to export data out of the \gls{misp} MySQL database and use and abuse them outside of this platform.\\
 
-CIRCL has already implemented a privacy aware tool called hashstore and implemented in Redis\footnote{http://redis.io}. This is working by creating a dataset of all hashed \glspl{ioc}. And then by the use of the Redis server, we can use a Redis client to request data.
+CIRCL has already implemented a privacy aware tool called hashstore and implemented in Redis. This is working by creating a dataset of all hashed \glspl{ioc}. And then by the use of the Redis server, we can use a Redis client to request data.
 Like that, if you want an information on a particular \gls{ioc}, you need to already know it to be able to take its value's fingerprint and make the request.\\
 
 On the other hand, there is a problem with small data, if we consider an attacker that want to try every possible \glspl{ip}, for \gls{ipv4} it represents 4.228.250.625 different \glspl{ip} that needs to be tested. Even if it is a lot it is still feasible as Redis is really fast (see on section \ref{sec:Benchmark}. This means that an attacker could be able to discover the whole set of contained \gls{ipv4} and this is the problem that we are going to try to work out.
@@ -442,7 +448,7 @@ The general theoretical parts end for the real concepts used in the master thesi
 \section{Bloom Filters}
 Bloom filter \cite{bloom1970space} is a space efficient probabilistic data structure  used to efficiently test the membership of specific values.
 It has an enormous advantage which is to be able to test very quickly for membership without requiring to store the complete set of data. On the other hand, even if this data structure never forgets a member, it can falsely believe in the membership of a value even not related to it. The rate to which a data is wrongly recognised is called the False Positive rate and will be explored later on.
-This small example of a small dataset of small data already shows the memory advantage: the data set of all the students' name and surname at \gls{ucl}. Taking the hypothesis that each name and surname has approximately 6 characters and that there are about 29 933 students in 2015-2016. The dataset should use 29 933 * 6 * 2 * 8 (=2873568) bits while a 1\% false positive bloom filter could be only around 29 933 * 10 bits which is already about 9 times smaller.\\
+This small example of a small dataset of small data already shows the memory advantage: the data set of all the students' name and surname at \gls{ucl}. Taking the hypothesis that each name and surname has approximately 6 characters and that there are about 29 933 students in 2015-2016. The dataset should use 29 933 $\cdot$ 6 $\cdot$ 2 $\cdot$ 8 (=2873568) bits while a 1\% false positive bloom filter could be only around 29 933 $\cdot$ 10 bits which is already about 9 times smaller.\\
 
 \subsection{Data Structure}
 A bloom filter is a m bits array (fig. \ref{bloom-1}) with all bits set to 0 at the starting point. Besides that, there are also k independent hash functions. 
@@ -1157,12 +1163,12 @@ We can see as well as for example the version without bloom filter is approximat
 
 This resulted benchmark seems corresponding to what should be expected as, knowing that for the simple \gls{pbkdf2} it took 702.89s for 1000 ip-dst rules (nIP), 200 iterations (nIt) and that we test 2560 IPs (nIPTested):
 \begin{itemize}
-\item[•] Time needed for testing a an \gls{ip} on a rule is $\frac{Time}{nIPtested * nIP * nIt}=\frac{702.89}{2560*1000*200} = Time1IP1It = 1.37283203125^{-6}s$
-\item[•] The number of \gls{ip} to test when a bloom filter is used can be approximate with $nIP + (nIPTested - nIP)*FPrate$
+\item[•] Time needed for testing a an \gls{ip} on a rule is $\frac{Time}{nIPtested \cdot nIP \cdot nIt}=\frac{702.89}{2560\cdot 1000 \cdot 200} = Time1IP1It = 1.37283203125^{-6}s$
+\item[•] The number of \gls{ip} to test when a bloom filter is used can be approximate with $nIP + (nIPTested - nIP) \cdot FPrate$
 \end{itemize}
 This is really interesting to see that Time1IP1It is really close to the time needed for one iteration with \gls{pbkdf2}.\\
 
-With that, we can estimate other points, for example, for 200 \glspl{ip}, 200 iterations and a \gls{fp} rate of 0.2, we should have $Time1IP1It$ *  [$200 + (2650 - 200)*0.2$] * 200 (nb of rules) * 200 (nb of iterations) which is equal to 36.9s while the real result is about 40s. We can notice a slight difference but the approximation tends to follow the right behaviour.\\
+With that, we can estimate other points, for example, for 200 \glspl{ip}, 200 iterations and a \gls{fp} rate of 0.2, we should have $Time1IP1It$ $\cdot$  [$200 + (2650 - 200)\cdot 0.2$] $\cdot$ 200 (nb of rules) $\cdot$ 200 (nb of iterations) which is equal to 36.9s while the real result is about 40s. We can notice a slight difference but the approximation tends to follow the right behaviour.\\
 
 After that, we need to check that the system behaves the same way in function of the number of iterations as we took the hypothesis in the formula derived (fig. \ref{benchmarking:timeiterations}). 
 
@@ -1175,7 +1181,7 @@ After that, we need to check that the system behaves the same way in function of
 \end{figure}
 
 As we can see, the behaviour is effectively similar and the formula could be generalised like:
-$$time(nIP, FPrate, nIt, nIPTested)=\left[nIP+(nIPTested-nIP)*FPrate\right]*nIP*nIt*(Time1IP1It)$$
+$$time(nIP, FPrate, nIt, nIPTested)=\left[nIP+(nIPTested-nIP) \cdot FPrate\right] \cdot nIP \cdot nIt \cdot (Time1IP1It)$$
 
 Finally, the attentive reader would notice that there is a difference between the slope in figure \ref{benchmarking:timeips} and \ref{benchmarking:timeiterations}. This difference is only due to the additional time needed to decrypt the entire rule when there is a match.
 
@@ -1206,8 +1212,8 @@ The major part of the lookup time is related to the number of rules related to t
 
 Then a simple approximation could be made with the section \ref{sec:KeyDerivationFunction}:
 \begin{itemize}
-\item[\gls{pbkdf2}] $$Nb\ rules * Nb\ Iterations * 10^{-6}s + Nb\ rules * Time\ AES$$
-\item[Bcrypt]  $$Nb\ rules * Nb\ Iterations * 5 * 10^{-3}s + Nb\ rules * Time\ AES$$
+\item[\gls{pbkdf2}] $$Nb\ rules \cdot Nb\ Iterations \cdot 10^{-6}s + Nb\ rules \cdot Time\ AES$$
+\item[Bcrypt]  $$Nb\ rules \cdot Nb\ Iterations \cdot 5 \cdot 10^{-3}s + Nb\ rules \cdot Time\ AES$$
 \end{itemize}
 
 \subsection{Bruteforce}
@@ -1228,16 +1234,16 @@ Moreover an \gls{ip} could have a time limitation due to the fact that most of t
 Now, the goal is to get an estimation of the cost to use for the algorithm if we want the user having a probability of 80\% to have fully discovered the complete set of \gls{ipv4} in the database after 10 years by applying a bruteforce attack.
 First, I need to find a number of \gls{ip} that the attacker needs to test to have a probability of 0.8 of having discovered the whole set.\\
 
-We therefore need to find x so that $\left[ P(malicious IP > x)\right]^50000$ = 0.8 and thus :
+We therefore need to find x so that $\left[ P(malicious IP > x)\right]^{50000}$ = 0.8 and thus :
 $$x = e^{\frac{\ln(0.8)}{50000} + \ln(3 702 258 432)} = 3702241909$$
 This result means that the attacker needs to go nearly over the whole possibilities even with that 0.8 probability.
-Then, I want this number of \gls{ip} x, to take 10 years to be checked. We thus need to find the cost for PBKDF2 so that cost * x *Time1IP1It * number of rules$\geq$10*12*31*24*60*60. Where Time1IP1It was found in section \ref{sec:BloomyEfficiency}. This means that only approximately 1.26 iterations are needed for \gls{pbkdf2} with these hypotheses.\\
+Then, I want this number of \gls{ip} x, to take 10 years to be checked. We thus need to find the cost for PBKDF2 so that cost $\cdot$ x  $\cdot$ Time1IP1It $\cdot$ number of rules $\geq$ 10 $\cdot$12 $\cdot$ 31 $\cdot$ 24 $\cdot$ 60 $\cdot$ 60. Where Time1IP1It was found in section \ref{sec:BloomyEfficiency}. This means that only approximately 1.26 iterations are needed for \gls{pbkdf2} with these hypotheses.\\
 Considering 2 iteration, it means that on the other side, a user looking for a specific element would take only 0.13s. But with \gls{pbkdf2}, the number of iterations needs to be greater to generate keys that look random.\\
 
 In order to get a rough idea, if we would have used a simple Redis implementation. The official benchmarks\footnote{\url{https://redis.io/topics/benchmarks}} claims being able to do 508388 get requests by second. This would mean that a similar bruteforce attack would have taken only 2 hours.\\
 
 Finally, we know that we don't have to worried about other kinds of data as the complexity of bruteforcing is exponential.
-Therefore nearly unfeasible to bruteforce. For example, if we take a seven-character alphanumeric password, for each character, there are 26 (alphabet)+26 (ALPHABET) + 10 (0-9) possibilities that gives approximately $(62^7)*Time1IP1It/(60*60*24*31*12)$ years which means that it is already $547.8$ years for Bcrypt.
+Therefore nearly unfeasible to bruteforce. For example, if we take a seven-character alphanumeric password, for each character, there are 26 (alphabet)+26 (ALPHABET) + 10 (0-9) possibilities that gives approximately $(62^7) \cdot Time1IP1It/(60\cdot 60\cdot 24\cdot 31\cdot 12)$ years which means that it is already $547.8$ years for Bcrypt.
 This gives an idea why bruteforce is very difficult against IOCs like \glspl{url}.\\ 
 
 

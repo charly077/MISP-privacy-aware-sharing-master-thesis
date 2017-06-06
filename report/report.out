@@ -7,69 +7,70 @@
 \BOOKMARK [2][-]{subsection.2.3.1}{History}{section.2.3}% 7
 \BOOKMARK [2][-]{subsection.2.3.2}{Basics of MISP}{section.2.3}% 8
 \BOOKMARK [2][-]{subsection.2.3.3}{MISP in a few Pictures and the Traffic Light Protocol}{section.2.3}% 9
-\BOOKMARK [2][-]{subsection.2.3.4}{Misp-Worbench - hashstore}{section.2.3}% 10
-\BOOKMARK [0][-]{chapter.3}{Information Sharing State of the Art}{}% 11
-\BOOKMARK [1][-]{section.3.1}{Information Sharing}{chapter.3}% 12
-\BOOKMARK [2][-]{subsection.3.1.1}{Beginning of Information Sharing}{section.3.1}% 13
-\BOOKMARK [2][-]{subsection.3.1.2}{Vendors}{section.3.1}% 14
-\BOOKMARK [2][-]{subsection.3.1.3}{Standards}{section.3.1}% 15
-\BOOKMARK [2][-]{subsection.3.1.4}{Guidelines}{section.3.1}% 16
-\BOOKMARK [2][-]{subsection.3.1.5}{Risk of Sharing}{section.3.1}% 17
-\BOOKMARK [1][-]{section.3.2}{Privacy-Preserving Techniques}{chapter.3}% 18
-\BOOKMARK [2][-]{subsection.3.2.1}{Sanitisation}{section.3.2}% 19
-\BOOKMARK [2][-]{subsection.3.2.2}{Secure Two-Party Computation \(S2PC\)}{section.3.2}% 20
-\BOOKMARK [2][-]{subsection.3.2.3}{pprl}{section.3.2}% 21
-\BOOKMARK [2][-]{subsection.3.2.4}{Use cases}{section.3.2}% 22
-\BOOKMARK [1][-]{section.3.3}{Discussion}{chapter.3}% 23
-\BOOKMARK [0][-]{chapter.4}{Implementation Concepts}{}% 24
-\BOOKMARK [1][-]{section.4.1}{Bloom Filters}{chapter.4}% 25
-\BOOKMARK [2][-]{subsection.4.1.1}{Data Structure}{section.4.1}% 26
-\BOOKMARK [2][-]{subsection.4.1.2}{False Positive Rate}{section.4.1}% 27
-\BOOKMARK [2][-]{subsection.4.1.3}{Control the False Positive Rate}{section.4.1}% 28
-\BOOKMARK [2][-]{subsection.4.1.4}{Information Leaked by Bloom Filters}{section.4.1}% 29
-\BOOKMARK [2][-]{subsection.4.1.5}{Bloom Filter alternatives}{section.4.1}% 30
-\BOOKMARK [1][-]{section.4.2}{Secure Multi-Party Computation}{chapter.4}% 31
-\BOOKMARK [1][-]{section.4.3}{Proof of Work Database}{chapter.4}% 32
-\BOOKMARK [1][-]{section.4.4}{Discussion}{chapter.4}% 33
-\BOOKMARK [1][-]{section.4.5}{Private Sharing of IOCs and Sightings van2016private}{chapter.4}% 34
-\BOOKMARK [0][-]{chapter.5}{Implementation}{}% 35
-\BOOKMARK [1][-]{section.5.1}{Get data from MISP}{chapter.5}% 36
-\BOOKMARK [1][-]{section.5.2}{Parsing logs}{chapter.5}% 37
-\BOOKMARK [1][-]{section.5.3}{Multiprocessing}{chapter.5}% 38
-\BOOKMARK [1][-]{section.5.4}{I/O and Rule Size Optimization}{chapter.5}% 39
-\BOOKMARK [1][-]{section.5.5}{csv or tsv?}{chapter.5}% 40
-\BOOKMARK [1][-]{section.5.6}{url Normalisation}{chapter.5}% 41
-\BOOKMARK [1][-]{section.5.7}{ip Normalisation}{chapter.5}% 42
-\BOOKMARK [1][-]{section.5.8}{pbkdf2}{chapter.5}% 43
-\BOOKMARK [1][-]{section.5.9}{Library: Pycrypto towards Cryptography}{chapter.5}% 44
-\BOOKMARK [1][-]{section.5.10}{Structure improvement}{chapter.5}% 45
-\BOOKMARK [1][-]{section.5.11}{Top Configuration File}{chapter.5}% 46
-\BOOKMARK [1][-]{section.5.12}{The Encrypted Message}{chapter.5}% 47
-\BOOKMARK [1][-]{section.5.13}{Add a Rule}{chapter.5}% 48
-\BOOKMARK [1][-]{section.5.14}{Update Rules}{chapter.5}% 49
-\BOOKMARK [1][-]{section.5.15}{Chosen Cryptographic Systems}{chapter.5}% 50
-\BOOKMARK [2][-]{subsection.5.15.1}{pbkdf2}{section.5.15}% 51
-\BOOKMARK [2][-]{subsection.5.15.2}{Bcrypt}{section.5.15}% 52
-\BOOKMARK [2][-]{subsection.5.15.3}{Bloom Filter}{section.5.15}% 53
-\BOOKMARK [2][-]{subsection.5.15.4}{Bloom filter used to improve the performance of Key Derivation Functions}{section.5.15}% 54
-\BOOKMARK [2][-]{subsection.5.15.5}{An other kdf}{section.5.15}% 55
-\BOOKMARK [0][-]{chapter.6}{Results}{}% 56
-\BOOKMARK [1][-]{section.6.1}{My Settings}{chapter.6}% 57
-\BOOKMARK [1][-]{section.6.2}{Dataset}{chapter.6}% 58
-\BOOKMARK [1][-]{section.6.3}{Code Profiling}{chapter.6}% 59
-\BOOKMARK [2][-]{subsection.6.3.1}{Code Flow}{section.6.3}% 60
-\BOOKMARK [2][-]{subsection.6.3.2}{Profile of ReadMisp for 1 iteration}{section.6.3}% 61
-\BOOKMARK [2][-]{subsection.6.3.3}{Profile of ReadMisp for 1000 iteration}{section.6.3}% 62
-\BOOKMARK [2][-]{subsection.6.3.4}{Profile of the bloomy\137pbkdf2 module}{section.6.3}% 63
-\BOOKMARK [1][-]{section.6.4}{Benchmarking}{chapter.6}% 64
-\BOOKMARK [2][-]{subsection.6.4.1}{Key Derivation Functions}{section.6.4}% 65
-\BOOKMARK [2][-]{subsection.6.4.2}{Bloomy efficiency}{section.6.4}% 66
-\BOOKMARK [1][-]{section.6.5}{Rules}{chapter.6}% 67
-\BOOKMARK [2][-]{subsection.6.5.1}{Time for creating a rule}{section.6.5}% 68
-\BOOKMARK [2][-]{subsection.6.5.2}{Space memory consumed by a rule}{section.6.5}% 69
-\BOOKMARK [2][-]{subsection.6.5.3}{Lookup}{section.6.5}% 70
-\BOOKMARK [2][-]{subsection.6.5.4}{Bruteforce}{section.6.5}% 71
-\BOOKMARK [0][-]{chapter.7}{Conclusion}{}% 72
-\BOOKMARK [1][-]{section.7.1}{Further Work}{chapter.7}% 73
-\BOOKMARK [1][-]{section.7.2}{General Security Discussion}{chapter.7}% 74
-\BOOKMARK [1][-]{section.7.3}{Conclusion}{chapter.7}% 75
+\BOOKMARK [2][-]{subsection.2.3.4}{Redis}{section.2.3}% 10
+\BOOKMARK [2][-]{subsection.2.3.5}{Misp-Worbench - hashstore}{section.2.3}% 11
+\BOOKMARK [0][-]{chapter.3}{Information Sharing State of the Art}{}% 12
+\BOOKMARK [1][-]{section.3.1}{Information Sharing}{chapter.3}% 13
+\BOOKMARK [2][-]{subsection.3.1.1}{Beginning of Information Sharing}{section.3.1}% 14
+\BOOKMARK [2][-]{subsection.3.1.2}{Vendors}{section.3.1}% 15
+\BOOKMARK [2][-]{subsection.3.1.3}{Standards}{section.3.1}% 16
+\BOOKMARK [2][-]{subsection.3.1.4}{Guidelines}{section.3.1}% 17
+\BOOKMARK [2][-]{subsection.3.1.5}{Risk of Sharing}{section.3.1}% 18
+\BOOKMARK [1][-]{section.3.2}{Privacy-Preserving Techniques}{chapter.3}% 19
+\BOOKMARK [2][-]{subsection.3.2.1}{Sanitisation}{section.3.2}% 20
+\BOOKMARK [2][-]{subsection.3.2.2}{Secure Two-Party Computation \(S2PC\)}{section.3.2}% 21
+\BOOKMARK [2][-]{subsection.3.2.3}{pprl}{section.3.2}% 22
+\BOOKMARK [2][-]{subsection.3.2.4}{Use cases}{section.3.2}% 23
+\BOOKMARK [1][-]{section.3.3}{Discussion}{chapter.3}% 24
+\BOOKMARK [0][-]{chapter.4}{Implementation Concepts}{}% 25
+\BOOKMARK [1][-]{section.4.1}{Bloom Filters}{chapter.4}% 26
+\BOOKMARK [2][-]{subsection.4.1.1}{Data Structure}{section.4.1}% 27
+\BOOKMARK [2][-]{subsection.4.1.2}{False Positive Rate}{section.4.1}% 28
+\BOOKMARK [2][-]{subsection.4.1.3}{Control the False Positive Rate}{section.4.1}% 29
+\BOOKMARK [2][-]{subsection.4.1.4}{Information Leaked by Bloom Filters}{section.4.1}% 30
+\BOOKMARK [2][-]{subsection.4.1.5}{Bloom Filter alternatives}{section.4.1}% 31
+\BOOKMARK [1][-]{section.4.2}{Secure Multi-Party Computation}{chapter.4}% 32
+\BOOKMARK [1][-]{section.4.3}{Proof of Work Database}{chapter.4}% 33
+\BOOKMARK [1][-]{section.4.4}{Discussion}{chapter.4}% 34
+\BOOKMARK [1][-]{section.4.5}{Private Sharing of IOCs and Sightings van2016private}{chapter.4}% 35
+\BOOKMARK [0][-]{chapter.5}{Implementation}{}% 36
+\BOOKMARK [1][-]{section.5.1}{Get data from MISP}{chapter.5}% 37
+\BOOKMARK [1][-]{section.5.2}{Parsing logs}{chapter.5}% 38
+\BOOKMARK [1][-]{section.5.3}{Multiprocessing}{chapter.5}% 39
+\BOOKMARK [1][-]{section.5.4}{I/O and Rule Size Optimization}{chapter.5}% 40
+\BOOKMARK [1][-]{section.5.5}{csv or tsv?}{chapter.5}% 41
+\BOOKMARK [1][-]{section.5.6}{url Normalisation}{chapter.5}% 42
+\BOOKMARK [1][-]{section.5.7}{ip Normalisation}{chapter.5}% 43
+\BOOKMARK [1][-]{section.5.8}{pbkdf2}{chapter.5}% 44
+\BOOKMARK [1][-]{section.5.9}{Library: Pycrypto towards Cryptography}{chapter.5}% 45
+\BOOKMARK [1][-]{section.5.10}{Structure improvement}{chapter.5}% 46
+\BOOKMARK [1][-]{section.5.11}{Top Configuration File}{chapter.5}% 47
+\BOOKMARK [1][-]{section.5.12}{The Encrypted Message}{chapter.5}% 48
+\BOOKMARK [1][-]{section.5.13}{Add a Rule}{chapter.5}% 49
+\BOOKMARK [1][-]{section.5.14}{Update Rules}{chapter.5}% 50
+\BOOKMARK [1][-]{section.5.15}{Chosen Cryptographic Systems}{chapter.5}% 51
+\BOOKMARK [2][-]{subsection.5.15.1}{pbkdf2}{section.5.15}% 52
+\BOOKMARK [2][-]{subsection.5.15.2}{Bcrypt}{section.5.15}% 53
+\BOOKMARK [2][-]{subsection.5.15.3}{Bloom Filter}{section.5.15}% 54
+\BOOKMARK [2][-]{subsection.5.15.4}{Bloom filter used to improve the performance of Key Derivation Functions}{section.5.15}% 55
+\BOOKMARK [2][-]{subsection.5.15.5}{An other kdf}{section.5.15}% 56
+\BOOKMARK [0][-]{chapter.6}{Results}{}% 57
+\BOOKMARK [1][-]{section.6.1}{My Settings}{chapter.6}% 58
+\BOOKMARK [1][-]{section.6.2}{Dataset}{chapter.6}% 59
+\BOOKMARK [1][-]{section.6.3}{Code Profiling}{chapter.6}% 60
+\BOOKMARK [2][-]{subsection.6.3.1}{Code Flow}{section.6.3}% 61
+\BOOKMARK [2][-]{subsection.6.3.2}{Profile of ReadMisp for 1 iteration}{section.6.3}% 62
+\BOOKMARK [2][-]{subsection.6.3.3}{Profile of ReadMisp for 1000 iteration}{section.6.3}% 63
+\BOOKMARK [2][-]{subsection.6.3.4}{Profile of the bloomy\137pbkdf2 module}{section.6.3}% 64
+\BOOKMARK [1][-]{section.6.4}{Benchmarking}{chapter.6}% 65
+\BOOKMARK [2][-]{subsection.6.4.1}{Key Derivation Functions}{section.6.4}% 66
+\BOOKMARK [2][-]{subsection.6.4.2}{Bloomy efficiency}{section.6.4}% 67
+\BOOKMARK [1][-]{section.6.5}{Rules}{chapter.6}% 68
+\BOOKMARK [2][-]{subsection.6.5.1}{Time for creating a rule}{section.6.5}% 69
+\BOOKMARK [2][-]{subsection.6.5.2}{Space memory consumed by a rule}{section.6.5}% 70
+\BOOKMARK [2][-]{subsection.6.5.3}{Lookup}{section.6.5}% 71
+\BOOKMARK [2][-]{subsection.6.5.4}{Bruteforce}{section.6.5}% 72
+\BOOKMARK [0][-]{chapter.7}{Conclusion}{}% 73
+\BOOKMARK [1][-]{section.7.1}{Further Work}{chapter.7}% 74
+\BOOKMARK [1][-]{section.7.2}{General Security Discussion}{chapter.7}% 75
+\BOOKMARK [1][-]{section.7.3}{Conclusion}{chapter.7}% 76
