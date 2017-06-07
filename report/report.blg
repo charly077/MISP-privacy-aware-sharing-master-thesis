@@ -10,47 +10,46 @@ Warning--to sort, need author or key in wikiNormalizationURL
 Warning--empty journal in enisaguide2009
 Warning--empty journal in eisasRapport
 Warning--empty publisher in johnson2014guide
-Warning--empty journal in sauerwein2017threat
 Warning--empty journal in vatsalanprivacy
 You've used 42 entries,
             2415 wiz_defined-function locations,
-            769 strings with 11025 characters,
-and the built_in function-call counts, 13404 in all, are:
-= -- 1261
+            770 strings with 11051 characters,
+and the built_in function-call counts, 13440 in all, are:
+= -- 1264
 > -- 575
 < -- 0
 + -- 242
 - -- 198
 * -- 897
-:= -- 2059
-add.period$ -- 120
+:= -- 2060
+add.period$ -- 121
 call.type$ -- 42
 change.case$ -- 224
 chr.to.int$ -- 0
-cite$ -- 51
+cite$ -- 50
 duplicate$ -- 541
-empty$ -- 1250
+empty$ -- 1260
 format.name$ -- 198
-if$ -- 2941
+if$ -- 2954
 int.to.chr$ -- 0
 int.to.str$ -- 42
-missing$ -- 35
-newline$ -- 207
+missing$ -- 34
+newline$ -- 208
 num.names$ -- 76
-pop$ -- 291
+pop$ -- 295
 preamble$ -- 1
 purify$ -- 183
 quote$ -- 0
-skip$ -- 384
+skip$ -- 386
 stack$ -- 0
 substring$ -- 682
-swap$ -- 160
+swap$ -- 161
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 166
-warning$ -- 9
+warning$ -- 8
 while$ -- 124
 width$ -- 44
-write$ -- 401
-(There were 9 warnings)
+write$ -- 404
+(There were 8 warnings)

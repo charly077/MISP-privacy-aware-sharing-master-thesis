@@ -69,14 +69,16 @@
 \contentsline {section}{\numberline {6.4}Benchmarking}{46}{section.6.4}
 \contentsline {subsection}{\numberline {6.4.1}Key Derivation Functions}{47}{subsection.6.4.1}
 \contentsline {subsubsection}{\gls {pbkdf2}}{47}{section*.5}
-\contentsline {subsubsection}{Bcrypt}{47}{section*.6}
+\contentsline {subsubsection}{Bcrypt}{48}{section*.6}
 \contentsline {subsection}{\numberline {6.4.2}Bloomy efficiency}{48}{subsection.6.4.2}
 \contentsline {section}{\numberline {6.5}Rules}{50}{section.6.5}
 \contentsline {subsection}{\numberline {6.5.1}Time for creating a rule}{50}{subsection.6.5.1}
 \contentsline {subsection}{\numberline {6.5.2}Space memory consumed by a rule}{50}{subsection.6.5.2}
 \contentsline {subsection}{\numberline {6.5.3}Lookup}{51}{subsection.6.5.3}
+\contentsline {subsubsection}{\gls {pbkdf2}}{51}{section*.8}
+\contentsline {subsubsection}{Bcrypt}{51}{section*.9}
 \contentsline {subsection}{\numberline {6.5.4}Bruteforce}{51}{subsection.6.5.4}
 \contentsline {chapter}{\numberline {7}Conclusion}{53}{chapter.7}
-\contentsline {section}{\numberline {7.1}Further Work}{53}{section.7.1}
-\contentsline {section}{\numberline {7.2}General Security Discussion}{54}{section.7.2}
-\contentsline {section}{\numberline {7.3}Conclusion}{54}{section.7.3}
+\contentsline {section}{\numberline {7.1}General Security Discussion}{53}{section.7.1}
+\contentsline {section}{\numberline {7.2}Conclusion}{54}{section.7.2}
+\contentsline {section}{\numberline {7.3}Further Work}{54}{section.7.3}
