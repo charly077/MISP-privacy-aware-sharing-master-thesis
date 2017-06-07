@@ -3,12 +3,12 @@
 \BOOKMARK [0][-]{chapter.2}{Background}{}% 3
 \BOOKMARK [1][-]{section.2.1}{Indicator of Compromise \(IOC\)}{chapter.2}% 4
 \BOOKMARK [1][-]{section.2.2}{Confidentiality and Privacy}{chapter.2}% 5
-\BOOKMARK [1][-]{section.2.3}{MISP and Threat Sharing}{chapter.2}% 6
-\BOOKMARK [2][-]{subsection.2.3.1}{History}{section.2.3}% 7
-\BOOKMARK [2][-]{subsection.2.3.2}{Basics of MISP}{section.2.3}% 8
-\BOOKMARK [2][-]{subsection.2.3.3}{MISP in a few Pictures and the Traffic Light Protocol}{section.2.3}% 9
-\BOOKMARK [2][-]{subsection.2.3.4}{Redis}{section.2.3}% 10
-\BOOKMARK [2][-]{subsection.2.3.5}{Misp-Worbench - hashstore}{section.2.3}% 11
+\BOOKMARK [1][-]{section.2.3}{Redis}{chapter.2}% 6
+\BOOKMARK [1][-]{section.2.4}{MISP and Threat Sharing}{chapter.2}% 7
+\BOOKMARK [2][-]{subsection.2.4.1}{History}{section.2.4}% 8
+\BOOKMARK [2][-]{subsection.2.4.2}{Basics of MISP}{section.2.4}% 9
+\BOOKMARK [2][-]{subsection.2.4.3}{MISP in a few Pictures and the Traffic Light Protocol}{section.2.4}% 10
+\BOOKMARK [2][-]{subsection.2.4.4}{Misp-Worbench - hashstore}{section.2.4}% 11
 \BOOKMARK [0][-]{chapter.3}{Information Sharing State of the Art}{}% 12
 \BOOKMARK [1][-]{section.3.1}{Information Sharing}{chapter.3}% 13
 \BOOKMARK [2][-]{subsection.3.1.1}{Beginning of Information Sharing}{section.3.1}% 14
@@ -19,7 +19,7 @@
 \BOOKMARK [1][-]{section.3.2}{Privacy-Preserving Techniques}{chapter.3}% 19
 \BOOKMARK [2][-]{subsection.3.2.1}{Sanitisation}{section.3.2}% 20
 \BOOKMARK [2][-]{subsection.3.2.2}{Secure Two-Party Computation \(S2PC\)}{section.3.2}% 21
-\BOOKMARK [2][-]{subsection.3.2.3}{pprl}{section.3.2}% 22
+\BOOKMARK [2][-]{subsection.3.2.3}{Privacy-Preserving Record Linkage \(pprl\)}{section.3.2}% 22
 \BOOKMARK [2][-]{subsection.3.2.4}{Use cases}{section.3.2}% 23
 \BOOKMARK [1][-]{section.3.3}{Discussion}{chapter.3}% 24
 \BOOKMARK [0][-]{chapter.4}{Implementation Concepts}{}% 25
