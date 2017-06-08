@@ -8,19 +8,19 @@
 \BOOKMARK [2][-]{subsection.2.4.1}{History}{section.2.4}% 8
 \BOOKMARK [2][-]{subsection.2.4.2}{Basics of MISP}{section.2.4}% 9
 \BOOKMARK [2][-]{subsection.2.4.3}{MISP in a few Pictures and the Traffic Light Protocol}{section.2.4}% 10
-\BOOKMARK [2][-]{subsection.2.4.4}{Misp-Worbench - hashstore}{section.2.4}% 11
-\BOOKMARK [0][-]{chapter.3}{Information Sharing State of the Art}{}% 12
-\BOOKMARK [1][-]{section.3.1}{Information Sharing}{chapter.3}% 13
-\BOOKMARK [2][-]{subsection.3.1.1}{Beginning of Information Sharing}{section.3.1}% 14
-\BOOKMARK [2][-]{subsection.3.1.2}{Vendors}{section.3.1}% 15
-\BOOKMARK [2][-]{subsection.3.1.3}{Standards}{section.3.1}% 16
-\BOOKMARK [2][-]{subsection.3.1.4}{Guidelines}{section.3.1}% 17
-\BOOKMARK [2][-]{subsection.3.1.5}{Risk of Sharing}{section.3.1}% 18
-\BOOKMARK [1][-]{section.3.2}{Privacy-Preserving Techniques}{chapter.3}% 19
-\BOOKMARK [2][-]{subsection.3.2.1}{Sanitisation}{section.3.2}% 20
-\BOOKMARK [2][-]{subsection.3.2.2}{Secure Two-Party Computation \(S2PC\)}{section.3.2}% 21
-\BOOKMARK [2][-]{subsection.3.2.3}{Privacy-Preserving Record Linkage \(pprl\)}{section.3.2}% 22
-\BOOKMARK [2][-]{subsection.3.2.4}{Use cases}{section.3.2}% 23
+\BOOKMARK [2][-]{subsection.2.4.4}{Use cases}{section.2.4}% 11
+\BOOKMARK [2][-]{subsection.2.4.5}{Misp-Worbench - hashstore}{section.2.4}% 12
+\BOOKMARK [0][-]{chapter.3}{Information Sharing State of the Art}{}% 13
+\BOOKMARK [1][-]{section.3.1}{Information Sharing}{chapter.3}% 14
+\BOOKMARK [2][-]{subsection.3.1.1}{Beginning of Information Sharing}{section.3.1}% 15
+\BOOKMARK [2][-]{subsection.3.1.2}{Vendors}{section.3.1}% 16
+\BOOKMARK [2][-]{subsection.3.1.3}{Standards}{section.3.1}% 17
+\BOOKMARK [2][-]{subsection.3.1.4}{Guidelines}{section.3.1}% 18
+\BOOKMARK [2][-]{subsection.3.1.5}{Risk of Sharing}{section.3.1}% 19
+\BOOKMARK [1][-]{section.3.2}{Privacy-Preserving Techniques}{chapter.3}% 20
+\BOOKMARK [2][-]{subsection.3.2.1}{Sanitization}{section.3.2}% 21
+\BOOKMARK [2][-]{subsection.3.2.2}{Secure Two-Party Computation \(S2PC\)}{section.3.2}% 22
+\BOOKMARK [2][-]{subsection.3.2.3}{Privacy-Preserving Record Linkage \(pprl\)}{section.3.2}% 23
 \BOOKMARK [1][-]{section.3.3}{Discussion}{chapter.3}% 24
 \BOOKMARK [0][-]{chapter.4}{Implementation Concepts}{}% 25
 \BOOKMARK [1][-]{section.4.1}{Bloom Filters}{chapter.4}% 26
@@ -38,7 +38,7 @@
 \BOOKMARK [1][-]{section.5.2}{Parsing logs}{chapter.5}% 38
 \BOOKMARK [1][-]{section.5.3}{Multiprocessing}{chapter.5}% 39
 \BOOKMARK [1][-]{section.5.4}{I/O and Rule Size Optimization}{chapter.5}% 40
-\BOOKMARK [1][-]{section.5.5}{csv or tsv?}{chapter.5}% 41
+\BOOKMARK [1][-]{section.5.5}{Comma-Separated Values \(csv\) or Tabulation-Separated Values \(tsv\)?}{chapter.5}% 41
 \BOOKMARK [1][-]{section.5.6}{url Normalisation}{chapter.5}% 42
 \BOOKMARK [1][-]{section.5.7}{ip Normalisation}{chapter.5}% 43
 \BOOKMARK [1][-]{section.5.8}{pbkdf2}{chapter.5}% 44

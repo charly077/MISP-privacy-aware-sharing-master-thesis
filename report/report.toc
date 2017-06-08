@@ -9,7 +9,8 @@
 \contentsline {subsection}{\numberline {2.4.1}History}{11}{subsection.2.4.1}
 \contentsline {subsection}{\numberline {2.4.2}Basics of MISP}{11}{subsection.2.4.2}
 \contentsline {subsection}{\numberline {2.4.3}MISP in a few Pictures and the Traffic Light Protocol}{12}{subsection.2.4.3}
-\contentsline {subsection}{\numberline {2.4.4}Misp-Worbench - hashstore}{14}{subsection.2.4.4}
+\contentsline {subsection}{\numberline {2.4.4}Use cases}{14}{subsection.2.4.4}
+\contentsline {subsection}{\numberline {2.4.5}Misp-Worbench - hashstore}{14}{subsection.2.4.5}
 \contentsline {chapter}{\numberline {3}Information Sharing State of the Art}{15}{chapter.3}
 \contentsline {section}{\numberline {3.1}Information Sharing}{15}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Beginning of Information Sharing}{15}{subsection.3.1.1}
@@ -18,10 +19,9 @@
 \contentsline {subsection}{\numberline {3.1.4}Guidelines}{17}{subsection.3.1.4}
 \contentsline {subsection}{\numberline {3.1.5}Risk of Sharing}{18}{subsection.3.1.5}
 \contentsline {section}{\numberline {3.2}Privacy-Preserving Techniques}{19}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Sanitisation}{19}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.1}Sanitization}{19}{subsection.3.2.1}
 \contentsline {subsection}{\numberline {3.2.2}Secure Two-Party Computation (S2PC)}{20}{subsection.3.2.2}
 \contentsline {subsection}{\numberline {3.2.3}Privacy-Preserving Record Linkage (\gls {pprl})}{21}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}Use cases}{21}{subsection.3.2.4}
 \contentsline {section}{\numberline {3.3}Discussion}{21}{section.3.3}
 \contentsline {chapter}{\numberline {4}Implementation Concepts}{23}{chapter.4}
 \contentsline {section}{\numberline {4.1}Bloom Filters}{23}{section.4.1}
@@ -39,7 +39,7 @@
 \contentsline {section}{\numberline {5.2}Parsing logs}{31}{section.5.2}
 \contentsline {section}{\numberline {5.3}Multiprocessing}{31}{section.5.3}
 \contentsline {section}{\numberline {5.4}I/O and Rule Size Optimization}{31}{section.5.4}
-\contentsline {section}{\numberline {5.5}\gls {csv} or \gls {tsv}?}{31}{section.5.5}
+\contentsline {section}{\numberline {5.5}Comma-Separated Values (\gls {csv}) or Tabulation-Separated Values (\gls {tsv})?}{31}{section.5.5}
 \contentsline {section}{\numberline {5.6}\gls {url} Normalisation}{31}{section.5.6}
 \contentsline {section}{\numberline {5.7}\gls {ip} Normalisation}{32}{section.5.7}
 \contentsline {section}{\numberline {5.8}\gls {pbkdf2}}{33}{section.5.8}
