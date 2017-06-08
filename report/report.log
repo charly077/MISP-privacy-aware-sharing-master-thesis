@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.29)  8 JUN 2017 13:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.29)  8 JUN 2017 15:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1651,7 +1651,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 764--765
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\gls' on input line 785.
 
-<res/seqDiagramRead.png, id=1037, 966.61125pt x 738.76pt>
+<res/seqDiagramRead.png, id=1040, 966.61125pt x 738.76pt>
 File: res/seqDiagramRead.png Graphic file (type png)
 
 <use res/seqDiagramRead.png>
@@ -1662,7 +1662,7 @@ Overfull \hbox (22.5761pt too wide) in paragraph at lines 790--791
 [][] 
  []
 
-<res/seqDiagramMatch.png, id=1038, 968.61874pt x 753.81625pt>
+<res/seqDiagramMatch.png, id=1041, 968.61874pt x 753.81625pt>
 File: res/seqDiagramMatch.png Graphic file (type png)
 
 <use res/seqDiagramMatch.png>
@@ -1780,7 +1780,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 931--932
 
  []
 
-<res/flowReadMisp.png, id=1108, 1114.1625pt x 492.84125pt>
+<res/flowReadMisp.png, id=1110, 1114.1625pt x 492.84125pt>
 File: res/flowReadMisp.png Graphic file (type png)
 
 <use res/flowReadMisp.png>
@@ -1790,7 +1790,7 @@ Package pdftex.def Info: res/flowReadMisp.png used on input line 946.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[40] <res/flowMatchRules.png, id=1123, 1093.08376pt x 781.92125pt>
+[40] <res/flowMatchRules.png, id=1125, 1093.08376pt x 781.92125pt>
 File: res/flowMatchRules.png Graphic file (type png)
 
 <use res/flowMatchRules.png>
@@ -1811,14 +1811,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 984--986
 
  []
 
-<res/flowPBKDF2.png, id=1139, 997.7275pt x 438.63875pt>
+<res/flowPBKDF2.png, id=1141, 997.7275pt x 438.63875pt>
 File: res/flowPBKDF2.png Graphic file (type png)
 
 <use res/flowPBKDF2.png>
 Package pdftex.def Info: res/flowPBKDF2.png used on input line 993.
 (pdftex.def)             Requested size: 299.32056pt x 131.59264pt.
 
-<res/flowBloomFilter.png, id=1140, 1370.11874pt x 213.79875pt>
+<res/flowBloomFilter.png, id=1142, 1370.11874pt x 213.79875pt>
 File: res/flowBloomFilter.png Graphic file (type png)
 
 <use res/flowBloomFilter.png>
@@ -1844,7 +1844,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1018--1021
 
  []
 
-<res/profile-1iter.png, id=1150, 1443.3925pt x 700.6175pt>
+<res/profile-1iter.png, id=1152, 1443.3925pt x 700.6175pt>
 File: res/profile-1iter.png Graphic file (type png)
 
 <use res/profile-1iter.png>
@@ -1855,7 +1855,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1030--1034
 
  []
 
-<res/profile-mem-readMisp-1iter.png, id=1154, 1017.8025pt x 671.50874pt>
+<res/profile-mem-readMisp-1iter.png, id=1156, 1017.8025pt x 671.50874pt>
 File: res/profile-mem-readMisp-1iter.png Graphic file (type png)
 
 <use res/profile-mem-readMisp-1iter.png>
@@ -1871,7 +1871,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1043--1044
 
  []
 
-<res/profile-1000iter.png, id=1155, 1443.3925pt x 700.6175pt>
+<res/profile-1000iter.png, id=1157, 1443.3925pt x 700.6175pt>
 File: res/profile-1000iter.png Graphic file (type png)
 
 <use res/profile-1000iter.png>
@@ -1891,7 +1891,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1058--1059
  []
 
 [44 <./res/profile-mem-readMisp-1iter.png> <./res/profile-1000iter.png>]
-<res/readMisp-bloomy-1iter-res.png, id=1173, 1442.38875pt x 701.62125pt>
+<res/readMisp-bloomy-1iter-res.png, id=1175, 1442.38875pt x 701.62125pt>
 File: res/readMisp-bloomy-1iter-res.png Graphic file (type png)
 
 <use res/readMisp-bloomy-1iter-res.png>
@@ -1903,7 +1903,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1070--1071
 
  []
 
-<res/match-exist.png, id=1174, 1442.38875pt x 696.6025pt>
+<res/match-exist.png, id=1176, 1442.38875pt x 696.6025pt>
 File: res/match-exist.png Graphic file (type png)
 
 <use res/match-exist.png>
@@ -1915,7 +1915,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1081--1082
  []
 
 [45 <./res/readMisp-bloomy-1iter-res.png> <./res/match-exist.png>]
-<res/match-bloom-not.png, id=1184, 1442.38875pt x 697.60625pt>
+<res/match-bloom-not.png, id=1186, 1442.38875pt x 697.60625pt>
 File: res/match-bloom-not.png Graphic file (type png)
 
 <use res/match-bloom-not.png>
@@ -1951,13 +1951,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 1112--1113
 
  []
 
-<res/TimePBKDF2.png, id=1195, 462.528pt x 346.896pt>
+<res/TimePBKDF2.png, id=1197, 462.528pt x 346.896pt>
 File: res/TimePBKDF2.png Graphic file (type png)
  <use res/TimePBKDF2.png>
 Package pdftex.def Info: res/TimePBKDF2.png used on input line 1118.
 (pdftex.def)             Requested size: 277.51894pt x 208.13919pt.
 
-<res/TimeBcrypt.png, id=1197, 462.528pt x 346.896pt>
+<res/TimeBcrypt.png, id=1199, 462.528pt x 346.896pt>
 File: res/TimeBcrypt.png Graphic file (type png)
  <use res/TimeBcrypt.png>
 Package pdftex.def Info: res/TimeBcrypt.png used on input line 1129.
@@ -1973,7 +1973,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1147--1149
 
  []
 
-[48 <./res/TimeBcrypt.png>] <res/TimeIPs.png, id=1233, 770.3982pt x 346.896pt>
+[48 <./res/TimeBcrypt.png>] <res/TimeIPs.png, id=1235, 770.3982pt x 346.896pt>
 File: res/TimeIPs.png Graphic file (type png)
 
 <use res/TimeIPs.png>
@@ -1999,7 +1999,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1170--1171
 
  []
 
-<res/TimeIterations.png, id=1242, 758.835pt x 346.896pt>
+<res/TimeIterations.png, id=1244, 758.835pt x 346.896pt>
 File: res/TimeIterations.png Graphic file (type png)
 
 <use res/TimeIterations.png>
@@ -2204,12 +2204,12 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1311.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1311.
 
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: EC6DCCD4F8AF9DFC4C7DE6D24C0078A1;5307.
+(rerunfilecheck)             Checksum: DA4BC6B011D6E0AF5CEB063FCF6599A7;5308.
  ) 
 Here is how much of TeX's memory you used:
  26226 strings out of 493014
  463035 string characters out of 6133351
- 632218 words of memory out of 5000000
+ 632219 words of memory out of 5000000
  28776 multiletter control sequences out of 15000+600000
  101233 words of font info for 141 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -2236,10 +2236,10 @@ lic/lm/lmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmsy
 r/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></usr/local/tex
 live/2016/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/20
 16/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on report.pdf (64 pages, 5570025 bytes).
+Output written on report.pdf (64 pages, 5570302 bytes).
 PDF statistics:
- 1677 PDF objects out of 1728 (max. 8388607)
- 1519 compressed objects within 16 object streams
+ 1680 PDF objects out of 1728 (max. 8388607)
+ 1522 compressed objects within 16 object streams
  271 named destinations out of 1000 (max. 500000)
  28424 words of extra memory for PDF output out of 29859 (max. 10000000)
 

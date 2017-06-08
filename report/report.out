@@ -37,7 +37,7 @@
 \BOOKMARK [1][-]{section.5.1}{Get data from MISP}{chapter.5}% 37
 \BOOKMARK [1][-]{section.5.2}{Parsing logs}{chapter.5}% 38
 \BOOKMARK [1][-]{section.5.3}{Multiprocessing}{chapter.5}% 39
-\BOOKMARK [1][-]{section.5.4}{I/O and Rule Size Optimization}{chapter.5}% 40
+\BOOKMARK [1][-]{section.5.4}{I/O and Rule Size Optimisation}{chapter.5}% 40
 \BOOKMARK [1][-]{section.5.5}{Comma-Separated Values \(csv\) or Tabulation-Separated Values \(tsv\)?}{chapter.5}% 41
 \BOOKMARK [1][-]{section.5.6}{url Normalisation}{chapter.5}% 42
 \BOOKMARK [1][-]{section.5.7}{ip Normalisation}{chapter.5}% 43
@@ -60,7 +60,7 @@
 \BOOKMARK [1][-]{section.6.3}{Code Profiling}{chapter.6}% 60
 \BOOKMARK [2][-]{subsection.6.3.1}{Code Flow}{section.6.3}% 61
 \BOOKMARK [2][-]{subsection.6.3.2}{Profile of ReadMisp for 1 iteration}{section.6.3}% 62
-\BOOKMARK [2][-]{subsection.6.3.3}{Profile of ReadMisp for 1000 iteration}{section.6.3}% 63
+\BOOKMARK [2][-]{subsection.6.3.3}{Profile of ReadMisp for 1000 iterations}{section.6.3}% 63
 \BOOKMARK [2][-]{subsection.6.3.4}{Profile of the bloomy\137pbkdf2 module}{section.6.3}% 64
 \BOOKMARK [1][-]{section.6.4}{Benchmarking}{chapter.6}% 65
 \BOOKMARK [2][-]{subsection.6.4.1}{Key Derivation Functions}{section.6.4}% 66

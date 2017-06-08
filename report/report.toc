@@ -38,7 +38,7 @@
 \contentsline {section}{\numberline {5.1}Get data from MISP}{29}{section.5.1}
 \contentsline {section}{\numberline {5.2}Parsing logs}{31}{section.5.2}
 \contentsline {section}{\numberline {5.3}Multiprocessing}{31}{section.5.3}
-\contentsline {section}{\numberline {5.4}I/O and Rule Size Optimization}{31}{section.5.4}
+\contentsline {section}{\numberline {5.4}I/O and Rule Size Optimisation}{31}{section.5.4}
 \contentsline {section}{\numberline {5.5}Comma-Separated Values (\gls {csv}) or Tabulation-Separated Values (\gls {tsv})?}{31}{section.5.5}
 \contentsline {section}{\numberline {5.6}\gls {url} Normalisation}{31}{section.5.6}
 \contentsline {section}{\numberline {5.7}\gls {ip} Normalisation}{32}{section.5.7}
@@ -64,7 +64,7 @@
 \contentsline {subsubsection}{MatchRules}{41}{section*.3}
 \contentsline {subsubsection}{Crypto Module \gls {pbkdf2}}{42}{section*.4}
 \contentsline {subsection}{\numberline {6.3.2}Profile of ReadMisp for 1 iteration}{43}{subsection.6.3.2}
-\contentsline {subsection}{\numberline {6.3.3}Profile of ReadMisp for 1000 iteration}{44}{subsection.6.3.3}
+\contentsline {subsection}{\numberline {6.3.3}Profile of ReadMisp for 1000 iterations}{44}{subsection.6.3.3}
 \contentsline {subsection}{\numberline {6.3.4}Profile of the bloomy\_pbkdf2 module}{44}{subsection.6.3.4}
 \contentsline {section}{\numberline {6.4}Benchmarking}{46}{section.6.4}
 \contentsline {subsection}{\numberline {6.4.1}Key Derivation Functions}{47}{subsection.6.4.1}
