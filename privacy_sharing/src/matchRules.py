@@ -87,7 +87,7 @@ rules_dict = {}
 def joker(lock):
     """
     Get joker file:
-        joker is a special rule that always loaded
+        joker is a special rule that is always loaded
     """
     try:
         return rules_dict[filename]

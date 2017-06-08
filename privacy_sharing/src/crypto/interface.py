@@ -20,7 +20,7 @@ class Crypto():
     def match(self, attributes, rule, queue):
         """
         attributes is the values to check
-        rule is the rule agains which it has to be check.
+        rule is the rule against which it has to be check.
             for an example it can be a bloom filter
         queue is to send the output (easier to redirect only
             one output is further needed)

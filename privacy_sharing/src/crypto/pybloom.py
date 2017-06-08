@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 """
 This modules comes from the library pybloom (not working on pip)
-available at https://github.com/jaybaird/pyhton-bloomfilter
+available at https://github.com/jaybaird/pyhton-bloomfilter:
 
 This module implements a bloom filter probabilistic data structure and
 an a Scalable Bloom Filter that grows in size as your add more items to it

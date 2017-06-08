@@ -1,6 +1,6 @@
 """
 The goal of this implementation is to mix a bloom filter
-with false positive rate of 50% in order to :
+with false positive rate defined in the configuration file in order to :
     -> make matching system faster
     -> Do not give too many information only with the bloomFilter
 with a standard choosen key derivation function
@@ -40,7 +40,7 @@ class Bloomy(Crypto):
         conf = self.conf
         # Create bloom filter
         self.bloom.write_bloom()
-        # Save metadat
+        # Save metadata
         self.Crypto.save_meta()
         # Add bloomy_
         metaParser = ConfigParser()

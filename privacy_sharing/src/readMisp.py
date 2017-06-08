@@ -103,6 +103,10 @@ def create_message(attr):
         message += ',' + str(attr[mattr])
     return message[1:]
 
+
+###########
+# Parsing #
+###########
 def parse_attribute(attr, crypto, bar, i):
     bar.update(i)
     # IOC can be composed of a unique attribute type or of a list of attribute types

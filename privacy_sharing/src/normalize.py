@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Do not duplicate code in both readMisp and match Rules
+Do not duplicate code in both readMisp and matchRules
 The goal is first to normalize URLs and IP addresses
 URLs:
     - standards normalization as done with the library
@@ -41,7 +41,7 @@ def normalize(ioc):
 
 
 def ipNorm(ip):
-    # This normalize IPv6
+    # This normalize IP
     try:
         if '/' in ip:
             return str(ip_network(ip))
