@@ -14,14 +14,14 @@ Warning--empty journal in vatsalanprivacy
 You've used 42 entries,
             2415 wiz_defined-function locations,
             770 strings with 11051 characters,
-and the built_in function-call counts, 13440 in all, are:
-= -- 1264
+and the built_in function-call counts, 13436 in all, are:
+= -- 1263
 > -- 575
 < -- 0
 + -- 242
 - -- 198
-* -- 897
-:= -- 2060
+* -- 896
+:= -- 2059
 add.period$ -- 121
 call.type$ -- 42
 change.case$ -- 224
@@ -30,7 +30,7 @@ cite$ -- 50
 duplicate$ -- 541
 empty$ -- 1260
 format.name$ -- 198
-if$ -- 2954
+if$ -- 2953
 int.to.chr$ -- 0
 int.to.str$ -- 42
 missing$ -- 34
@@ -40,7 +40,7 @@ pop$ -- 295
 preamble$ -- 1
 purify$ -- 183
 quote$ -- 0
-skip$ -- 386
+skip$ -- 387
 stack$ -- 0
 substring$ -- 682
 swap$ -- 161
@@ -51,5 +51,5 @@ type$ -- 166
 warning$ -- 8
 while$ -- 124
 width$ -- 44
-write$ -- 404
+write$ -- 403
 (There were 8 warnings)

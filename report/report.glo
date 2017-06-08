@@ -290,11 +290,12 @@
 \glossaryentry{IOC?\glossentry{ioc}|setentrycounter[]{page}\glsnumberformat}{40}
 \glossaryentry{URL?\glossentry{url}|setentrycounter[]{page}\glsnumberformat}{40}
 \glossaryentry{IP?\glossentry{ip}|setentrycounter[]{page}\glsnumberformat}{40}
+\glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{40}
 \glossaryentry{PBKDF2?\glossentry{pbkdf2}|setentrycounter[]{page}\glsnumberformat}{40}
 \glossaryentry{API?\glossentry{api}|setentrycounter[]{page}\glsnumberformat}{40}
 \glossaryentry{CSV?\glossentry{csv}|setentrycounter[]{page}\glsnumberformat}{40}
 \glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{40}
-\glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{40}
+\glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{URL?\glossentry{url}|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{IP?\glossentry{ip}|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{PBKDF2?\glossentry{pbkdf2}|setentrycounter[]{page}\glsnumberformat}{42}
@@ -350,7 +351,7 @@
 \glossaryentry{PBKDF2?\glossentry{pbkdf2}|setentrycounter[]{page}\glsnumberformat}{52}
 \glossaryentry{PBKDF2?\glossentry{pbkdf2}|setentrycounter[]{page}\glsnumberformat}{52}
 \glossaryentry{URL?\glossentry{url}|setentrycounter[]{page}\glsnumberformat}{52}
-\glossaryentry{IOC?\glossentry{ioc}|setentrycounter[]{page}\glsnumberformat}{53}
+\glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{53}
 \glossaryentry{MISP?\glossentry{misp}|setentrycounter[]{page}\glsnumberformat}{53}
 \glossaryentry{AES?\glossentry{aes}|setentrycounter[]{page}\glsnumberformat}{53}
 \glossaryentry{IOC?\glossentry{ioc}|setentrycounter[]{page}\glsnumberformat}{53}

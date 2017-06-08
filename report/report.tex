@@ -889,6 +889,7 @@ There are two available libraries that implement Argon2 which are passlib and ar
 This could be interesting to use it instead of bcrypt or \gls{pbkdf2} but unfortunately, the two existing libraries have directly integrated the salt generation which makes it impossible to use with the current implementation. \\
 
 \chapter{Results}
+\label{sec:Results}
 Finally, is it really working? Is the additional computation worth it? Can we trust this system with our data? Could we improve the code for the computation time?
 This chapter will try to answer those questions.
 This first part will be on understanding the used dataset, then I will focus on code profiling to understand which parts could be improved.
@@ -929,7 +930,9 @@ Once done, I could continue to program more easily and create some tests as I co
 The objective was to make all data available if additional analyses are wanted. For that, following the same reflection as with the starting screen-shots, the data directly inside the virtual machine are TLP white and are available for everyone as we can directly download them on the CIRCL website: \url{https://circl.lu/services/misp-training-materials/}.
 Thus I have used these data instead of the one directly from an instance. Even if there are a lot less data here, the computations and analyses give the necessary idea.\\
 
-In order to get a rough idea of the \glspl{ioc} content of the virtual machine, it contains a set of 161 710 attributes divided into 70 different types including 6 033\glspl{url} and 11 257 destination \glspl{ip}.
+In order to get a rough idea of the \glspl{ioc} content of the virtual machine, it contains a set of 161 710 attributes divided into 70 different types including 6 033\glspl{url} and 11 257 destination \glspl{ip}.\\
+
+Besides that, the system has also been tested with a real \gls{misp} instance hosted by CIRCL. The behaviour of the system was similar, the only difference was the time needed as there are more rules to generate and to test in the system.
 
 \section{Code Profiling}
 This section is divided into three parts, a deeper understanding of the code workflow is needed to understand where the time is lost during the execution. Then, the code will be profiled for two different executions in the \gls{pbkdf2} mode, the first is aimed to compare the time of the key generation with only one iteration. That gives a right comparison point between the different functions while the second will be with 1000 iterations to look at the behaviour of the system in a possible configuration. 
@@ -1250,18 +1253,18 @@ This gives an idea why bruteforce is very difficult against IOCs like \glspl{url
 
 This small chapter is aimed to go through what have been done and what still need to be done.
 
-\section{General Security Discussion}
-The standard implementation has already been assessed in the paper  but there is something quite new which is the use of the bloom filters inside the implementation.
-The goal here is to hide that we have the information, but it is even more to hide who have seen this particular \gls{ioc} and what did they conclude on it.
-If someone want to test if a specific value is known by the system. First, he needs to get the generated rules. Secondly, to be sure he is the only one to use these rules, its secret token is included in the rules creation what makes them unusable for someone that does not know it. It also allows to trace back the origin of a data leak.
-Once they have these rules and the right token. They can check the value. So if an attacker manages to get those, he can succeed in knowing if specific values are known (via the rules or via the boom filter) and to get information allowing him to fetch the information on the \gls{misp} web interface. Which means that, at that moment, there is again a barrier as he needs to have the right credentials to get more information.\\
+\section{System Conclusion}
+%The standard implementation has already been assessed in the paper  but there is something quite new which is the use of the bloom filters inside the implementation.
+%The goal here is to hide that we have the information, but it is even more to hide who have seen this particular \gls{ioc} and what did they conclude on it.
+The goal of this work is to share information while respecting privacy and confidentiality meaning that we need to hide the elements of the set but mostly who has reported each element. This is what have been achieved and now, if someone want to test if a specific value is known by the system. First, he needs to get the generated rules. Secondly, to be sure he is the only one to use these rules, his secret token is included in the rules creation what makes them unusable for someone that does not know it while also allowing to trace back the origin of a data leak.
+Once he has these rules and the right token. he can check for a value. So, in the worst case scenario, if an attacker manages to get those, he can succeed in knowing if some specific values are known (via the rules or via the boom filter) and to get information allowing him to fetch the information on the \gls{misp} web interface. Which means that, at that moment, there is again a barrier to know the identity of the reporter of the event and any additional information as he needs the right \gls{misp} credentials to get more information.\\
 
 Therefore we know that we could possibly (but already difficulty) imagine that this system can leak two important information to an attacker. The number of elements known by the system as well as the fact that someone belonging to an organisation linked to the instance or to some data feed used by the instance has knowledge of a value that the attacker has chosen.\\
 
-On the other side, if someone wants to attack himself directly to get information from one rule. It is nearly impossible. If the attacker wants to bruteforce the ciphertext, he first needs to be able to break an \gls{aes} encryption scheme with a 128-bit key. And then it could get the message but still not the \gls{ioc} related to the information.
+On the other side, if someone wants to get directly the information from one rule. It is nearly impossible. If the attacker wants to bruteforce the ciphertext, he first needs to be able to break an \gls{aes} encryption scheme with a 128-bit key. And then, he could get the message but still not the \gls{ioc} related to the information.
 To get the \gls{ioc}, he would still need to be able to reverse the hash function used.\\
 
-With a bloom filter we can therefore increase the matching efficiency for a standard user while giving up an advantage to the attacker. But an advantage that gives him only information that he would have finally found by testing all values he is interested in.\\
+Besides that, the bloom filter addition is a new feature that allows the user to have more power in parametrizing the behaviour of the system as explained in \ref{sec:Results}.\\
 
 The last problem was about bruteforcing the dataset and it has been shown in the benchmarking chapter that with this system, the user can parametrise the security he needs in function of the time that the dataset needs to withstand. 
 

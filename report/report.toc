@@ -79,6 +79,6 @@
 \contentsline {subsubsection}{Bcrypt}{51}{section*.9}
 \contentsline {subsection}{\numberline {6.5.4}Bruteforce}{51}{subsection.6.5.4}
 \contentsline {chapter}{\numberline {7}Conclusion}{53}{chapter.7}
-\contentsline {section}{\numberline {7.1}General Security Discussion}{53}{section.7.1}
+\contentsline {section}{\numberline {7.1}System Conclusion}{53}{section.7.1}
 \contentsline {section}{\numberline {7.2}Conclusion}{54}{section.7.2}
 \contentsline {section}{\numberline {7.3}Further Work}{54}{section.7.3}
