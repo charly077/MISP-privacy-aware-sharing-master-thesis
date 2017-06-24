@@ -12,10 +12,11 @@ ex: [rules][cryptomodule] pbkdf2 => bloomy\_pbkdf2
 
 # List
 
-- pbkdf2
-- bcrypt
-- SHA256, SHA384, SHA512
-- bloom\_filter
+- pbkdf2 (NIST recommended KDF, PKCS #5 v2.0, RFC 2898)
+- bcrypt (slower)
+- hkdf (Faster, for data where bruteforce is not a problem)
+- SHA256, SHA384, SHA512 (if needed)
+- bloom\_filter (mostly used for the bloomy implementation)
 
 
 # Add a crypto system

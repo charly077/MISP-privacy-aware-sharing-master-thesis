@@ -6,6 +6,9 @@ def Crypto(name, conf, metadata=None):
     elif (name == 'bcrypt'):
         from crypto.bcrypt import Bcrypt
         return Bcrypt(conf, metadata)
+    elif (name == 'hkdf'):
+        from crypto.hkdf import HKDF
+        return HKDF(conf, metadata)
     elif (name == 'bloom_filter'):
         from crypto.bloom_filter import Bloom_filter
         return Bloom_filter(conf, metadata)
