@@ -22,7 +22,7 @@ from progressbar import ProgressBar
 # Crypto import 
 import hashlib
 from base64 import b64decode
-from crypto.choose_crypto import Crypto
+from pypraware_crypto.choose_crypto import Crypto
 
 ###################
 # Parse arguments #

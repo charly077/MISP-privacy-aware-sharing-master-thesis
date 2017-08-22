@@ -22,7 +22,7 @@ from progressbar import ProgressBar
 # crypto import
 import glob, hashlib, os
 from base64 import b64encode
-from crypto.choose_crypto import Crypto
+from pypraware_crypto.choose_crypto import Crypto
 
 # mysql import
 from sqlalchemy.ext.automap import automap_base

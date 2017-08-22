@@ -26,7 +26,7 @@ import datetime
 from progressbar import ProgressBar
 
 # Crypto import
-from crypto.choose_crypto import Crypto
+from pypraware_crypto.choose_crypto import Crypto
 
 args = {}
 ###########
