@@ -7,7 +7,7 @@
 # misp import
 from configuration import Configuration
 from misp import web_api
-from normalize import normalize
+from pypraware_normalize import normalize
 import requests, csv, json
 
 
@@ -15,7 +15,6 @@ import requests, csv, json
 import argparse, configparser
 import sys, subprocess, os, shutil
 import datetime, copy, re
-from url_normalize import url_normalize
 from collections import OrderedDict
 from progressbar import ProgressBar
 

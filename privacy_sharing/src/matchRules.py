@@ -15,7 +15,7 @@ import json, csv, re
 from functools import lru_cache
 from copy import deepcopy
 import redis
-from normalize import normalize
+from pypraware_normalize import normalize
 from collections import OrderedDict
 from progressbar import ProgressBar
 

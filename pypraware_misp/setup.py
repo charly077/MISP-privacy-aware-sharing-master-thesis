@@ -14,7 +14,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
     name='pypraware',
 
-    version='0.1',
+    version='0.1.3',
 
     description='Privacy aware library for MISP module',
     long_description=long_description,
@@ -56,13 +56,13 @@ setup(
 
     # Alternatively, if you want to distribute just a my_module.py, uncomment
     # this:
-    packages=["pypraware_crypto"],
+    packages=["pypraware_crypto", "pypraware_normalize"],
 
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['configparser', 'cryptography', 'bcrypt', 'bitarray'],
+    install_requires=['configparser', 'cryptography', 'bcrypt', 'bitarray', 're', 'urllib', 'url_normalize', 'ipaddress'],
 
 )
 
