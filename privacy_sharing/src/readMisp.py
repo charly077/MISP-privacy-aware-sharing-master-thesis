@@ -7,7 +7,7 @@
 # misp import
 from configuration import Configuration
 from misp import web_api
-from pypraware_normalize import normalize
+from pypraware_normalize.normalize import normalize
 import requests, csv, json
 
 
