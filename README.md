@@ -5,3 +5,4 @@
 - presentation: Slides of my master thesis presentation
 - privacy sharing: Code of the Module
 - report: Master thesis report
+- pypaware_misp: crypto transformation module
