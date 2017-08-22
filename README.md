@@ -1,7 +1,7 @@
-# Privacy Aware Sharing in MISP
-This project code is available as well on: https://github.com/MISP/misp-privacy-aware-exchange
-# Privacy Sharing
-Latest version of the project which is intended to be more modular
+# Repository topology
 
-# Report
-In progress
+- MISP export module: In Progress, creation of an export module for MISP
+- benchmark resulsts: Results of the benchmarks
+- presentation: Slides of my master thesis presentation
+- privacy sharing: Code of the Module
+- report: Master thesis report
