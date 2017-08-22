@@ -27,7 +27,7 @@ setup(
     author_email='charles.jacquet7@gmail.com',
 
     # Choose your license
-    license='MIT',
+    license='GNU Affero General Public License v3.0',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
