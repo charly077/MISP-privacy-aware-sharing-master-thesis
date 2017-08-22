@@ -1,7 +1,7 @@
 # Repository topology
 
 - MISP export module: In Progress, creation of an export module for MISP
-- benchmark resulsts: Results of the benchmarks
+- benchmark results: Results of the benchmarks
 - presentation: Slides of my master thesis presentation
 - privacy sharing: Code of the Module
 - report: Master thesis report
