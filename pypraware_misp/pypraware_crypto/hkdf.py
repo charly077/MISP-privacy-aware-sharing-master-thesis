@@ -3,8 +3,8 @@ Cryptographic system with HKDF: HMAC-based Extract-and-Expand Key Derivation Fun
 Should be used only if the size of the domain of the type of data
 is enough to avoid bruteforce attacks
 """
-from crypto.interface import Crypto
-from crypto.helper import *
+from pypraware_crypto.interface import Crypto
+from pypraware_crypto.helper import *
 import configparser
 import glob, hashlib, os
 from base64 import b64encode

@@ -1,8 +1,8 @@
 """
 Create an abstract class for the cryptographic functions
 """
-from crypto.interface import Crypto
-from crypto.helper import *
+from pypraware_crypto.interface import Crypto
+from pypraware_crypto.helper import *
 import configparser
 import glob, hashlib, os
 

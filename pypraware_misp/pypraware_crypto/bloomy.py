@@ -5,9 +5,9 @@ with false positive rate defined in the configuration file in order to :
     -> Do not give too many information only with the bloomFilter
 with a standard choosen key derivation function
 """
-from crypto.interface import Crypto
-from crypto.bloom_filter import Bloom_filter as BF
-from crypto.choose_crypto import Crypto as ChooseCrypto
+from pypraware_crypto.interface import Crypto
+from pypraware_crypto.bloom_filter import Bloom_filter as BF
+from pypraware_crypto.choose_crypto import Crypto as ChooseCrypto
 from configparser import ConfigParser
 
 class Bloomy(Crypto):

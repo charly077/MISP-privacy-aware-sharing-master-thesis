@@ -40,7 +40,7 @@ Requires the bitarray library: http://pypi.python.org/pypi/bitarray/
 from __future__ import absolute_import
 import math
 import hashlib
-from crypto.utilspybloom import range_fn, is_string_io, running_python_3
+from pypraware_crypto.utilspybloom import range_fn, is_string_io, running_python_3
 from struct import unpack, pack, calcsize
 
 try:

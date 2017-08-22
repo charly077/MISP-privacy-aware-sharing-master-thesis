@@ -1,13 +1,13 @@
 """
 Cryptographic system for bloom filter
 """
-from crypto.interface import Crypto
+from pypraware_crypto.interface import Crypto
 import configparser
 import glob, hashlib, os
 from base64 import b64encode
 
 # Hash and crypto import
-from crypto.pybloom import BloomFilter
+from pypraware_crypto.pybloom import BloomFilter
 
 class Bloom_filter(Crypto):
     def __init__(self, conf, metadata=None, rate=None):

@@ -1,8 +1,8 @@
 """
 Cryptographic system with bcrypt
 """
-from crypto.interface import Crypto
-from crypto.helper import *
+from pypraware_crypto.interface import Crypto
+from pypraware_crypto.helper import *
 import configparser
 import glob, hashlib, os
 from base64 import b64encode
