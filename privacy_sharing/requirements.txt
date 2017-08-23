@@ -7,7 +7,7 @@ pandas
 matplotlib
 cryptography
 argparse
-url_normalize
 bcrypt
 bitarray
 progressbar2
+pypraware

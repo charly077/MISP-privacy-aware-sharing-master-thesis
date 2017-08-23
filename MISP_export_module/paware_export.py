@@ -1,4 +1,5 @@
 import json
+import pypraware
 
 misperrors = {'error': 'Error'}
 mispattributes = {'input': ['hostname', 'domain'], 'output': ['ip-src',
@@ -7,8 +8,8 @@ mispattributes = {'input': ['hostname', 'domain'], 'output': ['ip-src',
 # possible module-types: 'expansion', 'hover' or both
 moduleinfo = {'version': '1', 'author': 'Jacquet Charles',
               'description': 'Export IOCs into a privacy aware data structure.\
-              More information are available on https://github.com/MISP/privac...',
-              'module-type': ['export']} # TODO
+              More information are available on https://github.com/MISP/misp-privacy-aware-exchange',
+              'module-type': ['export']}
 
 # config fields that your code expects from the site admin
 moduleconfig = []
